@@ -11,7 +11,7 @@ const nav = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50">
-      <div className="absolute inset-0 -z-10 border-b border-white/5 bg-background/60 backdrop-blur-xl backdrop-saturate-150" />
+      <div className="absolute inset-0 -z-10 border-b border-white/10 bg-slate-200/85 backdrop-blur-xl backdrop-saturate-150" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
       <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-6 px-6">
