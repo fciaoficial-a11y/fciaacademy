@@ -7,7 +7,7 @@ import { FAQ } from "@/components/site/FAQ";
 import { trackBySlugQuery, tracksQuery } from "@/lib/catalog-queries";
 import { getIcon } from "@/lib/icon-map";
 
-export const Route = createFileRoute("/cursos/$slug")({
+export const Route = createFileRoute("/trilhas/$slug")({
   loader: async ({ context, params }) => {
     const data = await context.queryClient.ensureQueryData(trackBySlugQuery(params.slug));
     if (!data) throw notFound();

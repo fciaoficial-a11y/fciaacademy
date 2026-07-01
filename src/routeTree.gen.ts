@@ -22,7 +22,7 @@ import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ValidarCertificadoCodigoRouteImport } from './routes/validar-certificado.$codigo'
-import { Route as CursosSlugRouteImport } from './routes/cursos.$slug'
+import { Route as TrilhasSlugRouteImport } from './routes/trilhas.$slug'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedEvolucaoRouteImport } from './routes/_authenticated/evolucao'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -108,10 +108,10 @@ const ValidarCertificadoCodigoRoute =
     path: '/validar-certificado/$codigo',
     getParentRoute: () => rootRouteImport,
   } as any)
-const CursosSlugRoute = CursosSlugRouteImport.update({
+const TrilhasSlugRoute = TrilhasSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
-  getParentRoute: () => CursosRoute,
+  getParentRoute: () => TrilhasRoute,
 } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
@@ -222,7 +222,7 @@ const ApiPublicWebhooksAsaasRoute = ApiPublicWebhooksAsaasRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cursos': typeof CursosRouteWithChildren
+  '/cursos': typeof CursosRoute
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -230,14 +230,14 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
-  '/trilhas': typeof TrilhasRoute
+  '/trilhas': typeof TrilhasRouteWithChildren
   '/turmas': typeof TurmasRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/certificados': typeof AuthenticatedCertificadosRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/cursos/$slug': typeof CursosSlugRoute
+  '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
   '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
@@ -256,7 +256,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cursos': typeof CursosRouteWithChildren
+  '/cursos': typeof CursosRoute
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -264,13 +264,13 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
-  '/trilhas': typeof TrilhasRoute
+  '/trilhas': typeof TrilhasRouteWithChildren
   '/turmas': typeof TurmasRoute
   '/certificados': typeof AuthenticatedCertificadosRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/cursos/$slug': typeof CursosSlugRoute
+  '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
   '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
@@ -291,7 +291,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/cursos': typeof CursosRouteWithChildren
+  '/cursos': typeof CursosRoute
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -299,14 +299,14 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
-  '/trilhas': typeof TrilhasRoute
+  '/trilhas': typeof TrilhasRouteWithChildren
   '/turmas': typeof TurmasRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/certificados': typeof AuthenticatedCertificadosRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/evolucao': typeof AuthenticatedEvolucaoRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
-  '/cursos/$slug': typeof CursosSlugRoute
+  '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/_authenticated/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
   '/_authenticated/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
@@ -342,7 +342,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/evolucao'
     | '/profile'
-    | '/cursos/$slug'
+    | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/admin/ai-studio'
     | '/admin/certificados'
@@ -375,7 +375,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/evolucao'
     | '/profile'
-    | '/cursos/$slug'
+    | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/admin/ai-studio'
     | '/admin/certificados'
@@ -410,7 +410,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/evolucao'
     | '/_authenticated/profile'
-    | '/cursos/$slug'
+    | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/_authenticated/admin/ai-studio'
     | '/_authenticated/admin/certificados'
@@ -431,7 +431,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  CursosRoute: typeof CursosRouteWithChildren
+  CursosRoute: typeof CursosRoute
   EmpresasRoute: typeof EmpresasRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InscricaoRoute: typeof InscricaoRoute
@@ -439,7 +439,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRoute
-  TrilhasRoute: typeof TrilhasRoute
+  TrilhasRoute: typeof TrilhasRouteWithChildren
   TurmasRoute: typeof TurmasRoute
   ValidarCertificadoCodigoRoute: typeof ValidarCertificadoCodigoRoute
   ApiPublicWebhooksAsaasRoute: typeof ApiPublicWebhooksAsaasRoute
@@ -538,12 +538,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ValidarCertificadoCodigoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cursos/$slug': {
-      id: '/cursos/$slug'
+    '/trilhas/$slug': {
+      id: '/trilhas/$slug'
       path: '/$slug'
-      fullPath: '/cursos/$slug'
-      preLoaderRoute: typeof CursosSlugRouteImport
-      parentRoute: typeof CursosRoute
+      fullPath: '/trilhas/$slug'
+      preLoaderRoute: typeof TrilhasSlugRouteImport
+      parentRoute: typeof TrilhasRoute
     }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
@@ -750,21 +750,21 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface CursosRouteChildren {
-  CursosSlugRoute: typeof CursosSlugRoute
+interface TrilhasRouteChildren {
+  TrilhasSlugRoute: typeof TrilhasSlugRoute
 }
 
-const CursosRouteChildren: CursosRouteChildren = {
-  CursosSlugRoute: CursosSlugRoute,
+const TrilhasRouteChildren: TrilhasRouteChildren = {
+  TrilhasSlugRoute: TrilhasSlugRoute,
 }
 
-const CursosRouteWithChildren =
-  CursosRoute._addFileChildren(CursosRouteChildren)
+const TrilhasRouteWithChildren =
+  TrilhasRoute._addFileChildren(TrilhasRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  CursosRoute: CursosRouteWithChildren,
+  CursosRoute: CursosRoute,
   EmpresasRoute: EmpresasRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   InscricaoRoute: InscricaoRoute,
@@ -772,7 +772,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRoute,
-  TrilhasRoute: TrilhasRoute,
+  TrilhasRoute: TrilhasRouteWithChildren,
   TurmasRoute: TurmasRoute,
   ValidarCertificadoCodigoRoute: ValidarCertificadoCodigoRoute,
   ApiPublicWebhooksAsaasRoute: ApiPublicWebhooksAsaasRoute,
