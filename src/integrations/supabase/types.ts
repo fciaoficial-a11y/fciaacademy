@@ -141,6 +141,57 @@ export type Database = {
           },
         ]
       }
+      enrollments: {
+        Row: {
+          course_id: string
+          created_at: string
+          id: string
+          last_accessed_at: string
+          plan_at_enrollment: string
+          started_at: string
+          track_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          id?: string
+          last_accessed_at?: string
+          plan_at_enrollment?: string
+          started_at?: string
+          track_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          id?: string
+          last_accessed_at?: string
+          plan_at_enrollment?: string
+          started_at?: string
+          track_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "enrollments_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       module_progress: {
         Row: {
           completed: boolean
@@ -657,6 +708,26 @@ export type Database = {
       check_achievements: { Args: { _user: string }; Returns: undefined }
       compute_level: { Args: { _xp: number }; Returns: string }
       current_plan: { Args: { _user: string }; Returns: string }
+      enroll_in_course: {
+        Args: { _course_id: string }
+        Returns: {
+          course_id: string
+          created_at: string
+          id: string
+          last_accessed_at: string
+          plan_at_enrollment: string
+          started_at: string
+          track_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "enrollments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
