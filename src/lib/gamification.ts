@@ -133,8 +133,14 @@ export function reasonLabel(reason: string): string {
       return "Curso concluído";
     case "first_course_bonus":
       return "Bônus: primeiro curso";
+    case "quiz_perfect":
+      return "Quiz perfeito (100%)";
+    case "quiz_passed":
+      return "Quiz aprovado";
     case "daily_login":
       return "Login diário";
+    case "streak_bonus":
+      return "Bônus de streak (7 dias)";
     default:
       return reason;
   }
