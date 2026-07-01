@@ -182,7 +182,7 @@ async function findReusablePendingPayment(userId: string, planId: string, course
 async function asaasFetch<T>(path: string, apiKey: string, init: RequestInit): Promise<T> {
   const response = await fetch(`https://api.asaas.com/v3${path}`, {
     ...init,
-    headers: { "Content-Type": "application/json", access_token: apiKey, ...init.headers },
+    headers: { "Content-Type": "application/json", "User-Agent": "FCIA-Academy/1.0", access_token: apiKey, ...init.headers },
   });
   const text = await response.text();
   const body = text ? (JSON.parse(text) as unknown) : null;
