@@ -581,9 +581,13 @@ function Index() {
                       <img
                         src={fernandoCabralAsset.url}
                         alt="Fernando Cabral, fundador e CEO da FCIA Academy"
+                        width={240}
+                        height={240}
                         className="h-full w-full object-cover object-[50%_20%] scale-110"
                         loading="lazy"
+                        decoding="async"
                       />
+
                     </div>
                     <div>
                       <div className="font-display text-base font-semibold leading-snug sm:text-xl lg:text-2xl">
