@@ -94,6 +94,7 @@ export type Database = {
           id: string
           is_published: boolean
           level: string
+          price: number
           slug: string
           sort_order: number
           title: string
@@ -109,6 +110,7 @@ export type Database = {
           id?: string
           is_published?: boolean
           level?: string
+          price?: number
           slug: string
           sort_order?: number
           title: string
@@ -124,6 +126,7 @@ export type Database = {
           id?: string
           is_published?: boolean
           level?: string
+          price?: number
           slug?: string
           sort_order?: number
           title?: string

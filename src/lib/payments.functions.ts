@@ -1,44 +1,32 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import type { PaidPlanId, PaymentStatus } from "@/lib/payments";
+import type { PaymentStatus } from "@/lib/payments";
 import type { Json } from "@/integrations/supabase/types";
 
-const inputSchema = z.object({
-  planId: z.enum(["starter", "pro", "expert"]),
-  courseId: z.string().uuid().optional(),
-});
+const inputSchema = z
+  .object({
+    mode: z.enum(["plan", "course"]).default("plan"),
+    planId: z.enum(["starter", "pro", "expert"]).optional(),
+    courseId: z.string().uuid().optional(),
+  })
+  .refine((v) => (v.mode === "plan" ? !!v.planId : !!v.courseId), {
+    message: "Parâmetros de checkout inválidos.",
+  });
 
-const PLAN_RANK: Record<PaidPlanId | "free", number> = {
-  free: 0,
-  starter: 1,
-  pro: 2,
-  expert: 3,
-};
+const PLAN_RANK: Record<string, number> = { free: 0, starter: 1, pro: 2, expert: 3 };
 
-interface AsaasCustomerResponse {
-  id: string;
-}
-
+interface AsaasCustomerResponse { id: string }
 interface AsaasPaymentResponse {
-  id: string;
-  status?: string;
-  value?: number;
-  dueDate?: string;
-  invoiceUrl?: string;
-  billingType?: string;
+  id: string; status?: string; value?: number; dueDate?: string; invoiceUrl?: string; billingType?: string;
 }
-
-interface AsaasPixResponse {
-  encodedImage?: string;
-  payload?: string;
-}
+interface AsaasPixResponse { encodedImage?: string; payload?: string }
 
 export interface PixChargeResult {
   paymentId: string;
   status: PaymentStatus;
   amount: number;
-  planId: PaidPlanId;
+  planId: string;
   courseId: string | null;
   pixQrCode: string | null;
   pixCopyPaste: string | null;
@@ -51,38 +39,48 @@ export const createPixCharge = createServerFn({ method: "POST" })
   .inputValidator((data) => inputSchema.parse(data))
   .handler(async ({ data, context }): Promise<PixChargeResult> => {
     const apiKey = process.env.ASAAS_API_KEY;
-    if (!apiKey) {
-      throw new Error("ASAAS_API_KEY não está disponível no ambiente seguro do backend.");
-    }
+    if (!apiKey) throw new Error("ASAAS_API_KEY não está disponível no ambiente seguro do backend.");
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: plan, error: planError } = await context.supabase
-      .from("plans")
-      .select("id, name, price, is_active")
-      .eq("id", data.planId)
-      .eq("is_active", true)
-      .maybeSingle();
-    if (planError) throw planError;
-    if (!plan || Number(plan.price) <= 0) throw new Error("Plano pago não encontrado.");
+    let amount = 0;
+    let description = "FCIA Academy";
+    let planIdForRecord = "course_purchase";
+    const courseId = data.courseId ?? null;
 
-    if (data.courseId) {
-      const { data: course, error: courseError } = await context.supabase
-        .from("courses")
-        .select("id, title, is_published, tracks:track_id(required_plan)")
-        .eq("id", data.courseId)
-        .maybeSingle();
-      if (courseError) throw courseError;
-      if (!course?.is_published) throw new Error("Curso indisponível para matrícula.");
+    if (data.mode === "plan") {
+      const { data: plan, error: planError } = await context.supabase
+        .from("plans").select("id, name, price, is_active").eq("id", data.planId!).eq("is_active", true).maybeSingle();
+      if (planError) throw planError;
+      if (!plan || Number(plan.price) <= 0) throw new Error("Plano pago não encontrado.");
+      amount = Number(plan.price);
+      description = `FCIA Academy — Plano ${plan.name}`;
+      planIdForRecord = data.planId!;
 
-      const track = (course as unknown as { tracks: { required_plan: string } | null }).tracks;
-      const requiredPlan = (track?.required_plan ?? "free") as keyof typeof PLAN_RANK;
-      if (PLAN_RANK[data.planId] < PLAN_RANK[requiredPlan]) {
-        throw new Error(`Este curso exige o plano ${requiredPlan.toUpperCase()}.`);
+      if (courseId) {
+        const { data: course, error: courseError } = await context.supabase
+          .from("courses").select("id, is_published, tracks:track_id(required_plan)").eq("id", courseId).maybeSingle();
+        if (courseError) throw courseError;
+        if (!course?.is_published) throw new Error("Curso indisponível para matrícula.");
+        const track = (course as unknown as { tracks: { required_plan: string } | null }).tracks;
+        const required = (track?.required_plan ?? "free");
+        if ((PLAN_RANK[data.planId!] ?? 0) < (PLAN_RANK[required] ?? 0)) {
+          throw new Error(`Este curso exige o plano ${required.toUpperCase()}.`);
+        }
       }
+    } else {
+      // course purchase (compra avulsa)
+      const { data: course, error: courseError } = await context.supabase
+        .from("courses").select("id, title, price, is_published").eq("id", courseId!).maybeSingle();
+      if (courseError) throw courseError;
+      if (!course?.is_published) throw new Error("Curso indisponível.");
+      const price = Number((course as { price: number }).price ?? 0);
+      if (price <= 0) throw new Error("Este curso não está disponível para compra avulsa.");
+      amount = price;
+      description = `FCIA Academy — ${course.title}`;
     }
 
-    const reusable = await findReusablePendingPayment(context.userId, data.planId, data.courseId ?? null);
+    const reusable = await findReusablePendingPayment(context.userId, planIdForRecord, courseId);
     if (reusable) return reusable;
 
     const profile = await getCheckoutProfile(context.userId, context.claims as { email?: string });
@@ -97,27 +95,27 @@ export const createPixCharge = createServerFn({ method: "POST" })
       body: JSON.stringify({
         customer: customer.id,
         billingType: "PIX",
-        value: Number(plan.price),
+        value: amount,
         dueDate,
-        description: `FCIA Academy — Plano ${plan.name}`,
-        externalReference: JSON.stringify({ userId: context.userId, planId: data.planId, courseId: data.courseId ?? null }),
+        description,
+        externalReference: JSON.stringify({
+          userId: context.userId, mode: data.mode, planId: planIdForRecord, courseId,
+        }),
       }),
     });
 
-    const pix = await asaasFetch<AsaasPixResponse>(`/payments/${charge.id}/pixQrCode`, apiKey, {
-      method: "GET",
-    });
+    const pix = await asaasFetch<AsaasPixResponse>(`/payments/${charge.id}/pixQrCode`, apiKey, { method: "GET" });
 
     const { data: inserted, error: insertError } = await supabaseAdmin
       .from("payments")
       .insert({
         user_id: context.userId,
-        course_id: data.courseId ?? null,
-        plan_id: data.planId,
+        course_id: courseId,
+        plan_id: planIdForRecord,
         provider: "asaas",
         provider_payment_id: charge.id,
         status: normalizePaymentStatus(charge.status),
-        amount: Number(charge.value ?? plan.price),
+        amount: Number(charge.value ?? amount),
         billing_type: "PIX",
         pix_qr_code: pix.encodedImage ?? null,
         pix_copy_paste: pix.payload ?? null,
@@ -134,7 +132,7 @@ export const createPixCharge = createServerFn({ method: "POST" })
       paymentId: inserted.id,
       status: inserted.status as PaymentStatus,
       amount: Number(inserted.amount),
-      planId: inserted.plan_id as PaidPlanId,
+      planId: inserted.plan_id,
       courseId: inserted.course_id,
       pixQrCode: inserted.pix_qr_code,
       pixCopyPaste: inserted.pix_copy_paste,
@@ -152,7 +150,7 @@ async function getCheckoutProfile(userId: string, claims: { email?: string }) {
   return { email, name: profile?.full_name || email.split("@")[0] || "Aluno FCIA" };
 }
 
-async function findReusablePendingPayment(userId: string, planId: PaidPlanId, courseId: string | null) {
+async function findReusablePendingPayment(userId: string, planId: string, courseId: string | null): Promise<PixChargeResult | null> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const freshSince = new Date(Date.now() - 30 * 60 * 1000).toISOString();
   let query = supabaseAdmin
@@ -172,23 +170,19 @@ async function findReusablePendingPayment(userId: string, planId: PaidPlanId, co
     paymentId: data.id,
     status: data.status as PaymentStatus,
     amount: Number(data.amount),
-    planId: data.plan_id as PaidPlanId,
+    planId: data.plan_id,
     courseId: data.course_id,
     pixQrCode: data.pix_qr_code,
     pixCopyPaste: data.pix_copy_paste,
     invoiceUrl: data.invoice_url,
     dueDate: data.due_date,
-  } satisfies PixChargeResult;
+  };
 }
 
 async function asaasFetch<T>(path: string, apiKey: string, init: RequestInit): Promise<T> {
   const response = await fetch(`https://api.asaas.com/v3${path}`, {
     ...init,
-    headers: {
-      "Content-Type": "application/json",
-      access_token: apiKey,
-      ...init.headers,
-    },
+    headers: { "Content-Type": "application/json", access_token: apiKey, ...init.headers },
   });
   const text = await response.text();
   const body = text ? (JSON.parse(text) as unknown) : null;
