@@ -16,13 +16,7 @@ export function SiteHeader() {
 
       <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-6 px-6">
         <Link to="/" className="group flex items-center gap-2.5 justify-self-start">
-          <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-primary to-accent text-primary-foreground ring-glow">
-            <Sparkles className="h-4 w-4" />
-          </div>
-          <span className="font-display text-[15px] font-semibold tracking-tight text-foreground">
-            FCIA<span className="text-muted-foreground/50">/</span>
-            <span className="font-medium text-muted-foreground">Academy</span>
-          </span>
+          <Logo size={36} />
         </Link>
 
         <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-1.5 py-1 backdrop-blur md:flex">
