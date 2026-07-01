@@ -116,6 +116,10 @@ function CourseLearnPage() {
       queryClient.invalidateQueries({ queryKey: ["progress", course.id, userId] }),
   });
 
+  if (!hasAccess) {
+    return <Paywall course={course} currentPlan={currentPlan} />;
+  }
+
   if (!activeModule) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-20 text-center">
@@ -123,6 +127,7 @@ function CourseLearnPage() {
       </div>
     );
   }
+
 
   const prev = activeIndex > 0 ? modules[activeIndex - 1] : null;
   const next = activeIndex < modules.length - 1 ? modules[activeIndex + 1] : null;
