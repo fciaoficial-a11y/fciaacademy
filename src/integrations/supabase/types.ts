@@ -47,33 +47,105 @@ export type Database = {
         }
         Relationships: []
       }
+      certificate_settings: {
+        Row: {
+          auto_issue: boolean
+          body_template: string
+          certificate_title: string
+          cnpj: string | null
+          id: number
+          institution_name: string
+          issuer_name: string
+          issuer_role: string
+          legal_footer: string
+          legal_name: string
+          logo_url: string | null
+          min_score: number
+          signature_image_url: string | null
+          updated_at: string
+          validation_base_url: string
+        }
+        Insert: {
+          auto_issue?: boolean
+          body_template?: string
+          certificate_title?: string
+          cnpj?: string | null
+          id?: number
+          institution_name?: string
+          issuer_name?: string
+          issuer_role?: string
+          legal_footer?: string
+          legal_name?: string
+          logo_url?: string | null
+          min_score?: number
+          signature_image_url?: string | null
+          updated_at?: string
+          validation_base_url?: string
+        }
+        Update: {
+          auto_issue?: boolean
+          body_template?: string
+          certificate_title?: string
+          cnpj?: string | null
+          id?: number
+          institution_name?: string
+          issuer_name?: string
+          issuer_role?: string
+          legal_footer?: string
+          legal_name?: string
+          logo_url?: string | null
+          min_score?: number
+          signature_image_url?: string | null
+          updated_at?: string
+          validation_base_url?: string
+        }
+        Relationships: []
+      }
       certificates: {
         Row: {
+          completion_date: string | null
           course_id: string
+          course_title_snapshot: string | null
           id: string
           issued_at: string
           pdf_url: string | null
           revoked_at: string | null
+          status: string
+          student_name_snapshot: string | null
           user_id: string
           validation_code: string
+          verification_url: string | null
+          workload_hours_snapshot: number | null
         }
         Insert: {
+          completion_date?: string | null
           course_id: string
+          course_title_snapshot?: string | null
           id?: string
           issued_at?: string
           pdf_url?: string | null
           revoked_at?: string | null
+          status?: string
+          student_name_snapshot?: string | null
           user_id: string
           validation_code?: string
+          verification_url?: string | null
+          workload_hours_snapshot?: number | null
         }
         Update: {
+          completion_date?: string | null
           course_id?: string
+          course_title_snapshot?: string | null
           id?: string
           issued_at?: string
           pdf_url?: string | null
           revoked_at?: string | null
+          status?: string
+          student_name_snapshot?: string | null
           user_id?: string
           validation_code?: string
+          verification_url?: string | null
+          workload_hours_snapshot?: number | null
         }
         Relationships: [
           {
@@ -87,6 +159,7 @@ export type Database = {
       }
       courses: {
         Row: {
+          certificate_enabled: boolean
           cover_url: string | null
           created_at: string
           description: string
@@ -103,6 +176,7 @@ export type Database = {
           workload_hours: number
         }
         Insert: {
+          certificate_enabled?: boolean
           cover_url?: string | null
           created_at?: string
           description: string
@@ -119,6 +193,7 @@ export type Database = {
           workload_hours?: number
         }
         Update: {
+          certificate_enabled?: boolean
           cover_url?: string | null
           created_at?: string
           description?: string
@@ -888,12 +963,17 @@ export type Database = {
       validate_certificate: {
         Args: { _code: string }
         Returns: {
+          completion_date: string
           course_slug: string
           course_title: string
+          institution_name: string
           issued_at: string
+          legal_footer: string
+          status: string
           student_name: string
           track_title: string
           validation_code: string
+          verification_url: string
           workload_hours: number
         }[]
       }
