@@ -11,11 +11,18 @@ import {
   FileText,
   PlayCircle,
   BookOpen,
+  Lock,
+  Crown,
+  Sparkles,
 } from "lucide-react";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { courseLearnQuery, progressQuery, type ModuleRow } from "@/lib/learn-queries";
+import { currentPlanIdQuery, canAccess, type PlanId } from "@/lib/plans";
+import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
+
 
 const searchSchema = z.object({ m: z.string().optional() });
 
