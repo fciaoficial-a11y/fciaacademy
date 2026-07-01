@@ -56,9 +56,14 @@ function ValidatePage() {
         <div className="mt-8 space-y-3">
           <Row label="Aluno" value={data.student_name} />
           <Row label="Curso" value={data.course_title} />
+          {data.track_title && <Row label="Trilha" value={data.track_title} />}
+          {data.workload_hours != null && data.workload_hours > 0 && (
+            <Row label="Carga horária" value={`${data.workload_hours}h`} />
+          )}
           <Row label="Data de emissão" value={issued} />
           <Row label="Código de validação" value={data.validation_code} mono />
         </div>
+
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
           <ShieldCheck className="h-4 w-4 text-primary" />

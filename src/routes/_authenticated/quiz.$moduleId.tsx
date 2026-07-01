@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   ArrowRight,
@@ -19,6 +21,8 @@ import {
   PASS_THRESHOLD,
   type QuestionRow,
 } from "@/lib/quiz-queries";
+import { ensureCertificateForCourse } from "@/lib/certificate.functions";
+
 
 export const Route = createFileRoute("/_authenticated/quiz/$moduleId")({
   loader: ({ context, params }) =>
@@ -87,6 +91,8 @@ function QuizPage() {
 
   const percent = total ? Math.round(((index + (phase === "result" ? 1 : 0)) / total) * 100) : 0;
 
+  const ensureCert = useServerFn(ensureCertificateForCourse);
+
   const saveAttempt = useMutation({
     mutationFn: async (payload: {
       score: number;
@@ -107,10 +113,37 @@ function QuizPage() {
         answers: payload.answersPayload,
       });
       if (error) throw error;
+      if (payload.passed) {
+        try {
+          const res = await ensureCert({ data: { courseId: mod.course_id } });
+          return { certificateId: res.certificateId };
+        } catch (e) {
+          // Falha na geração não invalida a aprovação; apenas avisa
+          console.error("[cert] geração falhou:", e);
+          return { certificateId: null as string | null };
+        }
+      }
+      return { certificateId: null as string | null };
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["quiz-attempts", moduleId, userId] }),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["quiz-attempts", moduleId, userId] });
+      queryClient.invalidateQueries({ queryKey: ["certificates", userId] });
+      if (res?.certificateId) {
+        toast.success("🏆 Parabéns! Certificado emitido", {
+          description: "+100 XP de marco. Seu certificado FCIA está pronto.",
+          action: {
+            label: "Ver certificado",
+            onClick: () =>
+              navigate({
+                to: "/certificados/$id",
+                params: { id: res.certificateId! },
+              }),
+          },
+        });
+      }
+    },
   });
+
 
   function start() {
     setQuestions(shuffle(allQuestions));
