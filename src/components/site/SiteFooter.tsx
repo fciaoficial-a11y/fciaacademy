@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import { Logo } from "@/components/site/Logo";
 import { Separator } from "@/components/ui/separator";
 
 export function SiteFooter() {
