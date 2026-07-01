@@ -42,11 +42,8 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
+        <div className="mt-12 border-t border-border/60 pt-6 text-center text-xs text-muted-foreground">
           <span>© {new Date().getFullYear()} FCIA Academy. Todos os direitos reservados.</span>
-          <span className="font-mono uppercase tracking-widest">
-            v2 · São Paulo · Brasil
-          </span>
         </div>
       </div>
     </footer>
