@@ -192,6 +192,33 @@ export type Database = {
           },
         ]
       }
+      gateway_events: {
+        Row: {
+          event_id: string
+          event_type: string | null
+          id: string
+          payment_id: string | null
+          processed_at: string
+          provider: string
+        }
+        Insert: {
+          event_id: string
+          event_type?: string | null
+          id?: string
+          payment_id?: string | null
+          processed_at?: string
+          provider: string
+        }
+        Update: {
+          event_id?: string
+          event_type?: string | null
+          id?: string
+          payment_id?: string | null
+          processed_at?: string
+          provider?: string
+        }
+        Relationships: []
+      }
       module_progress: {
         Row: {
           completed: boolean
