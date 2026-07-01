@@ -26,7 +26,6 @@ import {
   levelFromXp,
 } from "@/lib/gamification";
 import { myCertificatesQuery } from "@/lib/certificate-queries";
-import { currentPlanIdQuery } from "@/lib/plans";
 import { inProgressCoursesQuery } from "@/lib/profile-queries";
 
 export const Route = createFileRoute("/_authenticated/profile")({
