@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import { Logo } from "@/components/site/Logo";
 import { Separator } from "@/components/ui/separator";
 
 export function SiteFooter() {
@@ -9,12 +9,7 @@ export function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <Link to="/" className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
-                <Sparkles className="h-4 w-4" />
-              </div>
-              <span className="font-display text-[15px] font-semibold tracking-tight">
-                FCIA<span className="text-muted-foreground">/</span>Academy
-              </span>
+              <Logo size={36} />
             </Link>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
               Plataforma de aprendizado em tecnologia, IA e novos negócios — para pessoas e empresas que querem avançar.
