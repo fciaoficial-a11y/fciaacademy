@@ -39,7 +39,10 @@ export type PublicCertificate = {
   student_name: string;
   course_title: string;
   course_slug: string;
+  track_title: string | null;
+  workload_hours: number | null;
 };
+
 
 export function validateCertificateQuery(code: string) {
   return queryOptions({
