@@ -25,6 +25,7 @@ export type CourseRow = {
   level: string;
   cover_url: string | null;
   sort_order: number;
+  price: number | null;
 };
 
 export const tracksQuery = queryOptions({
