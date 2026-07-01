@@ -1,17 +1,25 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Loader2, Upload, User2 } from "lucide-react";
+import { Award, Flame, Loader2, Trophy, Upload, User2, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
+import {
+  achievementsQuery,
+  gamificationProfileQuery,
+  levelFromXp,
+} from "@/lib/gamification";
+import { myCertificatesQuery } from "@/lib/certificate-queries";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
       { title: "Perfil — FCIA Academy" },
-      { name: "description", content: "Edite seu perfil." },
+      { name: "description", content: "Seu perfil, XP, nível e conquistas." },
     ],
   }),
   component: ProfilePage,
@@ -178,6 +186,66 @@ function ProfilePage() {
           {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Salvar alterações
         </Button>
+      </div>
+
+      <GamificationSection userId={userId} />
+    </div>
+  );
+}
+
+function GamificationSection({ userId }: { userId: string }) {
+  const gam = useQuery(gamificationProfileQuery(userId));
+  const ach = useQuery(achievementsQuery(userId));
+  const certs = useQuery(myCertificatesQuery(userId));
+
+  const xp = gam.data?.xp ?? 0;
+  const streak = gam.data?.streak ?? 0;
+  const lvl = levelFromXp(xp);
+  const unlocked = (ach.data ?? []).filter((a) => a.unlocked_at);
+  const certCount = certs.data?.length ?? 0;
+
+  return (
+    <div className="mt-8 space-y-6">
+      <div className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-card/60 to-accent/10 p-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div className="text-xs uppercase tracking-wider text-muted-foreground">Nível</div>
+            <div className="font-display text-2xl font-semibold">{lvl.current}</div>
+          </div>
+          <div className="flex items-center gap-6 text-sm">
+            <span className="inline-flex items-center gap-1.5"><Zap className="h-4 w-4 text-primary" /><b>{xp}</b> XP</span>
+            <span className="inline-flex items-center gap-1.5"><Flame className="h-4 w-4 text-orange-400" /><b>{streak}</b>d</span>
+            <span className="inline-flex items-center gap-1.5"><Award className="h-4 w-4 text-primary" /><b>{certCount}</b> cert.</span>
+          </div>
+        </div>
+        <Progress value={lvl.progress} className="mt-4 h-2" />
+        <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+          <span>{lvl.floor} XP</span>
+          <span>{lvl.next ? `${lvl.toNextXp} XP para ${lvl.next}` : "Nível máximo"}</span>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-card/60 p-6">
+        <div className="flex items-center justify-between">
+          <h2 className="font-display text-lg font-semibold">Conquistas</h2>
+          <Link to="/evolucao" className="text-xs text-primary hover:underline">Ver evolução →</Link>
+        </div>
+        {unlocked.length === 0 ? (
+          <p className="mt-3 text-sm text-muted-foreground">
+            Nenhuma conquista ainda. Complete um módulo para começar.
+          </p>
+        ) : (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {unlocked.map((a) => (
+              <span
+                key={a.id}
+                className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+              >
+                <Trophy className="h-3 w-3" /> {a.title}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
