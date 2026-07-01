@@ -1,20 +1,18 @@
 import { createServerFn } from "@tanstack/react-start";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 type GenerateInput = { certificateId: string };
 
 const BUCKET = "certificates";
 
-export const generateCertificate = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((data: GenerateInput) => {
-    if (!data?.certificateId || typeof data.certificateId !== "string") {
-      throw new Error("certificateId obrigatório");
-    }
-    return data;
-  })
-  .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
+async function generateCertificateInternal(
+  supabase: SupabaseClient,
+  userId: string,
+  certificateId: string
+) {
+  const data = { certificateId };
+
 
     // Carrega o certificado do usuário (RLS garante ownership)
     const { data: cert, error: cErr } = await supabase
