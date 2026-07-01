@@ -22,6 +22,8 @@ import { Progress } from "@/components/ui/progress";
 import { courseLearnQuery, progressQuery, type ModuleRow } from "@/lib/learn-queries";
 import { currentPlanIdQuery, canAccess, type PlanId } from "@/lib/plans";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
+import { PixCheckout } from "@/components/payments/PixCheckout";
+import { isPaidPlanId } from "@/lib/payments";
 
 
 const searchSchema = z.object({ m: z.string().optional() });
@@ -388,7 +390,7 @@ function Paywall({
   course,
   currentPlan,
 }: {
-  course: { title: string; description: string; required_plan: PlanId; track_title: string | null };
+  course: { id: string; title: string; description: string; required_plan: PlanId; track_title: string | null };
   currentPlan: PlanId;
 }) {
   return (
@@ -425,7 +427,11 @@ function Paywall({
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent">
-              <Link to="/planos">
+              <Link
+                to={isPaidPlanId(course.required_plan) ? "/checkout/$planId" : "/planos"}
+                params={isPaidPlanId(course.required_plan) ? { planId: course.required_plan } : undefined}
+                search={isPaidPlanId(course.required_plan) ? { course: course.id } : undefined}
+              >
                 <Sparkles className="mr-2 h-4 w-4" /> Fazer upgrade
               </Link>
             </Button>
@@ -438,6 +444,12 @@ function Paywall({
             Assine o plano <strong className="text-foreground">{PLAN_LABEL[course.required_plan]}</strong> para
             destravar este curso, o certificado e todos os módulos da trilha.
           </p>
+
+          {isPaidPlanId(course.required_plan) && (
+            <div className="mt-8">
+              <PixCheckout planId={course.required_plan} courseId={course.id} />
+            </div>
+          )}
         </div>
       </div>
     </div>

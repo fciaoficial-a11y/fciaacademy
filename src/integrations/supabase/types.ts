@@ -302,6 +302,84 @@ export type Database = {
           },
         ]
       }
+      payments: {
+        Row: {
+          amount: number
+          billing_type: string
+          course_id: string | null
+          created_at: string
+          currency: string
+          due_date: string | null
+          id: string
+          invoice_url: string | null
+          paid_at: string | null
+          pix_copy_paste: string | null
+          pix_qr_code: string | null
+          plan_id: string
+          provider: string
+          provider_payment_id: string
+          raw_payload: Json
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          billing_type?: string
+          course_id?: string | null
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          invoice_url?: string | null
+          paid_at?: string | null
+          pix_copy_paste?: string | null
+          pix_qr_code?: string | null
+          plan_id: string
+          provider?: string
+          provider_payment_id: string
+          raw_payload?: Json
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          billing_type?: string
+          course_id?: string | null
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          invoice_url?: string | null
+          paid_at?: string | null
+          pix_copy_paste?: string | null
+          pix_qr_code?: string | null
+          plan_id?: string
+          provider?: string
+          provider_payment_id?: string
+          raw_payload?: Json
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       plans: {
         Row: {
           created_at: string
@@ -670,6 +748,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_payments: {
+        Args: never
+        Returns: {
+          amount: number
+          billing_type: string
+          course_id: string
+          course_title: string
+          created_at: string
+          currency: string
+          due_date: string
+          email: string
+          full_name: string
+          id: string
+          invoice_url: string
+          paid_at: string
+          plan_id: string
+          provider: string
+          provider_payment_id: string
+          status: string
+          user_id: string
+        }[]
+      }
       admin_list_users: {
         Args: never
         Returns: {
@@ -727,6 +827,14 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      grant_paid_access: {
+        Args: { _course_id?: string; _plan_id: string; _user_id: string }
+        Returns: undefined
+      }
+      has_course_access: {
+        Args: { _course: string; _user: string }
+        Returns: boolean
       }
       has_role: {
         Args: {

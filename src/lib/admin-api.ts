@@ -178,6 +178,35 @@ export const adminUsersQuery = queryOptions({
   },
 });
 
+/* ------------ payments ------------ */
+export interface AdminPayment {
+  id: string;
+  user_id: string;
+  email: string | null;
+  full_name: string | null;
+  course_id: string | null;
+  course_title: string | null;
+  plan_id: string;
+  provider: string;
+  provider_payment_id: string;
+  status: string;
+  amount: number;
+  currency: string;
+  billing_type: string;
+  invoice_url: string | null;
+  due_date: string | null;
+  paid_at: string | null;
+  created_at: string;
+}
+export const adminPaymentsQuery = queryOptions({
+  queryKey: ["admin", "payments"],
+  queryFn: async (): Promise<AdminPayment[]> => {
+    const { data, error } = await sb.rpc("admin_list_payments");
+    if (error) throw error;
+    return (data ?? []) as AdminPayment[];
+  },
+});
+
 /* ------------ generic mutations ------------ */
 export async function upsertRow(table: string, row: Record<string, unknown>) {
   const { error } = await sb.from(table).upsert(row);

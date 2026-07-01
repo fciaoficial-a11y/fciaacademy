@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   Award,
   BookOpen,
+  CreditCard,
   GraduationCap,
   KeyRound,
   LayoutDashboard,
@@ -38,6 +39,7 @@ const NAV = [
   { to: "/admin/modulos", label: "Módulos", icon: GraduationCap, exact: false },
   { to: "/admin/questoes", label: "Questões", icon: ListChecks, exact: false },
   { to: "/admin/certificados", label: "Certificados", icon: Award, exact: false },
+  { to: "/admin/pagamentos", label: "Pagamentos", icon: CreditCard, exact: false },
   { to: "/admin/usuarios", label: "Usuários", icon: Users, exact: false },
   { to: "/admin/ai-studio", label: "AI Studio", icon: Sparkles, exact: false },
   { to: "/admin/senha", label: "Trocar senha", icon: KeyRound, exact: false },
