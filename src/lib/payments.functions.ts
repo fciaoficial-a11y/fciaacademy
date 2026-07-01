@@ -180,15 +180,23 @@ async function findReusablePendingPayment(userId: string, planId: string, course
 }
 
 async function asaasFetch<T>(path: string, apiKey: string, init: RequestInit): Promise<T> {
-  const response = await fetch(`https://api.asaas.com/v3${path}`, {
-    ...init,
-    headers: { "Content-Type": "application/json", "User-Agent": "FCIA-Academy/1.0", access_token: apiKey, ...init.headers },
-  });
+  const headers = new Headers();
+  headers.set("Content-Type", "application/json");
+  headers.set("Accept", "application/json");
+  headers.set("access_token", apiKey);
+  // Asaas exige User-Agent. Cloudflare Workers permite sobrescrever, mas apenas
+  // quando definido via Headers object (literais podem ser descartados).
+  headers.set("User-Agent", "FCIA-Academy/1.0 (+https://fciaacademy.lovable.app)");
+  if (init.headers) {
+    new Headers(init.headers as HeadersInit).forEach((v, k) => headers.set(k, v));
+  }
+  const response = await fetch(`https://api.asaas.com/v3${path}`, { ...init, headers });
   const text = await response.text();
   const body = text ? (JSON.parse(text) as unknown) : null;
   if (!response.ok) {
-    console.error("Asaas request failed", { status: response.status, path, body });
-    throw new Error("Falha ao criar cobrança PIX no Asaas.");
+    console.error("Asaas request failed", { status: response.status, path, body, sentUA: headers.get("User-Agent") });
+    const detail = (body as { errors?: Array<{ description?: string }> } | null)?.errors?.[0]?.description;
+    throw new Error(detail ? `Asaas: ${detail}` : "Falha ao criar cobrança PIX no Asaas.");
   }
   return body as T;
 }
