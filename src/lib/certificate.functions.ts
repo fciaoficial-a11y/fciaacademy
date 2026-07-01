@@ -291,7 +291,19 @@ async function generateCertificateInternal(
     if (updErr) throw new Error(updErr.message);
 
     return { path, alreadyExists: false };
-  });
+}
+
+export const generateCertificate = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: GenerateInput) => {
+    if (!data?.certificateId || typeof data.certificateId !== "string") {
+      throw new Error("certificateId obrigatório");
+    }
+    return data;
+  })
+  .handler(async ({ data, context }) =>
+    generateCertificateInternal(context.supabase, context.userId, data.certificateId)
+  );
 
 /**
  * Server fn idempotente que garante um certificado gerado para (user, course).
@@ -314,8 +326,9 @@ export const ensureCertificateForCourse = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     if (!cert) return { certificateId: null as string | null, pdfPath: null };
     if (!cert.pdf_url) {
-      const res = await generateCertificate({ data: { certificateId: cert.id } });
+      const res = await generateCertificateInternal(supabase, userId, cert.id);
       return { certificateId: cert.id, pdfPath: res.path };
     }
     return { certificateId: cert.id, pdfPath: cert.pdf_url };
   });
+
