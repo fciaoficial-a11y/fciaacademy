@@ -15,7 +15,7 @@ export function SiteHeader() {
 
       <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-6 px-6">
         <Link to="/" className="group flex items-center gap-2.5 justify-self-start">
-          <Logo size={36} />
+          <Logo size={36} priority />
         </Link>
 
         <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-1.5 py-1 backdrop-blur md:flex">
