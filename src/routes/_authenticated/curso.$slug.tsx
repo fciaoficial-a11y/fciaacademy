@@ -68,18 +68,24 @@ function CourseLearnPage() {
 
   const planQ = useQuery(currentPlanIdQuery(userId));
   const currentPlan: PlanId = (planQ.data ?? "free") as PlanId;
-  const hasAccess = canAccess(currentPlan, course.required_plan);
 
   const enrollmentQ = useQuery(enrollmentQuery(course.id, userId));
 
+  const isPurchaseCourse = course.price > 0;
+  const hasEnrollment = !!enrollmentQ.data;
+  const planAccess = canAccess(currentPlan, course.required_plan);
+  // Compra avulsa: acesso somente com enrollment (criado pelo webhook após pagamento).
+  // Fluxo por plano: acesso segue o gate de plano da trilha.
+  const hasAccess = isPurchaseCourse ? hasEnrollment : planAccess;
+
   useEffect(() => {
-    if (!userId || !hasAccess) return;
+    if (!userId || isPurchaseCourse || !planAccess) return;
     if (enrollmentQ.isFetched && !enrollmentQ.data) {
       enrollInCourse(course.id)
         .then(() => queryClient.invalidateQueries({ queryKey: ["enrollment", course.id, userId] }))
         .catch(() => {});
     }
-  }, [userId, hasAccess, enrollmentQ.isFetched, enrollmentQ.data, course.id, queryClient]);
+  }, [userId, isPurchaseCourse, planAccess, enrollmentQ.isFetched, enrollmentQ.data, course.id, queryClient]);
 
   const progress = useQuery(progressQuery(course.id, hasAccess ? userId : undefined));
   const progressMap = useMemo(() => {
