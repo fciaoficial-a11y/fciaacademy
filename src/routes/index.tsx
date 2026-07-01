@@ -24,6 +24,9 @@ import { FAQ } from "@/components/site/FAQ";
 import { tracks } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
 import fernandoCabralAsset from "@/assets/fernando-cabral.webp.asset.json";
+import demoPlayerImg from "@/assets/demo-player.jpg";
+import demoCertificateImg from "@/assets/demo-certificate.jpg";
+import demoRankingImg from "@/assets/demo-ranking.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
