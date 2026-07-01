@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import {
   Award,
   BookOpen,
-  Crown,
   Flame,
   Linkedin,
   Loader2,
