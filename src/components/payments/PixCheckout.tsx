@@ -14,13 +14,11 @@ import {
   type PaidPlanId,
 } from "@/lib/payments";
 
-export interface PixCheckoutProps {
-  planId: PaidPlanId;
-  courseId?: string;
-  onPaid?: () => void;
-}
+export type PixCheckoutProps =
+  | { mode?: "plan"; planId: PaidPlanId; courseId?: string; title?: string; onPaid?: () => void }
+  | { mode: "course"; courseId: string; title: string; onPaid?: () => void; planId?: never };
 
-export function PixCheckout({ planId, courseId, onPaid }: PixCheckoutProps) {
+export function PixCheckout(props: PixCheckoutProps) {
   const queryClient = useQueryClient();
   const createCharge = useServerFn(createPixCharge);
   const [paymentId, setPaymentId] = useState<string>();
@@ -29,8 +27,18 @@ export function PixCheckout({ planId, courseId, onPaid }: PixCheckoutProps) {
     refetchInterval: (query) => (isPaymentTerminal(query.state.data?.status) ? false : 4_000),
   });
 
+  const isCourseMode = props.mode === "course";
+  const headline = isCourseMode
+    ? props.title
+    : `Plano ${PAID_PLAN_LABEL[(props as { planId: PaidPlanId }).planId]}`;
+
   const charge = useMutation({
-    mutationFn: () => createCharge({ data: { planId, courseId } }),
+    mutationFn: () =>
+      createCharge({
+        data: isCourseMode
+          ? { mode: "course", courseId: props.courseId }
+          : { mode: "plan", planId: (props as { planId: PaidPlanId }).planId, courseId: props.courseId },
+      }),
     onSuccess: (result) => {
       setPaymentId(result.paymentId);
       toast.success("PIX gerado", { description: "Pague pelo app do seu banco para liberar o acesso." });
@@ -49,8 +57,13 @@ export function PixCheckout({ planId, courseId, onPaid }: PixCheckoutProps) {
     if (!approved) return;
     queryClient.invalidateQueries({ queryKey: ["current-plan"] });
     queryClient.invalidateQueries({ queryKey: ["enrollment"] });
-    onPaid?.();
-  }, [approved, onPaid, queryClient]);
+    onPaidCall();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [approved]);
+
+  function onPaidCall() {
+    props.onPaid?.();
+  }
 
   async function copyCode() {
     if (!copyPasteCode) return;
@@ -63,9 +76,9 @@ export function PixCheckout({ planId, courseId, onPaid }: PixCheckoutProps) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary">
-            <QrCode className="h-3.5 w-3.5" /> Checkout PIX
+            <QrCode className="h-3.5 w-3.5" /> {isCourseMode ? "Compra do curso via PIX" : "Checkout PIX"}
           </div>
-          <h2 className="mt-2 font-display text-xl font-semibold">Plano {PAID_PLAN_LABEL[planId]}</h2>
+          <h2 className="mt-2 font-display text-xl font-semibold">{headline}</h2>
           {amount != null && <p className="mt-1 text-sm text-muted-foreground">Valor: R$ {amount.toFixed(2).replace(".", ",")}</p>}
         </div>
         {approved && <CheckCircle2 className="h-6 w-6 text-primary" />}
