@@ -26,30 +26,51 @@ export const Route = createFileRoute("/validar-certificado/$codigo")({
   component: ValidatePage,
 });
 
+function fmt(d: string | null) {
+  if (!d) return "—";
+  return new Date(d).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 function ValidatePage() {
   const { codigo } = Route.useParams();
   const { data } = useSuspenseQuery(validateCertificateQuery(codigo));
 
   if (!data) return <NotFoundState code={codigo} />;
 
-  const issued = new Date(data.issued_at).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  const revoked = data.status === "revoked";
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 sm:py-20">
-      <div className="rounded-3xl border-2 border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-8 shadow-2xl sm:p-12">
+      <div
+        className={`rounded-3xl border-2 p-8 shadow-2xl sm:p-12 ${
+          revoked
+            ? "border-destructive/30 bg-destructive/5"
+            : "border-primary/30 bg-gradient-to-br from-card via-card to-primary/5"
+        }`}
+      >
         <div className="text-center">
-          <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/15 text-primary">
-            <CheckCircle2 className="h-7 w-7" />
+          <div
+            className={`inline-flex h-14 w-14 items-center justify-center rounded-full ${
+              revoked
+                ? "bg-destructive/15 text-destructive"
+                : "bg-primary/15 text-primary"
+            }`}
+          >
+            {revoked ? <XCircle className="h-7 w-7" /> : <CheckCircle2 className="h-7 w-7" />}
           </div>
-          <p className="mt-4 text-xs uppercase tracking-[0.3em] text-primary">
-            Certificado válido
+          <p
+            className={`mt-4 text-xs uppercase tracking-[0.3em] ${
+              revoked ? "text-destructive" : "text-primary"
+            }`}
+          >
+            {revoked ? "Certificado revogado" : "Certificado válido"}
           </p>
           <h1 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">
-            Autenticado pela FCIA Academy
+            Autenticado pela {data.institution_name}
           </h1>
         </div>
 
@@ -60,12 +81,16 @@ function ValidatePage() {
           {data.workload_hours != null && data.workload_hours > 0 && (
             <Row label="Carga horária" value={`${data.workload_hours}h`} />
           )}
-          <Row label="Data de emissão" value={issued} />
+          <Row label="Data de conclusão" value={fmt(data.completion_date ?? data.issued_at)} />
+          <Row label="Emitido em" value={fmt(data.issued_at)} />
           <Row label="Código de validação" value={data.validation_code} mono />
         </div>
 
+        <p className="mt-8 rounded-xl border border-border/60 bg-background/60 p-4 text-xs leading-relaxed text-muted-foreground">
+          {data.legal_footer}
+        </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
           <ShieldCheck className="h-4 w-4 text-primary" />
           Este certificado foi conferido em nossa base de dados oficial.
         </div>
