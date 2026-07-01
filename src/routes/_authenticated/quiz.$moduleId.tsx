@@ -71,6 +71,8 @@ function QuizPage() {
 
   const attempts = useQuery(attemptsQuery(moduleId, userId));
 
+  const allQuestions = data?.questions ?? [];
+  const [questions, setQuestions] = useState<QuestionRow[]>(() => shuffle(allQuestions));
   const [phase, setPhase] = useState<Phase>("intro");
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -83,8 +85,7 @@ function QuizPage() {
   } | null>(null);
 
   if (!data) return null;
-  const { module: mod, course, questions: allQuestions } = data;
-  const [questions, setQuestions] = useState<QuestionRow[]>(() => shuffle(allQuestions));
+  const { module: mod, course } = data;
 
   const total = questions.length;
   const current = questions[index];
