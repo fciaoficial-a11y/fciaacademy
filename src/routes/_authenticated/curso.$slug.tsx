@@ -12,18 +12,14 @@ import {
   PlayCircle,
   BookOpen,
   Lock,
-  Crown,
-  Sparkles,
 } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { courseLearnQuery, progressQuery, type ModuleRow } from "@/lib/learn-queries";
-import { currentPlanIdQuery, canAccess, type PlanId } from "@/lib/plans";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
-import { isPaidPlanId } from "@/lib/payments";
 
 
 const searchSchema = z.object({ m: z.string().optional() });
@@ -66,26 +62,21 @@ function CourseLearnPage() {
   if (!data) return null;
   const { course, modules } = data;
 
-  const planQ = useQuery(currentPlanIdQuery(userId));
-  const currentPlan: PlanId = (planQ.data ?? "free") as PlanId;
-
   const enrollmentQ = useQuery(enrollmentQuery(course.id, userId));
 
   const isPurchaseCourse = course.price > 0;
   const hasEnrollment = !!enrollmentQ.data;
-  const planAccess = canAccess(currentPlan, course.required_plan);
-  // Compra avulsa: acesso somente com enrollment (criado pelo webhook após pagamento).
-  // Fluxo por plano: acesso segue o gate de plano da trilha.
-  const hasAccess = isPurchaseCourse ? hasEnrollment : planAccess;
+  // Regra única: curso gratuito → acesso livre; curso pago → precisa de enrollment (criado pelo webhook após pagamento).
+  const hasAccess = isPurchaseCourse ? hasEnrollment : true;
 
   useEffect(() => {
-    if (!userId || isPurchaseCourse || !planAccess) return;
+    if (!userId || isPurchaseCourse) return;
     if (enrollmentQ.isFetched && !enrollmentQ.data) {
       enrollInCourse(course.id)
         .then(() => queryClient.invalidateQueries({ queryKey: ["enrollment", course.id, userId] }))
         .catch(() => {});
     }
-  }, [userId, isPurchaseCourse, planAccess, enrollmentQ.isFetched, enrollmentQ.data, course.id, queryClient]);
+  }, [userId, isPurchaseCourse, enrollmentQ.isFetched, enrollmentQ.data, course.id, queryClient]);
 
   const progress = useQuery(progressQuery(course.id, hasAccess ? userId : undefined));
   const progressMap = useMemo(() => {
@@ -125,7 +116,7 @@ function CourseLearnPage() {
   });
 
   if (!hasAccess) {
-    return <Paywall course={course} currentPlan={currentPlan} />;
+    return <Paywall course={course} />;
   }
 
   if (!activeModule) {
@@ -385,22 +376,11 @@ function StorageVideo({ path, title }: { path: string; title: string }) {
   );
 }
 
-const PLAN_LABEL: Record<PlanId, string> = {
-  free: "Free",
-  starter: "Starter",
-  pro: "Pro",
-  expert: "Expert",
-};
-
 function Paywall({
   course,
-  currentPlan,
 }: {
-  course: { id: string; title: string; description: string; required_plan: PlanId; track_title: string | null; price: number };
-  currentPlan: PlanId;
+  course: { id: string; title: string; description: string; track_title: string | null; price: number };
 }) {
-  const isPurchase = course.price > 0;
-
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:py-24">
       <div className="relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-card via-card to-primary/10 p-8 sm:p-12 shadow-2xl">
@@ -409,7 +389,7 @@ function Paywall({
 
         <div className="relative">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-primary">
-            <Lock className="h-3 w-3" /> {isPurchase ? "Curso avulso" : "Conteúdo bloqueado"}
+            <Lock className="h-3 w-3" /> Curso avulso
           </div>
 
           <h1 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">{course.title}</h1>
@@ -420,64 +400,19 @@ function Paywall({
             <p className="mt-4 text-base text-muted-foreground">{course.description}</p>
           )}
 
-          {isPurchase ? (
-            <>
-              <div className="mt-8 rounded-2xl border border-white/10 bg-background/50 p-5">
-                <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Compra avulsa deste curso</p>
-                <p className="mt-1 font-display text-2xl font-semibold text-primary">
-                  R$ {course.price.toFixed(2).replace(".", ",")}
-                </p>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Pagamento único via PIX. O acesso é liberado automaticamente após a confirmação.
-                </p>
-              </div>
+          <div className="mt-8 rounded-2xl border border-white/10 bg-background/50 p-5">
+            <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Compra avulsa deste curso</p>
+            <p className="mt-1 font-display text-2xl font-semibold text-primary">
+              R$ {course.price.toFixed(2).replace(".", ",")}
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Pagamento único via PIX. O acesso é liberado automaticamente após a confirmação.
+            </p>
+          </div>
 
-              <div className="mt-8">
-                <PixCheckout mode="course" courseId={course.id} title={course.title} />
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="mt-8 grid gap-3 rounded-2xl border border-white/10 bg-background/50 p-5 sm:grid-cols-2">
-                <div>
-                  <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Seu plano</p>
-                  <p className="mt-1 font-display text-lg font-semibold">{PLAN_LABEL[currentPlan]}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Plano necessário</p>
-                  <p className="mt-1 inline-flex items-center gap-1.5 font-display text-lg font-semibold text-primary">
-                    <Crown className="h-4 w-4" /> {PLAN_LABEL[course.required_plan]}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent">
-                  <Link
-                    to={isPaidPlanId(course.required_plan) ? "/checkout/$planId" : "/planos"}
-                    params={isPaidPlanId(course.required_plan) ? { planId: course.required_plan } : undefined}
-                    search={isPaidPlanId(course.required_plan) ? { course: course.id } : undefined}
-                  >
-                    <Sparkles className="mr-2 h-4 w-4" /> Fazer upgrade
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="rounded-full">
-                  <Link to="/trilhas">Ver conteúdos liberados</Link>
-                </Button>
-              </div>
-
-              <p className="mt-6 text-xs text-muted-foreground">
-                Assine o plano <strong className="text-foreground">{PLAN_LABEL[course.required_plan]}</strong> para
-                destravar este curso, o certificado e todos os módulos da trilha.
-              </p>
-
-              {isPaidPlanId(course.required_plan) && (
-                <div className="mt-8">
-                  <PixCheckout planId={course.required_plan} courseId={course.id} />
-                </div>
-              )}
-            </>
-          )}
+          <div className="mt-8">
+            <PixCheckout mode="course" courseId={course.id} title={course.title} />
+          </div>
         </div>
       </div>
     </div>

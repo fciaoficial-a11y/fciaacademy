@@ -14,7 +14,6 @@ import { Route as TrilhasRouteImport } from './routes/trilhas'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as PlanosRouteImport } from './routes/planos'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as InscricaoRouteImport } from './routes/inscricao'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
@@ -32,7 +31,6 @@ import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedQuizModuleIdRouteImport } from './routes/_authenticated/quiz.$moduleId'
 import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authenticated/curso.$slug'
-import { Route as AuthenticatedCheckoutPlanIdRouteImport } from './routes/_authenticated/checkout.$planId'
 import { Route as AuthenticatedCertificadosIdRouteImport } from './routes/_authenticated/certificados.$id'
 import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
 import { Route as AuthenticatedAdminTrilhasRouteImport } from './routes/_authenticated/admin/trilhas'
@@ -68,11 +66,6 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlanosRoute = PlanosRouteImport.update({
-  id: '/planos',
-  path: '/planos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -162,12 +155,6 @@ const AuthenticatedCursoSlugRoute = AuthenticatedCursoSlugRouteImport.update({
   path: '/curso/$slug',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCheckoutPlanIdRoute =
-  AuthenticatedCheckoutPlanIdRouteImport.update({
-    id: '/checkout/$planId',
-    path: '/checkout/$planId',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
 const AuthenticatedCertificadosIdRoute =
   AuthenticatedCertificadosIdRouteImport.update({
     id: '/$id',
@@ -240,7 +227,6 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
   '/login': typeof LoginRoute
-  '/planos': typeof PlanosRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
@@ -263,7 +249,6 @@ export interface FileRoutesByFullPath {
   '/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
-  '/checkout/$planId': typeof AuthenticatedCheckoutPlanIdRoute
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -276,7 +261,6 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
   '/login': typeof LoginRoute
-  '/planos': typeof PlanosRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
@@ -298,7 +282,6 @@ export interface FileRoutesByTo {
   '/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
-  '/checkout/$planId': typeof AuthenticatedCheckoutPlanIdRoute
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -313,7 +296,6 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
   '/login': typeof LoginRoute
-  '/planos': typeof PlanosRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/settings': typeof SettingsRoute
@@ -336,7 +318,6 @@ export interface FileRoutesById {
   '/_authenticated/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
   '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/_authenticated/certificados/$id': typeof AuthenticatedCertificadosIdRoute
-  '/_authenticated/checkout/$planId': typeof AuthenticatedCheckoutPlanIdRoute
   '/_authenticated/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/_authenticated/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -351,7 +332,6 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/inscricao'
     | '/login'
-    | '/planos'
     | '/register'
     | '/reset-password'
     | '/settings'
@@ -374,7 +354,6 @@ export interface FileRouteTypes {
     | '/admin/trilhas'
     | '/admin/usuarios'
     | '/certificados/$id'
-    | '/checkout/$planId'
     | '/curso/$slug'
     | '/quiz/$moduleId'
     | '/admin/'
@@ -387,7 +366,6 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/inscricao'
     | '/login'
-    | '/planos'
     | '/register'
     | '/reset-password'
     | '/settings'
@@ -409,7 +387,6 @@ export interface FileRouteTypes {
     | '/admin/trilhas'
     | '/admin/usuarios'
     | '/certificados/$id'
-    | '/checkout/$planId'
     | '/curso/$slug'
     | '/quiz/$moduleId'
     | '/admin'
@@ -423,7 +400,6 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/inscricao'
     | '/login'
-    | '/planos'
     | '/register'
     | '/reset-password'
     | '/settings'
@@ -446,7 +422,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/trilhas'
     | '/_authenticated/admin/usuarios'
     | '/_authenticated/certificados/$id'
-    | '/_authenticated/checkout/$planId'
     | '/_authenticated/curso/$slug'
     | '/_authenticated/quiz/$moduleId'
     | '/_authenticated/admin/'
@@ -461,7 +436,6 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InscricaoRoute: typeof InscricaoRoute
   LoginRoute: typeof LoginRoute
-  PlanosRoute: typeof PlanosRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SettingsRoute: typeof SettingsRoute
@@ -506,13 +480,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/planos': {
-      id: '/planos'
-      path: '/planos'
-      fullPath: '/planos'
-      preLoaderRoute: typeof PlanosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -632,13 +599,6 @@ declare module '@tanstack/react-router' {
       path: '/curso/$slug'
       fullPath: '/curso/$slug'
       preLoaderRoute: typeof AuthenticatedCursoSlugRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/checkout/$planId': {
-      id: '/_authenticated/checkout/$planId'
-      path: '/checkout/$planId'
-      fullPath: '/checkout/$planId'
-      preLoaderRoute: typeof AuthenticatedCheckoutPlanIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/certificados/$id': {
@@ -773,7 +733,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEvolucaoRoute: typeof AuthenticatedEvolucaoRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
-  AuthenticatedCheckoutPlanIdRoute: typeof AuthenticatedCheckoutPlanIdRoute
   AuthenticatedCursoSlugRoute: typeof AuthenticatedCursoSlugRoute
   AuthenticatedQuizModuleIdRoute: typeof AuthenticatedQuizModuleIdRoute
 }
@@ -784,7 +743,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEvolucaoRoute: AuthenticatedEvolucaoRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
-  AuthenticatedCheckoutPlanIdRoute: AuthenticatedCheckoutPlanIdRoute,
   AuthenticatedCursoSlugRoute: AuthenticatedCursoSlugRoute,
   AuthenticatedQuizModuleIdRoute: AuthenticatedQuizModuleIdRoute,
 }
@@ -811,7 +769,6 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   InscricaoRoute: InscricaoRoute,
   LoginRoute: LoginRoute,
-  PlanosRoute: PlanosRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SettingsRoute: SettingsRoute,

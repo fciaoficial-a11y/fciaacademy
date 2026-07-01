@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Activity, Award, BookOpen, Crown, Flame, Sparkles, Trophy, Zap } from "lucide-react";
+import { Activity, Award, BookOpen, Flame, Sparkles, Trophy, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Progress } from "@/components/ui/progress";
 import { myCertificatesQuery } from "@/lib/certificate-queries";
 import { gamificationProfileQuery, levelFromXp } from "@/lib/gamification";
-import { currentPlanIdQuery, plansQuery } from "@/lib/plans";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -31,9 +30,6 @@ function DashboardPage() {
 
   const certificates = useQuery(myCertificatesQuery(userId));
   const gam = useQuery(gamificationProfileQuery(userId));
-  const planId = useQuery(currentPlanIdQuery(userId));
-  const plans = useQuery(plansQuery);
-  const currentPlan = plans.data?.find((p) => p.id === (planId.data ?? "free"));
 
   const certCount = certificates.data?.length ?? 0;
   const xp = gam.data?.xp ?? 0;
@@ -114,21 +110,6 @@ function DashboardPage() {
         ))}
       </div>
 
-      <Link
-        to="/planos"
-        className="mt-6 flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-card/60 p-5 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40"
-      >
-        <div className="flex items-center gap-3">
-          <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground">
-            <Crown className="h-5 w-5" />
-          </div>
-          <div>
-            <div className="text-xs uppercase tracking-wider text-muted-foreground">Plano atual</div>
-            <div className="font-display text-lg font-semibold">{currentPlan?.name ?? "Free"}</div>
-          </div>
-        </div>
-        <span className="text-sm font-medium text-primary">Ver planos →</span>
-      </Link>
 
       <div className="mt-12 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 p-8">
         <h2 className="font-display text-xl font-semibold">Próximos passos</h2>

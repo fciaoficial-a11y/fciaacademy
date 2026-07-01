@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LogOut, LayoutDashboard, User2, UserCog, BookOpen, Award, Zap, Shield, Crown } from "lucide-react";
+import { LogOut, LayoutDashboard, User2, UserCog, BookOpen, Award, Zap, Shield } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 import { useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
@@ -22,7 +22,6 @@ const baseNav = [
   { to: "/trilhas", label: "Trilhas", icon: BookOpen },
   { to: "/evolucao", label: "Evolução", icon: Zap },
   { to: "/certificados", label: "Certificados", icon: Award },
-  { to: "/planos", label: "Planos", icon: Crown },
   { to: "/profile", label: "Perfil", icon: UserCog },
 ] as const;
 const adminNav = { to: "/admin", label: "Admin", icon: Shield } as const;

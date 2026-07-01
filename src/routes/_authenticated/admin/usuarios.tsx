@@ -31,7 +31,7 @@ function AdminUsersPage() {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="font-display text-2xl font-semibold">Usuários</h1>
-          <p className="text-sm text-muted-foreground">Status, plano, XP e certificados por usuário.</p>
+          <p className="text-sm text-muted-foreground">Status, XP e certificados por usuário.</p>
         </div>
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -46,7 +46,6 @@ function AdminUsersPage() {
               <th className="px-4 py-3">Aluno</th>
               <th className="px-4 py-3">Papel</th>
               <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Plano</th>
               <th className="px-4 py-3">XP</th>
               <th className="px-4 py-3">Nível</th>
               <th className="px-4 py-3">Certs.</th>
@@ -70,23 +69,13 @@ function AdminUsersPage() {
                     <option value="suspended">Suspenso</option>
                   </select>
                 </td>
-                <td className="px-4 py-3">
-                  <select
-                    className="rounded-md border border-input bg-background px-2 py-1 text-xs"
-                    value={u.plan}
-                    onChange={(e) => updateUser.mutate({ id: u.id, patch: { plan: e.target.value } })}
-                  >
-                    <option value="free">Free</option>
-                    <option value="pro">Pro</option>
-                  </select>
-                </td>
                 <td className="px-4 py-3 font-mono">{u.xp}</td>
                 <td className="px-4 py-3 text-xs">{u.level}</td>
                 <td className="px-4 py-3 font-mono">{u.certificates_count}</td>
               </tr>
             ))}
             {!filtered.length && !users.isLoading && (
-              <tr><td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">Nenhum usuário.</td></tr>
+              <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">Nenhum usuário.</td></tr>
             )}
           </tbody>
         </table>
