@@ -103,12 +103,14 @@ function QuizPage() {
   });
 
   function start() {
+    setQuestions(shuffle(allQuestions));
     setAnswers({});
     setIndex(0);
     setSelected(null);
     setResult(null);
     setPhase("playing");
   }
+
 
   function confirmAnswer() {
     if (!current || !selected) return;
