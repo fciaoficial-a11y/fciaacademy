@@ -1,5 +1,18 @@
+/**
+ * @deprecated LEGACY: Módulo de planos/assinaturas.
+ *
+ * O modelo de negócio atual da FCIA Academy NÃO usa planos:
+ *   - curso gratuito (price = 0) → acesso livre após signup;
+ *   - curso pago (price > 0)     → compra avulsa + enrollment.
+ *
+ * As tabelas `plans` e `subscriptions` e as funções `current_plan`,
+ * `plan_rank`, `can_access_track` permanecem no banco apenas por compatibilidade
+ * histórica (dados antigos e webhook idempotente). Nenhuma decisão de acesso
+ * vigente deve depender deste arquivo. Não importar em novos fluxos.
+ */
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+
 
 export type PlanId = "free" | "starter" | "pro" | "expert";
 
