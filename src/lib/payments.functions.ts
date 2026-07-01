@@ -182,7 +182,7 @@ async function findReusablePendingPayment(userId: string, planId: PaidPlanId, co
 }
 
 async function asaasFetch<T>(path: string, apiKey: string, init: RequestInit): Promise<T> {
-  const response = await fetch(`https://sandbox.asaas.com/api/v3${path}`, {
+  const response = await fetch(`https://api.asaas.com/v3${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
@@ -193,8 +193,8 @@ async function asaasFetch<T>(path: string, apiKey: string, init: RequestInit): P
   const text = await response.text();
   const body = text ? (JSON.parse(text) as unknown) : null;
   if (!response.ok) {
-    console.error("Asaas sandbox request failed", { status: response.status, path, body });
-    throw new Error("Falha ao criar cobrança PIX no Asaas sandbox.");
+    console.error("Asaas request failed", { status: response.status, path, body });
+    throw new Error("Falha ao criar cobrança PIX no Asaas.");
   }
   return body as T;
 }
