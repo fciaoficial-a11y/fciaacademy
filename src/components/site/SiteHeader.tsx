@@ -4,8 +4,7 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 const nav = [
   { to: "/trilhas", label: "Trilhas" },
   { to: "/cursos", label: "Cursos" },
-  { to: "/turmas", label: "Turmas" },
-  { to: "/empresas", label: "Empresas" },
+  { to: "/planos", label: "Planos" },
 ] as const;
 
 export function SiteHeader() {
