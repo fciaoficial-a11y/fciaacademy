@@ -87,13 +87,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-white/5 bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6">
           <Link to="/dashboard" className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground ring-glow">
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <span className="font-display text-[15px] font-semibold tracking-tight">
-              FCIA<span className="text-muted-foreground/50">/</span>
-              <span className="font-medium text-muted-foreground">Academy</span>
-            </span>
+            <Logo size={34} />
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
