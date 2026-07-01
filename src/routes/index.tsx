@@ -735,14 +735,18 @@ function DemoCard({
   tag,
   title,
   desc,
+  image,
+  imageAlt,
 }: {
   icon: LucideIcon;
   tag: string;
   title: string;
   desc: string;
+  image: string;
+  imageAlt: string;
 }) {
   return (
-    <div data-demo-card className="group relative w-[280px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-primary/40 lg:w-auto lg:shrink">
+    <div data-demo-card className="group relative flex w-[280px] shrink-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-6 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-primary/40 lg:w-auto lg:shrink">
       <div
         className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-accent/20 blur-3xl transition-all group-hover:bg-primary/30"
         aria-hidden
@@ -755,7 +759,20 @@ function DemoCard({
         {title}
       </h3>
       <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-      <div className="relative mt-6 h-24 rounded-xl border border-white/10 bg-gradient-to-br from-primary/10 via-transparent to-accent/10" />
+      <div className="relative mt-auto pt-6">
+        <div className="aspect-[3/2] overflow-hidden rounded-xl border border-white/10 bg-black/30">
+          <img
+            src={image}
+            alt={imageAlt}
+            width={768}
+            height={512}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </div>
+      </div>
     </div>
   );
 }
+
