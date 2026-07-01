@@ -90,9 +90,17 @@ export const createPixCharge = createServerFn({ method: "POST" })
     if (reusable) return reusable;
 
     const profile = await getCheckoutProfile(context.userId, context.claims as { email?: string });
+    const cpfCnpj = data.cpfCnpj ?? profile.cpfCnpj;
+    if (!cpfCnpj) {
+      throw new Error("CPF_REQUIRED");
+    }
+    if (data.cpfCnpj && data.cpfCnpj !== profile.cpfCnpj) {
+      await supabaseAdmin.from("profiles").update({ cpf_cnpj: data.cpfCnpj }).eq("id", context.userId);
+    }
+
     const customer = await asaasFetch<AsaasCustomerResponse>("/customers", apiKey, {
       method: "POST",
-      body: JSON.stringify({ name: profile.name, email: profile.email }),
+      body: JSON.stringify({ name: profile.name, email: profile.email, cpfCnpj }),
     });
 
     const dueDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -104,9 +112,7 @@ export const createPixCharge = createServerFn({ method: "POST" })
         value: amount,
         dueDate,
         description,
-        externalReference: JSON.stringify({
-          userId: context.userId, mode: data.mode, planId: planIdForRecord, courseId,
-        }),
+        externalReference: context.userId,
       }),
     });
 
