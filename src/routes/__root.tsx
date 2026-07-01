@@ -127,23 +127,28 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/reset-password"];
+const HIDE_CHROME_PREFIXES = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/dashboard",
+  "/profile",
+  "/admin",
+  "/evolucao",
+  "/settings",
+  "/quiz",
+  "/curso/",
+];
 const HIDE_STICKY_PREFIXES = ["/inscricao", "/login", "/register", "/forgot-password", "/reset-password", "/dashboard", "/profile", "/admin", "/settings", "/quiz"];
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const hideChrome =
-    AUTH_ROUTES.includes(pathname) ||
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/profile") ||
-    pathname.startsWith("/admin") ||
-    pathname.startsWith("/evolucao") ||
-    pathname.startsWith("/settings") ||
-    pathname.startsWith("/quiz") ||
-    pathname.startsWith("/curso/");
+  const hideChrome = HIDE_CHROME_PREFIXES.some((p) => pathname === p || pathname.startsWith(p));
   const hideStickyCTA = HIDE_STICKY_PREFIXES.some((p) => pathname.startsWith(p));
+
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
