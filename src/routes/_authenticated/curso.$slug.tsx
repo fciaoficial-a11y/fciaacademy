@@ -12,18 +12,14 @@ import {
   PlayCircle,
   BookOpen,
   Lock,
-  Crown,
-  Sparkles,
 } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { courseLearnQuery, progressQuery, type ModuleRow } from "@/lib/learn-queries";
-import { currentPlanIdQuery, canAccess, type PlanId } from "@/lib/plans";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
-import { isPaidPlanId } from "@/lib/payments";
 
 
 const searchSchema = z.object({ m: z.string().optional() });
