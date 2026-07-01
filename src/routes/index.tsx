@@ -541,19 +541,26 @@ function Index() {
               tag="Player"
               title="Aulas que carregam em segundos"
               desc="Player otimizado, capítulos, transcrição automática e notas inline."
+              image={demoPlayerImg}
+              imageAlt="Aluna assistindo uma aula online em notebook"
             />
             <DemoCard
               icon={Award}
               tag="Certificados"
               title="Certificação verificável"
               desc="Cada trilha gera certificado com QR e link público para LinkedIn."
+              image={demoCertificateImg}
+              imageAlt="Certificado impresso com QR sendo segurado em mesa"
             />
             <DemoCard
               icon={Trophy}
               tag="Ranking"
               title="Liga semanal"
               desc="Compita por XP, mantenha streak e suba no ranking ao vivo."
+              image={demoRankingImg}
+              imageAlt="Troféu dourado ao lado de notebook com gráfico"
             />
+
           </div>
         </div>
       </section>
