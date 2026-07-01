@@ -103,7 +103,7 @@ export function PixCheckout(props: PixCheckoutProps) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary">
-            <QrCode className="h-3.5 w-3.5" /> {isCourseMode ? "Compra do curso via PIX" : "Checkout PIX"}
+            <QrCode className="h-3.5 w-3.5" /> Compra do curso via PIX
           </div>
           <h2 className="mt-2 font-display text-xl font-semibold">{headline}</h2>
           {amount != null && <p className="mt-1 text-sm text-muted-foreground">Valor: R$ {amount.toFixed(2).replace(".", ",")}</p>}
