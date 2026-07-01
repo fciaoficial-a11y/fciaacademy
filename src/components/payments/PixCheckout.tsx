@@ -32,10 +32,9 @@ export function PixCheckout(props: PixCheckoutProps) {
     refetchInterval: (query) => (isPaymentTerminal(query.state.data?.status) ? false : 4_000),
   });
 
-  const isCourseMode = props.mode === "course";
-  const headline = isCourseMode
-    ? props.title
-    : `Plano ${PAID_PLAN_LABEL[(props as { planId: PaidPlanId }).planId]}`;
+  // LEGACY: props.mode "plan" ainda tipado por compatibilidade, mas nunca é usado.
+  const headline = (props as { title?: string }).title ?? "FCIA Academy";
+
 
   const charge = useMutation({
     mutationFn: (cpfCnpj?: string) =>
