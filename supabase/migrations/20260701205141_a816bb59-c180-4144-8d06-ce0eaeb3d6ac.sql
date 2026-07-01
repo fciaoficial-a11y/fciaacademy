@@ -1,0 +1,1 @@
+UPDATE public.courses SET price = 5.00 WHERE slug = 'curso-teste-fcia';
