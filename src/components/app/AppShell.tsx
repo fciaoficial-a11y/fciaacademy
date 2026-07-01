@@ -20,6 +20,7 @@ import {
 const baseNav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/trilhas", label: "Trilhas", icon: BookOpen },
+  { to: "/cursos", label: "Cursos", icon: GraduationCap },
   { to: "/evolucao", label: "Evolução", icon: Zap },
   { to: "/certificados", label: "Certificados", icon: Award },
   { to: "/profile", label: "Perfil", icon: UserCog },
