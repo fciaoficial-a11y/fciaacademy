@@ -134,13 +134,13 @@ function InstitutionalTab() {
     mutationFn: async () => {
       const payload = {
         institution_name: form.institution_name ?? "FCIA Academy",
-        legal_name: form.legal_name ?? null,
-        cnpj: form.cnpj ?? null,
+        legal_name: form.legal_name ?? "",
+        cnpj: form.cnpj ?? "",
         issuer_name: form.issuer_name ?? "",
         issuer_role: form.issuer_role ?? "",
         validation_base_url: form.validation_base_url ?? "",
-        logo_url: form.logo_url ?? null,
-        signature_image_url: form.signature_image_url ?? null,
+        logo_url: form.logo_url ?? "",
+        signature_image_url: form.signature_image_url ?? "",
       };
       const { error } = await supabase
         .from("certificate_settings")
