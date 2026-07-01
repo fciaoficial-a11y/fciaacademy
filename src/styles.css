@@ -275,3 +275,113 @@
     box-shadow: 0 0 24px -4px color-mix(in oklab, var(--primary) 60%, transparent);
   }
 }
+
+/* ==========================================================================
+   FCIA Badge — rebrand do badge inferior com identidade FCIA
+   (paleta escura + azul + roxa, integrado ao layout)
+   ========================================================================== */
+body #lovable-badge,
+body #lovable-badge > * {
+  display: flex !important;
+}
+
+body #lovable-badge {
+  position: fixed !important;
+  bottom: 16px !important;
+  right: 16px !important;
+  z-index: 2147483647 !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 8px 12px 8px 14px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #0b1020 0%, #1a1440 55%, #2a1a6b 100%) !important;
+  border: 1px solid color-mix(in oklab, #6d5cff 45%, transparent) !important;
+  box-shadow:
+    0 0 0 1px rgba(109, 92, 255, 0.25),
+    0 10px 40px -10px rgba(59, 130, 246, 0.55),
+    0 0 60px -20px rgba(139, 92, 246, 0.6) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  color: #ffffff !important;
+  overflow: hidden !important;
+  transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease !important;
+}
+
+body #lovable-badge:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 0 0 1px rgba(109, 92, 255, 0.45),
+    0 14px 48px -10px rgba(59, 130, 246, 0.75),
+    0 0 80px -20px rgba(139, 92, 246, 0.8) !important;
+}
+
+/* esconde qualquer texto/imagem original do badge */
+body #lovable-badge > *,
+body #lovable-badge a,
+body #lovable-badge span,
+body #lovable-badge img,
+body #lovable-badge svg {
+  font-size: 0 !important;
+  color: transparent !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* logotipo FCIA */
+body #lovable-badge::before {
+  content: "FCIA" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.18em !important;
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 60%, #c084fc 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  text-shadow: 0 0 24px rgba(139, 92, 246, 0.35) !important;
+  padding-left: 2px !important;
+  padding-right: 6px !important;
+  border-right: 1px solid color-mix(in oklab, #a78bfa 35%, transparent) !important;
+  margin-right: 4px !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+/* botão X (fechar) */
+body #lovable-badge::after {
+  content: "×" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 999px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: #e2e8f0 !important;
+  background: color-mix(in oklab, #6d5cff 22%, transparent) !important;
+  border: 1px solid color-mix(in oklab, #a78bfa 40%, transparent) !important;
+  cursor: pointer !important;
+  transition: background .2s ease, color .2s ease, transform .2s ease !important;
+}
+
+body #lovable-badge:active::after {
+  transform: scale(0.9) !important;
+  background: color-mix(in oklab, #ef4444 60%, transparent) !important;
+  color: #fff !important;
+}
+
+/* clique no badge fecha visualmente (CSS-only) */
+body #lovable-badge:focus-within {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(.95) !important;
+}
