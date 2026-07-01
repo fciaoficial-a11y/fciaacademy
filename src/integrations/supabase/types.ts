@@ -99,6 +99,7 @@ export type Database = {
           title: string
           track_id: string
           updated_at: string
+          workload_hours: number
         }
         Insert: {
           cover_url?: string | null
@@ -113,6 +114,7 @@ export type Database = {
           title: string
           track_id: string
           updated_at?: string
+          workload_hours?: number
         }
         Update: {
           cover_url?: string | null
@@ -127,6 +129,7 @@ export type Database = {
           title?: string
           track_id?: string
           updated_at?: string
+          workload_hours?: number
         }
         Relationships: [
           {
@@ -671,7 +674,9 @@ export type Database = {
           course_title: string
           issued_at: string
           student_name: string
+          track_title: string
           validation_code: string
+          workload_hours: number
         }[]
       }
     }
