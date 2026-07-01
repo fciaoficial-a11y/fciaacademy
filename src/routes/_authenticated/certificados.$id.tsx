@@ -1,16 +1,23 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   Award,
   Download,
+  Linkedin,
+  Loader2,
   Printer,
   ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { myCertificatesQuery } from "@/lib/certificate-queries";
+import { generateCertificate } from "@/lib/certificate.functions";
 
 export const Route = createFileRoute("/_authenticated/certificados/$id")({
   notFoundComponent: () => (
@@ -33,10 +40,15 @@ export const Route = createFileRoute("/_authenticated/certificados/$id")({
   component: CertificateDetailPage,
 });
 
+const YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
+
 function CertificateDetailPage() {
   const { id } = Route.useParams();
+  const queryClient = useQueryClient();
   const [userId, setUserId] = useState<string | undefined>();
   const [studentName, setStudentName] = useState<string>("Aluno FCIA");
+  const [signedUrl, setSignedUrl] = useState<string | null>(null);
+  const generateFn = useServerFn(generateCertificate);
 
   useEffect(() => {
     (async () => {
@@ -55,6 +67,36 @@ function CertificateDetailPage() {
   const { data } = useSuspenseQuery(myCertificatesQuery(userId));
   const cert = data?.find((c) => c.id === id);
   if (userId && !cert) throw notFound();
+
+  useEffect(() => {
+    if (!cert?.pdf_url) {
+      setSignedUrl(null);
+      return;
+    }
+    let alive = true;
+    supabase.storage
+      .from("certificates")
+      .createSignedUrl(cert.pdf_url, YEAR_IN_SECONDS)
+      .then(({ data }) => {
+        if (alive) setSignedUrl(data?.signedUrl ?? null);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [cert?.pdf_url]);
+
+  const generate = useMutation({
+    mutationFn: async () => generateFn({ data: { certificateId: id } }),
+    onSuccess: async () => {
+      toast.success("Certificado gerado!", {
+        description: "Seu PDF já está disponível para download.",
+      });
+      await queryClient.invalidateQueries({ queryKey: ["certificates", userId] });
+    },
+    onError: (err: Error) =>
+      toast.error("Não foi possível gerar o PDF", { description: err.message }),
+  });
+
   if (!cert) return null;
 
   const issued = new Date(cert.issued_at).toLocaleDateString("pt-BR", {
@@ -63,6 +105,9 @@ function CertificateDetailPage() {
     year: "numeric",
   });
   const validateUrl = `${window.location.origin}/validar-certificado/${cert.validation_code}`;
+  const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+    validateUrl
+  )}`;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
@@ -72,7 +117,7 @@ function CertificateDetailPage() {
             <ArrowLeft className="mr-2 h-4 w-4" /> Voltar
           </Link>
         </Button>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button
             onClick={() => window.print()}
             variant="outline"
@@ -81,56 +126,97 @@ function CertificateDetailPage() {
           >
             <Printer className="mr-2 h-4 w-4" /> Imprimir
           </Button>
-          {cert.pdf_url && (
+          <Button asChild variant="outline" size="sm" className="rounded-full">
+            <a href={linkedinUrl} target="_blank" rel="noreferrer">
+              <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
+            </a>
+          </Button>
+          {signedUrl ? (
             <Button asChild size="sm" className="rounded-full">
-              <a href={cert.pdf_url} target="_blank" rel="noreferrer">
+              <a href={signedUrl} target="_blank" rel="noreferrer" download>
                 <Download className="mr-2 h-4 w-4" /> Baixar PDF
               </a>
+            </Button>
+          ) : (
+            <Button
+              onClick={() => generate.mutate()}
+              disabled={generate.isPending}
+              size="sm"
+              className="rounded-full"
+            >
+              {generate.isPending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-2 h-4 w-4" />
+              )}
+              Gerar certificado
             </Button>
           )}
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-3xl border-2 border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-8 shadow-2xl sm:p-14">
-        <div
-          className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-accent/20 blur-3xl"
-          aria-hidden
-        />
-
-        <div className="relative text-center">
-          <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground">
-            <Award className="h-8 w-8" />
+      {signedUrl ? (
+        <div className="overflow-hidden rounded-3xl border-2 border-primary/30 bg-card shadow-2xl">
+          <iframe
+            title={`Certificado ${cert.validation_code}`}
+            src={signedUrl}
+            className="h-[70vh] w-full bg-white"
+          />
+        </div>
+      ) : (
+        <div className="relative overflow-hidden rounded-3xl border-2 border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-8 shadow-2xl sm:p-14">
+          <div
+            className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl"
+            aria-hidden
+          />
+          <div
+            className="absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-accent/20 blur-3xl"
+            aria-hidden
+          />
+          <div className="relative text-center">
+            <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground">
+              <Award className="h-8 w-8" />
+            </div>
+            <p className="mt-4 text-xs uppercase tracking-[0.3em] text-primary">
+              FCIA Academy
+            </p>
+            <h1 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">
+              Certificado de Conclusão
+            </h1>
+            <p className="mt-6 text-sm text-muted-foreground">Certificamos que</p>
+            <p className="mt-2 font-display text-2xl font-semibold text-gradient sm:text-3xl">
+              {studentName}
+            </p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              concluiu com aproveitamento o curso
+            </p>
+            <p className="mt-2 font-display text-xl font-medium sm:text-2xl">
+              {cert.courses?.title ?? "Curso FCIA"}
+            </p>
+            <div className="mx-auto mt-10 grid max-w-md gap-4 sm:grid-cols-2">
+              <Field label="Data" value={issued} />
+              <Field label="Código" value={cert.validation_code} mono />
+            </div>
+            <p className="mt-8 text-xs text-muted-foreground">
+              Clique em <strong>Gerar certificado</strong> para produzir o PDF assinado.
+            </p>
           </div>
-          <p className="mt-4 text-xs uppercase tracking-[0.3em] text-primary">
-            FCIA Academy
-          </p>
-          <h1 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">
-            Certificado de Conclusão
-          </h1>
-          <p className="mt-6 text-sm text-muted-foreground">Certificamos que</p>
-          <p className="mt-2 font-display text-2xl font-semibold text-gradient sm:text-3xl">
-            {studentName}
-          </p>
-          <p className="mt-4 text-sm text-muted-foreground">
-            concluiu com aproveitamento o curso
-          </p>
-          <p className="mt-2 font-display text-xl font-medium sm:text-2xl">
-            {cert.courses?.title ?? "Curso FCIA"}
-          </p>
+        </div>
+      )}
 
-          <div className="mx-auto mt-10 grid max-w-md gap-4 sm:grid-cols-2">
-            <Field label="Data" value={issued} />
-            <Field label="Código" value={cert.validation_code} mono />
-          </div>
-
-          <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs text-primary">
-            <ShieldCheck className="h-4 w-4" />
-            Validar em {validateUrl}
-          </div>
+      <div className="mt-6 grid gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div className="rounded-2xl border border-border/60 bg-card/50 p-4">
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            Código de validação
+          </p>
+          <p className="mt-1 font-mono text-sm">{cert.validation_code}</p>
+          <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs text-primary">
+            <ShieldCheck className="h-3.5 w-3.5" />
+            {validateUrl}
+          </p>
+        </div>
+        <div className="flex items-center justify-center rounded-2xl border border-border/60 bg-white p-4">
+          <QRCodeSVG value={validateUrl} size={128} level="M" />
         </div>
       </div>
     </div>
