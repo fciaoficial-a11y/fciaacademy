@@ -2,14 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpRight, Loader2, Search, SearchX } from "lucide-react";
-import { Section, SectionHeading, Eyebrow } from "@/components/site/Section";
+import { Section, SectionHeading } from "@/components/site/Section";
 import { Testimonials } from "@/components/site/Testimonials";
 import { FAQ } from "@/components/site/FAQ";
 import { tracksQuery } from "@/lib/catalog-queries";
 import { getIcon } from "@/lib/icon-map";
 import { supabase } from "@/integrations/supabase/client";
-import { queryOptions, useQuery as useRQ } from "@tanstack/react-query";
-import { currentPlanIdQuery, canAccess, type PlanId } from "@/lib/plans";
+import { queryOptions } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
