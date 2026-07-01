@@ -110,21 +110,6 @@ function DashboardPage() {
         ))}
       </div>
 
-      <Link
-        to="/planos"
-        className="mt-6 flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-card/60 p-5 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40"
-      >
-        <div className="flex items-center gap-3">
-          <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground">
-            <Crown className="h-5 w-5" />
-          </div>
-          <div>
-            <div className="text-xs uppercase tracking-wider text-muted-foreground">Plano atual</div>
-            <div className="font-display text-lg font-semibold">{currentPlan?.name ?? "Free"}</div>
-          </div>
-        </div>
-        <span className="text-sm font-medium text-primary">Ver planos →</span>
-      </Link>
 
       <div className="mt-12 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 p-8">
         <h2 className="font-display text-xl font-semibold">Próximos passos</h2>
