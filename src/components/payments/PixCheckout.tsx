@@ -96,10 +96,35 @@ export function PixCheckout(props: PixCheckoutProps) {
       </div>
 
       {!charge.data && !currentPayment ? (
-        <Button className="mt-5 w-full" disabled={charge.isPending} onClick={() => charge.mutate()}>
-          {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
-          Gerar QR Code PIX
-        </Button>
+        needsCpf ? (
+          <form
+            className="mt-5 space-y-3"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const digits = cpf.replace(/\D/g, "");
+              if (digits.length !== 11 && digits.length !== 14) {
+                toast.error("Informe um CPF (11) ou CNPJ (14) válido.");
+                return;
+              }
+              charge.mutate(digits);
+            }}
+          >
+            <div>
+              <Label htmlFor="cpf">CPF ou CNPJ do pagador</Label>
+              <Input id="cpf" inputMode="numeric" placeholder="000.000.000-00" value={cpf} onChange={(e) => setCpf(e.target.value)} />
+              <p className="mt-1 text-xs text-muted-foreground">Exigido pela Asaas para emitir a cobrança PIX.</p>
+            </div>
+            <Button type="submit" className="w-full" disabled={charge.isPending}>
+              {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
+              Gerar QR Code PIX
+            </Button>
+          </form>
+        ) : (
+          <Button className="mt-5 w-full" disabled={charge.isPending} onClick={() => charge.mutate(undefined)}>
+            {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
+            Gerar QR Code PIX
+          </Button>
+        )
       ) : (
         <div className="mt-5 space-y-4">
           <div className="mx-auto flex h-56 w-56 items-center justify-center rounded-2xl border border-border bg-foreground p-3">
