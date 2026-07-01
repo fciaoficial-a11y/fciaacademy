@@ -20,11 +20,16 @@ const inputSchema = z
     message: "Parâmetros de checkout inválidos.",
   });
 
+const syncPaymentSchema = z.object({
+  paymentId: z.string().uuid(),
+});
+
 const PLAN_RANK: Record<string, number> = { free: 0, starter: 1, pro: 2, expert: 3 };
 
 interface AsaasCustomerResponse { id: string }
 interface AsaasPaymentResponse {
   id: string; status?: string; value?: number; dueDate?: string; invoiceUrl?: string; billingType?: string;
+  paymentDate?: string | null; confirmedDate?: string | null;
 }
 interface AsaasPixResponse { encodedImage?: string; payload?: string }
 
@@ -38,6 +43,20 @@ export interface PixChargeResult {
   pixCopyPaste: string | null;
   invoiceUrl: string | null;
   dueDate: string | null;
+}
+
+export interface PaymentSyncResult {
+  id: string;
+  plan_id: string;
+  course_id: string | null;
+  status: PaymentStatus;
+  amount: number;
+  pix_qr_code: string | null;
+  pix_copy_paste: string | null;
+  invoice_url: string | null;
+  due_date: string | null;
+  paid_at: string | null;
+  created_at: string;
 }
 
 export const createPixCharge = createServerFn({ method: "POST" })
@@ -153,6 +172,86 @@ export const createPixCharge = createServerFn({ method: "POST" })
     };
   });
 
+export const syncPixPayment = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data) => syncPaymentSchema.parse(data))
+  .handler(async ({ data, context }): Promise<PaymentSyncResult | null> => {
+    const apiKey = process.env.ASAAS_API_KEY;
+    if (!apiKey) throw new Error("ASAAS_API_KEY não está disponível no ambiente seguro do backend.");
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: payment, error: readError } = await context.supabase
+      .from("payments")
+      .select("id, user_id, plan_id, course_id, provider_payment_id, status, amount, pix_qr_code, pix_copy_paste, invoice_url, due_date, paid_at, created_at")
+      .eq("id", data.paymentId)
+      .maybeSingle();
+
+    if (readError) throw readError;
+    if (!payment) return null;
+
+    const wasPaid = isPaidStatus(payment.status as PaymentStatus);
+    if (!wasPaid && payment.provider_payment_id) {
+      const remote = await asaasFetch<AsaasPaymentResponse>(`/payments/${payment.provider_payment_id}`, apiKey, { method: "GET" });
+      const newStatus = normalizePaymentStatus(remote.status);
+      const isPaid = isPaidStatus(newStatus);
+      const paidAt = isPaid ? remote.paymentDate ?? remote.confirmedDate ?? new Date().toISOString() : null;
+
+      const { data: updated, error: updateError } = await supabaseAdmin
+        .from("payments")
+        .update({
+          status: newStatus,
+          amount: Number(remote.value ?? payment.amount),
+          billing_type: remote.billingType ?? "PIX",
+          invoice_url: remote.invoiceUrl ?? payment.invoice_url,
+          due_date: remote.dueDate ?? payment.due_date,
+          paid_at: paidAt ?? payment.paid_at,
+          raw_payload: { reconciled_charge: remote as unknown as Json },
+        })
+        .eq("id", payment.id)
+        .select("id, plan_id, course_id, status, amount, pix_qr_code, pix_copy_paste, invoice_url, due_date, paid_at, created_at")
+        .single();
+
+      if (updateError) throw updateError;
+
+      if (isPaid) {
+        const { error: grantError } = await supabaseAdmin.rpc("grant_paid_access", {
+          _user_id: payment.user_id,
+          _plan_id: payment.plan_id,
+          _course_id: payment.course_id ?? undefined,
+        });
+        if (grantError) throw grantError;
+      }
+
+      return {
+        id: updated.id,
+        plan_id: updated.plan_id,
+        course_id: updated.course_id,
+        status: updated.status as PaymentStatus,
+        amount: Number(updated.amount),
+        pix_qr_code: updated.pix_qr_code,
+        pix_copy_paste: updated.pix_copy_paste,
+        invoice_url: updated.invoice_url,
+        due_date: updated.due_date,
+        paid_at: updated.paid_at,
+        created_at: updated.created_at,
+      };
+    }
+
+    return {
+      id: payment.id,
+      plan_id: payment.plan_id,
+      course_id: payment.course_id,
+      status: payment.status as PaymentStatus,
+      amount: Number(payment.amount),
+      pix_qr_code: payment.pix_qr_code,
+      pix_copy_paste: payment.pix_copy_paste,
+      invoice_url: payment.invoice_url,
+      due_date: payment.due_date,
+      paid_at: payment.paid_at,
+      created_at: payment.created_at,
+    };
+  });
+
 async function getCheckoutProfile(userId: string, claims: { email?: string }) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data: profile } = await supabaseAdmin.from("profiles").select("full_name, cpf_cnpj").eq("id", userId).maybeSingle();
@@ -226,4 +325,8 @@ function normalizePaymentStatus(status: string | undefined): PaymentStatus {
   if (normalized === "chargeback") return "chargeback";
   if (normalized === "deleted" || normalized === "cancelled" || normalized === "canceled") return "cancelled";
   return "pending";
+}
+
+function isPaidStatus(status: PaymentStatus): boolean {
+  return status === "received" || status === "confirmed";
 }
