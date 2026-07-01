@@ -287,11 +287,13 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          bio: string | null
           created_at: string
           full_name: string | null
           id: string
           last_login_at: string | null
           level: string
+          linkedin_url: string | null
           plan: string
           status: string
           streak: number
@@ -300,11 +302,13 @@ export type Database = {
         }
         Insert: {
           avatar_url?: string | null
+          bio?: string | null
           created_at?: string
           full_name?: string | null
           id: string
           last_login_at?: string | null
           level?: string
+          linkedin_url?: string | null
           plan?: string
           status?: string
           streak?: number
@@ -313,11 +317,13 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          bio?: string | null
           created_at?: string
           full_name?: string | null
           id?: string
           last_login_at?: string | null
           level?: string
+          linkedin_url?: string | null
           plan?: string
           status?: string
           streak?: number
