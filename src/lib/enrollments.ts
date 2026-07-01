@@ -5,6 +5,8 @@ export interface Enrollment {
   id: string;
   course_id: string;
   track_id: string | null;
+  /** @deprecated LEGACY: coluna preservada por compatibilidade histórica com fluxo de planos.
+   *  O acesso vigente depende apenas da existência do enrollment (curso gratuito ou pago quitado). */
   plan_at_enrollment: string;
   started_at: string;
   last_accessed_at: string;
@@ -50,3 +52,4 @@ export async function enrollInCourse(courseId: string): Promise<Enrollment> {
   if (error) throw error;
   return data as unknown as Enrollment;
 }
+

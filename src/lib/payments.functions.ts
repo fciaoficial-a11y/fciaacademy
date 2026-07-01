@@ -9,22 +9,23 @@ const cpfCnpjSchema = z
   .transform((v) => v.replace(/\D/g, ""))
   .refine((v) => v.length === 11 || v.length === 14, "CPF ou CNPJ inválido.");
 
+// LEGACY: `mode: "plan"` foi descontinuado. A validação aceita o valor apenas
+// para não quebrar chamadas antigas em cache, mas o handler recusa qualquer
+// checkout que não seja compra avulsa de curso.
 const inputSchema = z
   .object({
-    mode: z.enum(["plan", "course"]).default("plan"),
+    mode: z.enum(["plan", "course"]).default("course"),
     planId: z.enum(["starter", "pro", "expert"]).optional(),
     courseId: z.string().uuid().optional(),
     cpfCnpj: cpfCnpjSchema.optional(),
   })
-  .refine((v) => (v.mode === "plan" ? !!v.planId : !!v.courseId), {
-    message: "Parâmetros de checkout inválidos.",
+  .refine((v) => !!v.courseId, {
+    message: "courseId é obrigatório — checkout por plano está desativado.",
   });
 
 const syncPaymentSchema = z.object({
   paymentId: z.string().uuid(),
 });
-
-const PLAN_RANK: Record<string, number> = { free: 0, starter: 1, pro: 2, expert: 3 };
 
 interface AsaasCustomerResponse { id: string }
 interface AsaasPaymentResponse {
@@ -70,40 +71,22 @@ export const createPixCharge = createServerFn({ method: "POST" })
 
     let amount = 0;
     let description = "FCIA Academy";
-    let planIdForRecord = "course_purchase";
+    const planIdForRecord = "course_purchase";
     const courseId = data.courseId ?? null;
 
-    if (data.mode === "plan") {
-      const { data: plan, error: planError } = await context.supabase
-        .from("plans").select("id, name, price, is_active").eq("id", data.planId!).eq("is_active", true).maybeSingle();
-      if (planError) throw planError;
-      if (!plan || Number(plan.price) <= 0) throw new Error("Plano pago não encontrado.");
-      amount = Number(plan.price);
-      description = `FCIA Academy — Plano ${plan.name}`;
-      planIdForRecord = data.planId!;
-
-      if (courseId) {
-        const { data: course, error: courseError } = await context.supabase
-          .from("courses").select("id, is_published, tracks:track_id(required_plan)").eq("id", courseId).maybeSingle();
-        if (courseError) throw courseError;
-        if (!course?.is_published) throw new Error("Curso indisponível para matrícula.");
-        const track = (course as unknown as { tracks: { required_plan: string } | null }).tracks;
-        const required = (track?.required_plan ?? "free");
-        if ((PLAN_RANK[data.planId!] ?? 0) < (PLAN_RANK[required] ?? 0)) {
-          throw new Error(`Este curso exige o plano ${required.toUpperCase()}.`);
-        }
-      }
-    } else {
-      // course purchase (compra avulsa)
+    // Único caminho ativo: compra avulsa de curso.
+    // Regra de acesso: course.price === 0 → livre; course.price > 0 → pagamento + enrollment.
+    {
       const { data: course, error: courseError } = await context.supabase
         .from("courses").select("id, title, price, is_published").eq("id", courseId!).maybeSingle();
       if (courseError) throw courseError;
       if (!course?.is_published) throw new Error("Curso indisponível.");
       const price = Number((course as { price: number }).price ?? 0);
-      if (price <= 0) throw new Error("Este curso não está disponível para compra avulsa.");
+      if (price <= 0) throw new Error("Este curso é gratuito — não requer compra.");
       amount = price;
       description = `FCIA Academy — ${course.title}`;
     }
+
 
     const reusable = await findReusablePendingPayment(context.userId, planIdForRecord, courseId);
     if (reusable) return reusable;

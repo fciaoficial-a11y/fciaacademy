@@ -32,18 +32,17 @@ export function PixCheckout(props: PixCheckoutProps) {
     refetchInterval: (query) => (isPaymentTerminal(query.state.data?.status) ? false : 4_000),
   });
 
-  const isCourseMode = props.mode === "course";
-  const headline = isCourseMode
-    ? props.title
-    : `Plano ${PAID_PLAN_LABEL[(props as { planId: PaidPlanId }).planId]}`;
+  // LEGACY: props.mode "plan" ainda tipado por compatibilidade, mas nunca é usado.
+  const headline = (props as { title?: string }).title ?? "FCIA Academy";
+
 
   const charge = useMutation({
     mutationFn: (cpfCnpj?: string) =>
       createCharge({
-        data: isCourseMode
-          ? { mode: "course", courseId: props.courseId, cpfCnpj }
-          : { mode: "plan", planId: (props as { planId: PaidPlanId }).planId, courseId: props.courseId, cpfCnpj },
+        // LEGACY: modo "plan" desativado no backend — só compra avulsa passa.
+        data: { mode: "course", courseId: (props as { courseId: string }).courseId, cpfCnpj },
       }),
+
     onSuccess: (result) => {
       setPaymentId(result.paymentId);
       setNeedsCpf(false);
@@ -104,7 +103,7 @@ export function PixCheckout(props: PixCheckoutProps) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary">
-            <QrCode className="h-3.5 w-3.5" /> {isCourseMode ? "Compra do curso via PIX" : "Checkout PIX"}
+            <QrCode className="h-3.5 w-3.5" /> Compra do curso via PIX
           </div>
           <h2 className="mt-2 font-display text-xl font-semibold">{headline}</h2>
           {amount != null && <p className="mt-1 text-sm text-muted-foreground">Valor: R$ {amount.toFixed(2).replace(".", ",")}</p>}
