@@ -5,6 +5,8 @@ import { QRCodeSVG } from "qrcode.react";
 import { CheckCircle2, Copy, ExternalLink, Loader2, QrCode } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { createPixCharge } from "@/lib/payments.functions";
 import {
   isPaymentApproved,
