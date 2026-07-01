@@ -166,10 +166,33 @@ function RootComponent() {
     return () => sub.subscription.unsubscribe();
   }, [router, queryClient]);
 
+  const canGoBack = pathname !== "/";
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col bg-background text-foreground">
         {!hideChrome && <SiteHeader />}
+        {canGoBack && (
+          <div className="sticky top-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="mx-auto flex max-w-7xl items-center px-4 py-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== "undefined" && window.history.length > 1) {
+                    router.history.back();
+                  } else {
+                    router.navigate({ to: "/" });
+                  }
+                }}
+                aria-label="Voltar"
+                className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                Voltar
+              </button>
+            </div>
+          </div>
+        )}
         <main className="flex-1">
           <Outlet />
         </main>
@@ -181,4 +204,5 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
 
