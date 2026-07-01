@@ -4,11 +4,17 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { PaymentStatus } from "@/lib/payments";
 import type { Json } from "@/integrations/supabase/types";
 
+const cpfCnpjSchema = z
+  .string()
+  .transform((v) => v.replace(/\D/g, ""))
+  .refine((v) => v.length === 11 || v.length === 14, "CPF ou CNPJ inválido.");
+
 const inputSchema = z
   .object({
     mode: z.enum(["plan", "course"]).default("plan"),
     planId: z.enum(["starter", "pro", "expert"]).optional(),
     courseId: z.string().uuid().optional(),
+    cpfCnpj: cpfCnpjSchema.optional(),
   })
   .refine((v) => (v.mode === "plan" ? !!v.planId : !!v.courseId), {
     message: "Parâmetros de checkout inválidos.",
