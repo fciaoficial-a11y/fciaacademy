@@ -107,7 +107,7 @@ export function PixCheckout({ planId, courseId, onPaid }: PixCheckoutProps) {
           </div>
 
           <p className="text-center text-xs text-muted-foreground">
-            {approved ? "Pagamento confirmado. Acesso liberado." : "Aguardando confirmação automática do Asaas sandbox."}
+            {approved ? "Pagamento confirmado. Acesso liberado." : "Aguardando confirmação automática do Asaas."}
           </p>
         </div>
       )}
