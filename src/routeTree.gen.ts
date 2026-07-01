@@ -35,6 +35,7 @@ import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authentica
 import { Route as AuthenticatedCertificadosIdRouteImport } from './routes/_authenticated/certificados.$id'
 import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
 import { Route as AuthenticatedAdminTrilhasRouteImport } from './routes/_authenticated/admin/trilhas'
+import { Route as AuthenticatedAdminSenhaRouteImport } from './routes/_authenticated/admin/senha'
 import { Route as AuthenticatedAdminQuestoesRouteImport } from './routes/_authenticated/admin/questoes'
 import { Route as AuthenticatedAdminModulosRouteImport } from './routes/_authenticated/admin/modulos'
 import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
@@ -176,6 +177,11 @@ const AuthenticatedAdminTrilhasRoute =
     path: '/trilhas',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminSenhaRoute = AuthenticatedAdminSenhaRouteImport.update({
+  id: '/senha',
+  path: '/senha',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminQuestoesRoute =
   AuthenticatedAdminQuestoesRouteImport.update({
     id: '/questoes',
@@ -232,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
+  '/admin/senha': typeof AuthenticatedAdminSenhaRoute
   '/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
@@ -263,6 +270,7 @@ export interface FileRoutesByTo {
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
+  '/admin/senha': typeof AuthenticatedAdminSenhaRoute
   '/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
@@ -297,6 +305,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/cursos': typeof AuthenticatedAdminCursosRoute
   '/_authenticated/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/_authenticated/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
+  '/_authenticated/admin/senha': typeof AuthenticatedAdminSenhaRoute
   '/_authenticated/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
   '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/_authenticated/certificados/$id': typeof AuthenticatedCertificadosIdRoute
@@ -331,6 +340,7 @@ export interface FileRouteTypes {
     | '/admin/cursos'
     | '/admin/modulos'
     | '/admin/questoes'
+    | '/admin/senha'
     | '/admin/trilhas'
     | '/admin/usuarios'
     | '/certificados/$id'
@@ -362,6 +372,7 @@ export interface FileRouteTypes {
     | '/admin/cursos'
     | '/admin/modulos'
     | '/admin/questoes'
+    | '/admin/senha'
     | '/admin/trilhas'
     | '/admin/usuarios'
     | '/certificados/$id'
@@ -395,6 +406,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/cursos'
     | '/_authenticated/admin/modulos'
     | '/_authenticated/admin/questoes'
+    | '/_authenticated/admin/senha'
     | '/_authenticated/admin/trilhas'
     | '/_authenticated/admin/usuarios'
     | '/_authenticated/certificados/$id'
@@ -604,6 +616,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTrilhasRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/senha': {
+      id: '/_authenticated/admin/senha'
+      path: '/senha'
+      fullPath: '/admin/senha'
+      preLoaderRoute: typeof AuthenticatedAdminSenhaRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/questoes': {
       id: '/_authenticated/admin/questoes'
       path: '/questoes'
@@ -648,6 +667,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminCursosRoute: typeof AuthenticatedAdminCursosRoute
   AuthenticatedAdminModulosRoute: typeof AuthenticatedAdminModulosRoute
   AuthenticatedAdminQuestoesRoute: typeof AuthenticatedAdminQuestoesRoute
+  AuthenticatedAdminSenhaRoute: typeof AuthenticatedAdminSenhaRoute
   AuthenticatedAdminTrilhasRoute: typeof AuthenticatedAdminTrilhasRoute
   AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -660,6 +680,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminCursosRoute: AuthenticatedAdminCursosRoute,
     AuthenticatedAdminModulosRoute: AuthenticatedAdminModulosRoute,
     AuthenticatedAdminQuestoesRoute: AuthenticatedAdminQuestoesRoute,
+    AuthenticatedAdminSenhaRoute: AuthenticatedAdminSenhaRoute,
     AuthenticatedAdminTrilhasRoute: AuthenticatedAdminTrilhasRoute,
     AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
