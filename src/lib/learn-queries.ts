@@ -27,6 +27,7 @@ export type CourseDetail = {
   required_plan: "free" | "starter" | "pro" | "expert";
   track_title: string | null;
   track_slug: string | null;
+  price: number;
 };
 
 export type ProgressRow = {
@@ -42,7 +43,7 @@ export function courseLearnQuery(slug: string) {
       const { data: course, error } = await supabase
         .from("courses")
         .select(
-          "id, slug, title, description, level, duration_minutes, track_id, tracks:track_id ( title, slug, required_plan )"
+          "id, slug, title, description, level, duration_minutes, track_id, price, tracks:track_id ( title, slug, required_plan )"
         )
         .eq("slug", slug)
         .eq("is_published", true)
@@ -61,6 +62,7 @@ export function courseLearnQuery(slug: string) {
         required_plan: (track?.required_plan ?? "free") as CourseDetail["required_plan"],
         track_title: track?.title ?? null,
         track_slug: track?.slug ?? null,
+        price: Number((course as unknown as { price: number | null }).price ?? 0),
       };
       const { data: modules, error: mErr } = await supabase
         .from("modules")
