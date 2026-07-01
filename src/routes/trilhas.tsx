@@ -153,7 +153,7 @@ function TrilhasPage() {
               return (
                 <Link
                   key={t.slug}
-                  to="/cursos/$slug"
+                  to="/trilhas/$slug"
                   params={{ slug: t.slug }}
                   className="group relative flex flex-col bg-background p-8 transition-colors hover:bg-surface"
                 >
