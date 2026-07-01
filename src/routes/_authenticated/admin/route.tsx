@@ -4,6 +4,7 @@ import {
   Award,
   BookOpen,
   GraduationCap,
+  KeyRound,
   LayoutDashboard,
   ListChecks,
   ListTree,
@@ -39,6 +40,7 @@ const NAV = [
   { to: "/admin/certificados", label: "Certificados", icon: Award, exact: false },
   { to: "/admin/usuarios", label: "Usuários", icon: Users, exact: false },
   { to: "/admin/ai-studio", label: "AI Studio", icon: Sparkles, exact: false },
+  { to: "/admin/senha", label: "Trocar senha", icon: KeyRound, exact: false },
 ] as const;
 
 function AdminLayout() {
