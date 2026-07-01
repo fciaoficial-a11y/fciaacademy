@@ -1,5 +1,6 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LogOut, LayoutDashboard, Sparkles, User2, UserCog, BookOpen, Award, Zap, Shield, Crown } from "lucide-react";
+import { LogOut, LayoutDashboard, User2, UserCog, BookOpen, Award, Zap, Shield, Crown } from "lucide-react";
+import { Logo } from "@/components/site/Logo";
 import { useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
