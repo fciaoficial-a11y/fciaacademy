@@ -24,6 +24,8 @@ export function PixCheckout(props: PixCheckoutProps) {
   const queryClient = useQueryClient();
   const createCharge = useServerFn(createPixCharge);
   const [paymentId, setPaymentId] = useState<string>();
+  const [cpf, setCpf] = useState("");
+  const [needsCpf, setNeedsCpf] = useState(false);
   const payment = useQuery({
     ...paymentQuery(paymentId),
     refetchInterval: (query) => (isPaymentTerminal(query.state.data?.status) ? false : 4_000),
@@ -35,17 +37,24 @@ export function PixCheckout(props: PixCheckoutProps) {
     : `Plano ${PAID_PLAN_LABEL[(props as { planId: PaidPlanId }).planId]}`;
 
   const charge = useMutation({
-    mutationFn: () =>
+    mutationFn: (cpfCnpj?: string) =>
       createCharge({
         data: isCourseMode
-          ? { mode: "course", courseId: props.courseId }
-          : { mode: "plan", planId: (props as { planId: PaidPlanId }).planId, courseId: props.courseId },
+          ? { mode: "course", courseId: props.courseId, cpfCnpj }
+          : { mode: "plan", planId: (props as { planId: PaidPlanId }).planId, courseId: props.courseId, cpfCnpj },
       }),
     onSuccess: (result) => {
       setPaymentId(result.paymentId);
+      setNeedsCpf(false);
       toast.success("PIX gerado", { description: "Pague pelo app do seu banco para liberar o acesso." });
     },
-    onError: (error: Error) => toast.error("Não foi possível gerar o PIX", { description: error.message }),
+    onError: (error: Error) => {
+      if (error.message.includes("CPF_REQUIRED")) {
+        setNeedsCpf(true);
+        return;
+      }
+      toast.error("Não foi possível gerar o PIX", { description: error.message });
+    },
   });
 
   const currentPayment = payment.data;
