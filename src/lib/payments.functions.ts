@@ -193,8 +193,8 @@ async function asaasFetch<T>(path: string, apiKey: string, init: RequestInit): P
   const text = await response.text();
   const body = text ? (JSON.parse(text) as unknown) : null;
   if (!response.ok) {
-    console.error("Asaas sandbox request failed", { status: response.status, path, body });
-    throw new Error("Falha ao criar cobrança PIX no Asaas sandbox.");
+    console.error("Asaas request failed", { status: response.status, path, body });
+    throw new Error("Falha ao criar cobrança PIX no Asaas.");
   }
   return body as T;
 }
