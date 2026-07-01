@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   ArrowRight,
@@ -19,6 +21,8 @@ import {
   PASS_THRESHOLD,
   type QuestionRow,
 } from "@/lib/quiz-queries";
+import { ensureCertificateForCourse } from "@/lib/certificate.functions";
+
 
 export const Route = createFileRoute("/_authenticated/quiz/$moduleId")({
   loader: ({ context, params }) =>
