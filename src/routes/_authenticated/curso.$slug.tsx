@@ -239,20 +239,26 @@ function ModuleTypeIcon({ type }: { type: ModuleRow["content_type"] }) {
 }
 
 function ModuleContent({ module: mod }: { module: ModuleRow }) {
-  if (mod.content_type === "video" && mod.content_url) {
-    return (
-      <div className="aspect-video w-full overflow-hidden rounded-2xl border border-border bg-black">
-        <iframe
-          key={mod.id}
-          src={mod.content_url}
-          title={mod.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="h-full w-full"
-        />
-      </div>
-    );
+  if (mod.content_type === "video") {
+    if (mod.video_url) {
+      return <StorageVideo path={mod.video_url} title={mod.title} />;
+    }
+    if (mod.content_url) {
+      return (
+        <div className="aspect-video w-full overflow-hidden rounded-2xl border border-border bg-black">
+          <iframe
+            key={mod.id}
+            src={mod.content_url}
+            title={mod.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="h-full w-full"
+          />
+        </div>
+      );
+    }
   }
+
   if (mod.content_type === "pdf" && mod.content_url) {
     return (
       <div className="overflow-hidden rounded-2xl border border-border bg-card">
@@ -287,3 +293,59 @@ function ModuleContent({ module: mod }: { module: ModuleRow }) {
     </div>
   );
 }
+
+function StorageVideo({ path, title }: { path: string; title: string }) {
+  const [src, setSrc] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setSrc(null);
+    setError(null);
+    async function resolve() {
+      if (/^https?:\/\//i.test(path)) {
+        if (!cancelled) setSrc(path);
+        return;
+      }
+      const cleaned = path.replace(/^course-videos\//, "");
+      const { data, error } = await supabase.storage
+        .from("course-videos")
+        .createSignedUrl(cleaned, 60 * 60);
+      if (cancelled) return;
+      if (error || !data?.signedUrl) {
+        setError(error?.message ?? "Não foi possível carregar o vídeo.");
+        return;
+      }
+      setSrc(data.signedUrl);
+    }
+    resolve();
+    return () => {
+      cancelled = true;
+    };
+  }, [path]);
+
+  if (error) {
+    return (
+      <div className="rounded-2xl border border-destructive/40 bg-destructive/10 p-6 text-sm text-destructive">
+        {error}
+      </div>
+    );
+  }
+  if (!src) {
+    return <div className="aspect-video w-full animate-pulse rounded-2xl bg-card" />;
+  }
+  return (
+    <div className="aspect-video w-full overflow-hidden rounded-2xl border border-border bg-black">
+      <video
+        key={src}
+        src={src}
+        title={title}
+        controls
+        controlsList="nodownload"
+        playsInline
+        className="h-full w-full"
+      />
+    </div>
+  );
+}
+

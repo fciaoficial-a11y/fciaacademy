@@ -44,6 +44,16 @@ export const Route = createFileRoute("/_authenticated/quiz/$moduleId")({
 
 type Phase = "intro" | "playing" | "result";
 
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+
 function QuizPage() {
   const { moduleId } = Route.useParams();
   const navigate = useNavigate();
@@ -69,10 +79,12 @@ function QuizPage() {
   } | null>(null);
 
   if (!data) return null;
-  const { module: mod, course, questions } = data;
+  const { module: mod, course, questions: allQuestions } = data;
+  const [questions, setQuestions] = useState<QuestionRow[]>(() => shuffle(allQuestions));
 
   const total = questions.length;
   const current = questions[index];
+
   const percent = total ? Math.round(((index + (phase === "result" ? 1 : 0)) / total) * 100) : 0;
 
   const saveAttempt = useMutation({
@@ -101,12 +113,14 @@ function QuizPage() {
   });
 
   function start() {
+    setQuestions(shuffle(allQuestions));
     setAnswers({});
     setIndex(0);
     setSelected(null);
     setResult(null);
     setPhase("playing");
   }
+
 
   function confirmAnswer() {
     if (!current || !selected) return;
