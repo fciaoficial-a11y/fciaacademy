@@ -239,20 +239,26 @@ function ModuleTypeIcon({ type }: { type: ModuleRow["content_type"] }) {
 }
 
 function ModuleContent({ module: mod }: { module: ModuleRow }) {
-  if (mod.content_type === "video" && mod.content_url) {
-    return (
-      <div className="aspect-video w-full overflow-hidden rounded-2xl border border-border bg-black">
-        <iframe
-          key={mod.id}
-          src={mod.content_url}
-          title={mod.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="h-full w-full"
-        />
-      </div>
-    );
+  if (mod.content_type === "video") {
+    if (mod.video_url) {
+      return <StorageVideo path={mod.video_url} title={mod.title} />;
+    }
+    if (mod.content_url) {
+      return (
+        <div className="aspect-video w-full overflow-hidden rounded-2xl border border-border bg-black">
+          <iframe
+            key={mod.id}
+            src={mod.content_url}
+            title={mod.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="h-full w-full"
+          />
+        </div>
+      );
+    }
   }
+
   if (mod.content_type === "pdf" && mod.content_url) {
     return (
       <div className="overflow-hidden rounded-2xl border border-border bg-card">
