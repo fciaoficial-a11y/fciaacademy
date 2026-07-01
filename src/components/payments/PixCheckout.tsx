@@ -5,6 +5,8 @@ import { QRCodeSVG } from "qrcode.react";
 import { CheckCircle2, Copy, ExternalLink, Loader2, QrCode } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { createPixCharge } from "@/lib/payments.functions";
 import {
   isPaymentApproved,
@@ -22,6 +24,8 @@ export function PixCheckout(props: PixCheckoutProps) {
   const queryClient = useQueryClient();
   const createCharge = useServerFn(createPixCharge);
   const [paymentId, setPaymentId] = useState<string>();
+  const [cpf, setCpf] = useState("");
+  const [needsCpf, setNeedsCpf] = useState(false);
   const payment = useQuery({
     ...paymentQuery(paymentId),
     refetchInterval: (query) => (isPaymentTerminal(query.state.data?.status) ? false : 4_000),
@@ -33,17 +37,24 @@ export function PixCheckout(props: PixCheckoutProps) {
     : `Plano ${PAID_PLAN_LABEL[(props as { planId: PaidPlanId }).planId]}`;
 
   const charge = useMutation({
-    mutationFn: () =>
+    mutationFn: (cpfCnpj?: string) =>
       createCharge({
         data: isCourseMode
-          ? { mode: "course", courseId: props.courseId }
-          : { mode: "plan", planId: (props as { planId: PaidPlanId }).planId, courseId: props.courseId },
+          ? { mode: "course", courseId: props.courseId, cpfCnpj }
+          : { mode: "plan", planId: (props as { planId: PaidPlanId }).planId, courseId: props.courseId, cpfCnpj },
       }),
     onSuccess: (result) => {
       setPaymentId(result.paymentId);
+      setNeedsCpf(false);
       toast.success("PIX gerado", { description: "Pague pelo app do seu banco para liberar o acesso." });
     },
-    onError: (error: Error) => toast.error("Não foi possível gerar o PIX", { description: error.message }),
+    onError: (error: Error) => {
+      if (error.message.includes("CPF_REQUIRED")) {
+        setNeedsCpf(true);
+        return;
+      }
+      toast.error("Não foi possível gerar o PIX", { description: error.message });
+    },
   });
 
   const currentPayment = payment.data;
@@ -85,10 +96,35 @@ export function PixCheckout(props: PixCheckoutProps) {
       </div>
 
       {!charge.data && !currentPayment ? (
-        <Button className="mt-5 w-full" disabled={charge.isPending} onClick={() => charge.mutate()}>
-          {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
-          Gerar QR Code PIX
-        </Button>
+        needsCpf ? (
+          <form
+            className="mt-5 space-y-3"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const digits = cpf.replace(/\D/g, "");
+              if (digits.length !== 11 && digits.length !== 14) {
+                toast.error("Informe um CPF (11) ou CNPJ (14) válido.");
+                return;
+              }
+              charge.mutate(digits);
+            }}
+          >
+            <div>
+              <Label htmlFor="cpf">CPF ou CNPJ do pagador</Label>
+              <Input id="cpf" inputMode="numeric" placeholder="000.000.000-00" value={cpf} onChange={(e) => setCpf(e.target.value)} />
+              <p className="mt-1 text-xs text-muted-foreground">Exigido pela Asaas para emitir a cobrança PIX.</p>
+            </div>
+            <Button type="submit" className="w-full" disabled={charge.isPending}>
+              {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
+              Gerar QR Code PIX
+            </Button>
+          </form>
+        ) : (
+          <Button className="mt-5 w-full" disabled={charge.isPending} onClick={() => charge.mutate(undefined)}>
+            {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
+            Gerar QR Code PIX
+          </Button>
+        )
       ) : (
         <div className="mt-5 space-y-4">
           <div className="mx-auto flex h-56 w-56 items-center justify-center rounded-2xl border border-border bg-foreground p-3">

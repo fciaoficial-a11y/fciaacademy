@@ -4,11 +4,17 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { PaymentStatus } from "@/lib/payments";
 import type { Json } from "@/integrations/supabase/types";
 
+const cpfCnpjSchema = z
+  .string()
+  .transform((v) => v.replace(/\D/g, ""))
+  .refine((v) => v.length === 11 || v.length === 14, "CPF ou CNPJ inválido.");
+
 const inputSchema = z
   .object({
     mode: z.enum(["plan", "course"]).default("plan"),
     planId: z.enum(["starter", "pro", "expert"]).optional(),
     courseId: z.string().uuid().optional(),
+    cpfCnpj: cpfCnpjSchema.optional(),
   })
   .refine((v) => (v.mode === "plan" ? !!v.planId : !!v.courseId), {
     message: "Parâmetros de checkout inválidos.",
@@ -84,9 +90,17 @@ export const createPixCharge = createServerFn({ method: "POST" })
     if (reusable) return reusable;
 
     const profile = await getCheckoutProfile(context.userId, context.claims as { email?: string });
+    const cpfCnpj = data.cpfCnpj ?? profile.cpfCnpj;
+    if (!cpfCnpj) {
+      throw new Error("CPF_REQUIRED");
+    }
+    if (data.cpfCnpj && data.cpfCnpj !== profile.cpfCnpj) {
+      await supabaseAdmin.from("profiles").update({ cpf_cnpj: data.cpfCnpj }).eq("id", context.userId);
+    }
+
     const customer = await asaasFetch<AsaasCustomerResponse>("/customers", apiKey, {
       method: "POST",
-      body: JSON.stringify({ name: profile.name, email: profile.email }),
+      body: JSON.stringify({ name: profile.name, email: profile.email, cpfCnpj }),
     });
 
     const dueDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -98,9 +112,7 @@ export const createPixCharge = createServerFn({ method: "POST" })
         value: amount,
         dueDate,
         description,
-        externalReference: JSON.stringify({
-          userId: context.userId, mode: data.mode, planId: planIdForRecord, courseId,
-        }),
+        externalReference: context.userId,
       }),
     });
 
@@ -143,11 +155,15 @@ export const createPixCharge = createServerFn({ method: "POST" })
 
 async function getCheckoutProfile(userId: string, claims: { email?: string }) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data: profile } = await supabaseAdmin.from("profiles").select("full_name").eq("id", userId).maybeSingle();
+  const { data: profile } = await supabaseAdmin.from("profiles").select("full_name, cpf_cnpj").eq("id", userId).maybeSingle();
   const { data: authUser } = await supabaseAdmin.auth.admin.getUserById(userId);
   const email = claims.email ?? authUser.user?.email;
   if (!email) throw new Error("E-mail do usuário não encontrado para gerar cobrança.");
-  return { email, name: profile?.full_name || email.split("@")[0] || "Aluno FCIA" };
+  return {
+    email,
+    name: profile?.full_name || email.split("@")[0] || "Aluno FCIA",
+    cpfCnpj: (profile?.cpf_cnpj ?? null) as string | null,
+  };
 }
 
 async function findReusablePendingPayment(userId: string, planId: string, courseId: string | null): Promise<PixChargeResult | null> {
