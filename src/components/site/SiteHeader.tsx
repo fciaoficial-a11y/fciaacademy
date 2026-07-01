@@ -5,7 +5,6 @@ import { Logo } from "@/components/site/Logo";
 const nav = [
   { to: "/trilhas", label: "Trilhas" },
   { to: "/cursos", label: "Cursos" },
-  { to: "/planos", label: "Planos" },
 ] as const;
 
 export function SiteHeader() {
