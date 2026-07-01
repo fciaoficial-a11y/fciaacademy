@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createPixCharge } from "@/lib/payments.functions";
+import { createPixCharge, syncPixPayment } from "@/lib/payments.functions";
 import {
   isPaymentApproved,
   isPaymentTerminal,
@@ -23,6 +23,7 @@ export type PixCheckoutProps =
 export function PixCheckout(props: PixCheckoutProps) {
   const queryClient = useQueryClient();
   const createCharge = useServerFn(createPixCharge);
+  const syncPayment = useServerFn(syncPixPayment);
   const [paymentId, setPaymentId] = useState<string>();
   const [cpf, setCpf] = useState("");
   const [needsCpf, setNeedsCpf] = useState(false);
@@ -54,6 +55,22 @@ export function PixCheckout(props: PixCheckoutProps) {
         return;
       }
       toast.error("Não foi possível gerar o PIX", { description: error.message });
+    },
+  });
+
+  const sync = useMutation({
+    mutationFn: () => syncPayment({ data: { paymentId: paymentId! } }),
+    onSuccess: (result) => {
+      if (!result) return;
+      queryClient.setQueryData(["payment", paymentId], result);
+      if (isPaymentApproved(result.status)) {
+        toast.success("Pagamento localizado", { description: "Seu acesso foi liberado." });
+      } else {
+        toast.info("Pagamento ainda não confirmado", { description: "Assim que o banco confirmar, o acesso será liberado." });
+      }
+    },
+    onError: (error: Error) => {
+      toast.error("Não foi possível conferir o pagamento", { description: error.message });
     },
   });
 
@@ -158,6 +175,13 @@ export function PixCheckout(props: PixCheckoutProps) {
           <p className="text-center text-xs text-muted-foreground">
             {approved ? "Pagamento confirmado. Acesso liberado." : "Aguardando confirmação automática do Asaas."}
           </p>
+
+          {!approved && paymentId && (
+            <Button variant="outline" className="w-full" disabled={sync.isPending} onClick={() => sync.mutate()}>
+              {sync.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}
+              Já paguei, verificar agora
+            </Button>
+          )}
         </div>
       )}
     </div>
