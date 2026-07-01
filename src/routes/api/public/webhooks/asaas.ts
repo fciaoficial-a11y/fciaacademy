@@ -62,7 +62,7 @@ export const Route = createFileRoute("/api/public/webhooks/asaas")({
           const { error: grantError } = await supabaseAdmin.rpc("grant_paid_access", {
             _user_id: existing.user_id,
             _plan_id: existing.plan_id,
-            _course_id: existing.course_id,
+            _course_id: existing.course_id ?? undefined,
           });
           if (grantError) throw grantError;
         }
