@@ -11,16 +11,13 @@ interface LogoProps {
 export function Logo({ className, size = 36, showWordmark = true, wordmarkClassName }: LogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span
-        className="relative inline-flex shrink-0 items-center justify-center rounded-xl bg-slate-300/90 p-1.5 ring-1 ring-slate-400/40 shadow-sm"
+      <img
+        src={fciaLogo.url}
+        alt="FCIA Academy"
+        className="object-contain drop-shadow-[0_0_12px_rgba(139,92,246,0.35)]"
         style={{ width: size, height: size }}
-      >
-        <img
-          src={fciaLogo.url}
-          alt="FCIA Academy"
-          className="h-full w-full object-contain"
-        />
-      </span>
+      />
+
 
       {showWordmark ? (
         <span
