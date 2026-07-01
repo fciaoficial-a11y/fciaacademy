@@ -324,35 +324,19 @@ function JourneyColumn({ userId, hasBio }: { userId: string; hasBio: boolean }) 
         </div>
       </div>
 
-      {/* Plano + próximo passo */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-white/10 bg-card/60 p-5">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-            <Crown className="h-3.5 w-3.5" /> Plano atual
-          </div>
-          <div className="mt-2 font-display text-xl font-semibold capitalize">
-            {plan.data ?? "free"}
-          </div>
-          <Link
-            to="/planos"
-            className="mt-3 inline-flex text-xs font-medium text-primary hover:underline"
-          >
-            {plan.data && plan.data !== "expert" ? "Fazer upgrade →" : "Ver planos →"}
-          </Link>
+      {/* Próximo passo */}
+      <div className="rounded-2xl border border-primary/30 bg-primary/5 p-5">
+        <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
+          <Sparkles className="h-3.5 w-3.5" /> Próximo passo
         </div>
-        <div className="rounded-2xl border border-primary/30 bg-primary/5 p-5">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5" /> Próximo passo
-          </div>
-          <div className="mt-2 text-sm font-semibold text-foreground">{nextStep.label}</div>
-          <Link
-            to={nextStep.to}
-            params={nextStep.params as never}
-            className="mt-3 inline-flex text-xs font-medium text-primary hover:underline"
-          >
-            Começar agora →
-          </Link>
-        </div>
+        <div className="mt-2 text-sm font-semibold text-foreground">{nextStep.label}</div>
+        <Link
+          to={nextStep.to}
+          params={nextStep.params as never}
+          className="mt-3 inline-flex text-xs font-medium text-primary hover:underline"
+        >
+          Começar agora →
+        </Link>
       </div>
 
       {/* Cursos em andamento */}
