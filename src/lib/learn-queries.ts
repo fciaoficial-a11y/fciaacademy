@@ -23,6 +23,10 @@ export type CourseDetail = {
   description: string;
   level: string;
   duration_minutes: number;
+  track_id: string | null;
+  required_plan: "free" | "starter" | "pro" | "expert";
+  track_title: string | null;
+  track_slug: string | null;
 };
 
 export type ProgressRow = {
@@ -37,30 +41,45 @@ export function courseLearnQuery(slug: string) {
     queryFn: async () => {
       const { data: course, error } = await supabase
         .from("courses")
-        .select("id, slug, title, description, level, duration_minutes")
+        .select(
+          "id, slug, title, description, level, duration_minutes, track_id, tracks:track_id ( title, slug, required_plan )"
+        )
         .eq("slug", slug)
         .eq("is_published", true)
         .maybeSingle();
       if (error) throw error;
       if (!course) return null;
+      const track = (course as unknown as { tracks: { title: string; slug: string; required_plan: string } | null }).tracks;
+      const detail: CourseDetail = {
+        id: course.id,
+        slug: course.slug,
+        title: course.title,
+        description: course.description,
+        level: course.level,
+        duration_minutes: course.duration_minutes,
+        track_id: course.track_id,
+        required_plan: (track?.required_plan ?? "free") as CourseDetail["required_plan"],
+        track_title: track?.title ?? null,
+        track_slug: track?.slug ?? null,
+      };
       const { data: modules, error: mErr } = await supabase
         .from("modules")
         .select(
           "id, course_id, slug, title, description, content_type, content_url, content_text, video_url, duration_minutes, sort_order"
         )
-
         .eq("course_id", course.id)
         .eq("is_published", true)
         .order("sort_order");
       if (mErr) throw mErr;
       return {
-        course: course as CourseDetail,
+        course: detail,
         modules: (modules ?? []) as ModuleRow[],
       };
     },
     staleTime: 30_000,
   });
 }
+
 
 export function progressQuery(courseId: string | undefined, userId: string | undefined) {
   return queryOptions({
