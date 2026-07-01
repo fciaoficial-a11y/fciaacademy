@@ -23,7 +23,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { FAQ } from "@/components/site/FAQ";
 import { tracks } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
-import fernandoCabralAsset from "@/assets/fernando-cabral.png.asset.json";
+import fernandoCabralAsset from "@/assets/fernando-cabral.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -581,9 +581,13 @@ function Index() {
                       <img
                         src={fernandoCabralAsset.url}
                         alt="Fernando Cabral, fundador e CEO da FCIA Academy"
+                        width={240}
+                        height={240}
                         className="h-full w-full object-cover object-[50%_20%] scale-110"
                         loading="lazy"
+                        decoding="async"
                       />
+
                     </div>
                     <div>
                       <div className="font-display text-base font-semibold leading-snug sm:text-xl lg:text-2xl">
