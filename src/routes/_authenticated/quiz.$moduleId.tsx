@@ -91,6 +91,8 @@ function QuizPage() {
 
   const percent = total ? Math.round(((index + (phase === "result" ? 1 : 0)) / total) * 100) : 0;
 
+  const ensureCert = useServerFn(ensureCertificateForCourse);
+
   const saveAttempt = useMutation({
     mutationFn: async (payload: {
       score: number;
@@ -111,10 +113,37 @@ function QuizPage() {
         answers: payload.answersPayload,
       });
       if (error) throw error;
+      if (payload.passed) {
+        try {
+          const res = await ensureCert({ data: { courseId: mod.course_id } });
+          return { certificateId: res.certificateId };
+        } catch (e) {
+          // Falha na geração não invalida a aprovação; apenas avisa
+          console.error("[cert] geração falhou:", e);
+          return { certificateId: null as string | null };
+        }
+      }
+      return { certificateId: null as string | null };
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["quiz-attempts", moduleId, userId] }),
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({ queryKey: ["quiz-attempts", moduleId, userId] });
+      queryClient.invalidateQueries({ queryKey: ["certificates", userId] });
+      if (res?.certificateId) {
+        toast.success("🏆 Parabéns! Certificado emitido", {
+          description: "+100 XP de marco. Seu certificado FCIA está pronto.",
+          action: {
+            label: "Ver certificado",
+            onClick: () =>
+              navigate({
+                to: "/certificados/$id",
+                params: { id: res.certificateId! },
+              }),
+          },
+        });
+      }
+    },
   });
+
 
   function start() {
     setQuestions(shuffle(allQuestions));
