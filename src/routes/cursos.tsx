@@ -128,14 +128,30 @@ function CursosPage() {
                 >
                   <div className="relative h-28 overflow-hidden border-b border-border bg-surface">
                     <Icon className="absolute right-5 top-5 h-10 w-10 text-foreground/90 transition-transform group-hover:scale-110" />
-                    <span className="absolute bottom-3 left-5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {track?.tag ?? ""}
-                    </span>
+                    {track ? (
+                      <span className="absolute bottom-3 left-5 inline-flex items-center rounded-full border border-border bg-background/80 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
+                        {track.tag}
+                      </span>
+                    ) : null}
                   </div>
                   <div className="flex flex-1 flex-col p-6">
-                    <h3 className="font-display text-base font-semibold tracking-tight">
-                      {c.title}
-                    </h3>
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="font-display text-base font-semibold tracking-tight">
+                        {c.title}
+                      </h3>
+                      <span
+                        className={
+                          "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium " +
+                          (!c.price || Number(c.price) === 0
+                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                            : "bg-primary/10 text-primary")
+                        }
+                      >
+                        {!c.price || Number(c.price) === 0
+                          ? "Gratuito"
+                          : `R$ ${Number(c.price).toFixed(2).replace(".", ",")}`}
+                      </span>
+                    </div>
                     <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
                       {c.description}
                     </p>
@@ -145,10 +161,11 @@ function CursosPage() {
                         {Math.round(c.duration_minutes / 60)}h · {c.level}
                       </span>
                       <span className="inline-flex items-center gap-1 text-foreground">
-                        Ver trilha <ArrowUpRight className="h-3.5 w-3.5" />
+                        Ver curso <ArrowUpRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>
+
                 </Link>
               );
             })}
