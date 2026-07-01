@@ -1,17 +1,25 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Loader2, Upload, User2 } from "lucide-react";
+import { Award, Flame, Loader2, Trophy, Upload, User2, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
+import {
+  achievementsQuery,
+  gamificationProfileQuery,
+  levelFromXp,
+} from "@/lib/gamification";
+import { myCertificatesQuery } from "@/lib/certificate-queries";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
       { title: "Perfil — FCIA Academy" },
-      { name: "description", content: "Edite seu perfil." },
+      { name: "description", content: "Seu perfil, XP, nível e conquistas." },
     ],
   }),
   component: ProfilePage,
