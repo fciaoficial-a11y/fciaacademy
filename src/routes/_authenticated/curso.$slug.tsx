@@ -116,7 +116,7 @@ function CourseLearnPage() {
   });
 
   if (!hasAccess) {
-    return <Paywall course={course} currentPlan={currentPlan} />;
+    return <Paywall course={course} />;
   }
 
   if (!activeModule) {
