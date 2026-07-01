@@ -40,10 +40,10 @@ export function PixCheckout(props: PixCheckoutProps) {
   const charge = useMutation({
     mutationFn: (cpfCnpj?: string) =>
       createCharge({
-        data: isCourseMode
-          ? { mode: "course", courseId: props.courseId, cpfCnpj }
-          : { mode: "plan", planId: (props as { planId: PaidPlanId }).planId, courseId: props.courseId, cpfCnpj },
+        // LEGACY: modo "plan" desativado no backend — só compra avulsa passa.
+        data: { mode: "course", courseId: (props as { courseId: string }).courseId, cpfCnpj },
       }),
+
     onSuccess: (result) => {
       setPaymentId(result.paymentId);
       setNeedsCpf(false);
