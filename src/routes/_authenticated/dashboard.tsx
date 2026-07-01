@@ -30,9 +30,6 @@ function DashboardPage() {
 
   const certificates = useQuery(myCertificatesQuery(userId));
   const gam = useQuery(gamificationProfileQuery(userId));
-  const planId = useQuery(currentPlanIdQuery(userId));
-  const plans = useQuery(plansQuery);
-  const currentPlan = plans.data?.find((p) => p.id === (planId.data ?? "free"));
 
   const certCount = certificates.data?.length ?? 0;
   const xp = gam.data?.xp ?? 0;
