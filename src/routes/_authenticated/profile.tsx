@@ -462,7 +462,7 @@ function EmptyRow({
   icon: React.ReactNode;
   text: string;
   ctaLabel: string;
-  ctaTo: "/trilhas" | "/dashboard" | "/planos" | "/evolucao";
+  ctaTo: "/trilhas" | "/dashboard" | "/evolucao";
 }) {
   return (
     <div className="mt-4 flex flex-col items-start gap-3 rounded-lg border border-dashed border-white/10 bg-background/30 p-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
