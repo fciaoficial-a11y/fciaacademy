@@ -23,7 +23,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { FAQ } from "@/components/site/FAQ";
 import { tracks } from "@/lib/catalog";
 import { cn } from "@/lib/utils";
-import fernandoCabralAsset from "@/assets/fernando-cabral.png.asset.json";
+import fernandoCabralAsset from "@/assets/fernando-cabral.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
