@@ -83,7 +83,7 @@ export const generateCertificate = createServerFn({ method: "POST" })
     const { PDFDocument, StandardFonts, rgb } = await import("pdf-lib");
     const pdf = await PDFDocument.create();
     const page = pdf.addPage([842, 595]); // A4 landscape (pt)
-    const { width, height } = page;
+    const { width, height } = page.getSize();
 
     const helv = await pdf.embedFont(StandardFonts.Helvetica);
     const helvBold = await pdf.embedFont(StandardFonts.HelveticaBold);
