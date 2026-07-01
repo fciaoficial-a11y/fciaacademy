@@ -377,3 +377,71 @@ function StorageVideo({ path, title }: { path: string; title: string }) {
   );
 }
 
+const PLAN_LABEL: Record<PlanId, string> = {
+  free: "Free",
+  starter: "Starter",
+  pro: "Pro",
+  expert: "Expert",
+};
+
+function Paywall({
+  course,
+  currentPlan,
+}: {
+  course: { title: string; description: string; required_plan: PlanId; track_title: string | null };
+  currentPlan: PlanId;
+}) {
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-16 sm:py-24">
+      <div className="relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-card via-card to-primary/10 p-8 sm:p-12 shadow-2xl">
+        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+        <div className="absolute -left-16 -bottom-16 h-56 w-56 rounded-full bg-accent/20 blur-3xl" aria-hidden />
+
+        <div className="relative">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-primary">
+            <Lock className="h-3 w-3" /> Conteúdo bloqueado
+          </div>
+
+          <h1 className="mt-5 font-display text-3xl font-semibold sm:text-4xl">{course.title}</h1>
+          {course.track_title && (
+            <p className="mt-1 text-sm text-muted-foreground">Trilha: {course.track_title}</p>
+          )}
+          {course.description && (
+            <p className="mt-4 text-base text-muted-foreground">{course.description}</p>
+          )}
+
+          <div className="mt-8 grid gap-3 rounded-2xl border border-white/10 bg-background/50 p-5 sm:grid-cols-2">
+            <div>
+              <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Seu plano</p>
+              <p className="mt-1 font-display text-lg font-semibold">{PLAN_LABEL[currentPlan]}</p>
+            </div>
+            <div>
+              <p className="text-[11px] uppercase tracking-widest text-muted-foreground">Plano necessário</p>
+              <p className="mt-1 inline-flex items-center gap-1.5 font-display text-lg font-semibold text-primary">
+                <Crown className="h-4 w-4" /> {PLAN_LABEL[course.required_plan]}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary to-accent">
+              <Link to="/planos">
+                <Sparkles className="mr-2 h-4 w-4" /> Fazer upgrade
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="rounded-full">
+              <Link to="/trilhas">Ver conteúdos liberados</Link>
+            </Button>
+          </div>
+
+          <p className="mt-6 text-xs text-muted-foreground">
+            Assine o plano <strong className="text-foreground">{PLAN_LABEL[course.required_plan]}</strong> para
+            destravar este curso, o certificado e todos os módulos da trilha.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
