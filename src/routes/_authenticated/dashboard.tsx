@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Activity, Award, BookOpen, Crown, Flame, Sparkles, Trophy, Zap } from "lucide-react";
+import { Activity, Award, BookOpen, Flame, Sparkles, Trophy, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Progress } from "@/components/ui/progress";
 import { myCertificatesQuery } from "@/lib/certificate-queries";
 import { gamificationProfileQuery, levelFromXp } from "@/lib/gamification";
-import { currentPlanIdQuery, plansQuery } from "@/lib/plans";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
