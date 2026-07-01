@@ -18,13 +18,7 @@ export function AuthShell({ eyebrow, title, subtitle, footer, children }: AuthSh
 
       <div className="w-full max-w-md">
         <Link to="/" className="mb-8 flex items-center justify-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-primary-foreground ring-glow">
-            <Sparkles className="h-4 w-4" />
-          </div>
-          <span className="font-display text-base font-semibold tracking-tight">
-            FCIA<span className="text-muted-foreground/50">/</span>
-            <span className="font-medium text-muted-foreground">Academy</span>
-          </span>
+          <Logo size={40} />
         </Link>
 
         <div className="rounded-2xl border border-white/10 bg-card/60 p-8 backdrop-blur-xl shadow-2xl">
