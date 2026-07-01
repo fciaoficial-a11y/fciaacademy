@@ -106,7 +106,10 @@ function PlanosPage() {
                   {isCurrent ? (
                     <span>Plano atual</span>
                   ) : (
-                    <Link to={userId ? "/dashboard" : "/register"}>
+                    <Link
+                      to={userId ? (plan.id === "free" ? "/dashboard" : "/checkout/$planId") : "/register"}
+                      params={userId && plan.id !== "free" ? { planId: plan.id } : undefined}
+                    >
                       {plan.id === "free" ? "Começar grátis" : "Assinar"}
                     </Link>
                   )}
@@ -118,7 +121,7 @@ function PlanosPage() {
       )}
 
       <p className="mt-12 text-center text-xs text-muted-foreground">
-        Pagamentos via Stripe, Mercado Pago e PIX serão habilitados em breve.
+        Pagamentos via PIX no Asaas sandbox com confirmação automática por webhook.
       </p>
     </div>
   );
