@@ -155,11 +155,15 @@ export const createPixCharge = createServerFn({ method: "POST" })
 
 async function getCheckoutProfile(userId: string, claims: { email?: string }) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data: profile } = await supabaseAdmin.from("profiles").select("full_name").eq("id", userId).maybeSingle();
+  const { data: profile } = await supabaseAdmin.from("profiles").select("full_name, cpf_cnpj").eq("id", userId).maybeSingle();
   const { data: authUser } = await supabaseAdmin.auth.admin.getUserById(userId);
   const email = claims.email ?? authUser.user?.email;
   if (!email) throw new Error("E-mail do usuário não encontrado para gerar cobrança.");
-  return { email, name: profile?.full_name || email.split("@")[0] || "Aluno FCIA" };
+  return {
+    email,
+    name: profile?.full_name || email.split("@")[0] || "Aluno FCIA",
+    cpfCnpj: (profile?.cpf_cnpj ?? null) as string | null,
+  };
 }
 
 async function findReusablePendingPayment(userId: string, planId: string, courseId: string | null): Promise<PixChargeResult | null> {
