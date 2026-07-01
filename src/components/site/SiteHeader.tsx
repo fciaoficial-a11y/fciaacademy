@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { Logo } from "@/components/site/Logo";
 
 const nav = [
   { to: "/trilhas", label: "Trilhas" },
