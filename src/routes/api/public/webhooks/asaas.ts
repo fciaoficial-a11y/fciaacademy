@@ -34,7 +34,7 @@ export const Route = createFileRoute("/api/public/webhooks/asaas")({
 
         const expectedToken = process.env.ASAAS_WEBHOOK_TOKEN;
         const receivedToken = request.headers.get("asaas-access-token") ?? "";
-        const tokenIsValid = Boolean(expectedToken) && safeEqual(receivedToken, expectedToken);
+        const tokenIsValid = expectedToken ? safeEqual(receivedToken, expectedToken) : false;
 
         let trustedPayload = payload;
         if (!tokenIsValid) {
