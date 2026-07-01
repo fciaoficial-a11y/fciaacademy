@@ -265,7 +265,7 @@ function JourneyColumn({ userId, hasBio }: { userId: string; hasBio: boolean }) 
   const gam = useQuery(gamificationProfileQuery(userId));
   const ach = useQuery(achievementsQuery(userId));
   const certs = useQuery(myCertificatesQuery(userId));
-  const plan = useQuery(currentPlanIdQuery(userId));
+  
   const inProgress = useQuery(inProgressCoursesQuery(userId));
 
   const xp = gam.data?.xp ?? 0;
