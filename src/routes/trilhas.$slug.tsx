@@ -7,7 +7,7 @@ import { FAQ } from "@/components/site/FAQ";
 import { trackBySlugQuery, tracksQuery } from "@/lib/catalog-queries";
 import { getIcon } from "@/lib/icon-map";
 
-export const Route = createFileRoute("/cursos/$slug")({
+export const Route = createFileRoute("/trilhas/$slug")({
   loader: async ({ context, params }) => {
     const data = await context.queryClient.ensureQueryData(trackBySlugQuery(params.slug));
     if (!data) throw notFound();
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/cursos/$slug")({
   notFoundComponent: () => (
     <Section>
       <h1 className="font-display text-4xl font-semibold">Trilha não encontrada</h1>
-      <Link to="/cursos" className="mt-6 inline-flex items-center gap-1 text-sm text-foreground hover:gap-2">
+      <Link to="/trilhas" className="mt-6 inline-flex items-center gap-1 text-sm text-foreground hover:gap-2">
         Voltar ao catálogo <ArrowUpRight className="h-4 w-4" />
       </Link>
     </Section>
@@ -50,7 +50,7 @@ function TrackDetail() {
         <div className="absolute inset-0 grid-faint opacity-50" />
         <div className="absolute -top-32 right-[-10%] h-[400px] w-[400px] rounded-full bg-primary/25 blur-[120px]" />
         <div className="relative mx-auto max-w-7xl px-6 py-16 sm:py-20">
-          <Link to="/cursos" className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground">
+          <Link to="/trilhas" className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground">
             ← Catálogo
           </Link>
           <div className="mt-6 grid items-end gap-10 lg:grid-cols-[1.4fr_1fr]">
@@ -127,7 +127,7 @@ function TrackDetail() {
           <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
             Trilhas relacionadas
           </h2>
-          <Link to="/cursos" className="text-sm text-muted-foreground hover:text-foreground">
+          <Link to="/trilhas" className="text-sm text-muted-foreground hover:text-foreground">
             Ver todas
           </Link>
         </div>
@@ -137,7 +137,7 @@ function TrackDetail() {
             return (
               <Link
                 key={t.slug}
-                to="/cursos/$slug"
+                to="/trilhas/$slug"
                 params={{ slug: t.slug }}
                 className="group rounded-2xl border border-border bg-background p-6 transition-colors hover:bg-surface"
               >

@@ -424,7 +424,7 @@ function Index() {
                 return (
                   <Link
                     key={t.slug}
-                    to="/cursos/$slug"
+                    to="/trilhas/$slug"
                     params={{ slug: t.slug }}
                     data-track-card
                     className="group relative w-[320px] shrink-0 lg:w-auto"
