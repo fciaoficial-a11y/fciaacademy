@@ -69,10 +69,12 @@ function QuizPage() {
   } | null>(null);
 
   if (!data) return null;
-  const { module: mod, course, questions } = data;
+  const { module: mod, course, questions: allQuestions } = data;
+  const [questions, setQuestions] = useState<QuestionRow[]>(() => shuffle(allQuestions));
 
   const total = questions.length;
   const current = questions[index];
+
   const percent = total ? Math.round(((index + (phase === "result" ? 1 : 0)) / total) * 100) : 0;
 
   const saveAttempt = useMutation({
