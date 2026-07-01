@@ -64,12 +64,28 @@ function CourseLearnPage() {
   if (!data) return null;
   const { course, modules } = data;
 
-  const progress = useQuery(progressQuery(course.id, userId));
+  const planQ = useQuery(currentPlanIdQuery(userId));
+  const currentPlan: PlanId = (planQ.data ?? "free") as PlanId;
+  const hasAccess = canAccess(currentPlan, course.required_plan);
+
+  const enrollmentQ = useQuery(enrollmentQuery(course.id, userId));
+
+  useEffect(() => {
+    if (!userId || !hasAccess) return;
+    if (enrollmentQ.isFetched && !enrollmentQ.data) {
+      enrollInCourse(course.id)
+        .then(() => queryClient.invalidateQueries({ queryKey: ["enrollment", course.id, userId] }))
+        .catch(() => {});
+    }
+  }, [userId, hasAccess, enrollmentQ.isFetched, enrollmentQ.data, course.id, queryClient]);
+
+  const progress = useQuery(progressQuery(course.id, hasAccess ? userId : undefined));
   const progressMap = useMemo(() => {
     const map = new Map<string, boolean>();
     (progress.data ?? []).forEach((p) => map.set(p.module_id, p.completed));
     return map;
   }, [progress.data]);
+
 
   const activeSlug = search.m ?? modules[0]?.slug;
   const activeModule = modules.find((m) => m.slug === activeSlug) ?? modules[0];
