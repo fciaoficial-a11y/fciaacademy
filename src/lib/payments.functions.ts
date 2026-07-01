@@ -182,7 +182,7 @@ async function findReusablePendingPayment(userId: string, planId: PaidPlanId, co
 }
 
 async function asaasFetch<T>(path: string, apiKey: string, init: RequestInit): Promise<T> {
-  const response = await fetch(`https://sandbox.asaas.com/api/v3${path}`, {
+  const response = await fetch(`https://api.asaas.com/v3${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
