@@ -342,7 +342,60 @@ function ModuleContent({
   );
 }
 
-function StorageVideo({ path, title }: { path: string; title: string }) {
+function SecurePdfModule({
+  moduleId,
+  studentLabel,
+  allowDownload,
+  completed,
+  onComplete,
+}: {
+  moduleId: string;
+  studentLabel: string;
+  allowDownload: boolean;
+  completed: boolean;
+  onComplete: () => void;
+}) {
+  const [nonce, setNonce] = useState(0);
+  const query = useQuery({
+    queryKey: ["module-pdf", moduleId, nonce],
+    queryFn: () => getModulePdfUrl({ data: { moduleId } }),
+    staleTime: 4 * 60 * 1000,
+    retry: false,
+  });
+
+  if (query.isLoading) {
+    return (
+      <div className="rounded-2xl border border-border bg-card p-10 text-center text-sm text-muted-foreground">
+        Preparando material seguro…
+      </div>
+    );
+  }
+
+  if (query.isError || !query.data?.url) {
+    return (
+      <div className="rounded-2xl border border-destructive/40 bg-card p-8 text-center text-sm">
+        <p className="text-destructive">
+          {(query.error as Error | undefined)?.message ?? "PDF indisponível."}
+        </p>
+        <Button size="sm" variant="outline" className="mt-3" onClick={() => setNonce((n) => n + 1)}>
+          Tentar novamente
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <PdfViewer
+      signedUrl={query.data.url}
+      studentLabel={studentLabel}
+      allowDownload={allowDownload}
+      completed={completed}
+      onComplete={onComplete}
+      onReload={() => setNonce((n) => n + 1)}
+    />
+  );
+}
+
   const [src, setSrc] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
