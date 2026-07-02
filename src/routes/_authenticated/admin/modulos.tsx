@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowDown, ArrowUp, Pencil, Plus, Trash2, Upload } from "lucide-react";
+import { ArrowDown, ArrowUp, Pencil, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { PdfUploader, type PdfMeta } from "@/components/learn/PdfUploader";
 import {
   Dialog,
   DialogContent,
