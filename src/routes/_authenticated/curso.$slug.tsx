@@ -57,9 +57,15 @@ function CourseLearnPage() {
   const queryClient = useQueryClient();
   const { data } = useSuspenseQuery(courseLearnQuery(slug));
   const [userId, setUserId] = useState<string | undefined>();
+  const [studentLabel, setStudentLabel] = useState<string>("Aluno");
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id));
+    supabase.auth.getUser().then(({ data }) => {
+      const u = data.user;
+      setUserId(u?.id);
+      const meta = (u?.user_metadata ?? {}) as { full_name?: string; name?: string };
+      setStudentLabel(meta.full_name || meta.name || u?.email || "Aluno");
+    });
   }, []);
 
   if (!data) return null;
