@@ -17,9 +17,12 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { courseLearnQuery, progressQuery, type ModuleRow } from "@/lib/learn-queries";
+import { courseLearnQuery, progressQuery, type CourseDetail, type ModuleRow } from "@/lib/learn-queries";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
+import { PdfViewer } from "@/components/learn/PdfViewer";
+import { getModulePdfUrl } from "@/lib/pdf.functions";
+
 
 
 const searchSchema = z.object({ m: z.string().optional() });
@@ -54,9 +57,15 @@ function CourseLearnPage() {
   const queryClient = useQueryClient();
   const { data } = useSuspenseQuery(courseLearnQuery(slug));
   const [userId, setUserId] = useState<string | undefined>();
+  const [studentLabel, setStudentLabel] = useState<string>("Aluno");
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id));
+    supabase.auth.getUser().then(({ data }) => {
+      const u = data.user;
+      setUserId(u?.id);
+      const meta = (u?.user_metadata ?? {}) as { full_name?: string; name?: string };
+      setStudentLabel(meta.full_name || meta.name || u?.email || "Aluno");
+    });
   }, []);
 
   if (!data) return null;
@@ -212,7 +221,15 @@ function CourseLearnPage() {
           )}
         </header>
 
-        <ModuleContent module={activeModule} />
+        <ModuleContent
+          module={activeModule}
+          course={course}
+          studentLabel={studentLabel}
+          completed={isComplete}
+          onComplete={() => {
+            if (!isComplete) toggleComplete.mutate(activeModule);
+          }}
+        />
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4">
           <Button
@@ -265,7 +282,19 @@ function ModuleTypeIcon({ type }: { type: ModuleRow["content_type"] }) {
   return <BookOpen className="h-3.5 w-3.5" />;
 }
 
-function ModuleContent({ module: mod }: { module: ModuleRow }) {
+function ModuleContent({
+  module: mod,
+  course,
+  studentLabel,
+  completed,
+  onComplete,
+}: {
+  module: ModuleRow;
+  course: CourseDetail;
+  studentLabel: string;
+  completed: boolean;
+  onComplete: () => void;
+}) {
   if (mod.content_type === "video") {
     if (mod.video_url) {
       return <StorageVideo path={mod.video_url} title={mod.title} />;
@@ -286,23 +315,15 @@ function ModuleContent({ module: mod }: { module: ModuleRow }) {
     }
   }
 
-  if (mod.content_type === "pdf" && mod.content_url) {
+  if (mod.content_type === "pdf") {
     return (
-      <div className="overflow-hidden rounded-2xl border border-border bg-card">
-        <object data={mod.content_url} type="application/pdf" className="h-[75vh] w-full">
-          <div className="p-6 text-sm text-muted-foreground">
-            Não foi possível exibir o PDF.{" "}
-            <a
-              href={mod.content_url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary hover:underline"
-            >
-              Abrir em nova aba
-            </a>
-          </div>
-        </object>
-      </div>
+      <SecurePdfModule
+        moduleId={mod.id}
+        studentLabel={studentLabel}
+        allowDownload={course.allow_pdf_download}
+        completed={completed}
+        onComplete={onComplete}
+      />
     );
   }
   if (mod.content_type === "text") {
@@ -321,9 +342,64 @@ function ModuleContent({ module: mod }: { module: ModuleRow }) {
   );
 }
 
+function SecurePdfModule({
+  moduleId,
+  studentLabel,
+  allowDownload,
+  completed,
+  onComplete,
+}: {
+  moduleId: string;
+  studentLabel: string;
+  allowDownload: boolean;
+  completed: boolean;
+  onComplete: () => void;
+}) {
+  const [nonce, setNonce] = useState(0);
+  const query = useQuery({
+    queryKey: ["module-pdf", moduleId, nonce],
+    queryFn: () => getModulePdfUrl({ data: { moduleId } }),
+    staleTime: 4 * 60 * 1000,
+    retry: false,
+  });
+
+  if (query.isLoading) {
+    return (
+      <div className="rounded-2xl border border-border bg-card p-10 text-center text-sm text-muted-foreground">
+        Preparando material seguro…
+      </div>
+    );
+  }
+
+  if (query.isError || !query.data?.url) {
+    return (
+      <div className="rounded-2xl border border-destructive/40 bg-card p-8 text-center text-sm">
+        <p className="text-destructive">
+          {(query.error as Error | undefined)?.message ?? "PDF indisponível."}
+        </p>
+        <Button size="sm" variant="outline" className="mt-3" onClick={() => setNonce((n) => n + 1)}>
+          Tentar novamente
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <PdfViewer
+      signedUrl={query.data.url}
+      studentLabel={studentLabel}
+      allowDownload={allowDownload}
+      completed={completed}
+      onComplete={onComplete}
+      onReload={() => setNonce((n) => n + 1)}
+    />
+  );
+}
+
 function StorageVideo({ path, title }: { path: string; title: string }) {
   const [src, setSrc] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
 
   useEffect(() => {
     let cancelled = false;

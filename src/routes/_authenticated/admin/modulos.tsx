@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowDown, ArrowUp, Pencil, Plus, Trash2, Upload } from "lucide-react";
+import { ArrowDown, ArrowUp, Pencil, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { PdfUploader, type PdfMeta } from "@/components/learn/PdfUploader";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +21,6 @@ import {
   deleteRow,
   insertRow,
   updateRow,
-  uploadCourseAsset,
   type AdminModule,
 } from "@/lib/admin-api";
 
@@ -41,7 +41,6 @@ function AdminModulesPage() {
   const [filter, setFilter] = useState<string>("");
   const [editing, setEditing] = useState<Draft | null>(null);
   const [open, setOpen] = useState(false);
-  const [uploading, setUploading] = useState(false);
 
   const save = useMutation({
     mutationFn: async (d: Draft) => {
@@ -64,15 +63,31 @@ function AdminModulesPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin", "modules"] }),
   });
 
-  async function handlePdf(file: File) {
-    setUploading(true);
-    try {
-      const url = await uploadCourseAsset(file, "pdfs");
-      setEditing((prev) => prev ? { ...prev, content_url: url, content_type: "pdf" } : prev);
-      toast.success("PDF enviado.");
-    } catch (e) { toast.error((e as Error).message); }
-    finally { setUploading(false); }
+  function handlePdfChange(meta: PdfMeta | null) {
+    setEditing((prev) => {
+      if (!prev) return prev;
+      if (!meta) {
+        return {
+          ...prev,
+          pdf_path: null,
+          pdf_file_name: null,
+          pdf_file_size: null,
+          pdf_mime_type: null,
+          pdf_uploaded_at: null,
+        };
+      }
+      return {
+        ...prev,
+        content_type: "pdf",
+        pdf_path: meta.pdf_path,
+        pdf_file_name: meta.pdf_file_name,
+        pdf_file_size: meta.pdf_file_size,
+        pdf_mime_type: meta.pdf_mime_type,
+        pdf_uploaded_at: new Date().toISOString(),
+      };
+    });
   }
+
 
   const filtered = (modules.data ?? []).filter((m) => !filter || m.course_id === filter);
 
@@ -148,18 +163,25 @@ function AdminModulesPage() {
                 <Field label="Duração (min)"><Input type="number" value={editing.duration_minutes ?? 0} onChange={(e) => setEditing({ ...editing, duration_minutes: Number(e.target.value) })} /></Field>
                 <Field label="Ordem"><Input type="number" value={editing.sort_order ?? 0} onChange={(e) => setEditing({ ...editing, sort_order: Number(e.target.value) })} /></Field>
               </div>
-              {editing.content_type !== "text" && (
-                <Field label="URL do conteúdo">
-                  <div className="flex items-center gap-2">
-                    <Input value={editing.content_url ?? ""} onChange={(e) => setEditing({ ...editing, content_url: e.target.value })} placeholder={editing.content_type === "video" ? "URL do vídeo (YouTube embed)" : "URL do PDF"} />
-                    {editing.content_type === "pdf" && (
-                      <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent">
-                        <Upload className="h-4 w-4" />
-                        {uploading ? "…" : "Upload"}
-                        <input type="file" accept="application/pdf" className="hidden" onChange={(e) => e.target.files?.[0] && handlePdf(e.target.files[0])} />
-                      </label>
-                    )}
-                  </div>
+              {editing.content_type === "video" && (
+                <Field label="URL do vídeo">
+                  <Input
+                    value={editing.content_url ?? ""}
+                    onChange={(e) => setEditing({ ...editing, content_url: e.target.value })}
+                    placeholder="URL do vídeo (YouTube embed ou caminho no bucket)"
+                  />
+                </Field>
+              )}
+              {editing.content_type === "pdf" && (
+                <Field label="Arquivo PDF">
+                  <PdfUploader
+                    value={{
+                      pdf_path: editing.pdf_path ?? null,
+                      pdf_file_name: editing.pdf_file_name ?? null,
+                      pdf_file_size: editing.pdf_file_size ?? null,
+                    }}
+                    onChange={handlePdfChange}
+                  />
                 </Field>
               )}
               {editing.content_type === "text" && (

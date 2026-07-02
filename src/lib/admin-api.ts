@@ -103,6 +103,11 @@ export interface AdminModule {
   duration_minutes: number;
   sort_order: number;
   is_published: boolean;
+  pdf_path: string | null;
+  pdf_file_name: string | null;
+  pdf_file_size: number | null;
+  pdf_mime_type: string | null;
+  pdf_uploaded_at: string | null;
 }
 export const adminModulesQuery = queryOptions({
   queryKey: ["admin", "modules"],
