@@ -221,7 +221,15 @@ function CourseLearnPage() {
           )}
         </header>
 
-        <ModuleContent module={activeModule} />
+        <ModuleContent
+          module={activeModule}
+          course={course}
+          studentLabel={studentLabel}
+          completed={isComplete}
+          onComplete={() => {
+            if (!isComplete) toggleComplete.mutate(activeModule);
+          }}
+        />
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4">
           <Button
