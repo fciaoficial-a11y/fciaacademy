@@ -68,3 +68,288 @@ export const generateAiContent = createServerFn({ method: "POST" })
     const content = json.choices?.[0]?.message?.content ?? "";
     return { content };
   });
+
+/* ============================================================
+ * Course Generator (brief -> full structured course draft)
+ * ============================================================ */
+
+const BriefInput = z.object({
+  title: z.string().min(3).max(160),
+  base_description: z.string().min(10).max(4000),
+  track_id: z.string().uuid().nullable().optional(),
+  level: z.enum(["Iniciante", "Intermediário", "Avançado"]).default("Iniciante"),
+  workload_hours: z.number().int().min(1).max(200).default(4),
+  audience: z.string().max(500).optional().default(""),
+  main_goal: z.string().max(500).optional().default(""),
+  keywords: z.string().max(500).optional().default(""),
+  references: z.string().max(2000).optional().default(""),
+  tone: z.string().max(200).optional().default("didático, prático, acessível"),
+  module_count: z.number().int().min(3).max(12).default(6),
+  section: z
+    .enum(["all", "description", "modules", "quiz", "pdf_outline"])
+    .default("all"),
+});
+
+const COURSE_SCHEMA_HINT = `{
+  "slug": "kebab-case-do-curso",
+  "short_description": "1-2 frases",
+  "full_description": "3-5 parágrafos em markdown",
+  "promise": "1 frase da promessa central",
+  "audience": "público-alvo refinado",
+  "prerequisites": ["..."],
+  "learning_outcomes": ["verbo de Bloom + resultado", "..."],
+  "cover_prompt": "prompt visual em inglês para gerar capa",
+  "modules": [
+    {
+      "title": "...",
+      "slug": "kebab-case",
+      "objective": "objetivo do módulo",
+      "summary": "resumo curto",
+      "content_md": "conteúdo didático em markdown (400-900 palavras)",
+      "duration_minutes": 30,
+      "pdf_outline": ["seção 1", "seção 2"],
+      "practical_activity": "atividade prática aplicada",
+      "quiz": [
+        {
+          "question": "...",
+          "type": "multiple_choice",
+          "options": ["a","b","c","d"],
+          "correct_answer": "a",
+          "explanation": "..."
+        }
+      ]
+    }
+  ]
+}`;
+
+function buildCoursePrompt(b: z.infer<typeof BriefInput>) {
+  const sectionInstr =
+    b.section === "all"
+      ? "Gere o curso COMPLETO."
+      : b.section === "description"
+        ? "Regenere APENAS os campos: slug, short_description, full_description, promise, audience, prerequisites, learning_outcomes, cover_prompt. Use modules: []."
+        : b.section === "modules"
+          ? "Regenere APENAS o array modules (sem quiz — use quiz: []). Preencha os campos textuais do curso com valores curtos."
+          : b.section === "quiz"
+            ? "Regenere APENAS o array quiz de cada módulo. Mantenha títulos/summaries curtos, content_md pode ser vazio."
+            : "Regenere APENAS o pdf_outline de cada módulo. Outros campos podem ser vazios.";
+
+  return `Brief do curso FCIA Academy:
+Título: ${b.title}
+Descrição base: ${b.base_description}
+Nível: ${b.level}
+Carga horária: ${b.workload_hours}h
+Público-alvo: ${b.audience || "não informado"}
+Objetivo principal: ${b.main_goal || "não informado"}
+Palavras-chave: ${b.keywords || "não informado"}
+Referências: ${b.references || "não informado"}
+Tom didático: ${b.tone}
+Quantidade de módulos: ${b.module_count}
+
+${sectionInstr}
+
+Siga a didática FCIA: linguagem acessível, foco em aplicação real, progressão do básico ao prático, evite conteúdo genérico. Cada módulo deve ter 3 a 6 questões de quiz (multiple_choice ou true_false, para true_false use options ["Verdadeiro","Falso"]).
+
+Retorne EXCLUSIVAMENTE um JSON válido, sem markdown, sem texto extra, no formato:
+${COURSE_SCHEMA_HINT}`;
+}
+
+function stripJsonFences(s: string) {
+  return s
+    .trim()
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/```$/i, "")
+    .trim();
+}
+
+async function callGateway(system: string, user: string, apiKey: string) {
+  const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Lovable-API-Key": apiKey,
+      "X-Lovable-AIG-SDK": "fetch",
+    },
+    body: JSON.stringify({
+      model: "google/gemini-3-flash-preview",
+      messages: [
+        { role: "system", content: system },
+        { role: "user", content: user },
+      ],
+      response_format: { type: "json_object" },
+    }),
+  });
+  if (res.status === 429) throw new Error("Limite de requisições atingido. Tente novamente em instantes.");
+  if (res.status === 402) throw new Error("Créditos de IA esgotados. Adicione créditos no workspace.");
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(`AI gateway error ${res.status}: ${t.slice(0, 200)}`);
+  }
+  const j = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+  return j.choices?.[0]?.message?.content ?? "";
+}
+
+export const generateCourseFromBrief = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => BriefInput.parse(input))
+  .handler(async ({ data, context }) => {
+    const { data: isAdmin } = await (context.supabase as any).rpc("has_role", {
+      _user_id: context.userId,
+      _role: "admin",
+    });
+    if (!isAdmin) throw new Error("Forbidden");
+
+    const apiKey = process.env.LOVABLE_API_KEY;
+    if (!apiKey) throw new Error("LOVABLE_API_KEY not configured");
+
+    const system =
+      "Você é arquiteto de cursos da FCIA Academy. Gera cursos completos, pedagogicamente organizados, em português do Brasil. Responde APENAS com JSON válido.";
+    const content = await callGateway(system, buildCoursePrompt(data), apiKey);
+
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(stripJsonFences(content));
+    } catch {
+      throw new Error("A IA retornou JSON inválido. Tente regenerar.");
+    }
+    return { course: parsed };
+  });
+
+/* ---------- persistência do rascunho ---------- */
+
+const SaveInput = z.object({
+  track_id: z.string().uuid().nullable().optional(),
+  title: z.string().min(3),
+  level: z.string().default("Iniciante"),
+  workload_hours: z.number().int().min(1).default(4),
+  course: z.object({
+    slug: z.string(),
+    short_description: z.string().default(""),
+    full_description: z.string().default(""),
+    promise: z.string().default(""),
+    audience: z.string().default(""),
+    prerequisites: z.array(z.string()).default([]),
+    learning_outcomes: z.array(z.string()).default([]),
+    cover_prompt: z.string().default(""),
+    modules: z
+      .array(
+        z.object({
+          title: z.string(),
+          slug: z.string().optional().default(""),
+          objective: z.string().default(""),
+          summary: z.string().default(""),
+          content_md: z.string().default(""),
+          duration_minutes: z.number().int().default(20),
+          pdf_outline: z.array(z.string()).default([]),
+          practical_activity: z.string().default(""),
+          quiz: z
+            .array(
+              z.object({
+                question: z.string(),
+                type: z.enum(["multiple_choice", "true_false"]).default("multiple_choice"),
+                options: z.array(z.string()).default([]),
+                correct_answer: z.string(),
+                explanation: z.string().optional().default(""),
+              }),
+            )
+            .default([]),
+        }),
+      )
+      .default([]),
+  }),
+});
+
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .slice(0, 80);
+}
+
+export const saveCourseDraft = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => SaveInput.parse(input))
+  .handler(async ({ data, context }) => {
+    const { data: isAdmin } = await (context.supabase as any).rpc("has_role", {
+      _user_id: context.userId,
+      _role: "admin",
+    });
+    if (!isAdmin) throw new Error("Forbidden");
+
+    const supa = context.supabase as any;
+    const c = data.course;
+    const baseSlug = c.slug || slugify(data.title);
+    const slug = `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
+
+    const description = [c.promise, c.short_description, c.full_description]
+      .filter(Boolean)
+      .join("\n\n");
+
+    const { data: inserted, error: courseErr } = await supa
+      .from("courses")
+      .insert({
+        track_id: data.track_id ?? null,
+        slug,
+        title: data.title,
+        description,
+        level: data.level,
+        workload_hours: data.workload_hours,
+        duration_minutes: c.modules.reduce((a, m) => a + (m.duration_minutes || 0), 0),
+        is_published: false,
+      })
+      .select("id")
+      .single();
+    if (courseErr) throw new Error(`Erro ao salvar curso: ${courseErr.message}`);
+    const courseId = inserted.id as string;
+
+    for (let i = 0; i < c.modules.length; i++) {
+      const m = c.modules[i];
+      const modSlug = (m.slug ? slugify(m.slug) : slugify(m.title)) || `modulo-${i + 1}`;
+      const contentText = [
+        m.objective ? `## Objetivo\n${m.objective}` : "",
+        m.summary ? `## Resumo\n${m.summary}` : "",
+        m.content_md ? `## Conteúdo\n${m.content_md}` : "",
+        m.practical_activity ? `## Atividade prática\n${m.practical_activity}` : "",
+        m.pdf_outline?.length ? `## Outline PDF\n${m.pdf_outline.map((x) => `- ${x}`).join("\n")}` : "",
+      ]
+        .filter(Boolean)
+        .join("\n\n");
+
+      const { data: modIns, error: modErr } = await supa
+        .from("modules")
+        .insert({
+          course_id: courseId,
+          slug: `${modSlug}-${i + 1}`,
+          title: m.title,
+          description: m.summary || m.objective || "",
+          content_type: "text",
+          content_text: contentText,
+          duration_minutes: m.duration_minutes || 20,
+          sort_order: i + 1,
+          is_published: false,
+        })
+        .select("id")
+        .single();
+      if (modErr) throw new Error(`Erro no módulo ${i + 1}: ${modErr.message}`);
+      const moduleId = modIns.id as string;
+
+      if (m.quiz?.length) {
+        const rows = m.quiz.map((q, qi) => ({
+          module_id: moduleId,
+          question: q.question,
+          type: q.type,
+          options: q.options,
+          correct_answer: q.correct_answer,
+          explanation: q.explanation || null,
+          sort_order: qi + 1,
+        }));
+        const { error: qErr } = await supa.from("questions").insert(rows);
+        if (qErr) throw new Error(`Erro nas questões do módulo ${i + 1}: ${qErr.message}`);
+      }
+    }
+
+    return { course_id: courseId, slug };
+  });
