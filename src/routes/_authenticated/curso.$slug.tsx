@@ -282,7 +282,19 @@ function ModuleTypeIcon({ type }: { type: ModuleRow["content_type"] }) {
   return <BookOpen className="h-3.5 w-3.5" />;
 }
 
-function ModuleContent({ module: mod }: { module: ModuleRow }) {
+function ModuleContent({
+  module: mod,
+  course,
+  studentLabel,
+  completed,
+  onComplete,
+}: {
+  module: ModuleRow;
+  course: CourseDetail;
+  studentLabel: string;
+  completed: boolean;
+  onComplete: () => void;
+}) {
   if (mod.content_type === "video") {
     if (mod.video_url) {
       return <StorageVideo path={mod.video_url} title={mod.title} />;
@@ -303,23 +315,15 @@ function ModuleContent({ module: mod }: { module: ModuleRow }) {
     }
   }
 
-  if (mod.content_type === "pdf" && mod.content_url) {
+  if (mod.content_type === "pdf") {
     return (
-      <div className="overflow-hidden rounded-2xl border border-border bg-card">
-        <object data={mod.content_url} type="application/pdf" className="h-[75vh] w-full">
-          <div className="p-6 text-sm text-muted-foreground">
-            Não foi possível exibir o PDF.{" "}
-            <a
-              href={mod.content_url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary hover:underline"
-            >
-              Abrir em nova aba
-            </a>
-          </div>
-        </object>
-      </div>
+      <SecurePdfModule
+        moduleId={mod.id}
+        studentLabel={studentLabel}
+        allowDownload={course.allow_pdf_download}
+        completed={completed}
+        onComplete={onComplete}
+      />
     );
   }
   if (mod.content_type === "text") {
