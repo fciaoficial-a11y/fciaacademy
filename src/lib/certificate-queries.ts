@@ -7,6 +7,12 @@ export type CertificateRow = {
   validation_code: string;
   pdf_url: string | null;
   issued_at: string;
+  completion_date: string | null;
+  student_name_snapshot: string | null;
+  course_title_snapshot: string | null;
+  workload_hours_snapshot: number | null;
+  verification_url: string | null;
+  status: string;
   courses: { title: string; slug: string; description: string } | null;
 };
 
@@ -19,7 +25,7 @@ export function myCertificatesQuery(userId: string | undefined) {
       const { data, error } = await supabase
         .from("certificates")
         .select(
-          "id, course_id, validation_code, pdf_url, issued_at, courses(title, slug, description)"
+          "id, course_id, validation_code, pdf_url, issued_at, completion_date, student_name_snapshot, course_title_snapshot, workload_hours_snapshot, verification_url, status, courses(title, slug, description)"
         )
         .eq("user_id", userId)
         .order("issued_at", { ascending: false });
@@ -36,13 +42,17 @@ export function myCertificatesQuery(userId: string | undefined) {
 export type PublicCertificate = {
   validation_code: string;
   issued_at: string;
+  completion_date: string | null;
   student_name: string;
   course_title: string;
   course_slug: string;
   track_title: string | null;
   workload_hours: number | null;
+  status: string;
+  verification_url: string | null;
+  institution_name: string;
+  legal_footer: string;
 };
-
 
 export function validateCertificateQuery(code: string) {
   return queryOptions({
