@@ -205,14 +205,13 @@ export const generateCourseFromBrief = createServerFn({ method: "POST" })
     const system =
       "Você é arquiteto de cursos da FCIA Academy. Gera cursos completos, pedagogicamente organizados, em português do Brasil. Responde APENAS com JSON válido.";
     const content = await callGateway(system, buildCoursePrompt(data), apiKey);
-
-    let parsed: unknown;
+    const cleaned = stripJsonFences(content);
     try {
-      parsed = JSON.parse(stripJsonFences(content));
+      JSON.parse(cleaned);
     } catch {
       throw new Error("A IA retornou JSON inválido. Tente regenerar.");
     }
-    return { course: parsed as Record<string, unknown> };
+    return { courseJson: cleaned };
   });
 
 /* ---------- persistência do rascunho ---------- */
