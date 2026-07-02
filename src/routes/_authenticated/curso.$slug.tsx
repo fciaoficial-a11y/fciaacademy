@@ -17,9 +17,12 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { courseLearnQuery, progressQuery, type ModuleRow } from "@/lib/learn-queries";
+import { courseLearnQuery, progressQuery, type CourseDetail, type ModuleRow } from "@/lib/learn-queries";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
+import { PdfViewer } from "@/components/learn/PdfViewer";
+import { getModulePdfUrl } from "@/lib/pdf.functions";
+
 
 
 const searchSchema = z.object({ m: z.string().optional() });
