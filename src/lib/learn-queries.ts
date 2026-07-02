@@ -44,7 +44,7 @@ export function courseLearnQuery(slug: string) {
       const { data: course, error } = await supabase
         .from("courses")
         .select(
-          "id, slug, title, description, level, duration_minutes, track_id, price, tracks:track_id ( title, slug )"
+          "id, slug, title, description, level, duration_minutes, track_id, price, allow_pdf_download, tracks:track_id ( title, slug )"
         )
         .eq("slug", slug)
         .eq("is_published", true)
@@ -63,6 +63,7 @@ export function courseLearnQuery(slug: string) {
         track_title: track?.title ?? null,
         track_slug: track?.slug ?? null,
         price: Number((course as unknown as { price: number | null }).price ?? 0),
+        allow_pdf_download: Boolean((course as unknown as { allow_pdf_download: boolean | null }).allow_pdf_download),
       };
 
       const { data: modules, error: mErr } = await supabase
