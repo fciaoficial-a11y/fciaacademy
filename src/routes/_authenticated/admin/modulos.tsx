@@ -163,18 +163,25 @@ function AdminModulesPage() {
                 <Field label="Duração (min)"><Input type="number" value={editing.duration_minutes ?? 0} onChange={(e) => setEditing({ ...editing, duration_minutes: Number(e.target.value) })} /></Field>
                 <Field label="Ordem"><Input type="number" value={editing.sort_order ?? 0} onChange={(e) => setEditing({ ...editing, sort_order: Number(e.target.value) })} /></Field>
               </div>
-              {editing.content_type !== "text" && (
-                <Field label="URL do conteúdo">
-                  <div className="flex items-center gap-2">
-                    <Input value={editing.content_url ?? ""} onChange={(e) => setEditing({ ...editing, content_url: e.target.value })} placeholder={editing.content_type === "video" ? "URL do vídeo (YouTube embed)" : "URL do PDF"} />
-                    {editing.content_type === "pdf" && (
-                      <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent">
-                        <Upload className="h-4 w-4" />
-                        {uploading ? "…" : "Upload"}
-                        <input type="file" accept="application/pdf" className="hidden" onChange={(e) => e.target.files?.[0] && handlePdf(e.target.files[0])} />
-                      </label>
-                    )}
-                  </div>
+              {editing.content_type === "video" && (
+                <Field label="URL do vídeo">
+                  <Input
+                    value={editing.content_url ?? ""}
+                    onChange={(e) => setEditing({ ...editing, content_url: e.target.value })}
+                    placeholder="URL do vídeo (YouTube embed ou caminho no bucket)"
+                  />
+                </Field>
+              )}
+              {editing.content_type === "pdf" && (
+                <Field label="Arquivo PDF">
+                  <PdfUploader
+                    value={{
+                      pdf_path: editing.pdf_path ?? null,
+                      pdf_file_name: editing.pdf_file_name ?? null,
+                      pdf_file_size: editing.pdf_file_size ?? null,
+                    }}
+                    onChange={handlePdfChange}
+                  />
                 </Field>
               )}
               {editing.content_type === "text" && (
