@@ -159,6 +159,7 @@ export type Database = {
       }
       courses: {
         Row: {
+          allow_pdf_download: boolean
           certificate_enabled: boolean
           cover_url: string | null
           created_at: string
@@ -176,6 +177,7 @@ export type Database = {
           workload_hours: number
         }
         Insert: {
+          allow_pdf_download?: boolean
           certificate_enabled?: boolean
           cover_url?: string | null
           created_at?: string
@@ -193,6 +195,7 @@ export type Database = {
           workload_hours?: number
         }
         Update: {
+          allow_pdf_download?: boolean
           certificate_enabled?: boolean
           cover_url?: string | null
           created_at?: string
@@ -359,6 +362,12 @@ export type Database = {
           duration_minutes: number
           id: string
           is_published: boolean
+          pdf_file_name: string | null
+          pdf_file_size: number | null
+          pdf_mime_type: string | null
+          pdf_path: string | null
+          pdf_total_pages: number | null
+          pdf_uploaded_at: string | null
           slug: string
           sort_order: number
           title: string
@@ -375,6 +384,12 @@ export type Database = {
           duration_minutes?: number
           id?: string
           is_published?: boolean
+          pdf_file_name?: string | null
+          pdf_file_size?: number | null
+          pdf_mime_type?: string | null
+          pdf_path?: string | null
+          pdf_total_pages?: number | null
+          pdf_uploaded_at?: string | null
           slug: string
           sort_order?: number
           title: string
@@ -391,6 +406,12 @@ export type Database = {
           duration_minutes?: number
           id?: string
           is_published?: boolean
+          pdf_file_name?: string | null
+          pdf_file_size?: number | null
+          pdf_mime_type?: string | null
+          pdf_path?: string | null
+          pdf_total_pages?: number | null
+          pdf_uploaded_at?: string | null
           slug?: string
           sort_order?: number
           title?: string
@@ -936,6 +957,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      get_module_pdf_path: { Args: { _module_id: string }; Returns: string }
       grant_paid_access: {
         Args: { _course_id?: string; _plan_id: string; _user_id: string }
         Returns: undefined
