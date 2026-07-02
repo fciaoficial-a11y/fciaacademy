@@ -212,7 +212,7 @@ export const generateCourseFromBrief = createServerFn({ method: "POST" })
     } catch {
       throw new Error("A IA retornou JSON inválido. Tente regenerar.");
     }
-    return { course: parsed };
+    return { course: parsed as Record<string, unknown> };
   });
 
 /* ---------- persistência do rascunho ---------- */
