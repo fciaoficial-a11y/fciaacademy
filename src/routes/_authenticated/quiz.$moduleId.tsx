@@ -315,8 +315,11 @@ function QuestionCard({
   onSelect: (v: string) => void;
 }) {
   const opts = useMemo(
-    () => (question.type === "true_false" ? ["Verdadeiro", "Falso"] : question.options),
-    [question]
+    () =>
+      question.type === "true_false"
+        ? ["Verdadeiro", "Falso"]
+        : shuffle(question.options),
+    [question.id],
   );
   return (
     <div className="mt-4 rounded-2xl border border-border bg-card p-6">

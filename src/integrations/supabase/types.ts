@@ -593,41 +593,69 @@ export type Database = {
       questions: {
         Row: {
           correct_answer: string
+          course_id: string | null
           created_at: string
+          difficulty: string
           explanation: string | null
           id: string
+          last_used_at: string | null
           module_id: string
           options: Json
           question: string
           sort_order: number
+          source_type: string
+          status: string
+          times_used: number
+          topic: string | null
           type: string
           updated_at: string
         }
         Insert: {
           correct_answer: string
+          course_id?: string | null
           created_at?: string
+          difficulty?: string
           explanation?: string | null
           id?: string
+          last_used_at?: string | null
           module_id: string
           options?: Json
           question: string
           sort_order?: number
+          source_type?: string
+          status?: string
+          times_used?: number
+          topic?: string | null
           type?: string
           updated_at?: string
         }
         Update: {
           correct_answer?: string
+          course_id?: string | null
           created_at?: string
+          difficulty?: string
           explanation?: string | null
           id?: string
+          last_used_at?: string | null
           module_id?: string
           options?: Json
           question?: string
           sort_order?: number
+          source_type?: string
+          status?: string
+          times_used?: number
+          topic?: string | null
           type?: string
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "questions_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "questions_module_id_fkey"
             columns: ["module_id"]
@@ -926,6 +954,34 @@ export type Database = {
           total_students: number
         }[]
       }
+      assemble_exam: {
+        Args: { _course_id: string; _size?: number }
+        Returns: {
+          correct_answer: string
+          course_id: string | null
+          created_at: string
+          difficulty: string
+          explanation: string | null
+          id: string
+          last_used_at: string | null
+          module_id: string
+          options: Json
+          question: string
+          sort_order: number
+          source_type: string
+          status: string
+          times_used: number
+          topic: string | null
+          type: string
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "questions"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       award_xp: {
         Args: { _amount: number; _reason: string; _ref: string; _user: string }
         Returns: undefined
@@ -973,7 +1029,19 @@ export type Database = {
         }
         Returns: boolean
       }
+      mark_questions_used: { Args: { _ids: string[] }; Returns: undefined }
       plan_rank: { Args: { _plan: string }; Returns: number }
+      question_bank_coverage: {
+        Args: never
+        Returns: {
+          approved_count: number
+          course_id: string
+          course_title: string
+          draft_count: number
+          module_id: string
+          module_title: string
+        }[]
+      }
       register_daily_login: {
         Args: never
         Returns: {

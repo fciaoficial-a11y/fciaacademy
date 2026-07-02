@@ -39,6 +39,7 @@ export function quizQuery(moduleId: string) {
         .from("questions")
         .select("id, module_id, question, type, options, correct_answer, explanation, sort_order")
         .eq("module_id", moduleId)
+        .eq("status", "approved")
         .order("sort_order");
       if (qErr) throw qErr;
 

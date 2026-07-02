@@ -122,12 +122,19 @@ export const adminModulesQuery = queryOptions({
 export interface AdminQuestion {
   id: string;
   module_id: string;
+  course_id: string | null;
   question: string;
   type: string;
   options: string[];
   correct_answer: string;
   explanation: string | null;
   sort_order: number;
+  difficulty: "easy" | "medium" | "hard";
+  topic: string | null;
+  source_type: "apostila" | "modulo" | "curso" | "ai" | "manual";
+  status: "draft" | "approved" | "archived";
+  times_used: number;
+  last_used_at: string | null;
 }
 export const adminQuestionsQuery = queryOptions({
   queryKey: ["admin", "questions"],
@@ -135,6 +142,23 @@ export const adminQuestionsQuery = queryOptions({
     const { data, error } = await sb.from("questions").select("*").order("sort_order");
     if (error) throw error;
     return (data ?? []) as AdminQuestion[];
+  },
+});
+
+export interface QuestionCoverage {
+  course_id: string;
+  course_title: string;
+  module_id: string | null;
+  module_title: string | null;
+  approved_count: number;
+  draft_count: number;
+}
+export const questionCoverageQuery = queryOptions({
+  queryKey: ["admin", "question-coverage"],
+  queryFn: async (): Promise<QuestionCoverage[]> => {
+    const { data, error } = await sb.rpc("question_bank_coverage");
+    if (error) throw error;
+    return (data ?? []) as QuestionCoverage[];
   },
 });
 

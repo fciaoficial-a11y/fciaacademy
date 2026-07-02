@@ -352,3 +352,133 @@ export const saveCourseDraft = createServerFn({ method: "POST" })
 
     return { course_id: courseId, slug };
   });
+
+/* ============================================================
+ * Question Bank Generator (module or course → persistent bank)
+ * ============================================================ */
+
+const BankInput = z.object({
+  course_id: z.string().uuid(),
+  module_id: z.string().uuid().nullable().optional(),
+  count: z.number().int().min(3).max(30).default(8),
+  difficulty_mix: z.boolean().default(true),
+  source_type: z.enum(["apostila", "modulo", "curso", "ai", "manual"]).default("ai"),
+  auto_approve: z.boolean().default(false),
+  extra_context: z.string().max(4000).optional().default(""),
+});
+
+export const generateQuestionBank = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => BankInput.parse(input))
+  .handler(async ({ data, context }) => {
+    const supa = context.supabase as any;
+    const { data: isAdmin } = await supa.rpc("has_role", {
+      _user_id: context.userId,
+      _role: "admin",
+    });
+    if (!isAdmin) throw new Error("Forbidden");
+
+    const apiKey = process.env.LOVABLE_API_KEY;
+    if (!apiKey) throw new Error("LOVABLE_API_KEY not configured");
+
+    // Buscar contexto real do curso/módulo
+    const { data: course } = await supa
+      .from("courses")
+      .select("id, title, description")
+      .eq("id", data.course_id)
+      .maybeSingle();
+    if (!course) throw new Error("Curso não encontrado.");
+
+    let modules: Array<{ id: string; title: string; content_text: string | null }> = [];
+    if (data.module_id) {
+      const { data: m } = await supa
+        .from("modules")
+        .select("id, title, content_text")
+        .eq("id", data.module_id)
+        .maybeSingle();
+      if (m) modules = [m];
+    } else {
+      const { data: ms } = await supa
+        .from("modules")
+        .select("id, title, content_text")
+        .eq("course_id", data.course_id)
+        .order("sort_order");
+      modules = ms ?? [];
+    }
+    if (!modules.length) throw new Error("Nenhum módulo encontrado para gerar questões.");
+
+    const contextText = modules
+      .map((m) => `## Módulo: ${m.title}\n${(m.content_text || "").slice(0, 2000)}`)
+      .join("\n\n");
+
+    const perModule = Math.max(3, Math.ceil(data.count / modules.length));
+    const system =
+      "Você é designer instrucional da FCIA Academy. Gere questões didáticas, aplicadas, com alternativas plausíveis. Responda APENAS com JSON válido.";
+    const mixInstr = data.difficulty_mix
+      ? 'Distribua entre "easy", "medium" e "hard".'
+      : 'Use "medium" para todas.';
+    const user = `Curso: ${course.title}
+Descrição: ${course.description || ""}
+Contexto adicional: ${data.extra_context || "n/d"}
+
+Conteúdo pedagógico:
+${contextText}
+
+Gere EXATAMENTE ${perModule} questões POR MÓDULO listado acima (identificado pelo título). ${mixInstr}
+Cada questão deve ser respondível a partir do conteúdo. Alternativas plausíveis, uma única correta.
+Formato JSON estrito:
+{"questions":[{"module_title":"...","topic":"...","difficulty":"easy|medium|hard","question":"...","type":"multiple_choice|true_false","options":["a","b","c","d"],"correct_answer":"a","explanation":"..."}]}
+Para true_false use options ["Verdadeiro","Falso"].`;
+
+    const content = await callGateway(system, user, apiKey);
+    let parsed: any;
+    try {
+      parsed = JSON.parse(stripJsonFences(content));
+    } catch {
+      throw new Error("A IA retornou JSON inválido.");
+    }
+    const items: any[] = Array.isArray(parsed?.questions) ? parsed.questions : [];
+    if (!items.length) throw new Error("A IA não retornou questões.");
+
+    // Mapear module_title -> id
+    const byTitle = new Map(modules.map((m) => [m.title.toLowerCase().trim(), m.id]));
+
+    const rows = items
+      .map((q, i) => {
+        const modId =
+          byTitle.get(String(q.module_title || "").toLowerCase().trim()) ??
+          data.module_id ??
+          modules[0].id;
+        const type = q.type === "true_false" ? "true_false" : "multiple_choice";
+        const options =
+          type === "true_false"
+            ? ["Verdadeiro", "Falso"]
+            : Array.isArray(q.options)
+              ? q.options.filter(Boolean).slice(0, 6)
+              : [];
+        if (!q.question || !q.correct_answer || options.length < 2) return null;
+        const diff = ["easy", "medium", "hard"].includes(q.difficulty) ? q.difficulty : "medium";
+        return {
+          course_id: data.course_id,
+          module_id: modId,
+          question: String(q.question).slice(0, 1000),
+          type,
+          options,
+          correct_answer: String(q.correct_answer),
+          explanation: q.explanation ? String(q.explanation).slice(0, 1000) : null,
+          difficulty: diff,
+          topic: q.topic ? String(q.topic).slice(0, 120) : null,
+          source_type: data.source_type,
+          status: data.auto_approve ? "approved" : "draft",
+          sort_order: 1000 + i,
+        };
+      })
+      .filter(Boolean);
+
+    if (!rows.length) throw new Error("Nenhuma questão válida gerada.");
+    const { error } = await supa.from("questions").insert(rows);
+    if (error) throw new Error(`Erro ao salvar: ${error.message}`);
+
+    return { inserted: rows.length, auto_approved: data.auto_approve };
+  });
+
