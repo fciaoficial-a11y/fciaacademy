@@ -38,6 +38,7 @@ import { Route as AuthenticatedAdminSenhaRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminQuestoesRouteImport } from './routes/_authenticated/admin/questoes'
 import { Route as AuthenticatedAdminPagamentosRouteImport } from './routes/_authenticated/admin/pagamentos'
 import { Route as AuthenticatedAdminModulosRouteImport } from './routes/_authenticated/admin/modulos'
+import { Route as AuthenticatedAdminGerarCursoRouteImport } from './routes/_authenticated/admin/gerar-curso'
 import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
 import { Route as AuthenticatedAdminCertificadosRouteImport } from './routes/_authenticated/admin/certificados'
 import { Route as AuthenticatedAdminAiStudioRouteImport } from './routes/_authenticated/admin/ai-studio'
@@ -196,6 +197,12 @@ const AuthenticatedAdminModulosRoute =
     path: '/modulos',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminGerarCursoRoute =
+  AuthenticatedAdminGerarCursoRouteImport.update({
+    id: '/gerar-curso',
+    path: '/gerar-curso',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminCursosRoute =
   AuthenticatedAdminCursosRouteImport.update({
     id: '/cursos',
@@ -242,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
   '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/gerar-curso': typeof AuthenticatedAdminGerarCursoRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
   '/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
@@ -275,6 +283,7 @@ export interface FileRoutesByTo {
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
   '/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/gerar-curso': typeof AuthenticatedAdminGerarCursoRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
   '/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
@@ -311,6 +320,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
   '/_authenticated/admin/certificados': typeof AuthenticatedAdminCertificadosRoute
   '/_authenticated/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/_authenticated/admin/gerar-curso': typeof AuthenticatedAdminGerarCursoRoute
   '/_authenticated/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/_authenticated/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
   '/_authenticated/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
@@ -347,6 +357,7 @@ export interface FileRouteTypes {
     | '/admin/ai-studio'
     | '/admin/certificados'
     | '/admin/cursos'
+    | '/admin/gerar-curso'
     | '/admin/modulos'
     | '/admin/pagamentos'
     | '/admin/questoes'
@@ -380,6 +391,7 @@ export interface FileRouteTypes {
     | '/admin/ai-studio'
     | '/admin/certificados'
     | '/admin/cursos'
+    | '/admin/gerar-curso'
     | '/admin/modulos'
     | '/admin/pagamentos'
     | '/admin/questoes'
@@ -415,6 +427,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/ai-studio'
     | '/_authenticated/admin/certificados'
     | '/_authenticated/admin/cursos'
+    | '/_authenticated/admin/gerar-curso'
     | '/_authenticated/admin/modulos'
     | '/_authenticated/admin/pagamentos'
     | '/_authenticated/admin/questoes'
@@ -650,6 +663,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminModulosRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/gerar-curso': {
+      id: '/_authenticated/admin/gerar-curso'
+      path: '/gerar-curso'
+      fullPath: '/admin/gerar-curso'
+      preLoaderRoute: typeof AuthenticatedAdminGerarCursoRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/cursos': {
       id: '/_authenticated/admin/cursos'
       path: '/cursos'
@@ -685,6 +705,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAiStudioRoute: typeof AuthenticatedAdminAiStudioRoute
   AuthenticatedAdminCertificadosRoute: typeof AuthenticatedAdminCertificadosRoute
   AuthenticatedAdminCursosRoute: typeof AuthenticatedAdminCursosRoute
+  AuthenticatedAdminGerarCursoRoute: typeof AuthenticatedAdminGerarCursoRoute
   AuthenticatedAdminModulosRoute: typeof AuthenticatedAdminModulosRoute
   AuthenticatedAdminPagamentosRoute: typeof AuthenticatedAdminPagamentosRoute
   AuthenticatedAdminQuestoesRoute: typeof AuthenticatedAdminQuestoesRoute
@@ -699,6 +720,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminAiStudioRoute: AuthenticatedAdminAiStudioRoute,
     AuthenticatedAdminCertificadosRoute: AuthenticatedAdminCertificadosRoute,
     AuthenticatedAdminCursosRoute: AuthenticatedAdminCursosRoute,
+    AuthenticatedAdminGerarCursoRoute: AuthenticatedAdminGerarCursoRoute,
     AuthenticatedAdminModulosRoute: AuthenticatedAdminModulosRoute,
     AuthenticatedAdminPagamentosRoute: AuthenticatedAdminPagamentosRoute,
     AuthenticatedAdminQuestoesRoute: AuthenticatedAdminQuestoesRoute,
