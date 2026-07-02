@@ -396,8 +396,10 @@ function SecurePdfModule({
   );
 }
 
+function StorageVideo({ path, title }: { path: string; title: string }) {
   const [src, setSrc] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
 
   useEffect(() => {
     let cancelled = false;
