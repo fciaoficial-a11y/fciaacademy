@@ -21,7 +21,6 @@ import {
   deleteRow,
   insertRow,
   updateRow,
-  uploadCourseAsset,
   type AdminModule,
 } from "@/lib/admin-api";
 
