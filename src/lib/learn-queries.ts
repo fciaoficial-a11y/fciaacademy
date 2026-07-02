@@ -27,6 +27,7 @@ export type CourseDetail = {
   track_title: string | null;
   track_slug: string | null;
   price: number;
+  allow_pdf_download: boolean;
 };
 
 
