@@ -41,7 +41,6 @@ function AdminModulesPage() {
   const [filter, setFilter] = useState<string>("");
   const [editing, setEditing] = useState<Draft | null>(null);
   const [open, setOpen] = useState(false);
-  const [uploading, setUploading] = useState(false);
 
   const save = useMutation({
     mutationFn: async (d: Draft) => {
@@ -64,15 +63,31 @@ function AdminModulesPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin", "modules"] }),
   });
 
-  async function handlePdf(file: File) {
-    setUploading(true);
-    try {
-      const url = await uploadCourseAsset(file, "pdfs");
-      setEditing((prev) => prev ? { ...prev, content_url: url, content_type: "pdf" } : prev);
-      toast.success("PDF enviado.");
-    } catch (e) { toast.error((e as Error).message); }
-    finally { setUploading(false); }
+  function handlePdfChange(meta: PdfMeta | null) {
+    setEditing((prev) => {
+      if (!prev) return prev;
+      if (!meta) {
+        return {
+          ...prev,
+          pdf_path: null,
+          pdf_file_name: null,
+          pdf_file_size: null,
+          pdf_mime_type: null,
+          pdf_uploaded_at: null,
+        };
+      }
+      return {
+        ...prev,
+        content_type: "pdf",
+        pdf_path: meta.pdf_path,
+        pdf_file_name: meta.pdf_file_name,
+        pdf_file_size: meta.pdf_file_size,
+        pdf_mime_type: meta.pdf_mime_type,
+        pdf_uploaded_at: new Date().toISOString(),
+      };
+    });
   }
+
 
   const filtered = (modules.data ?? []).filter((m) => !filter || m.course_id === filter);
 
