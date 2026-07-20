@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { PdfUploader, type PdfMeta } from "@/components/learn/PdfUploader";
+import { VideoUploader, type IntroVideoMeta } from "@/components/learn/VideoUploader";
+
 import {
   Dialog,
   DialogContent,
@@ -87,6 +89,12 @@ function AdminModulesPage() {
       };
     });
   }
+
+  function handleIntroVideoChange(meta: IntroVideoMeta) {
+    setEditing((prev) => (prev ? { ...prev, ...meta } : prev));
+  }
+
+
 
 
   const filtered = (modules.data ?? []).filter((m) => !filter || m.course_id === filter);
