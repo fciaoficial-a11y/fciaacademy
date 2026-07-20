@@ -226,49 +226,67 @@ function CourseLearnPage() {
           studentLabel={studentLabel}
           completed={isComplete}
           onComplete={() => {
-            if (!isComplete) toggleComplete.mutate(activeModule);
+            if (!isComplete) markComplete.mutate(activeModule);
           }}
         />
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4">
-          <Button
-            onClick={() => toggleComplete.mutate(activeModule)}
-            disabled={!userId || toggleComplete.isPending}
-            variant={isComplete ? "secondary" : "default"}
-            className="rounded-full"
-          >
-            {isComplete ? (
-              <>
-                <CheckCircle2 className="mr-2 h-4 w-4" /> Concluído
-              </>
-            ) : (
-              "Marcar como concluído"
-            )}
-          </Button>
+        <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Button
+              onClick={() => !isComplete && markComplete.mutate(activeModule)}
+              disabled={!userId || isComplete || markComplete.isPending}
+              variant={isComplete ? "secondary" : "default"}
+              className="rounded-full"
+            >
+              {isComplete ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" /> Módulo concluído
+                </>
+              ) : (
+                "Marcar como concluído"
+              )}
+            </Button>
 
-          <div className="flex flex-wrap gap-2">
-            <Button asChild variant="secondary" className="rounded-full">
-              <Link to="/quiz/$moduleId" params={{ moduleId: activeModule.id }}>
-                Fazer quiz
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-full"
-              disabled={!prev}
-              onClick={() => prev && setActive(prev.slug)}
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-full"
-              disabled={!next}
-              onClick={() => next && setActive(next.slug)}
-            >
-              Próximo <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <div className="flex flex-wrap gap-2">
+              {eligibility.data?.quiz_unlocked ? (
+                <Button asChild variant="secondary" className="rounded-full">
+                  <Link to="/quiz/$moduleId" params={{ moduleId: activeModule.id }}>
+                    Fazer quiz final
+                  </Link>
+                </Button>
+              ) : (
+                <Button variant="secondary" className="rounded-full" disabled>
+                  <Lock className="mr-2 h-4 w-4" /> Quiz bloqueado
+                </Button>
+              )}
+              <Button
+                variant="outline"
+                className="rounded-full"
+                disabled={!prev}
+                onClick={() => prev && setActive(prev.slug)}
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-full"
+                disabled={!next}
+                onClick={() => next && setActive(next.slug)}
+              >
+                Próximo <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
           </div>
+          {eligibility.data && !eligibility.data.quiz_unlocked && (
+            <p className="text-xs text-muted-foreground">
+              Conclua todos os módulos para liberar o quiz final ({eligibility.data.completed_required_modules}/{eligibility.data.total_required_modules} concluídos).
+            </p>
+          )}
+          {eligibility.data?.quiz_unlocked && completedCount === modules.length && (
+            <p className="text-xs text-primary">
+              Curso concluído. Seu quiz final foi liberado.
+            </p>
+          )}
         </div>
       </section>
     </div>
