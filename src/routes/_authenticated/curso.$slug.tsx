@@ -18,10 +18,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { courseLearnQuery, progressQuery, type CourseDetail, type ModuleRow } from "@/lib/learn-queries";
+import { eligibilityQuery } from "@/lib/quiz-queries";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
 import { PdfViewer } from "@/components/learn/PdfViewer";
 import { getModulePdfUrl } from "@/lib/pdf.functions";
+import { toast } from "sonner";
 
 
 
@@ -104,24 +106,21 @@ function CourseLearnPage() {
   const setActive = (mSlug: string) =>
     navigate({ to: "/curso/$slug", params: { slug }, search: { m: mSlug } });
 
-  const toggleComplete = useMutation({
+  const eligibility = useQuery(eligibilityQuery(hasAccess ? course.id : undefined, userId));
+
+  const markComplete = useMutation({
     mutationFn: async (mod: ModuleRow) => {
       if (!userId) throw new Error("Não autenticado");
-      const currentlyDone = progressMap.get(mod.id) ?? false;
-      const { error } = await supabase.from("module_progress").upsert(
-        {
-          user_id: userId,
-          module_id: mod.id,
-          course_id: course.id,
-          completed: !currentlyDone,
-          completed_at: !currentlyDone ? new Date().toISOString() : null,
-        },
-        { onConflict: "user_id,module_id" }
-      );
+      const { error } = await supabase.rpc("mark_module_complete", { _module_id: mod.id });
       if (error) throw error;
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["progress", course.id, userId] }),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["progress", course.id, userId] }),
+        queryClient.invalidateQueries({ queryKey: ["quiz-eligibility", course.id, userId] }),
+      ]);
+    },
+    onError: (e: Error) => toast.error(e.message || "Não foi possível concluir o módulo."),
   });
 
   if (!hasAccess) {
