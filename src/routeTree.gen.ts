@@ -28,6 +28,7 @@ import { Route as AuthenticatedEvolucaoRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCertificadosRouteImport } from './routes/_authenticated/certificados'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
+import { Route as AuthenticatedCertificadosIndexRouteImport } from './routes/_authenticated/certificados.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedQuizModuleIdRouteImport } from './routes/_authenticated/quiz.$moduleId'
 import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authenticated/curso.$slug'
@@ -140,6 +141,12 @@ const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCertificadosIndexRoute =
+  AuthenticatedCertificadosIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedCertificadosRoute,
+  } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -260,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/certificados/': typeof AuthenticatedCertificadosIndexRoute
   '/api/public/webhooks/asaas': typeof ApiPublicWebhooksAsaasRoute
 }
 export interface FileRoutesByTo {
@@ -274,7 +282,6 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/trilhas': typeof TrilhasRouteWithChildren
   '/turmas': typeof TurmasRoute
-  '/certificados': typeof AuthenticatedCertificadosRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
@@ -294,6 +301,7 @@ export interface FileRoutesByTo {
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/certificados': typeof AuthenticatedCertificadosIndexRoute
   '/api/public/webhooks/asaas': typeof ApiPublicWebhooksAsaasRoute
 }
 export interface FileRoutesById {
@@ -331,6 +339,7 @@ export interface FileRoutesById {
   '/_authenticated/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/_authenticated/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/certificados/': typeof AuthenticatedCertificadosIndexRoute
   '/api/public/webhooks/asaas': typeof ApiPublicWebhooksAsaasRoute
 }
 export interface FileRouteTypes {
@@ -368,6 +377,7 @@ export interface FileRouteTypes {
     | '/curso/$slug'
     | '/quiz/$moduleId'
     | '/admin/'
+    | '/certificados/'
     | '/api/public/webhooks/asaas'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -382,7 +392,6 @@ export interface FileRouteTypes {
     | '/settings'
     | '/trilhas'
     | '/turmas'
-    | '/certificados'
     | '/dashboard'
     | '/evolucao'
     | '/profile'
@@ -402,6 +411,7 @@ export interface FileRouteTypes {
     | '/curso/$slug'
     | '/quiz/$moduleId'
     | '/admin'
+    | '/certificados'
     | '/api/public/webhooks/asaas'
   id:
     | '__root__'
@@ -438,6 +448,7 @@ export interface FileRouteTypes {
     | '/_authenticated/curso/$slug'
     | '/_authenticated/quiz/$moduleId'
     | '/_authenticated/admin/'
+    | '/_authenticated/certificados/'
     | '/api/public/webhooks/asaas'
   fileRoutesById: FileRoutesById
 }
@@ -593,6 +604,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/certificados/': {
+      id: '/_authenticated/certificados/'
+      path: '/'
+      fullPath: '/certificados/'
+      preLoaderRoute: typeof AuthenticatedCertificadosIndexRouteImport
+      parentRoute: typeof AuthenticatedCertificadosRoute
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
@@ -737,11 +755,13 @@ const AuthenticatedAdminRouteRouteWithChildren =
 
 interface AuthenticatedCertificadosRouteChildren {
   AuthenticatedCertificadosIdRoute: typeof AuthenticatedCertificadosIdRoute
+  AuthenticatedCertificadosIndexRoute: typeof AuthenticatedCertificadosIndexRoute
 }
 
 const AuthenticatedCertificadosRouteChildren: AuthenticatedCertificadosRouteChildren =
   {
     AuthenticatedCertificadosIdRoute: AuthenticatedCertificadosIdRoute,
+    AuthenticatedCertificadosIndexRoute: AuthenticatedCertificadosIndexRoute,
   }
 
 const AuthenticatedCertificadosRouteWithChildren =

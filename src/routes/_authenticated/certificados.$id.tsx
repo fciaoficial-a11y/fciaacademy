@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
@@ -21,6 +21,7 @@ import { generateCertificate } from "@/lib/certificate.functions";
 
 export const Route = createFileRoute("/_authenticated/certificados/$id")({
   component: CertificateDetailPage,
+  notFoundComponent: CertificateNotFoundPage,
 });
 
 const YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
@@ -134,24 +135,7 @@ function CertificateDetailPage() {
   }
 
   if (!cert) {
-    return (
-      <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-        <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-destructive/15 text-destructive">
-          <XCircle className="h-7 w-7" />
-        </div>
-        <h1 className="mt-4 font-display text-3xl font-semibold">
-          Certificado não encontrado
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Este certificado não existe ou não pertence à sua conta.
-        </p>
-        <Button asChild className="mt-6 rounded-full">
-          <Link to="/certificados">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Meus Certificados
-          </Link>
-        </Button>
-      </div>
-    );
+    throw notFound();
   }
 
   const issued = new Date(cert.issued_at).toLocaleDateString("pt-BR", {
@@ -290,6 +274,27 @@ function CertificateDetailPage() {
           <QRCodeSVG value={validateUrl} size={128} level="M" />
         </div>
       </div>
+    </div>
+  );
+}
+
+function CertificateNotFoundPage() {
+  return (
+    <div className="mx-auto max-w-3xl px-6 py-20 text-center">
+      <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-destructive/15 text-destructive">
+        <XCircle className="h-7 w-7" />
+      </div>
+      <h1 className="mt-4 font-display text-3xl font-semibold">
+        Certificado não encontrado
+      </h1>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Este certificado não existe ou não pertence à sua conta.
+      </p>
+      <Button asChild className="mt-6 rounded-full">
+        <Link to="/certificados">
+          <ArrowLeft className="mr-2 h-4 w-4" /> Meus Certificados
+        </Link>
+      </Button>
     </div>
   );
 }
