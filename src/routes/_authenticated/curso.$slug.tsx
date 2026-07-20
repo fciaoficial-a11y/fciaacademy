@@ -23,6 +23,8 @@ import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
 import { PdfViewer } from "@/components/learn/PdfViewer";
 import { getModulePdfUrl } from "@/lib/pdf.functions";
+import { getModuleIntroVideoUrl } from "@/lib/video.functions";
+
 import { toast } from "sonner";
 
 
@@ -220,6 +222,12 @@ function CourseLearnPage() {
           )}
         </header>
 
+        {activeModule.intro_video_path && (
+          <div className="mb-6">
+            <IntroVideoBlock moduleId={activeModule.id} title={activeModule.title} />
+          </div>
+        )}
+
         <ModuleContent
           module={activeModule}
           course={course}
@@ -229,6 +237,7 @@ function CourseLearnPage() {
             if (!isComplete) markComplete.mutate(activeModule);
           }}
         />
+
 
         <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
