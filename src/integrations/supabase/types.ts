@@ -361,6 +361,9 @@ export type Database = {
           description: string
           duration_minutes: number
           id: string
+          intro_video_duration_seconds: number | null
+          intro_video_path: string | null
+          intro_video_poster_path: string | null
           is_published: boolean
           pdf_file_name: string | null
           pdf_file_size: number | null
@@ -383,6 +386,9 @@ export type Database = {
           description?: string
           duration_minutes?: number
           id?: string
+          intro_video_duration_seconds?: number | null
+          intro_video_path?: string | null
+          intro_video_poster_path?: string | null
           is_published?: boolean
           pdf_file_name?: string | null
           pdf_file_size?: number | null
@@ -405,6 +411,9 @@ export type Database = {
           description?: string
           duration_minutes?: number
           id?: string
+          intro_video_duration_seconds?: number | null
+          intro_video_path?: string | null
+          intro_video_poster_path?: string | null
           is_published?: boolean
           pdf_file_name?: string | null
           pdf_file_size?: number | null
@@ -1012,6 +1021,13 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      get_module_intro_video_path: {
+        Args: { _module_id: string }
+        Returns: {
+          poster_path: string
+          video_path: string
+        }[]
       }
       get_module_pdf_path: { Args: { _module_id: string }; Returns: string }
       get_quiz_eligibility: {
