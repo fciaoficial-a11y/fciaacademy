@@ -186,6 +186,25 @@ function QuizPage() {
     saveAttempt.mutate({ score, correct, total, passed, answersPayload: payload });
   }
 
+  if (locked) {
+    const e = eligibility.data;
+    const pending = e ? e.total_required_modules - e.completed_required_modules : 0;
+    return (
+      <div className="mx-auto max-w-2xl px-6 py-16 text-center">
+        <h1 className="font-display text-2xl font-semibold">Quiz bloqueado</h1>
+        <p className="mt-3 text-muted-foreground">
+          Conclua todos os módulos do curso para liberar o quiz final.
+          {e && ` Faltam ${pending} de ${e.total_required_modules} módulos.`}
+        </p>
+        <Button asChild className="mt-6 rounded-full">
+          <Link to="/curso/$slug" params={{ slug: course.slug }} search={{ m: mod.slug }}>
+            Continuar estudando
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
   if (total === 0) {
     return (
       <div className="mx-auto max-w-2xl px-6 py-16 text-center">
