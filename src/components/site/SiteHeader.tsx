@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, LayoutDashboard } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
+import { useAuth } from "@/lib/use-auth";
 
 const nav = [
   { to: "/trilhas", label: "Trilhas" },
@@ -8,6 +9,9 @@ const nav = [
 ] as const;
 
 export function SiteHeader() {
+  const { user, loading } = useAuth();
+  const isAuthed = Boolean(user);
+
   return (
     <header className="sticky top-0 z-50">
       <div className="absolute inset-0 -z-10 border-b border-white/5 bg-background/60 backdrop-blur-xl backdrop-saturate-150" />
@@ -35,21 +39,32 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2 justify-self-end">
-          <Link
-            to="/login"
-            className="hidden rounded-full px-3 py-2 text-[13.5px] font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
-          >
-            Entrar
-          </Link>
-          <Link
-            to="/register"
-            className="group relative inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 text-[13.5px] font-semibold text-primary-foreground ring-glow transition-all hover:-translate-y-0.5"
-          >
-            Criar conta
-            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
+          {loading ? null : isAuthed ? (
+            <Link
+              to="/dashboard"
+              className="group relative inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 text-[13.5px] font-semibold text-primary-foreground ring-glow transition-all hover:-translate-y-0.5"
+            >
+              <LayoutDashboard className="h-3.5 w-3.5" />
+              Meu painel
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="hidden rounded-full px-3 py-2 text-[13.5px] font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+              >
+                Entrar
+              </Link>
+              <Link
+                to="/register"
+                className="group relative inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 text-[13.5px] font-semibold text-primary-foreground ring-glow transition-all hover:-translate-y-0.5"
+              >
+                Criar conta
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+            </>
+          )}
         </div>
-
       </div>
     </header>
   );
