@@ -14,11 +14,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Configure the pdf.js worker once (Vite-friendly).
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url
-).toString();
+// Configure the pdf.js worker to match the exact API version bundled by react-pdf.
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
 
 type Props = {
   signedUrl: string;
@@ -93,7 +91,7 @@ export function PdfViewer({
   );
 
   const pdfOptions = useMemo(
-    () => ({ cMapUrl: "https://unpkg.com/pdfjs-dist@6.1.200/cmaps/", cMapPacked: true }),
+    () => ({ cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`, cMapPacked: true }),
     []
   );
 
