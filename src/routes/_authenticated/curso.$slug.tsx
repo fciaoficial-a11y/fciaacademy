@@ -478,6 +478,53 @@ function StorageVideo({ path, title }: { path: string; title: string }) {
   );
 }
 
+function IntroVideoBlock({ moduleId, title }: { moduleId: string; title: string }) {
+  const [nonce, setNonce] = useState(0);
+  const query = useQuery({
+    queryKey: ["module-intro-video", moduleId, nonce],
+    queryFn: () => getModuleIntroVideoUrl({ data: { moduleId } }),
+    staleTime: 4 * 60 * 1000,
+    retry: false,
+  });
+
+  if (query.isLoading) {
+    return <div className="aspect-video w-full animate-pulse rounded-2xl bg-card" />;
+  }
+  if (query.isError || !query.data?.url) {
+    return (
+      <div className="rounded-2xl border border-destructive/30 bg-card p-4 text-center text-xs text-muted-foreground">
+        Não foi possível carregar o vídeo deste módulo. Você ainda pode continuar pelo conteúdo abaixo.
+        <div className="mt-2">
+          <Button size="sm" variant="outline" onClick={() => setNonce((n) => n + 1)}>
+            Tentar novamente
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border bg-black">
+      <div className="border-b border-white/10 bg-white/5 px-4 py-2 text-[11px] uppercase tracking-widest text-muted-foreground">
+        Vídeo de abertura
+      </div>
+      <div className="aspect-video w-full">
+        <video
+          key={query.data.url}
+          src={query.data.url}
+          poster={query.data.poster ?? undefined}
+          title={title}
+          controls
+          controlsList="nodownload"
+          playsInline
+          preload="metadata"
+          className="h-full w-full"
+        />
+      </div>
+    </div>
+  );
+}
+
+
 function Paywall({
   course,
 }: {
