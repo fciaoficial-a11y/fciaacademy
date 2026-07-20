@@ -12,10 +12,13 @@ import {
   Store,
   type LucideIcon,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { FAQ } from "@/components/site/FAQ";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import heroImage from "@/assets/hero-ai.webp.asset.json";
+import courseImage from "@/assets/course-ai.webp.asset.json";
+import professorImage from "@/assets/fernando-cabral.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
