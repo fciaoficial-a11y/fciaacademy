@@ -330,22 +330,41 @@ function Index() {
         </div>
       </section>
 
-      {/* ============ AUTORIDADE COMPACTA ============ */}
-      <section className="border-t border-white/5 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="flex flex-col items-start gap-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <div className="flex items-start gap-4">
-              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground">
-                <Briefcase className="h-4 w-4" />
-              </span>
-              <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                FCIA Academy é uma iniciativa de <span className="font-medium text-foreground">Fernando Cabral</span> para tornar a
-                tecnologia mais útil, acessível e aplicável no dia a dia.
+      {/* ============ SOBRE O PROFESSOR ============ */}
+      <section className="border-t border-white/5 py-14 sm:py-20">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="grid gap-8 sm:gap-10 lg:grid-cols-[minmax(220px,300px)_1fr] lg:items-center lg:gap-14">
+            <div className="relative mx-auto w-full max-w-[280px] lg:mx-0">
+              <div className="pointer-events-none absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-accent/30 blur-2xl" aria-hidden />
+              <ImageWithFallback
+                src={professorImage.url}
+                alt="Retrato do Prof. Fernando Cabral, fundador da FCIA Academy"
+                width={560}
+                height={700}
+                loading="lazy"
+                decoding="async"
+                className="relative aspect-[4/5] w-full rounded-2xl border border-white/10 object-cover shadow-xl"
+              />
+            </div>
+
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+                Sobre o Professor
+              </div>
+              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                Tecnologia só faz sentido quando <span className="text-gradient">melhora a vida real</span>.
+              </h2>
+              <p className="mt-4 text-base font-semibold text-foreground">Prof. Fernando Cabral</p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Professor, estrategista e fundador da FCIA. Fernando Cabral une inteligência artificial,
+                criatividade e estratégia para ajudar pessoas e pequenos negócios a entenderem a tecnologia
+                e aplicarem ferramentas atuais com clareza.
               </p>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* ============ FAQ ============ */}
       <FAQ
