@@ -77,4 +77,28 @@ export function attemptsQuery(moduleId: string, userId: string | undefined) {
   });
 }
 
+export type QuizEligibility = {
+  enrolled: boolean;
+  total_required_modules: number;
+  completed_required_modules: number;
+  completion_percent: number;
+  quiz_unlocked: boolean;
+  block_reason: string | null;
+};
+
+export function eligibilityQuery(courseId: string | undefined, userId: string | undefined) {
+  return queryOptions({
+    queryKey: ["quiz-eligibility", courseId, userId],
+    enabled: Boolean(courseId && userId),
+    queryFn: async (): Promise<QuizEligibility | null> => {
+      if (!courseId) return null;
+      const { data, error } = await supabase.rpc("get_quiz_eligibility", { _course_id: courseId });
+      if (error) throw error;
+      const row = Array.isArray(data) ? data[0] : data;
+      return (row as QuizEligibility) ?? null;
+    },
+    staleTime: 5_000,
+  });
+}
+
 export const PASS_THRESHOLD = 70;

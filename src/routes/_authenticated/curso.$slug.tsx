@@ -18,10 +18,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { courseLearnQuery, progressQuery, type CourseDetail, type ModuleRow } from "@/lib/learn-queries";
+import { eligibilityQuery } from "@/lib/quiz-queries";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
 import { PdfViewer } from "@/components/learn/PdfViewer";
 import { getModulePdfUrl } from "@/lib/pdf.functions";
+import { toast } from "sonner";
 
 
 
@@ -104,24 +106,21 @@ function CourseLearnPage() {
   const setActive = (mSlug: string) =>
     navigate({ to: "/curso/$slug", params: { slug }, search: { m: mSlug } });
 
-  const toggleComplete = useMutation({
+  const eligibility = useQuery(eligibilityQuery(hasAccess ? course.id : undefined, userId));
+
+  const markComplete = useMutation({
     mutationFn: async (mod: ModuleRow) => {
       if (!userId) throw new Error("Não autenticado");
-      const currentlyDone = progressMap.get(mod.id) ?? false;
-      const { error } = await supabase.from("module_progress").upsert(
-        {
-          user_id: userId,
-          module_id: mod.id,
-          course_id: course.id,
-          completed: !currentlyDone,
-          completed_at: !currentlyDone ? new Date().toISOString() : null,
-        },
-        { onConflict: "user_id,module_id" }
-      );
+      const { error } = await supabase.rpc("mark_module_complete", { _module_id: mod.id });
       if (error) throw error;
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["progress", course.id, userId] }),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["progress", course.id, userId] }),
+        queryClient.invalidateQueries({ queryKey: ["quiz-eligibility", course.id, userId] }),
+      ]);
+    },
+    onError: (e: Error) => toast.error(e.message || "Não foi possível concluir o módulo."),
   });
 
   if (!hasAccess) {
@@ -227,49 +226,67 @@ function CourseLearnPage() {
           studentLabel={studentLabel}
           completed={isComplete}
           onComplete={() => {
-            if (!isComplete) toggleComplete.mutate(activeModule);
+            if (!isComplete) markComplete.mutate(activeModule);
           }}
         />
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4">
-          <Button
-            onClick={() => toggleComplete.mutate(activeModule)}
-            disabled={!userId || toggleComplete.isPending}
-            variant={isComplete ? "secondary" : "default"}
-            className="rounded-full"
-          >
-            {isComplete ? (
-              <>
-                <CheckCircle2 className="mr-2 h-4 w-4" /> Concluído
-              </>
-            ) : (
-              "Marcar como concluído"
-            )}
-          </Button>
+        <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Button
+              onClick={() => !isComplete && markComplete.mutate(activeModule)}
+              disabled={!userId || isComplete || markComplete.isPending}
+              variant={isComplete ? "secondary" : "default"}
+              className="rounded-full"
+            >
+              {isComplete ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" /> Módulo concluído
+                </>
+              ) : (
+                "Marcar como concluído"
+              )}
+            </Button>
 
-          <div className="flex flex-wrap gap-2">
-            <Button asChild variant="secondary" className="rounded-full">
-              <Link to="/quiz/$moduleId" params={{ moduleId: activeModule.id }}>
-                Fazer quiz
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-full"
-              disabled={!prev}
-              onClick={() => prev && setActive(prev.slug)}
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
-            </Button>
-            <Button
-              variant="outline"
-              className="rounded-full"
-              disabled={!next}
-              onClick={() => next && setActive(next.slug)}
-            >
-              Próximo <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <div className="flex flex-wrap gap-2">
+              {eligibility.data?.quiz_unlocked ? (
+                <Button asChild variant="secondary" className="rounded-full">
+                  <Link to="/quiz/$moduleId" params={{ moduleId: activeModule.id }}>
+                    Fazer quiz final
+                  </Link>
+                </Button>
+              ) : (
+                <Button variant="secondary" className="rounded-full" disabled>
+                  <Lock className="mr-2 h-4 w-4" /> Quiz bloqueado
+                </Button>
+              )}
+              <Button
+                variant="outline"
+                className="rounded-full"
+                disabled={!prev}
+                onClick={() => prev && setActive(prev.slug)}
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-full"
+                disabled={!next}
+                onClick={() => next && setActive(next.slug)}
+              >
+                Próximo <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
           </div>
+          {eligibility.data && !eligibility.data.quiz_unlocked && (
+            <p className="text-xs text-muted-foreground">
+              Conclua todos os módulos para liberar o quiz final ({eligibility.data.completed_required_modules}/{eligibility.data.total_required_modules} concluídos).
+            </p>
+          )}
+          {eligibility.data?.quiz_unlocked && completedCount === modules.length && (
+            <p className="text-xs text-primary">
+              Curso concluído. Seu quiz final foi liberado.
+            </p>
+          )}
         </div>
       </section>
     </div>

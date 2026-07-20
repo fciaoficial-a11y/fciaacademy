@@ -18,6 +18,7 @@ import { Progress } from "@/components/ui/progress";
 import {
   attemptsQuery,
   quizQuery,
+  eligibilityQuery,
   PASS_THRESHOLD,
   type QuestionRow,
 } from "@/lib/quiz-queries";
@@ -70,6 +71,7 @@ function QuizPage() {
   }, []);
 
   const attempts = useQuery(attemptsQuery(moduleId, userId));
+  const eligibility = useQuery(eligibilityQuery(data?.module.course_id, userId));
 
   const allQuestions = data?.questions ?? [];
   const [questions, setQuestions] = useState<QuestionRow[]>(() => shuffle(allQuestions));
@@ -87,6 +89,7 @@ function QuizPage() {
   if (!data) return null;
   const { module: mod, course } = data;
 
+  const locked = eligibility.data ? !eligibility.data.quiz_unlocked : false;
   const total = questions.length;
   const current = questions[index];
 
@@ -181,6 +184,25 @@ function QuizPage() {
     setResult({ score, correct, total, passed });
     setPhase("result");
     saveAttempt.mutate({ score, correct, total, passed, answersPayload: payload });
+  }
+
+  if (locked) {
+    const e = eligibility.data;
+    const pending = e ? e.total_required_modules - e.completed_required_modules : 0;
+    return (
+      <div className="mx-auto max-w-2xl px-6 py-16 text-center">
+        <h1 className="font-display text-2xl font-semibold">Quiz bloqueado</h1>
+        <p className="mt-3 text-muted-foreground">
+          Conclua todos os módulos do curso para liberar o quiz final.
+          {e && ` Faltam ${pending} de ${e.total_required_modules} módulos.`}
+        </p>
+        <Button asChild className="mt-6 rounded-full">
+          <Link to="/curso/$slug" params={{ slug: course.slug }} search={{ m: mod.slug }}>
+            Continuar estudando
+          </Link>
+        </Button>
+      </div>
+    );
   }
 
   if (total === 0) {

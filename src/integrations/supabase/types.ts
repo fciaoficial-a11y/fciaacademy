@@ -1014,6 +1014,17 @@ export type Database = {
         }
       }
       get_module_pdf_path: { Args: { _module_id: string }; Returns: string }
+      get_quiz_eligibility: {
+        Args: { _course_id: string }
+        Returns: {
+          block_reason: string
+          completed_required_modules: number
+          completion_percent: number
+          enrolled: boolean
+          quiz_unlocked: boolean
+          total_required_modules: number
+        }[]
+      }
       grant_paid_access: {
         Args: { _course_id?: string; _plan_id: string; _user_id: string }
         Returns: undefined
@@ -1028,6 +1039,15 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      mark_module_complete: {
+        Args: { _module_id: string }
+        Returns: {
+          completed_modules: number
+          completion_percent: number
+          quiz_unlocked: boolean
+          total_modules: number
+        }[]
       }
       mark_questions_used: { Args: { _ids: string[] }; Returns: undefined }
       plan_rank: { Args: { _plan: string }; Returns: number }
