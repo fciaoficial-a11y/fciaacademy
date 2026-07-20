@@ -381,11 +381,23 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
     course.modules_count > 0 ? `${course.modules_count} módulo${course.modules_count > 1 ? "s" : ""}` : null;
 
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40 sm:p-8">
+    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40">
       <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl" aria-hidden />
 
-      <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="max-w-2xl">
+      <div className="relative grid gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+        <div className="relative lg:h-full">
+          <ImageWithFallback
+            src={courseImage.url}
+            alt="Profissional aplicando IA no trabalho com notebook e caderno de anotações"
+            width={1200}
+            height={912}
+            loading="lazy"
+            decoding="async"
+            className="h-56 w-full object-cover sm:h-64 lg:h-full lg:min-h-[320px]"
+          />
+        </div>
+
+        <div className="p-6 sm:p-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.18em] text-primary">
             <BookOpen className="h-3 w-3" />
             Curso em destaque
@@ -410,12 +422,12 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
             ) : null}
             <Chip highlight>{priceLabel(course.price)}</Chip>
           </ul>
-        </div>
 
-        <div className="shrink-0">
-          <PrimaryCTA to={`/curso/${course.slug}`}>
-            {Number(course.price ?? 0) === 0 ? "Acessar curso gratuito" : "Acessar curso"}
-          </PrimaryCTA>
+          <div className="mt-6">
+            <PrimaryCTA to={`/curso/${course.slug}`}>
+              {Number(course.price ?? 0) === 0 ? "Acessar curso gratuito" : "Acessar curso"}
+            </PrimaryCTA>
+          </div>
         </div>
       </div>
     </article>
@@ -436,3 +448,28 @@ function Chip({ children, highlight = false }: { children: ReactNode; highlight?
     </li>
   );
 }
+
+type ImageWithFallbackProps = React.ImgHTMLAttributes<HTMLImageElement> & {
+  src: string;
+  alt: string;
+};
+
+function ImageWithFallback({ src, alt, className, ...rest }: ImageWithFallbackProps) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        role="img"
+        aria-label={alt}
+        className={cn(
+          "flex items-center justify-center bg-gradient-to-br from-primary/20 via-surface to-accent/20 text-xs text-muted-foreground",
+          className,
+        )}
+      >
+        <Sparkles className="h-6 w-6 opacity-60" aria-hidden />
+      </div>
+    );
+  }
+  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} {...rest} />;
+}
+
