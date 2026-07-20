@@ -5,14 +5,13 @@ import {
   ArrowUpRight,
   Award,
   BookOpen,
-  Briefcase,
   GraduationCap,
   Lightbulb,
   Sparkles,
   Store,
   type LucideIcon,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 import { FAQ } from "@/components/site/FAQ";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
