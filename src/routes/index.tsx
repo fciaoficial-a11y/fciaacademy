@@ -448,7 +448,7 @@ function Chip({ children, highlight = false }: { children: ReactNode; highlight?
   );
 }
 
-type ImageWithFallbackProps = React.ImgHTMLAttributes<HTMLImageElement> & {
+type ImageWithFallbackProps = ImgHTMLAttributes<HTMLImageElement> & {
   src: string;
   alt: string;
 };
