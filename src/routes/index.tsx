@@ -5,17 +5,19 @@ import {
   ArrowUpRight,
   Award,
   BookOpen,
-  Briefcase,
   GraduationCap,
   Lightbulb,
   Sparkles,
   Store,
   type LucideIcon,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 import { FAQ } from "@/components/site/FAQ";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import heroImage from "@/assets/hero-ai.webp.asset.json";
+import courseImage from "@/assets/course-ai.webp.asset.json";
+import professorImage from "@/assets/fernando-cabral.webp.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -191,27 +193,44 @@ function Index() {
           className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/25 blur-[160px] animate-pulse-glow"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-4xl px-6 pb-16 pt-14 text-center sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-28">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
-            <Sparkles className="h-3 w-3" />
-            Aprenda IA de um jeito simples e prático
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-24 lg:pt-28">
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
+              <Sparkles className="h-3 w-3" />
+              Aprenda IA de um jeito simples e prático
+            </div>
+
+            <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+              Use <span className="text-gradient">IA</span> para criar, estudar e fazer seu negócio crescer.
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+              Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos
+              estudos ou no próprio negócio.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+              <PrimaryCTA to={primaryHref}>Começar agora</PrimaryCTA>
+              <SecondaryCTA href="#curso-destaque">Conhecer o curso</SecondaryCTA>
+            </div>
           </div>
 
-          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-            Use <span className="text-gradient">IA</span> para criar, estudar e fazer seu negócio crescer.
-          </h1>
-
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos
-            estudos ou no próprio negócio.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <PrimaryCTA to={primaryHref}>Começar agora</PrimaryCTA>
-            <SecondaryCTA href="#curso-destaque">Conhecer o curso</SecondaryCTA>
+          <div className="relative order-last lg:order-none">
+            <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-2xl" aria-hidden />
+            <ImageWithFallback
+              src={heroImage.url}
+              alt="Profissional utilizando notebook e celular para aplicar inteligência artificial no trabalho"
+              width={1280}
+              height={960}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="relative aspect-[4/3] w-full rounded-[1.5rem] border border-white/10 object-cover shadow-2xl"
+            />
           </div>
         </div>
       </section>
+
 
       {/* ============ PARA QUEM É ============ */}
       <section className="border-t border-white/5 py-14 sm:py-20">
@@ -310,22 +329,41 @@ function Index() {
         </div>
       </section>
 
-      {/* ============ AUTORIDADE COMPACTA ============ */}
-      <section className="border-t border-white/5 py-12 sm:py-16">
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="flex flex-col items-start gap-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <div className="flex items-start gap-4">
-              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground">
-                <Briefcase className="h-4 w-4" />
-              </span>
-              <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                FCIA Academy é uma iniciativa de <span className="font-medium text-foreground">Fernando Cabral</span> para tornar a
-                tecnologia mais útil, acessível e aplicável no dia a dia.
+      {/* ============ SOBRE O PROFESSOR ============ */}
+      <section className="border-t border-white/5 py-14 sm:py-20">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="grid gap-8 sm:gap-10 lg:grid-cols-[minmax(220px,300px)_1fr] lg:items-center lg:gap-14">
+            <div className="relative mx-auto w-full max-w-[280px] lg:mx-0">
+              <div className="pointer-events-none absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-accent/30 blur-2xl" aria-hidden />
+              <ImageWithFallback
+                src={professorImage.url}
+                alt="Retrato do Prof. Fernando Cabral, fundador da FCIA Academy"
+                width={560}
+                height={700}
+                loading="lazy"
+                decoding="async"
+                className="relative aspect-[4/5] w-full rounded-2xl border border-white/10 object-cover shadow-xl"
+              />
+            </div>
+
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+                Sobre o Professor
+              </div>
+              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                Tecnologia só faz sentido quando <span className="text-gradient">melhora a vida real</span>.
+              </h2>
+              <p className="mt-4 text-base font-semibold text-foreground">Prof. Fernando Cabral</p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Professor, estrategista e fundador da FCIA. Fernando Cabral une inteligência artificial,
+                criatividade e estratégia para ajudar pessoas e pequenos negócios a entenderem a tecnologia
+                e aplicarem ferramentas atuais com clareza.
               </p>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* ============ FAQ ============ */}
       <FAQ
@@ -342,11 +380,23 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
     course.modules_count > 0 ? `${course.modules_count} módulo${course.modules_count > 1 ? "s" : ""}` : null;
 
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40 sm:p-8">
+    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40">
       <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl" aria-hidden />
 
-      <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="max-w-2xl">
+      <div className="relative grid gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+        <div className="relative lg:h-full">
+          <ImageWithFallback
+            src={courseImage.url}
+            alt="Profissional aplicando IA no trabalho com notebook e caderno de anotações"
+            width={1200}
+            height={912}
+            loading="lazy"
+            decoding="async"
+            className="h-56 w-full object-cover sm:h-64 lg:h-full lg:min-h-[320px]"
+          />
+        </div>
+
+        <div className="p-6 sm:p-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.18em] text-primary">
             <BookOpen className="h-3 w-3" />
             Curso em destaque
@@ -371,12 +421,12 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
             ) : null}
             <Chip highlight>{priceLabel(course.price)}</Chip>
           </ul>
-        </div>
 
-        <div className="shrink-0">
-          <PrimaryCTA to={`/curso/${course.slug}`}>
-            {Number(course.price ?? 0) === 0 ? "Acessar curso gratuito" : "Acessar curso"}
-          </PrimaryCTA>
+          <div className="mt-6">
+            <PrimaryCTA to={`/curso/${course.slug}`}>
+              {Number(course.price ?? 0) === 0 ? "Acessar curso gratuito" : "Acessar curso"}
+            </PrimaryCTA>
+          </div>
         </div>
       </div>
     </article>
@@ -397,3 +447,28 @@ function Chip({ children, highlight = false }: { children: ReactNode; highlight?
     </li>
   );
 }
+
+type ImageWithFallbackProps = ImgHTMLAttributes<HTMLImageElement> & {
+  src: string;
+  alt: string;
+};
+
+function ImageWithFallback({ src, alt, className, ...rest }: ImageWithFallbackProps) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        role="img"
+        aria-label={alt}
+        className={cn(
+          "flex items-center justify-center bg-gradient-to-br from-primary/20 via-surface to-accent/20 text-xs text-muted-foreground",
+          className,
+        )}
+      >
+        <Sparkles className="h-6 w-6 opacity-60" aria-hidden />
+      </div>
+    );
+  }
+  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} {...rest} />;
+}
+
