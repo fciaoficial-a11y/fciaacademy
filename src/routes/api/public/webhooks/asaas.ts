@@ -70,7 +70,7 @@ export const Route = createFileRoute("/api/public/webhooks/asaas")({
 
           const result = await processPaymentPayload(supabaseAdmin, trustedPayload);
           console.info("[asaas-webhook]", JSON.stringify({
-            rid, ok: true, ms: Date.now() - t0, ...result,
+            rid, ms: Date.now() - t0, result,
           }));
           return Response.json({ ...result, recoveredFromTokenMismatch: !tokenIsValid });
         } catch (err) {
