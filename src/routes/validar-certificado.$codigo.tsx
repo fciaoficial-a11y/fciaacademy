@@ -86,8 +86,13 @@ function ValidatePage() {
           <Row label="Código de validação" value={data.validation_code} mono />
         </div>
 
-        <p className="mt-8 rounded-xl border border-border/60 bg-background/60 p-4 text-xs leading-relaxed text-muted-foreground">
-          {data.legal_footer}
+        <p className="mt-8 rounded-xl border border-border/60 bg-background p-4 text-sm leading-relaxed text-foreground/90">
+          Este certificado comprova a conclusão de curso livre de capacitação e
+          atualização profissional, emitido pela FCIA Academy, com a carga horária
+          indicada nesta página. Cursos livres não dependem de autorização ou
+          reconhecimento prévio dos sistemas de ensino. Este certificado não
+          equivale a diploma de curso técnico, graduação ou pós-graduação e não
+          habilita, por si só, para o exercício de profissões regulamentadas.
         </p>
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
