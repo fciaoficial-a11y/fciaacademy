@@ -28,40 +28,58 @@ export const Route = createFileRoute("/api/public/webhooks/asaas")({
     handlers: {
       OPTIONS: async () => new Response(null, { status: 204 }),
       POST: async ({ request }) => {
-        const rawBody = await request.text();
-        const payload = webhookSchema.parse(JSON.parse(rawBody));
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+        const t0 = Date.now();
+        const rid = crypto.randomUUID();
+        try {
+          const rawBody = await request.text();
+          const payload = webhookSchema.parse(JSON.parse(rawBody));
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-        const expectedToken = process.env.ASAAS_WEBHOOK_TOKEN;
-        const receivedToken = request.headers.get("asaas-access-token") ?? "";
-        const tokenIsValid = expectedToken ? safeEqual(receivedToken, expectedToken) : false;
+          const expectedToken = process.env.ASAAS_WEBHOOK_TOKEN;
+          const receivedToken = request.headers.get("asaas-access-token") ?? "";
+          const tokenIsValid = expectedToken ? safeEqual(receivedToken, expectedToken) : false;
 
-        let trustedPayload = payload;
-        if (!tokenIsValid) {
-          const apiKey = process.env.ASAAS_API_KEY;
-          if (!apiKey) return new Response("Unauthorized", { status: 401 });
+          console.info("[asaas-webhook]", JSON.stringify({
+            rid, event: payload.event, payment_id: payload.payment.id,
+            status: payload.payment.status, token_valid: tokenIsValid,
+          }));
 
-          // Fallback seguro: se o token do webhook estiver divergente, não confiamos
-          // no corpo recebido. Validamos a cobrança consultando diretamente a Asaas.
-          const verifiedPayment = await asaasFetch<z.infer<typeof paymentSchema>>(`/payments/${payload.payment.id}`, apiKey);
-          trustedPayload = {
-            ...payload,
-            payment: {
-              ...payload.payment,
-              id: verifiedPayment.id,
-              status: verifiedPayment.status,
-              value: verifiedPayment.value,
-              billingType: verifiedPayment.billingType,
-              dueDate: verifiedPayment.dueDate,
-              invoiceUrl: verifiedPayment.invoiceUrl,
-              paymentDate: verifiedPayment.paymentDate,
-              confirmedDate: verifiedPayment.confirmedDate,
-            },
-          };
+          let trustedPayload = payload;
+          if (!tokenIsValid) {
+            const apiKey = process.env.ASAAS_API_KEY;
+            if (!apiKey) {
+              console.warn("[asaas-webhook]", JSON.stringify({ rid, reason: "unauthorized_no_apikey" }));
+              return new Response("Unauthorized", { status: 401 });
+            }
+            const verifiedPayment = await asaasFetch<z.infer<typeof paymentSchema>>(`/payments/${payload.payment.id}`, apiKey);
+            trustedPayload = {
+              ...payload,
+              payment: {
+                ...payload.payment,
+                id: verifiedPayment.id,
+                status: verifiedPayment.status,
+                value: verifiedPayment.value,
+                billingType: verifiedPayment.billingType,
+                dueDate: verifiedPayment.dueDate,
+                invoiceUrl: verifiedPayment.invoiceUrl,
+                paymentDate: verifiedPayment.paymentDate,
+                confirmedDate: verifiedPayment.confirmedDate,
+              },
+            };
+          }
+
+          const result = await processPaymentPayload(supabaseAdmin, trustedPayload);
+          console.info("[asaas-webhook]", JSON.stringify({
+            rid, ok: true, ms: Date.now() - t0, ...result,
+          }));
+          return Response.json({ ...result, recoveredFromTokenMismatch: !tokenIsValid });
+        } catch (err) {
+          console.error("[asaas-webhook]", JSON.stringify({
+            rid, ok: false, ms: Date.now() - t0,
+            error: err instanceof Error ? err.message : String(err),
+          }));
+          throw err;
         }
-
-        const result = await processPaymentPayload(supabaseAdmin, trustedPayload);
-        return Response.json({ ...result, recoveredFromTokenMismatch: !tokenIsValid });
       },
     },
   },
