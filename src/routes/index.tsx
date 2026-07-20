@@ -194,27 +194,44 @@ function Index() {
           className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/25 blur-[160px] animate-pulse-glow"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-4xl px-6 pb-16 pt-14 text-center sm:pb-20 sm:pt-20 lg:pb-24 lg:pt-28">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
-            <Sparkles className="h-3 w-3" />
-            Aprenda IA de um jeito simples e prático
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-24 lg:pt-28">
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
+              <Sparkles className="h-3 w-3" />
+              Aprenda IA de um jeito simples e prático
+            </div>
+
+            <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+              Use <span className="text-gradient">IA</span> para criar, estudar e fazer seu negócio crescer.
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+              Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos
+              estudos ou no próprio negócio.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+              <PrimaryCTA to={primaryHref}>Começar agora</PrimaryCTA>
+              <SecondaryCTA href="#curso-destaque">Conhecer o curso</SecondaryCTA>
+            </div>
           </div>
 
-          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-            Use <span className="text-gradient">IA</span> para criar, estudar e fazer seu negócio crescer.
-          </h1>
-
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos
-            estudos ou no próprio negócio.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <PrimaryCTA to={primaryHref}>Começar agora</PrimaryCTA>
-            <SecondaryCTA href="#curso-destaque">Conhecer o curso</SecondaryCTA>
+          <div className="relative order-last lg:order-none">
+            <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-2xl" aria-hidden />
+            <ImageWithFallback
+              src={heroImage.url}
+              alt="Profissional utilizando notebook e celular para aplicar inteligência artificial no trabalho"
+              width={1280}
+              height={960}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="relative aspect-[4/3] w-full rounded-[1.5rem] border border-white/10 object-cover shadow-2xl"
+            />
           </div>
         </div>
       </section>
+
 
       {/* ============ PARA QUEM É ============ */}
       <section className="border-t border-white/5 py-14 sm:py-20">
