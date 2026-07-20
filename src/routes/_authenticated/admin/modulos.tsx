@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { PdfUploader, type PdfMeta } from "@/components/learn/PdfUploader";
+import { VideoUploader, type IntroVideoMeta } from "@/components/learn/VideoUploader";
+
 import {
   Dialog,
   DialogContent,
@@ -87,6 +89,12 @@ function AdminModulesPage() {
       };
     });
   }
+
+  function handleIntroVideoChange(meta: IntroVideoMeta) {
+    setEditing((prev) => (prev ? { ...prev, ...meta } : prev));
+  }
+
+
 
 
   const filtered = (modules.data ?? []).filter((m) => !filter || m.course_id === filter);
@@ -187,6 +195,19 @@ function AdminModulesPage() {
               {editing.content_type === "text" && (
                 <Field label="Texto"><Textarea rows={6} value={editing.content_text ?? ""} onChange={(e) => setEditing({ ...editing, content_text: e.target.value })} /></Field>
               )}
+              <Field label="Vídeo de abertura do módulo (opcional, 20–45s)">
+                <VideoUploader
+                  courseId={editing.course_id}
+                  moduleId={editing.id}
+                  value={{
+                    intro_video_path: editing.intro_video_path ?? null,
+                    intro_video_duration_seconds: editing.intro_video_duration_seconds ?? null,
+                    intro_video_poster_path: editing.intro_video_poster_path ?? null,
+                  }}
+                  onChange={handleIntroVideoChange}
+                />
+              </Field>
+
               <label className="flex items-center gap-2 text-sm">
                 <input type="checkbox" checked={!!editing.is_published} onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })} />
                 Publicado
