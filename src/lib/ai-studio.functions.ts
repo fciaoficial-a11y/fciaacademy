@@ -272,6 +272,11 @@ export const saveCourseDraft = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => SaveInput.parse(input))
   .handler(async ({ data, context }) => {
+    const t0 = Date.now();
+    const rid = crypto.randomUUID();
+    const log = (evt: string, extra: Record<string, unknown> = {}) =>
+      console.info("[saveCourseDraft]", JSON.stringify({ rid, evt, user: context.userId, ...extra }));
+    try {
     const { data: isAdmin } = await (context.supabase as any).rpc("has_role", {
       _user_id: context.userId,
       _role: "admin",
@@ -282,6 +287,7 @@ export const saveCourseDraft = createServerFn({ method: "POST" })
     const c = data.course;
     const baseSlug = c.slug || slugify(data.title);
     const slug = `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
+    log("start", { title: data.title, slug, modules: c.modules.length });
 
     const description = [c.promise, c.short_description, c.full_description]
       .filter(Boolean)
@@ -301,7 +307,7 @@ export const saveCourseDraft = createServerFn({ method: "POST" })
       })
       .select("id")
       .single();
-    if (courseErr) throw new Error(`Erro ao salvar curso: ${courseErr.message}`);
+    if (courseErr) { log("course_insert_fail", { err: courseErr.message }); throw new Error(`Erro ao salvar curso: ${courseErr.message}`); }
     const courseId = inserted.id as string;
 
     for (let i = 0; i < c.modules.length; i++) {
@@ -350,7 +356,12 @@ export const saveCourseDraft = createServerFn({ method: "POST" })
       }
     }
 
+    log("done", { course_id: courseId, slug, ms: Date.now() - t0 });
     return { course_id: courseId, slug };
+    } catch (err) {
+      console.error("[saveCourseDraft]", JSON.stringify({ rid, ok: false, ms: Date.now() - t0, error: err instanceof Error ? err.message : String(err) }));
+      throw err;
+    }
   });
 
 /* ============================================================
@@ -371,6 +382,11 @@ export const generateQuestionBank = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => BankInput.parse(input))
   .handler(async ({ data, context }) => {
+    const t0 = Date.now();
+    const rid = crypto.randomUUID();
+    const log = (evt: string, extra: Record<string, unknown> = {}) =>
+      console.info("[generateQuestionBank]", JSON.stringify({ rid, evt, user: context.userId, course: data.course_id, ...extra }));
+    try {
     const supa = context.supabase as any;
     const { data: isAdmin } = await supa.rpc("has_role", {
       _user_id: context.userId,
@@ -477,8 +493,13 @@ Para true_false use options ["Verdadeiro","Falso"].`;
 
     if (!rows.length) throw new Error("Nenhuma questão válida gerada.");
     const { error } = await supa.from("questions").insert(rows);
-    if (error) throw new Error(`Erro ao salvar: ${error.message}`);
+    if (error) { log("insert_fail", { err: error.message }); throw new Error(`Erro ao salvar: ${error.message}`); }
 
+    log("done", { inserted: rows.length, auto_approved: data.auto_approve, ms: Date.now() - t0 });
     return { inserted: rows.length, auto_approved: data.auto_approve };
+    } catch (err) {
+      console.error("[generateQuestionBank]", JSON.stringify({ rid, ok: false, ms: Date.now() - t0, error: err instanceof Error ? err.message : String(err) }));
+      throw err;
+    }
   });
 
