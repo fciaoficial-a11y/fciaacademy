@@ -18,6 +18,7 @@ import { Progress } from "@/components/ui/progress";
 import {
   attemptsQuery,
   quizQuery,
+  eligibilityQuery,
   PASS_THRESHOLD,
   type QuestionRow,
 } from "@/lib/quiz-queries";
@@ -70,6 +71,7 @@ function QuizPage() {
   }, []);
 
   const attempts = useQuery(attemptsQuery(moduleId, userId));
+  const eligibility = useQuery(eligibilityQuery(data?.module.course_id, userId));
 
   const allQuestions = data?.questions ?? [];
   const [questions, setQuestions] = useState<QuestionRow[]>(() => shuffle(allQuestions));
@@ -87,6 +89,7 @@ function QuizPage() {
   if (!data) return null;
   const { module: mod, course } = data;
 
+  const locked = eligibility.data ? !eligibility.data.quiz_unlocked : false;
   const total = questions.length;
   const current = questions[index];
 
