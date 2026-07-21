@@ -32,7 +32,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Comece pelo curso Fundamentos de IA para Profissionais: gratuito, com certificado ao concluir.",
+          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,6 +47,7 @@ type FeaturedCourse = {
   slug: string;
   title: string;
   description: string | null;
+  cover_url: string | null;
   workload_hours: number | null;
   duration_minutes: number | null;
   price: number | null;
@@ -59,7 +60,7 @@ const featuredCoursesQuery = queryOptions({
   queryFn: async (): Promise<FeaturedCourse[]> => {
     const { data: courses, error } = await supabase
       .from("courses")
-      .select("id, slug, title, description, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
+      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
       .eq("is_published", true)
       .order("price", { ascending: true })
       .order("sort_order", { ascending: true });
@@ -269,7 +270,7 @@ function Index() {
 
       {/* ============ CURSO EM DESTAQUE ============ */}
       <section id="curso-destaque" className="border-t border-white/5 bg-surface/30 py-14 sm:py-20">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
               Comece por aqui
@@ -279,14 +280,14 @@ function Index() {
             </h2>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-10">
             {featured.isLoading ? (
-              <div className="grid gap-6 lg:grid-cols-2">
-                <div className="h-56 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
-                <div className="h-56 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
               </div>
             ) : courses.length > 0 ? (
-              <div className="grid gap-6 lg:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2">
                 {courses.map((c) => (
                   <FeaturedCourseCard key={c.id} course={c} />
                 ))}
@@ -386,61 +387,62 @@ function Index() {
 function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
   const modulesLabel =
     course.modules_count > 0 ? `${course.modules_count} módulo${course.modules_count > 1 ? "s" : ""}` : null;
+  const coverSrc = course.cover_url && course.cover_url.length > 0 ? course.cover_url : courseImage.url;
 
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40">
-      <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40">
+      <div className="relative aspect-[16/10] w-full overflow-hidden">
+        <ImageWithFallback
+          src={coverSrc}
+          alt={`Capa do curso ${course.title}`}
+          width={1200}
+          height={750}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" aria-hidden />
+        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-background/60 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground backdrop-blur">
+          <BookOpen className="h-3 w-3" />
+          Curso
+        </span>
+      </div>
 
-      <div className="relative grid gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
-        <div className="relative lg:h-full">
-          <ImageWithFallback
-            src={courseImage.url}
-            alt="Profissional aplicando IA no trabalho com notebook e caderno de anotações"
-            width={1200}
-            height={912}
-            loading="lazy"
-            decoding="async"
-            className="h-56 w-full object-cover sm:h-64 lg:h-full lg:min-h-[320px]"
-          />
-        </div>
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
+          {course.title}
+        </h3>
 
-        <div className="p-6 sm:p-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.18em] text-primary">
-            <BookOpen className="h-3 w-3" />
-            Curso em destaque
-          </div>
+        {course.description ? (
+          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+            {course.description}
+          </p>
+        ) : null}
 
-          <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-            {course.title}
-          </h3>
-
-          {course.description ? (
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-              {course.description}
-            </p>
+        <ul className="mt-5 flex flex-wrap gap-2 text-xs">
+          <Chip>{formatWorkload(course)}</Chip>
+          {modulesLabel ? <Chip>{modulesLabel}</Chip> : null}
+          {course.certificate_enabled ? (
+            <Chip>
+              <Award className="h-3 w-3" /> Certificado
+            </Chip>
           ) : null}
+        </ul>
 
-          <ul className="mt-5 flex flex-wrap gap-2 text-xs">
-            <Chip>{formatWorkload(course)}</Chip>
-            {modulesLabel ? <Chip>{modulesLabel}</Chip> : null}
-            {course.certificate_enabled ? (
-              <Chip>
-                <Award className="h-3 w-3" /> Certificado ao concluir
-              </Chip>
-            ) : null}
-            <Chip highlight>{priceLabel(course.price)}</Chip>
-          </ul>
-
-          <div className="mt-6">
-            <PrimaryCTA to={`/curso/${course.slug}`}>
-              {Number(course.price ?? 0) === 0 ? "Acessar curso gratuito" : "Acessar curso"}
-            </PrimaryCTA>
-          </div>
+        <div className="mt-auto flex items-center justify-between gap-3 pt-6">
+          <span className="font-display text-lg font-semibold text-accent">
+            {priceLabel(course.price)}
+          </span>
+          <PrimaryCTA to={`/curso/${course.slug}`} className="h-11 px-6 text-sm">
+            Acessar curso
+          </PrimaryCTA>
         </div>
       </div>
     </article>
   );
 }
+
+
 
 function Chip({ children, highlight = false }: { children: ReactNode; highlight?: boolean }) {
   return (
