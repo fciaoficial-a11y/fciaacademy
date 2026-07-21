@@ -31,8 +31,14 @@ export const Route = createFileRoute("/_authenticated/admin/cursos")({
 type Draft = Partial<AdminCourse>;
 const empty: Draft = {
   slug: "", title: "", description: "", duration_minutes: 60,
+  workload_hours: 0, price: 0, is_free: false,
   level: "Iniciante", cover_url: null, sort_order: 0, is_published: false,
+  certificate_enabled: true, allow_pdf_download: false,
 };
+
+function formatBRL(v: number | null | undefined) {
+  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(v ?? 0));
+}
 
 function AdminCoursesPage() {
   const qc = useQueryClient();
@@ -45,6 +51,17 @@ function AdminCoursesPage() {
   const save = useMutation({
     mutationFn: async (d: Draft) => {
       if (!d.track_id) throw new Error("Selecione uma trilha.");
+      if (!d.title?.trim() || !d.slug?.trim() || !d.description?.trim()) {
+        throw new Error("Título, slug e descrição são obrigatórios.");
+      }
+      if (!d.workload_hours || d.workload_hours <= 0) {
+        throw new Error("Informe a carga horária (horas > 0).");
+      }
+      if (d.is_published) {
+        if (!d.is_free && (!d.price || d.price <= 0)) {
+          throw new Error("Para publicar: marque como gratuito ou defina um preço maior que zero.");
+        }
+      }
       if (d.id) await updateRow("courses", d.id, d);
       else await insertRow("courses", d);
     },
@@ -64,7 +81,9 @@ function AdminCoursesPage() {
   const togglePub = useMutation({
     mutationFn: (c: AdminCourse) => updateRow("courses", c.id, { is_published: !c.is_published }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin", "courses"] }),
+    onError: (e: Error) => toast.error(e.message),
   });
+
 
   async function handleCover(file: File) {
     setUploading(true);
