@@ -437,7 +437,11 @@ function CourseLearnPage() {
                 {completedCount} de {modules.length} módulos
               </p>
             </div>
+            {course.full_pdf_path && (
+              <FullPdfDownload path={course.full_pdf_path} title={course.title} />
+            )}
           </div>
+
           <div className="mt-6 border-t border-border/50 pt-4">
             <p className="mb-2 px-4 text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/60">
               Módulos
