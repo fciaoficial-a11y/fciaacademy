@@ -62,6 +62,7 @@ export type Database = {
           logo_url: string | null
           min_score: number
           signature_image_url: string | null
+          template_key: string
           updated_at: string
           validation_base_url: string
         }
@@ -79,6 +80,7 @@ export type Database = {
           logo_url?: string | null
           min_score?: number
           signature_image_url?: string | null
+          template_key?: string
           updated_at?: string
           validation_base_url?: string
         }
@@ -96,6 +98,7 @@ export type Database = {
           logo_url?: string | null
           min_score?: number
           signature_image_url?: string | null
+          template_key?: string
           updated_at?: string
           validation_base_url?: string
         }
