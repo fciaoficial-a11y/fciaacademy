@@ -37,6 +37,7 @@ import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminTrilhasRouteImport } from './routes/_authenticated/admin/trilhas'
 import { Route as AuthenticatedAdminSenhaRouteImport } from './routes/_authenticated/admin/senha'
 import { Route as AuthenticatedAdminQuestoesRouteImport } from './routes/_authenticated/admin/questoes'
+import { Route as AuthenticatedAdminProducaoRouteImport } from './routes/_authenticated/admin/producao'
 import { Route as AuthenticatedAdminPagamentosRouteImport } from './routes/_authenticated/admin/pagamentos'
 import { Route as AuthenticatedAdminModulosRouteImport } from './routes/_authenticated/admin/modulos'
 import { Route as AuthenticatedAdminGerarCursoRouteImport } from './routes/_authenticated/admin/gerar-curso'
@@ -192,6 +193,12 @@ const AuthenticatedAdminQuestoesRoute =
     path: '/questoes',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminProducaoRoute =
+  AuthenticatedAdminProducaoRouteImport.update({
+    id: '/producao',
+    path: '/producao',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminPagamentosRoute =
   AuthenticatedAdminPagamentosRouteImport.update({
     id: '/pagamentos',
@@ -259,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/admin/gerar-curso': typeof AuthenticatedAdminGerarCursoRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
+  '/admin/producao': typeof AuthenticatedAdminProducaoRoute
   '/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
   '/admin/senha': typeof AuthenticatedAdminSenhaRoute
   '/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
@@ -293,6 +301,7 @@ export interface FileRoutesByTo {
   '/admin/gerar-curso': typeof AuthenticatedAdminGerarCursoRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
+  '/admin/producao': typeof AuthenticatedAdminProducaoRoute
   '/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
   '/admin/senha': typeof AuthenticatedAdminSenhaRoute
   '/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
@@ -331,6 +340,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/gerar-curso': typeof AuthenticatedAdminGerarCursoRoute
   '/_authenticated/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/_authenticated/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
+  '/_authenticated/admin/producao': typeof AuthenticatedAdminProducaoRoute
   '/_authenticated/admin/questoes': typeof AuthenticatedAdminQuestoesRoute
   '/_authenticated/admin/senha': typeof AuthenticatedAdminSenhaRoute
   '/_authenticated/admin/trilhas': typeof AuthenticatedAdminTrilhasRoute
@@ -369,6 +379,7 @@ export interface FileRouteTypes {
     | '/admin/gerar-curso'
     | '/admin/modulos'
     | '/admin/pagamentos'
+    | '/admin/producao'
     | '/admin/questoes'
     | '/admin/senha'
     | '/admin/trilhas'
@@ -403,6 +414,7 @@ export interface FileRouteTypes {
     | '/admin/gerar-curso'
     | '/admin/modulos'
     | '/admin/pagamentos'
+    | '/admin/producao'
     | '/admin/questoes'
     | '/admin/senha'
     | '/admin/trilhas'
@@ -440,6 +452,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/gerar-curso'
     | '/_authenticated/admin/modulos'
     | '/_authenticated/admin/pagamentos'
+    | '/_authenticated/admin/producao'
     | '/_authenticated/admin/questoes'
     | '/_authenticated/admin/senha'
     | '/_authenticated/admin/trilhas'
@@ -667,6 +680,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminQuestoesRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/producao': {
+      id: '/_authenticated/admin/producao'
+      path: '/producao'
+      fullPath: '/admin/producao'
+      preLoaderRoute: typeof AuthenticatedAdminProducaoRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/pagamentos': {
       id: '/_authenticated/admin/pagamentos'
       path: '/pagamentos'
@@ -726,6 +746,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminGerarCursoRoute: typeof AuthenticatedAdminGerarCursoRoute
   AuthenticatedAdminModulosRoute: typeof AuthenticatedAdminModulosRoute
   AuthenticatedAdminPagamentosRoute: typeof AuthenticatedAdminPagamentosRoute
+  AuthenticatedAdminProducaoRoute: typeof AuthenticatedAdminProducaoRoute
   AuthenticatedAdminQuestoesRoute: typeof AuthenticatedAdminQuestoesRoute
   AuthenticatedAdminSenhaRoute: typeof AuthenticatedAdminSenhaRoute
   AuthenticatedAdminTrilhasRoute: typeof AuthenticatedAdminTrilhasRoute
@@ -741,6 +762,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminGerarCursoRoute: AuthenticatedAdminGerarCursoRoute,
     AuthenticatedAdminModulosRoute: AuthenticatedAdminModulosRoute,
     AuthenticatedAdminPagamentosRoute: AuthenticatedAdminPagamentosRoute,
+    AuthenticatedAdminProducaoRoute: AuthenticatedAdminProducaoRoute,
     AuthenticatedAdminQuestoesRoute: AuthenticatedAdminQuestoesRoute,
     AuthenticatedAdminSenhaRoute: AuthenticatedAdminSenhaRoute,
     AuthenticatedAdminTrilhasRoute: AuthenticatedAdminTrilhasRoute,
