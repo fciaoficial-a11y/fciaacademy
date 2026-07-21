@@ -38,9 +38,9 @@ export const TEMPLATE_OPTIONS: TemplateOption[] = [
   {
     key: "dark_premium_tech",
     name: "Dark Premium Tech",
-    tagline: "Holográfico · Cyan · Violeta",
+    tagline: "Credencial digital · Editorial · Neon quieto",
     description:
-      "Fundo midnight com grid, glow duplo e selo holográfico. Feito para credenciais digitais de IA — parece um passaporte cripto de alto padrão.",
+      "Midnight profundo com um único halo cyan fora do eixo, tipografia serifada para o nome e módulo de credencial integrado. Assinatura visual autoral, sem molduras, com respiro de produto digital premium.",
     vibe: "dark",
     accent: "#22d3ee",
   },
@@ -450,11 +450,14 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
   return pdf.save();
 }
 
-// ---------- Template 2 — Dark Premium Tech ----------
+// ---------- Template 2 — Dark Premium Tech (v2 · editorial credential) ----------
 /**
- * Deep midnight canvas. Corner brackets [ ] like a HUD, subtle grid, dual glow
- * (cyan + violet), monospace credential ID top, oversized display name with
- * gradient-feel highlight, holographic seal disc bottom-right.
+ * Midnight canvas with a single off-axis cyan halo, no heavy frame, no HUD
+ * brackets. Editorial hierarchy: small institutional pill top-left, credential
+ * ID top-right, oversized serif student name, hairline metadata rail, and an
+ * integrated credential module (QR + ID + signature) bottom-right.
+ *
+ * Feels like a digital product credential — not a classic certificate.
  */
 async function renderDarkPremiumTech(
   ctx: RenderContext
@@ -467,283 +470,332 @@ async function renderDarkPremiumTech(
   const helv = await pdf.embedFont(StandardFonts.Helvetica);
   const helvBold = await pdf.embedFont(StandardFonts.HelveticaBold);
   const helvOblique = await pdf.embedFont(StandardFonts.HelveticaOblique);
+  const times = await pdf.embedFont(StandardFonts.TimesRoman);
+  const timesBold = await pdf.embedFont(StandardFonts.TimesRomanBold);
+  const timesItalic = await pdf.embedFont(StandardFonts.TimesRomanItalic);
   const mono = await pdf.embedFont(StandardFonts.Courier);
   const monoBold = await pdf.embedFont(StandardFonts.CourierBold);
 
-  // Palette
-  const bg = { r: 0.02, g: 0.031, b: 0.078 }; // near-black midnight
-  const bg2 = { r: 0.043, g: 0.063, b: 0.129 };
-  const cyan = { r: 0.133, g: 0.827, b: 0.933 };
-  const violet = { r: 0.655, g: 0.545, b: 1 };
-  const text = { r: 0.95, g: 0.97, b: 1 };
-  const muted = { r: 0.6, g: 0.66, b: 0.85 };
+  // Palette — deep midnight, quiet neon
+  const bg = { r: 0.027, g: 0.035, b: 0.071 };
+  const bgSoft = { r: 0.055, g: 0.075, b: 0.129 };
+  const cyan = { r: 0.212, g: 0.835, b: 0.933 };
+  const violet = { r: 0.545, g: 0.463, b: 0.965 };
+  const text = { r: 0.965, g: 0.976, b: 1 };
+  const muted = { r: 0.545, g: 0.6, b: 0.741 };
+  const faint = { r: 0.31, g: 0.36, b: 0.5 };
 
   // Background
   page.drawRectangle({ x: 0, y: 0, width, height, color: rgb(bg.r, bg.g, bg.b) });
 
-  // Layered radial-ish glows (stacked ellipses)
-  for (let i = 4; i > 0; i--) {
+  // Off-axis cyan halo (upper-right) — the only ambient light source
+  for (let i = 6; i > 0; i--) {
     page.drawEllipse({
-      x: 120,
-      y: height - 90,
-      xScale: 90 + i * 60,
-      yScale: 90 + i * 60,
+      x: width - 140,
+      y: height - 70,
+      xScale: 80 + i * 90,
+      yScale: 60 + i * 70,
       color: rgb(cyan.r, cyan.g, cyan.b),
-      opacity: 0.05,
+      opacity: 0.035,
     });
+  }
+  // Violet counter-glow (lower-left, softer)
+  for (let i = 5; i > 0; i--) {
     page.drawEllipse({
-      x: width - 130,
-      y: 110,
-      xScale: 90 + i * 60,
-      yScale: 90 + i * 60,
+      x: 90,
+      y: 80,
+      xScale: 60 + i * 80,
+      yScale: 50 + i * 60,
+      color: rgb(violet.r, violet.g, violet.b),
+      opacity: 0.03,
+    });
+  }
+
+  // Ultra-faint vertical guides (barely visible — signature texture)
+  for (let x = 200; x < width - 100; x += 180) {
+    page.drawLine({
+      start: { x, y: 60 },
+      end: { x, y: height - 60 },
+      thickness: 0.3,
       color: rgb(violet.r, violet.g, violet.b),
       opacity: 0.05,
     });
   }
 
-  // Fine grid
-  const gridColor = rgb(violet.r, violet.g, violet.b);
-  for (let x = 48; x < width - 48; x += 28) {
-    page.drawLine({
-      start: { x, y: 48 },
-      end: { x, y: height - 48 },
-      thickness: 0.3,
-      color: gridColor,
-      opacity: 0.08,
-    });
-  }
-  for (let y = 60; y < height - 60; y += 28) {
-    page.drawLine({
-      start: { x: 48, y },
-      end: { x: width - 48, y },
-      thickness: 0.3,
-      color: gridColor,
-      opacity: 0.08,
-    });
-  }
-
-  // HUD corner brackets
-  const bracket = (bx: number, by: number, sx: number, sy: number) => {
-    page.drawRectangle({
-      x: bx,
-      y: by,
-      width: 28 * sx,
-      height: 1.6,
-      color: rgb(cyan.r, cyan.g, cyan.b),
-    });
-    page.drawRectangle({
-      x: bx,
-      y: by,
-      width: 1.6,
-      height: 28 * sy,
-      color: rgb(cyan.r, cyan.g, cyan.b),
-    });
-  };
-  bracket(38, height - 38, 1, -1);
-  bracket(width - 38, height - 38, -1, -1);
-  bracket(38, 38, 1, 1);
-  bracket(width - 38, 38, -1, 1);
-
-  // Inner frame (very subtle)
+  // Left safe margin, no frame — just a single hairline cyan ascender
+  const margin = 62;
   page.drawRectangle({
-    x: 52,
-    y: 52,
-    width: width - 104,
-    height: height - 104,
-    borderColor: rgb(violet.r, violet.g, violet.b),
-    borderOpacity: 0.35,
-    borderWidth: 0.6,
+    x: margin,
+    y: height - 92,
+    width: 1,
+    height: 44,
+    color: rgb(cyan.r, cyan.g, cyan.b),
+    opacity: 0.9,
   });
 
-  // Top header row — institution left, credential ID right
-  page.drawText(ctx.institutionName.toUpperCase(), {
-    x: 72,
-    y: height - 78,
-    size: 11,
-    font: helvBold,
+  // Top-left: institutional pill (dot + name + · digital credential)
+  const pillY = height - 78;
+  page.drawEllipse({
+    x: margin + 14,
+    y: pillY + 3,
+    xScale: 2.6,
+    yScale: 2.6,
     color: rgb(cyan.r, cyan.g, cyan.b),
   });
-  page.drawText("· DIGITAL CREDENTIAL", {
-    x: 72 + helvBold.widthOfTextAtSize(ctx.institutionName.toUpperCase(), 11) + 8,
-    y: height - 78,
+  const inst = ctx.institutionName.toUpperCase();
+  page.drawText(inst, {
+    x: margin + 24,
+    y: pillY,
+    size: 10,
+    font: helvBold,
+    color: rgb(text.r, text.g, text.b),
+  });
+  const instW = helvBold.widthOfTextAtSize(inst, 10);
+  page.drawText("· CREDENCIAL DIGITAL", {
+    x: margin + 24 + instW + 8,
+    y: pillY,
     size: 8,
-    font: helv,
+    font: mono,
     color: rgb(muted.r, muted.g, muted.b),
   });
 
-  const credLabel = `ID · ${ctx.validationCode}`;
-  const credW = monoBold.widthOfTextAtSize(credLabel, 9);
-  page.drawText(credLabel, {
-    x: width - 72 - credW,
-    y: height - 78,
+  // Top-right: credential ID (mono, uppercase, tracked)
+  const idText = ctx.validationCode;
+  const idW = monoBold.widthOfTextAtSize(idText, 10);
+  page.drawText("ID", {
+    x: width - margin - idW - 22,
+    y: pillY,
+    size: 8,
+    font: mono,
+    color: rgb(faint.r, faint.g, faint.b),
+  });
+  page.drawText(idText, {
+    x: width - margin - idW,
+    y: pillY,
+    size: 10,
+    font: monoBold,
+    color: rgb(cyan.r, cyan.g, cyan.b),
+  });
+
+  // Eyebrow — small, italic serif (not caps mono this time)
+  let cy = height - 168;
+  page.drawText("Certificamos, com esta credencial digital, que", {
+    x: margin,
+    y: cy,
+    size: 11,
+    font: timesItalic,
+    color: rgb(muted.r, muted.g, muted.b),
+  });
+
+  // Student name — serif bold, oversized, left-aligned (editorial)
+  cy -= 68;
+  const nameSize = fitName(ctx.studentName, timesBold, 56, width - margin * 2, 30);
+  page.drawText(ctx.studentName, {
+    x: margin,
+    y: cy,
+    size: nameSize,
+    font: timesBold,
+    color: rgb(text.r, text.g, text.b),
+  });
+  // Cyan tick under name — short, off-baseline
+  page.drawRectangle({
+    x: margin,
+    y: cy - 14,
+    width: 36,
+    height: 2,
+    color: rgb(cyan.r, cyan.g, cyan.b),
+  });
+
+  // Course title — smaller uppercase caption, tracked, muted
+  cy -= 36;
+  page.drawText("CONCLUIU O CURSO", {
+    x: margin,
+    y: cy,
+    size: 8,
+    font: helvBold,
+    color: rgb(faint.r, faint.g, faint.b),
+  });
+  cy -= 22;
+  const courseTitleUpper = ctx.courseTitle;
+  const courseSize = fitName(courseTitleUpper, helvBold, 20, width - margin * 2 - 20, 13);
+  page.drawText(courseTitleUpper, {
+    x: margin,
+    y: cy,
+    size: courseSize,
+    font: helvBold,
+    color: rgb(text.r, text.g, text.b),
+  });
+
+  // Body — single line summary or 2 lines, muted
+  cy -= 30;
+  const bodyLines = wrapText(ctx.bodyText, times, 10.5, width - margin * 2 - 40);
+  for (const line of bodyLines.slice(0, 3)) {
+    page.drawText(line, {
+      x: margin,
+      y: cy,
+      size: 10.5,
+      font: times,
+      color: rgb(0.72, 0.78, 0.92),
+    });
+    cy -= 14;
+  }
+
+  // ----- Metadata rail (hairline strip, inline label · value pairs) -----
+  const railY = 156;
+  // Top hairline
+  page.drawLine({
+    start: { x: margin, y: railY + 30 },
+    end: { x: width - margin - 220, y: railY + 30 },
+    thickness: 0.5,
+    color: rgb(faint.r, faint.g, faint.b),
+    opacity: 0.7,
+  });
+  const meta: Array<[string, string]> = [
+    ["CARGA", `${ctx.workloadHours}H`],
+    ["CONCLUSÃO", ctx.completionDate],
+    ["EMISSÃO", ctx.issuedDate],
+    ["TRILHA", ctx.trackTitle || "FCIA"],
+  ];
+  const railW = width - margin * 2 - 220;
+  const colW = railW / meta.length;
+  meta.forEach(([label, value], i) => {
+    const x = margin + i * colW;
+    page.drawText(label, {
+      x,
+      y: railY + 14,
+      size: 7,
+      font: monoBold,
+      color: rgb(faint.r, faint.g, faint.b),
+    });
+    page.drawText(value, {
+      x,
+      y: railY,
+      size: 10,
+      font: helvBold,
+      color: rgb(text.r, text.g, text.b),
+    });
+  });
+
+  // ----- Bottom-left: signature (minimal, no line) -----
+  const sigX = margin;
+  const sigY = 70;
+  page.drawText(ctx.issuerName, {
+    x: sigX,
+    y: sigY + 14,
+    size: 12,
+    font: timesBold,
+    color: rgb(text.r, text.g, text.b),
+  });
+  page.drawText(ctx.issuerRole, {
+    x: sigX,
+    y: sigY,
+    size: 8,
+    font: helvOblique,
+    color: rgb(muted.r, muted.g, muted.b),
+  });
+  // tiny cyan dot separator
+  page.drawEllipse({
+    x: sigX - 8,
+    y: sigY + 8,
+    xScale: 1.6,
+    yScale: 1.6,
+    color: rgb(cyan.r, cyan.g, cyan.b),
+  });
+
+  // ----- Bottom-right: integrated credential module (QR + verify) -----
+  const qrImage = await pdf.embedPng(ctx.qrPng);
+  const qrSize = 74;
+  const modW = 200;
+  const modH = 96;
+  const modX = width - margin - modW;
+  const modY = 56;
+
+  // Module plate (subtle, with hairline border)
+  page.drawRectangle({
+    x: modX,
+    y: modY,
+    width: modW,
+    height: modH,
+    color: rgb(bgSoft.r, bgSoft.g, bgSoft.b),
+    borderColor: rgb(cyan.r, cyan.g, cyan.b),
+    borderOpacity: 0.35,
+    borderWidth: 0.6,
+  });
+  // Cyan corner accent (top-left of module)
+  page.drawRectangle({
+    x: modX,
+    y: modY + modH - 2,
+    width: 22,
+    height: 2,
+    color: rgb(cyan.r, cyan.g, cyan.b),
+  });
+  page.drawRectangle({
+    x: modX,
+    y: modY + modH - 22,
+    width: 2,
+    height: 22,
+    color: rgb(cyan.r, cyan.g, cyan.b),
+  });
+
+  // QR (white plate, no border, right side of module)
+  const qrX = modX + modW - qrSize - 12;
+  const qrY = modY + (modH - qrSize) / 2;
+  page.drawRectangle({
+    x: qrX - 4,
+    y: qrY - 4,
+    width: qrSize + 8,
+    height: qrSize + 8,
+    color: rgb(1, 1, 1),
+  });
+  page.drawImage(qrImage, { x: qrX, y: qrY, width: qrSize, height: qrSize });
+
+  // Text side of module
+  page.drawText("VERIFICAR", {
+    x: modX + 14,
+    y: modY + modH - 20,
+    size: 7,
+    font: monoBold,
+    color: rgb(cyan.r, cyan.g, cyan.b),
+  });
+  page.drawText("fciaacademy.lovable.app", {
+    x: modX + 14,
+    y: modY + modH - 34,
+    size: 6.5,
+    font: mono,
+    color: rgb(muted.r, muted.g, muted.b),
+  });
+  page.drawText("· VALIDAÇÃO ·", {
+    x: modX + 14,
+    y: modY + 34,
+    size: 6,
+    font: mono,
+    color: rgb(faint.r, faint.g, faint.b),
+  });
+  page.drawText(ctx.validationCode, {
+    x: modX + 14,
+    y: modY + 20,
     size: 9,
     font: monoBold,
     color: rgb(text.r, text.g, text.b),
   });
 
-  // Eyebrow
-  drawCentered(page, "OFFICIALLY ISSUED · VERIFIED ON-CHAIN VIA FCIA.ID", height - 128, mono, 7.5, muted);
-
-  // Title (H1)
-  drawCentered(page, ctx.certificateTitle.toUpperCase(), height - 168, helvBold, 22, text);
-
-  // Cyan divider under title
-  const dividerW = 60;
-  page.drawRectangle({
-    x: (width - dividerW) / 2,
-    y: height - 180,
-    width: dividerW,
-    height: 1.8,
-    color: rgb(cyan.r, cyan.g, cyan.b),
-  });
-
-  // Student name — display, big
-  const nameSize = fitName(ctx.studentName, helvBold, 44, width - 200, 26);
-  drawCentered(page, ctx.studentName, height - 235, helvBold, nameSize, {
-    r: 0.88,
-    g: 0.94,
-    b: 1,
-  });
-
-  // Body
-  let cy = height - 275;
-  const bodyLines = wrapText(ctx.bodyText, helv, 11, width - 220);
-  for (const line of bodyLines.slice(0, 4)) {
-    drawCentered(page, line, cy, helv, 11, {
-      r: 0.82,
-      g: 0.87,
-      b: 0.98,
-    });
-    cy -= 15;
-  }
-
-  // Meta row (monospace chips)
-  const metaY = 168;
-  const chips: Array<[string, string]> = [
-    ["WORKLOAD", `${ctx.workloadHours}H`],
-    ["COMPLETED", ctx.completionDate.toUpperCase()],
-    ["ISSUED", ctx.issuedDate.toUpperCase()],
-    ["TRACK", (ctx.trackTitle || "FCIA").toUpperCase()],
-  ];
-  const chipW = 140;
-  const totalW = chipW * chips.length + 16 * (chips.length - 1);
-  let chipX = (width - totalW) / 2;
-  for (const [label, value] of chips) {
-    page.drawRectangle({
-      x: chipX,
-      y: metaY - 4,
-      width: chipW,
-      height: 46,
-      color: rgb(bg2.r, bg2.g, bg2.b),
-      borderColor: rgb(violet.r, violet.g, violet.b),
-      borderOpacity: 0.35,
-      borderWidth: 0.6,
-    });
-    // top cyan tick
-    page.drawRectangle({
-      x: chipX,
-      y: metaY + 42,
-      width: 16,
-      height: 1.6,
-      color: rgb(cyan.r, cyan.g, cyan.b),
-    });
-    page.drawText(label, {
-      x: chipX + 12,
-      y: metaY + 26,
-      size: 7,
-      font: monoBold,
-      color: rgb(muted.r, muted.g, muted.b),
-    });
-    page.drawText(value, {
-      x: chipX + 12,
-      y: metaY + 10,
-      size: 11,
-      font: monoBold,
-      color: rgb(text.r, text.g, text.b),
-    });
-    chipX += chipW + 16;
-  }
-
-  // Signature bottom-left
-  const sigX = 78;
-  const sigY = 92;
-  page.drawLine({
-    start: { x: sigX, y: sigY + 30 },
-    end: { x: sigX + 240, y: sigY + 30 },
-    thickness: 0.8,
-    color: rgb(0.5, 0.55, 0.85),
-  });
-  page.drawText(ctx.issuerName, {
-    x: sigX,
-    y: sigY + 12,
-    size: 12,
-    font: helvBold,
-    color: rgb(1, 1, 1),
-  });
-  page.drawText(ctx.issuerRole, {
-    x: sigX,
-    y: sigY - 2,
-    size: 9,
-    font: helvOblique,
-    color: rgb(muted.r, muted.g, muted.b),
-  });
-
-  // Holographic seal + QR (bottom-right)
-  const qrImage = await pdf.embedPng(ctx.qrPng);
-  const qrSize = 92;
-  const qrX = width - 78 - qrSize;
-  const qrY = 92;
-
-  // Seal ring behind QR
-  page.drawEllipse({
-    x: qrX + qrSize / 2,
-    y: qrY + qrSize / 2,
-    xScale: qrSize / 2 + 22,
-    yScale: qrSize / 2 + 22,
-    color: rgb(cyan.r, cyan.g, cyan.b),
-    opacity: 0.16,
-  });
-  page.drawEllipse({
-    x: qrX + qrSize / 2,
-    y: qrY + qrSize / 2,
-    xScale: qrSize / 2 + 14,
-    yScale: qrSize / 2 + 14,
-    color: rgb(violet.r, violet.g, violet.b),
-    opacity: 0.18,
-  });
-  // White QR plate
-  page.drawRectangle({
-    x: qrX - 6,
-    y: qrY - 6,
-    width: qrSize + 12,
-    height: qrSize + 12,
-    color: rgb(1, 1, 1),
-  });
-  page.drawImage(qrImage, { x: qrX, y: qrY, width: qrSize, height: qrSize });
-
-  page.drawText("SCAN · VERIFY", {
-    x:
-      qrX + (qrSize - monoBold.widthOfTextAtSize("SCAN · VERIFY", 7)) / 2,
-    y: qrY - 18,
-    size: 7,
-    font: monoBold,
-    color: rgb(cyan.r, cyan.g, cyan.b),
-  });
-
-  // Legal footer
-  const footerLines = wrapText(ctx.legalFooter, helvOblique, 7, width - 200);
-  let fy = 56;
+  // Legal footer — very fine, aligned left near bottom
+  const footerLines = wrapText(ctx.legalFooter, helvOblique, 6.2, width - margin * 2 - modW - 30);
+  let fy = 42;
   for (const line of footerLines.slice(0, 2)) {
-    drawCentered(page, line, fy, helvOblique, 7, {
-      r: 0.55,
-      g: 0.6,
-      b: 0.78,
+    page.drawText(line, {
+      x: margin,
+      y: fy,
+      size: 6.2,
+      font: helvOblique,
+      color: rgb(0.42, 0.46, 0.6),
     });
-    fy -= 9;
+    fy -= 8;
   }
 
   return pdf.save();
 }
+
 
 // ---------- Template 3 — Editorial Prestige ----------
 /**
