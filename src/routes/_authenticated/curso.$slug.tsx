@@ -202,7 +202,7 @@ function CourseLearnPage() {
   };
 
   const ModuleList = (
-    <nav className="space-y-0.5">
+    <nav className="space-y-px">
       {modules.map((m, i) => {
         const done = progressMap.get(m.id) ?? false;
         const active = m.id === activeModule.id;
@@ -211,41 +211,42 @@ function CourseLearnPage() {
             key={m.id}
             onClick={() => setActive(m.slug)}
             className={cn(
-              "group relative flex w-full items-start gap-2.5 rounded-md px-2.5 py-2 text-left transition-colors",
+              "group relative flex w-full items-start gap-2 py-1.5 pl-3 pr-2 text-left transition-colors",
               active
-                ? "bg-foreground/[0.06] dark:bg-foreground/[0.08]"
-                : "hover:bg-foreground/[0.035] dark:hover:bg-foreground/[0.05]",
+                ? "bg-foreground/[0.07] dark:bg-foreground/[0.10]"
+                : "hover:bg-foreground/[0.03] dark:hover:bg-foreground/[0.045]",
             )}
           >
-            {active && (
-              <span
-                aria-hidden
-                className="absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full bg-primary"
-              />
-            )}
+            <span
+              aria-hidden
+              className={cn(
+                "absolute left-0 top-1 bottom-1 w-[2px]",
+                active ? "bg-primary" : "bg-transparent",
+              )}
+            />
             {done ? (
-              <CheckCircle2 className="mt-[3px] h-3.5 w-3.5 shrink-0 text-primary" />
+              <CheckCircle2 className="mt-[3px] h-3 w-3 shrink-0 text-primary" />
             ) : (
               <Circle
                 className={cn(
-                  "mt-[3px] h-3.5 w-3.5 shrink-0",
-                  active ? "text-foreground/70" : "text-muted-foreground/60",
+                  "mt-[3px] h-3 w-3 shrink-0",
+                  active ? "text-foreground/70" : "text-muted-foreground/50",
                 )}
               />
             )}
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">
-                <span>M{String(i + 1).padStart(2, "0")}</span>
-                <span className="text-muted-foreground/40">·</span>
+              <div className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.16em] text-muted-foreground/70">
+                <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-muted-foreground/30">·</span>
                 <span className="inline-flex items-center gap-1">
                   <ModuleTypeIcon type={m.content_type} />
-                  {m.duration_minutes}min
+                  {m.duration_minutes}m
                 </span>
               </div>
               <p
                 className={cn(
-                  "mt-0.5 truncate text-[13px] leading-snug",
-                  active ? "font-semibold text-foreground" : "font-medium text-foreground/75",
+                  "mt-px truncate text-[12.5px] leading-snug",
+                  active ? "font-semibold text-foreground" : "font-normal text-foreground/70",
                 )}
               >
                 {m.title}
@@ -353,38 +354,40 @@ function CourseLearnPage() {
 
       <div
         className={cn(
-          "mx-auto grid max-w-7xl gap-8 px-4 py-6 sm:py-10 lg:gap-10 lg:px-6",
-          focusMode ? "lg:grid-cols-1" : "lg:grid-cols-[264px_1fr]",
+          "mx-auto grid max-w-7xl gap-0 px-0 lg:gap-0",
+          focusMode ? "lg:grid-cols-1" : "lg:grid-cols-[248px_1fr]",
         )}
       >
         <aside
           className={cn(
             "hidden lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto",
             focusMode ? "lg:hidden" : "lg:block",
-            "lg:-mx-2 lg:rounded-lg lg:border lg:border-border/50 lg:bg-surface-muted/60 lg:px-3 lg:py-4",
+            "lg:border-r lg:border-border/60 lg:bg-foreground/[0.015] dark:lg:bg-foreground/[0.025] lg:py-6",
           )}
         >
-          <Link
-            to="/cursos"
-            className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground/80 hover:text-foreground"
-          >
-            <ArrowLeft className="h-3 w-3" /> Catálogo
-          </Link>
-          <h2 className="mt-3 font-display text-[15px] font-semibold leading-snug text-foreground">
-            {course.title}
-          </h2>
-          <div className="mt-3 space-y-1.5">
-            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-              <span className="uppercase tracking-widest">Progresso</span>
-              <span className="font-semibold text-foreground">{percent}%</span>
+          <div className="px-4">
+            <Link
+              to="/cursos"
+              className="inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70 hover:text-foreground"
+            >
+              <ArrowLeft className="h-3 w-3" /> Catálogo
+            </Link>
+            <h2 className="mt-3 font-display text-[13.5px] font-semibold leading-snug text-foreground/90">
+              {course.title}
+            </h2>
+            <div className="mt-4 space-y-1.5">
+              <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
+                <span>Progresso</span>
+                <span className="font-semibold tabular-nums text-foreground">{percent}%</span>
+              </div>
+              <Progress value={percent} className="h-[3px]" />
+              <p className="text-[10.5px] text-muted-foreground/70">
+                {completedCount} de {modules.length} módulos
+              </p>
             </div>
-            <Progress value={percent} className="h-1" />
-            <p className="text-[11px] text-muted-foreground">
-              {completedCount} de {modules.length} módulos
-            </p>
           </div>
-          <div className="mt-5 border-t border-border/50 pt-4">
-            <p className="mb-2 px-2.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
+          <div className="mt-6 border-t border-border/50 pt-4">
+            <p className="mb-2 px-4 text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/60">
               Módulos
             </p>
             {ModuleList}
@@ -392,16 +395,19 @@ function CourseLearnPage() {
         </aside>
 
         <section
-          className={cn("min-w-0", focusMode && "mx-auto w-full max-w-3xl")}
+          className={cn(
+            "min-w-0 px-4 py-8 sm:px-8 sm:py-12 lg:px-14 lg:py-14",
+            focusMode && "mx-auto w-full max-w-3xl",
+          )}
           style={{ fontSize: `${fontScale}rem` }}
         >
           {/* Hero editorial do módulo */}
-          <header className="relative mb-10 border-b border-border/60 pb-8">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <header className="relative mb-12 pb-8 border-b border-border/50">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-foreground/[0.02] px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground dark:bg-foreground/[0.04]">
               <span className="text-primary">Módulo {String(activeIndex + 1).padStart(2, "0")}</span>
-              <span className="text-muted-foreground/40">/</span>
+              <span className="text-muted-foreground/30">/</span>
               <span>{String(modules.length).padStart(2, "0")}</span>
-              <span className="text-muted-foreground/40">·</span>
+              <span className="text-muted-foreground/30">·</span>
               <span className="inline-flex items-center gap-1">
                 <ModuleTypeIcon type={activeModule.content_type} />
                 {activeModule.content_type === "video"
@@ -410,16 +416,16 @@ function CourseLearnPage() {
                     ? "PDF"
                     : "Leitura"}
               </span>
-              <span className="text-muted-foreground/40">·</span>
+              <span className="text-muted-foreground/30">·</span>
               <span className="inline-flex items-center gap-1">
                 <Clock className="h-3 w-3" /> {activeModule.duration_minutes} min
               </span>
             </div>
-            <h1 className="mt-4 font-display text-[2rem] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[2.75rem]">
+            <h1 className="mt-5 font-display text-[2.1rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-[2.9rem]">
               {activeModule.title}
             </h1>
             {activeModule.description && (
-              <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">
+              <p className="mt-5 max-w-[58ch] text-lg leading-[1.6] text-muted-foreground sm:text-[1.2rem]">
                 {activeModule.description}
               </p>
             )}
