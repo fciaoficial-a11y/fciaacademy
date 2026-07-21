@@ -177,6 +177,7 @@ function AdminLayout() {
           </div>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button asChild variant="ghost" size="sm" className="hidden gap-2 text-muted-foreground hover:text-foreground sm:inline-flex">
               <Link to="/dashboard">
                 <ExternalLink className="h-4 w-4" />
