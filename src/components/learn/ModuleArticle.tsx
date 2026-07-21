@@ -80,28 +80,28 @@ const kindStyles: Record<
     accent: "text-primary",
   },
   exemplo: {
-    ring: "ring-1 ring-inset ring-sky-400/25 bg-gradient-to-br from-sky-400/[0.06] to-transparent",
+    ring: "ring-1 ring-inset ring-sky-500/30 bg-gradient-to-br from-sky-500/[0.06] to-transparent",
     icon: <Lightbulb className="h-4 w-4" />,
     label: "Exemplo prático",
-    accent: "text-sky-300",
+    accent: "text-sky-700 dark:text-sky-300",
   },
   erros: {
-    ring: "ring-1 ring-inset ring-amber-400/25 bg-gradient-to-br from-amber-400/[0.06] to-transparent",
+    ring: "ring-1 ring-inset ring-amber-500/30 bg-gradient-to-br from-amber-500/[0.06] to-transparent",
     icon: <AlertTriangle className="h-4 w-4" />,
     label: "Erros comuns",
-    accent: "text-amber-300",
+    accent: "text-amber-700 dark:text-amber-300",
   },
   fechamento: {
-    ring: "ring-1 ring-inset ring-emerald-400/25 bg-gradient-to-br from-emerald-400/[0.06] to-transparent",
+    ring: "ring-1 ring-inset ring-emerald-500/30 bg-gradient-to-br from-emerald-500/[0.06] to-transparent",
     icon: <Sparkles className="h-4 w-4" />,
     label: "Fechamento",
-    accent: "text-emerald-300",
+    accent: "text-emerald-700 dark:text-emerald-300",
   },
   transicao: {
-    ring: "ring-1 ring-inset ring-violet-400/25 bg-gradient-to-br from-violet-400/[0.06] to-transparent",
+    ring: "ring-1 ring-inset ring-violet-500/30 bg-gradient-to-br from-violet-500/[0.06] to-transparent",
     icon: <ArrowRight className="h-4 w-4" />,
     label: "Próximo passo",
-    accent: "text-violet-300",
+    accent: "text-violet-700 dark:text-violet-300",
   },
   default: {
     ring: "ring-1 ring-inset ring-border/60",
@@ -169,7 +169,7 @@ const mdComponents: Components = {
     />
   ),
   code: ({ children }) => (
-    <code className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[0.85em] font-mono text-primary">
+    <code className="rounded bg-muted px-1.5 py-0.5 text-[0.85em] font-mono text-primary">
       {children}
     </code>
   ),
