@@ -50,7 +50,7 @@ export const coursesQuery = queryOptions({
   queryFn: async (): Promise<CourseRow[]> => {
     const { data, error } = await supabase
       .from("courses")
-      .select("id, track_id, slug, title, description, duration_minutes, level, cover_url, sort_order, price")
+      .select("id, track_id, slug, title, description, duration_minutes, workload_hours, level, cover_url, sort_order, price, is_free")
       .eq("is_published", true)
       .order("sort_order");
     if (error) throw error;
@@ -73,7 +73,7 @@ export function trackBySlugQuery(slug: string) {
       if (!track) return null;
       const { data: courses, error: cErr } = await supabase
         .from("courses")
-        .select("id, track_id, slug, title, description, duration_minutes, level, cover_url, sort_order, price")
+        .select("id, track_id, slug, title, description, duration_minutes, workload_hours, level, cover_url, sort_order, price, is_free")
         .eq("track_id", track.id)
         .eq("is_published", true)
         .order("sort_order");
