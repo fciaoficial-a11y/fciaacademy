@@ -33,6 +33,11 @@ export const Route = createFileRoute("/_authenticated/admin/certificados")({
   component: AdminCertificatesPage,
 });
 
+import {
+  TEMPLATE_OPTIONS,
+  type TemplateKey,
+} from "@/lib/certificate-templates";
+
 type Settings = {
   id: number;
   institution_name: string;
@@ -48,6 +53,7 @@ type Settings = {
   legal_footer: string;
   min_score: number;
   auto_issue: boolean;
+  template_key: TemplateKey;
 };
 
 const DEFAULT_TEMPLATE =
@@ -210,6 +216,11 @@ function InstitutionalTab() {
 
 // ------------------- Template -------------------
 
+const SAMPLE_STUDENT = "Fernando Aluno da Silva";
+const SAMPLE_COURSE = "Introdução à IA Generativa";
+const SAMPLE_WORKLOAD = 20;
+const SAMPLE_CODE = "FCIA-2K26-A9X4";
+
 function TemplateTab() {
   const qc = useQueryClient();
   const { data, isLoading } = useSettings();
@@ -227,6 +238,7 @@ function TemplateTab() {
           certificate_title: form.certificate_title || "Certificado de Conclusão",
           body_template: form.body_template || DEFAULT_TEMPLATE,
           legal_footer: form.legal_footer || DEFAULT_FOOTER,
+          template_key: form.template_key ?? "dark_premium_tech",
         })
         .eq("id", 1);
       if (error) throw error;
@@ -238,102 +250,421 @@ function TemplateTab() {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  const preview = useMemo(
+  const sampleDate = useMemo(
+    () =>
+      new Date().toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      }),
+    []
+  );
+
+  const previewBody = useMemo(
     () =>
       applyTemplate(form.body_template || DEFAULT_TEMPLATE, {
-        student_name: "Fernando Aluno da Silva",
-        course_title: "Introdução à IA Generativa",
-        workload_hours: 20,
-        completion_date: new Date().toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        }),
+        student_name: SAMPLE_STUDENT,
+        course_title: SAMPLE_COURSE,
+        workload_hours: SAMPLE_WORKLOAD,
+        completion_date: sampleDate,
         institution_name: form.institution_name || "FCIA Academy",
       }),
-    [form.body_template, form.institution_name]
+    [form.body_template, form.institution_name, sampleDate]
   );
 
   if (isLoading) return <SkeletonBox />;
 
+  const selected: TemplateKey = form.template_key ?? "dark_premium_tech";
+
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <Card>
-        <h2 className="font-display text-lg font-semibold">Editar template</h2>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Placeholders: <code>{"{{student_name}}"}</code>, <code>{"{{course_title}}"}</code>,{" "}
-          <code>{"{{workload_hours}}"}</code>, <code>{"{{completion_date}}"}</code>,{" "}
-          <code>{"{{institution_name}}"}</code>
-        </p>
-
-        <div className="mt-4 space-y-4">
-          <Field label="Título do certificado">
-            <Input
-              value={form.certificate_title ?? ""}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, certificate_title: e.target.value }))
-              }
-              placeholder="Certificado de Conclusão"
-            />
-          </Field>
-          <Field label="Corpo do certificado">
-            <Textarea
-              rows={6}
-              value={form.body_template ?? ""}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, body_template: e.target.value }))
-              }
-              placeholder={DEFAULT_TEMPLATE}
-            />
-          </Field>
-          <Field label="Rodapé legal">
-            <Textarea
-              rows={4}
-              value={form.legal_footer ?? ""}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, legal_footer: e.target.value }))
-              }
-              placeholder={DEFAULT_FOOTER}
-            />
-          </Field>
-        </div>
-
-        <div className="mt-6 flex justify-end">
-          <Button onClick={() => save.mutate()} disabled={save.isPending}>
-            {save.isPending ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Save className="mr-2 h-4 w-4" />
-            )}
-            Salvar template
-          </Button>
-        </div>
-      </Card>
-
+    <div className="space-y-6">
+      {/* --- Model picker --- */}
       <Card>
         <div className="flex items-center gap-2">
-          <Eye className="h-4 w-4 text-primary" />
-          <h2 className="font-display text-lg font-semibold">Prévia em tempo real</h2>
+          <Sparkles className="h-4 w-4 text-primary" />
+          <h2 className="font-display text-lg font-semibold">Modelo visual</h2>
         </div>
-        <div className="mt-4 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-slate-950 via-slate-900 to-primary/10 p-6 text-center">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-primary/80">
-            {form.institution_name || "FCIA Academy"}
-          </p>
-          <h3 className="mt-3 font-display text-2xl font-semibold text-white">
-            {form.certificate_title || "Certificado de Conclusão"}
-          </h3>
-          <p className="mt-4 font-display text-lg text-primary">
-            Fernando Aluno da Silva
-          </p>
-          <p className="mt-4 text-xs leading-relaxed text-slate-300">{preview}</p>
-          <p className="mt-6 border-t border-white/10 pt-4 text-[10px] italic leading-relaxed text-slate-400">
-            {form.legal_footer || DEFAULT_FOOTER}
-          </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Escolha o layout que será aplicado a todos os certificados emitidos.
+        </p>
+
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {TEMPLATE_OPTIONS.map((opt) => {
+            const active = selected === opt.key;
+            return (
+              <button
+                key={opt.key}
+                type="button"
+                onClick={() =>
+                  setForm((f) => ({ ...f, template_key: opt.key }))
+                }
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border text-left transition-all ${
+                  active
+                    ? "border-primary ring-2 ring-primary/40"
+                    : "border-border/60 hover:border-primary/50"
+                }`}
+              >
+                <TemplateThumb
+                  templateKey={opt.key}
+                  institution={form.institution_name || "FCIA Academy"}
+                  title={form.certificate_title || "Certificado de Conclusão"}
+                />
+                <div className="flex flex-1 flex-col gap-1 border-t border-border/60 bg-card/60 p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="font-display text-sm font-semibold">
+                      {opt.name}
+                    </p>
+                    {active && (
+                      <span className="inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+                        Selecionado
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[11px] uppercase tracking-widest text-primary/80">
+                    {opt.tagline}
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {opt.description}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </Card>
+
+      {/* --- Editor + Live preview --- */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card>
+          <h2 className="font-display text-lg font-semibold">Conteúdo do certificado</h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Campos dinâmicos disponíveis: <code>{"{{student_name}}"}</code>,{" "}
+            <code>{"{{course_title}}"}</code>, <code>{"{{workload_hours}}"}</code>,{" "}
+            <code>{"{{completion_date}}"}</code>, <code>{"{{institution_name}}"}</code>.
+          </p>
+
+          <div className="mt-4 space-y-4">
+            <Field label="Título do certificado">
+              <Input
+                value={form.certificate_title ?? ""}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, certificate_title: e.target.value }))
+                }
+                placeholder="Certificado de Conclusão"
+              />
+            </Field>
+            <Field label="Corpo do certificado">
+              <Textarea
+                rows={6}
+                value={form.body_template ?? ""}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, body_template: e.target.value }))
+                }
+                placeholder={DEFAULT_TEMPLATE}
+              />
+            </Field>
+            <Field label="Rodapé legal">
+              <Textarea
+                rows={4}
+                value={form.legal_footer ?? ""}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, legal_footer: e.target.value }))
+                }
+                placeholder={DEFAULT_FOOTER}
+              />
+            </Field>
+          </div>
+
+          <div className="mt-6 flex justify-end">
+            <Button onClick={() => save.mutate()} disabled={save.isPending}>
+              {save.isPending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Save className="mr-2 h-4 w-4" />
+              )}
+              Salvar template
+            </Button>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="flex items-center gap-2">
+            <Eye className="h-4 w-4 text-primary" />
+            <h2 className="font-display text-lg font-semibold">
+              Prévia — {TEMPLATE_OPTIONS.find((t) => t.key === selected)?.name}
+            </h2>
+          </div>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Preview visual do modelo com dados de exemplo. O PDF final é gerado no
+            momento da emissão.
+          </p>
+          <div className="mt-4">
+            <TemplatePreviewLarge
+              templateKey={selected}
+              institution={form.institution_name || "FCIA Academy"}
+              title={form.certificate_title || "Certificado de Conclusão"}
+              body={previewBody}
+              legalFooter={form.legal_footer || DEFAULT_FOOTER}
+              issuerName={form.issuer_name || "Prof. Fernando Cabral"}
+              issuerRole={form.issuer_role || "CEO & Founder — FCIA"}
+              completionDate={sampleDate}
+            />
+          </div>
+        </Card>
+      </div>
     </div>
   );
 }
+
+// ---- Preview components (HTML approximations of each PDF template) ----
+
+interface PreviewProps {
+  templateKey: TemplateKey;
+  institution: string;
+  title: string;
+}
+
+function TemplateThumb({ templateKey, institution, title }: PreviewProps) {
+  // Small thumbnail preview shown inside the picker card.
+  return (
+    <div className="aspect-[297/210] w-full">
+      <div className="h-full w-full">
+        <PreviewCanvas
+          templateKey={templateKey}
+          institution={institution}
+          title={title}
+          body="Concluiu com aproveitamento o curso livre de capacitação e atualização profissional em Introdução à IA Generativa, carga horária total de 20 horas."
+          legalFooter="Curso livre de capacitação."
+          issuerName="Prof. Fernando Cabral"
+          issuerRole="CEO & Founder — FCIA"
+          completionDate="21 de julho de 2026"
+          compact
+        />
+      </div>
+    </div>
+  );
+}
+
+function TemplatePreviewLarge(props: {
+  templateKey: TemplateKey;
+  institution: string;
+  title: string;
+  body: string;
+  legalFooter: string;
+  issuerName: string;
+  issuerRole: string;
+  completionDate: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-xl border border-border/60 shadow-lg">
+      <div className="aspect-[297/210] w-full">
+        <PreviewCanvas {...props} />
+      </div>
+    </div>
+  );
+}
+
+interface CanvasProps {
+  templateKey: TemplateKey;
+  institution: string;
+  title: string;
+  body: string;
+  legalFooter: string;
+  issuerName: string;
+  issuerRole: string;
+  completionDate: string;
+  compact?: boolean;
+}
+
+function PreviewCanvas({
+  templateKey,
+  institution,
+  title,
+  body,
+  legalFooter,
+  issuerName,
+  issuerRole,
+  completionDate,
+  compact,
+}: CanvasProps) {
+  if (templateKey === "executive_tech") {
+    return (
+      <div className="relative flex h-full w-full flex-col bg-[#f8f9fb] font-sans text-[#0a1a3a]">
+        <div className="flex items-center justify-between bg-[#0a1a3a] px-4 py-1.5 text-[8px] uppercase tracking-[0.25em] text-white sm:text-[10px]">
+          <span className="font-bold">{institution}</span>
+          <span className="text-[#c1d0f5]">Educação Executiva</span>
+        </div>
+        <div className="h-[3px] bg-[#3b6ff5]" />
+        <div className="flex flex-1 flex-col justify-between p-4 sm:p-6">
+          <div>
+            <p className="text-[8px] font-bold uppercase tracking-widest text-[#3b6ff5] sm:text-[10px]">
+              Certificado
+            </p>
+            <p className="mt-0.5 text-[8px] uppercase tracking-widest text-[#6b7590] sm:text-[10px]">
+              {title}
+            </p>
+            <p className="mt-3 font-serif text-lg font-bold leading-tight text-[#0a1a3a] sm:mt-4 sm:text-2xl">
+              {SAMPLE_STUDENT}
+            </p>
+            <div className="mt-1 h-[2px] w-10 bg-[#3b6ff5]" />
+            {!compact && (
+              <p className="mt-3 line-clamp-3 text-[10px] leading-relaxed text-[#2a324a] sm:text-xs">
+                {body}
+              </p>
+            )}
+          </div>
+          <div className="mt-3 flex items-end justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <div className="border-t border-[#0a1a3a] pt-1">
+                <p className="truncate text-[8px] font-bold sm:text-[10px]">
+                  {issuerName}
+                </p>
+                <p className="truncate text-[7px] italic text-[#6b7590] sm:text-[9px]">
+                  {issuerRole}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="grid h-8 w-8 grid-cols-4 grid-rows-4 gap-[1px] rounded-sm border border-[#0a1a3a] bg-white p-[2px] sm:h-10 sm:w-10">
+                {Array.from({ length: 16 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={i % 3 === 0 ? "bg-[#0a1a3a]" : "bg-white"}
+                  />
+                ))}
+              </div>
+              <p className="mt-1 text-[6px] font-bold uppercase tracking-wider text-[#6b7590] sm:text-[7px]">
+                {SAMPLE_CODE}
+              </p>
+            </div>
+          </div>
+          {!compact && (
+            <p className="mt-2 text-center text-[6px] italic text-[#6b7590] sm:text-[7px]">
+              {legalFooter}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (templateKey === "editorial_prestige") {
+    return (
+      <div className="relative flex h-full w-full flex-col items-center justify-between bg-[#faf7f1] p-4 font-serif text-[#1c1d24] sm:p-6">
+        <div className="absolute inset-2 border border-[#1c1d24]/80 sm:inset-3" />
+        <div className="relative flex flex-col items-center pt-1">
+          <p className="text-[8px] font-bold uppercase tracking-[0.3em] sm:text-[10px]">
+            {institution}
+          </p>
+          <div className="mt-1 h-[2px] w-10 bg-[#b8951f]" />
+        </div>
+        <div className="relative flex flex-col items-center text-center">
+          <p className="font-serif text-base leading-tight sm:text-2xl">{title}</p>
+          <p className="mt-1 text-[8px] italic text-[#6a5f4d] sm:text-[10px]">
+            Concedido a
+          </p>
+          <p className="mt-1 font-serif text-lg font-bold leading-tight sm:mt-2 sm:text-2xl">
+            {SAMPLE_STUDENT}
+          </p>
+          <div className="mt-1 h-[1px] w-16 bg-[#b8951f]" />
+          {!compact && (
+            <p className="mt-2 line-clamp-2 max-w-[85%] text-[9px] leading-relaxed text-[#3a3a44] sm:text-[11px]">
+              {body}
+            </p>
+          )}
+          <p className="mt-1 text-[8px] italic text-[#6a5f4d] sm:text-[10px]">
+            Carga de {SAMPLE_WORKLOAD}h · Concluído em {completionDate}
+          </p>
+        </div>
+        <div className="relative flex w-full items-end justify-between gap-3">
+          <div className="text-left text-[7px] text-[#6a5f4d] sm:text-[8px]">
+            <p>Código: {SAMPLE_CODE}</p>
+            <p>Emitido em {completionDate}</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="h-[2px] w-24 bg-[#1c1d24]" />
+            <p className="mt-0.5 text-[8px] font-bold sm:text-[10px]">{issuerName}</p>
+            <p className="text-[7px] italic text-[#6a5f4d] sm:text-[9px]">
+              {issuerRole}
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="grid h-7 w-7 grid-cols-4 grid-rows-4 gap-[1px] bg-white p-[1px] sm:h-8 sm:w-8">
+              {Array.from({ length: 16 }).map((_, i) => (
+                <div
+                  key={i}
+                  className={i % 2 === 0 ? "bg-[#1c1d24]" : "bg-white"}
+                />
+              ))}
+            </div>
+            <p className="mt-0.5 text-[6px] font-bold uppercase tracking-wider text-[#6a5f4d]">
+              Validar
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Dark Premium Tech
+  return (
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0b0f1e] font-sans text-white">
+      <div className="pointer-events-none absolute -left-8 -top-8 h-32 w-32 rounded-full bg-[#3c5cff]/25 blur-2xl" />
+      <div className="pointer-events-none absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-[#a78bfa]/25 blur-2xl" />
+      <div
+        className="pointer-events-none absolute inset-4 opacity-[0.09]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#6b60ff 1px, transparent 1px), linear-gradient(90deg, #6b60ff 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+      <div className="relative m-2 flex flex-1 flex-col border border-[#6b60ff]/50 p-3 sm:m-3 sm:p-5">
+        <div className="flex items-center justify-between text-[8px] uppercase tracking-[0.25em] sm:text-[10px]">
+          <span className="font-bold text-[#98adff]">{institution}</span>
+          <span className="text-[#b5bcd9]">Trilha IA</span>
+        </div>
+        <div className="mt-auto flex flex-col items-center text-center">
+          <p className="font-display text-base font-bold sm:text-2xl">{title}</p>
+          <p className="mt-2 font-display text-lg font-bold text-[#a1c4ff] sm:mt-3 sm:text-2xl">
+            {SAMPLE_STUDENT}
+          </p>
+          {!compact && (
+            <p className="mt-2 line-clamp-2 max-w-[92%] text-[9px] leading-relaxed text-[#dfe3fa] sm:text-[11px]">
+              {body}
+            </p>
+          )}
+        </div>
+        <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+          <div className="min-w-0 flex-1">
+            <div className="border-t border-[#7d84c6]/60 pt-1">
+              <p className="truncate text-[8px] font-bold sm:text-[10px]">
+                {issuerName}
+              </p>
+              <p className="truncate text-[7px] italic text-[#b5bcd9] sm:text-[9px]">
+                {issuerRole}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="grid h-9 w-9 grid-cols-4 grid-rows-4 gap-[1px] bg-white p-[2px] sm:h-11 sm:w-11">
+              {Array.from({ length: 16 }).map((_, i) => (
+                <div
+                  key={i}
+                  className={i * 7 % 3 === 0 ? "bg-[#0b0f1e]" : "bg-white"}
+                />
+              ))}
+            </div>
+            <p className="mt-1 text-[7px] font-bold uppercase tracking-wider sm:text-[8px]">
+              {SAMPLE_CODE}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 // ------------------- Regras -------------------
 
