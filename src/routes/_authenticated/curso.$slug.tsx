@@ -971,3 +971,37 @@ function Paywall({
 
 
 
+function FullPdfDownload({ path, title }: { path: string; title: string }) {
+  const [loading, setLoading] = useState(false);
+  async function handle() {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.storage
+        .from("course-assets")
+        .createSignedUrl(path, 300);
+      if (error || !data?.signedUrl) throw error ?? new Error("Falha ao gerar link");
+      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+    } catch (e) {
+      toast.error((e as Error).message || "Não foi possível baixar o PDF");
+    } finally {
+      setLoading(false);
+    }
+  }
+  return (
+    <div className="mx-4 mt-5 rounded-xl border border-border/60 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-3">
+      <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+        E-book completo
+      </p>
+      <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-foreground/80">{title}</p>
+      <button
+        type="button"
+        onClick={handle}
+        disabled={loading}
+        className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-primary/90 px-2.5 py-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-primary-foreground transition hover:bg-primary disabled:opacity-60"
+      >
+        {loading ? "Gerando link…" : "Baixar PDF"}
+      </button>
+    </div>
+  );
+}
+
