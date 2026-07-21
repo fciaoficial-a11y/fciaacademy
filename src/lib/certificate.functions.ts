@@ -1,6 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import {
+  renderCertificatePdf,
+  type RenderContext,
+  type TemplateKey,
+} from "./certificate-templates";
 
 type GenerateInput = { certificateId: string };
 
@@ -14,6 +19,17 @@ function applyTemplate(
     const v = vars[key];
     return v == null ? "" : String(v);
   });
+}
+
+function normalizeTemplateKey(v: unknown): TemplateKey {
+  if (
+    v === "executive_tech" ||
+    v === "dark_premium_tech" ||
+    v === "editorial_prestige"
+  ) {
+    return v;
+  }
+  return "dark_premium_tech";
 }
 
 async function generateCertificateInternal(
@@ -34,7 +50,6 @@ async function generateCertificateInternal(
 
   if (cert.pdf_url) return { path: cert.pdf_url, alreadyExists: true };
 
-  // Load institutional settings
   const { data: settings } = await supabase
     .from("certificate_settings")
     .select("*")
@@ -88,6 +103,7 @@ async function generateCertificateInternal(
   const validationBase =
     settings?.validation_base_url ||
     "https://fciaacademy.lovable.app/validar-certificado";
+  const templateKey = normalizeTemplateKey(settings?.template_key);
 
   const validateUrl =
     cert.verification_url || `${validationBase}/${cert.validation_code}`;
@@ -112,115 +128,25 @@ async function generateCertificateInternal(
     c.charCodeAt(0)
   );
 
-  const { PDFDocument, StandardFonts, rgb } = await import("pdf-lib");
-  const pdf = await PDFDocument.create();
-  const page = pdf.addPage([842, 595]);
-  const { width, height } = page.getSize();
+  const ctx: RenderContext = {
+    studentName,
+    courseTitle,
+    workloadHours: workload,
+    completionDate: completionStr,
+    issuedDate: issuedAt,
+    validationCode: cert.validation_code,
+    verificationUrl: validateUrl,
+    institutionName,
+    trackTitle,
+    certificateTitle,
+    bodyText,
+    legalFooter,
+    issuerName,
+    issuerRole,
+    qrPng: qrPngBytes,
+  };
 
-  const helv = await pdf.embedFont(StandardFonts.Helvetica);
-  const helvBold = await pdf.embedFont(StandardFonts.HelveticaBold);
-  const helvOblique = await pdf.embedFont(StandardFonts.HelveticaOblique);
-
-  page.drawRectangle({ x: 0, y: 0, width, height, color: rgb(0.043, 0.063, 0.118) });
-  page.drawEllipse({ x: 90, y: height - 60, xScale: 180, yScale: 180, color: rgb(0.235, 0.361, 1), opacity: 0.14 });
-  page.drawEllipse({ x: width - 90, y: 60, xScale: 200, yScale: 200, color: rgb(0.655, 0.545, 1), opacity: 0.14 });
-
-  page.drawRectangle({ x: 28, y: 28, width: width - 56, height: height - 56, borderColor: rgb(0.42, 0.36, 1), borderWidth: 1.4 });
-  page.drawRectangle({ x: 40, y: 40, width: width - 80, height: height - 80, borderColor: rgb(0.42, 0.36, 1), borderOpacity: 0.35, borderWidth: 0.6 });
-
-  page.drawText(institutionName.toUpperCase(), {
-    x: 60,
-    y: height - 78,
-    size: 12,
-    font: helvBold,
-    color: rgb(0.6, 0.7, 1),
-  });
-  page.drawText(trackTitle.toUpperCase(), {
-    x: width - 60 - helv.widthOfTextAtSize(trackTitle.toUpperCase(), 10),
-    y: height - 78,
-    size: 10,
-    font: helv,
-    color: rgb(0.7, 0.75, 0.95),
-  });
-
-  const titleSize = 30;
-  page.drawText(certificateTitle, {
-    x: (width - helvBold.widthOfTextAtSize(certificateTitle, titleSize)) / 2,
-    y: height - 140,
-    size: titleSize,
-    font: helvBold,
-    color: rgb(1, 1, 1),
-  });
-
-  // Student name highlight
-  const nameSize = 26;
-  page.drawText(studentName, {
-    x: (width - helvBold.widthOfTextAtSize(studentName, nameSize)) / 2,
-    y: height - 190,
-    size: nameSize,
-    font: helvBold,
-    color: rgb(0.63, 0.78, 1),
-  });
-
-  // Body: wrap
-  const bodyLines = wrapText(bodyText, helv, 11, width - 160);
-  let cursorY = height - 235;
-  for (const line of bodyLines) {
-    page.drawText(line, {
-      x: (width - helv.widthOfTextAtSize(line, 11)) / 2,
-      y: cursorY,
-      size: 11,
-      font: helv,
-      color: rgb(0.88, 0.9, 0.98),
-    });
-    cursorY -= 16;
-  }
-
-  // Assinatura
-  const sigX = 90;
-  const sigY = 140;
-  page.drawLine({ start: { x: sigX, y: sigY + 30 }, end: { x: sigX + 260, y: sigY + 30 }, color: rgb(0.5, 0.55, 0.85), thickness: 0.8 });
-  page.drawText(issuerName, { x: sigX, y: sigY + 12, size: 12, font: helvBold, color: rgb(1, 1, 1) });
-  page.drawText(issuerRole, { x: sigX, y: sigY - 4, size: 10, font: helvOblique, color: rgb(0.75, 0.8, 0.95) });
-
-  // QR
-  const qrImage = await pdf.embedPng(qrPngBytes);
-  const qrSize = 100;
-  const qrX = width - 90 - qrSize;
-  const qrY = 110;
-  page.drawRectangle({ x: qrX - 8, y: qrY - 8, width: qrSize + 16, height: qrSize + 16, color: rgb(1, 1, 1) });
-  page.drawImage(qrImage, { x: qrX, y: qrY, width: qrSize, height: qrSize });
-  page.drawText(cert.validation_code, {
-    x: qrX + (qrSize - helvBold.widthOfTextAtSize(cert.validation_code, 9)) / 2,
-    y: qrY - 22,
-    size: 9,
-    font: helvBold,
-    color: rgb(1, 1, 1),
-  });
-  const verifyLabel = `Emitido em ${issuedAt}`;
-  page.drawText(verifyLabel, {
-    x: qrX + (qrSize - helv.widthOfTextAtSize(verifyLabel, 7)) / 2,
-    y: qrY - 34,
-    size: 7,
-    font: helv,
-    color: rgb(0.6, 0.65, 0.85),
-  });
-
-  // Legal footer at bottom
-  const footerLines = wrapText(legalFooter, helvOblique, 8, width - 120);
-  let fy = 70;
-  for (const line of footerLines.slice(0, 3)) {
-    page.drawText(line, {
-      x: (width - helvOblique.widthOfTextAtSize(line, 8)) / 2,
-      y: fy,
-      size: 8,
-      font: helvOblique,
-      color: rgb(0.65, 0.7, 0.85),
-    });
-    fy -= 10;
-  }
-
-  const pdfBytes = await pdf.save();
+  const pdfBytes = await renderCertificatePdf(templateKey, ctx);
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const path = `${userId}/${cert.id}.pdf`;
@@ -236,23 +162,6 @@ async function generateCertificateInternal(
   if (updErr) throw new Error(updErr.message);
 
   return { path, alreadyExists: false };
-}
-
-function wrapText(text: string, font: any, size: number, maxWidth: number): string[] {
-  const words = text.split(/\s+/);
-  const lines: string[] = [];
-  let line = "";
-  for (const w of words) {
-    const test = line ? `${line} ${w}` : w;
-    if (font.widthOfTextAtSize(test, size) > maxWidth) {
-      if (line) lines.push(line);
-      line = w;
-    } else {
-      line = test;
-    }
-  }
-  if (line) lines.push(line);
-  return lines;
 }
 
 export const generateCertificate = createServerFn({ method: "POST" })
@@ -288,4 +197,39 @@ export const ensureCertificateForCourse = createServerFn({ method: "POST" })
       return { certificateId: cert.id, pdfPath: res.path };
     }
     return { certificateId: cert.id, pdfPath: cert.pdf_url };
+  });
+
+/**
+ * Regenerates a certificate PDF for the currently authenticated user by
+ * clearing pdf_url and letting the standard renderer run again with the
+ * currently configured template. Useful for admins previewing template
+ * changes with their own emitted certificates.
+ */
+export const regenerateCertificate = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: GenerateInput) => {
+    if (!data?.certificateId) throw new Error("certificateId obrigatório");
+    return data;
+  })
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { data: cert, error } = await supabase
+      .from("certificates")
+      .select("id, user_id")
+      .eq("id", data.certificateId)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!cert || cert.user_id !== userId) throw new Error("Forbidden");
+    const { supabaseAdmin } = await import(
+      "@/integrations/supabase/client.server"
+    );
+    await supabaseAdmin
+      .from("certificates")
+      .update({ pdf_url: null })
+      .eq("id", data.certificateId);
+    return generateCertificateInternal(
+      supabase,
+      userId,
+      data.certificateId
+    );
   });
