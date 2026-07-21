@@ -40,6 +40,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2 justify-self-end">
+          <ThemeToggle />
           {loading ? null : isAuthed ? (
             <Link
               to="/dashboard"
