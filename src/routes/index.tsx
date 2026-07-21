@@ -414,10 +414,11 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
             {course.title}
           </h3>
 
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Entenda o que é IA, aprenda a criar comandos melhores, descubra usos práticos e use a
-            tecnologia com responsabilidade.
-          </p>
+          {course.description ? (
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              {course.description}
+            </p>
+          ) : null}
 
           <ul className="mt-5 flex flex-wrap gap-2 text-xs">
             <Chip>{formatWorkload(course)}</Chip>
