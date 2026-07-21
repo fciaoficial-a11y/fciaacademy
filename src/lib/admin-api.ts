@@ -76,10 +76,15 @@ export interface AdminCourse {
   title: string;
   description: string;
   duration_minutes: number;
+  workload_hours: number;
+  price: number;
+  is_free: boolean;
   level: string;
   cover_url: string | null;
   sort_order: number;
   is_published: boolean;
+  certificate_enabled: boolean;
+  allow_pdf_download: boolean;
 }
 export const adminCoursesQuery = queryOptions({
   queryKey: ["admin", "courses"],
@@ -89,6 +94,7 @@ export const adminCoursesQuery = queryOptions({
     return (data ?? []) as AdminCourse[];
   },
 });
+
 
 /* ------------ modules ------------ */
 export interface AdminModule {
