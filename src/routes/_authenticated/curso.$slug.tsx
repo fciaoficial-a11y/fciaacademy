@@ -388,11 +388,17 @@ function CourseLearnPage() {
           </div>
         </div>
 
-        {/* Barra fina de progresso */}
-        <div className="h-0.5 w-full bg-transparent">
+        {/* Progresso de leitura por scroll — feedback contínuo */}
+        <div className="relative h-[3px] w-full overflow-hidden bg-transparent">
           <div
-            className="h-full bg-primary transition-[width] duration-500"
+            className="absolute inset-y-0 left-0 bg-foreground/[0.06]"
             style={{ width: `${percent}%` }}
+            aria-hidden
+          />
+          <div
+            className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary to-accent transition-[width] duration-150 ease-out"
+            style={{ width: `${scrollProgress}%` }}
+            aria-hidden
           />
         </div>
       </div>
