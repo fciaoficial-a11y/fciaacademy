@@ -202,7 +202,7 @@ function CourseLearnPage() {
   };
 
   const ModuleList = (
-    <nav className="space-y-1">
+    <nav className="space-y-0.5">
       {modules.map((m, i) => {
         const done = progressMap.get(m.id) ?? false;
         const active = m.id === activeModule.id;
@@ -211,32 +211,44 @@ function CourseLearnPage() {
             key={m.id}
             onClick={() => setActive(m.slug)}
             className={cn(
-              "flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
+              "group relative flex w-full items-start gap-2.5 rounded-md px-2.5 py-2 text-left transition-colors",
               active
-                ? "bg-primary/10 ring-1 ring-inset ring-primary/40"
-                : "hover:bg-muted/70",
+                ? "bg-foreground/[0.06] dark:bg-foreground/[0.08]"
+                : "hover:bg-foreground/[0.035] dark:hover:bg-foreground/[0.05]",
             )}
           >
+            {active && (
+              <span
+                aria-hidden
+                className="absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full bg-primary"
+              />
+            )}
             {done ? (
-              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              <CheckCircle2 className="mt-[3px] h-3.5 w-3.5 shrink-0 text-primary" />
             ) : (
-              <Circle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+              <Circle
+                className={cn(
+                  "mt-[3px] h-3.5 w-3.5 shrink-0",
+                  active ? "text-foreground/70" : "text-muted-foreground/60",
+                )}
+              />
             )}
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
-                <span>Módulo {i + 1}</span>
-                <ModuleTypeIcon type={m.content_type} />
+              <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">
+                <span>M{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-muted-foreground/40">·</span>
+                <span className="inline-flex items-center gap-1">
+                  <ModuleTypeIcon type={m.content_type} />
+                  {m.duration_minutes}min
+                </span>
               </div>
               <p
                 className={cn(
-                  "mt-0.5 truncate text-sm font-medium",
-                  active ? "text-foreground" : "text-foreground/80",
+                  "mt-0.5 truncate text-[13px] leading-snug",
+                  active ? "font-semibold text-foreground" : "font-medium text-foreground/75",
                 )}
               >
                 {m.title}
-              </p>
-              <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
-                <Clock className="h-3 w-3" /> {m.duration_minutes} min
               </p>
             </div>
           </button>
@@ -341,37 +353,41 @@ function CourseLearnPage() {
 
       <div
         className={cn(
-          "mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:py-8 lg:px-6",
-          focusMode ? "lg:grid-cols-1" : "lg:grid-cols-[320px_1fr]",
+          "mx-auto grid max-w-7xl gap-8 px-4 py-6 sm:py-10 lg:gap-10 lg:px-6",
+          focusMode ? "lg:grid-cols-1" : "lg:grid-cols-[264px_1fr]",
         )}
       >
         <aside
           className={cn(
             "hidden lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto",
             focusMode ? "lg:hidden" : "lg:block",
+            "lg:-mx-2 lg:rounded-lg lg:border lg:border-border/50 lg:bg-surface-muted/60 lg:px-3 lg:py-4",
           )}
         >
-          <div className="rounded-2xl border border-border bg-card p-5">
-            <Link
-              to="/cursos"
-              className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground"
-            >
-              <ArrowLeft className="h-3 w-3" /> Catálogo
-            </Link>
-            <h2 className="mt-3 font-display text-lg font-semibold leading-tight">
-              {course.title}
-            </h2>
-            <div className="mt-4 space-y-2">
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>Progresso</span>
-                <span className="font-medium text-foreground">{percent}%</span>
-              </div>
-              <Progress value={percent} />
-              <p className="text-xs text-muted-foreground">
-                {completedCount} de {modules.length} módulos
-              </p>
+          <Link
+            to="/cursos"
+            className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground/80 hover:text-foreground"
+          >
+            <ArrowLeft className="h-3 w-3" /> Catálogo
+          </Link>
+          <h2 className="mt-3 font-display text-[15px] font-semibold leading-snug text-foreground">
+            {course.title}
+          </h2>
+          <div className="mt-3 space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
+              <span className="uppercase tracking-widest">Progresso</span>
+              <span className="font-semibold text-foreground">{percent}%</span>
             </div>
-            <div className="mt-6">{ModuleList}</div>
+            <Progress value={percent} className="h-1" />
+            <p className="text-[11px] text-muted-foreground">
+              {completedCount} de {modules.length} módulos
+            </p>
+          </div>
+          <div className="mt-5 border-t border-border/50 pt-4">
+            <p className="mb-2 px-2.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
+              Módulos
+            </p>
+            {ModuleList}
           </div>
         </aside>
 
@@ -379,37 +395,36 @@ function CourseLearnPage() {
           className={cn("min-w-0", focusMode && "mx-auto w-full max-w-3xl")}
           style={{ fontSize: `${fontScale}rem` }}
         >
-          {/* Hero do módulo */}
-          <header className="relative mb-6 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/[0.08] via-card to-accent/[0.06] p-6 sm:p-8">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl"
-            />
-            <div className="relative">
-              <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
-                <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-background/60 px-2 py-0.5">
-                  <ModuleTypeIcon type={activeModule.content_type} />
-                  {activeModule.content_type === "video"
-                    ? "Vídeo"
-                    : activeModule.content_type === "pdf"
-                      ? "PDF"
-                      : "Leitura"}
-                </span>
-                <span>Módulo {activeIndex + 1} de {modules.length}</span>
-                <span className="inline-flex items-center gap-1">
-                  <Clock className="h-3 w-3" /> {activeModule.duration_minutes} min
-                </span>
-              </div>
-              <h1 className="mt-3 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-                {activeModule.title}
-              </h1>
-              {activeModule.description && (
-                <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
-                  {activeModule.description}
-                </p>
-              )}
+          {/* Hero editorial do módulo */}
+          <header className="relative mb-10 border-b border-border/60 pb-8">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              <span className="text-primary">Módulo {String(activeIndex + 1).padStart(2, "0")}</span>
+              <span className="text-muted-foreground/40">/</span>
+              <span>{String(modules.length).padStart(2, "0")}</span>
+              <span className="text-muted-foreground/40">·</span>
+              <span className="inline-flex items-center gap-1">
+                <ModuleTypeIcon type={activeModule.content_type} />
+                {activeModule.content_type === "video"
+                  ? "Vídeo"
+                  : activeModule.content_type === "pdf"
+                    ? "PDF"
+                    : "Leitura"}
+              </span>
+              <span className="text-muted-foreground/40">·</span>
+              <span className="inline-flex items-center gap-1">
+                <Clock className="h-3 w-3" /> {activeModule.duration_minutes} min
+              </span>
             </div>
+            <h1 className="mt-4 font-display text-[2rem] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[2.75rem]">
+              {activeModule.title}
+            </h1>
+            {activeModule.description && (
+              <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-muted-foreground">
+                {activeModule.description}
+              </p>
+            )}
           </header>
+
 
           {activeModule.intro_video_path && (
             <div className="mb-6">
