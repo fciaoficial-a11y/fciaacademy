@@ -112,7 +112,7 @@ function TrackDetail() {
                 <div className="mt-auto flex items-center justify-between pt-5 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1">
                     <Clock className="h-3.5 w-3.5" />
-                    {Math.round(c.duration_minutes / 60)}h
+                    {c.workload_hours > 0 ? `${c.workload_hours}h` : `${Math.round(c.duration_minutes / 60)}h`}
                   </span>
                   <span>{c.level}</span>
                 </div>
