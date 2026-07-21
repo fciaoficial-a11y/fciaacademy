@@ -97,7 +97,7 @@ async function generateCertificateInternal(
     "A FCIA Academy certifica que {{student_name}} concluiu com aproveitamento o curso livre de capacitação e atualização profissional {{course_title}}, com carga horária total de {{workload_hours}} horas, concluído em {{completion_date}}.";
   const legalFooter =
     settings?.legal_footer ||
-    "Curso livre de capacitação e atualização profissional, sem equivalência a diploma de curso técnico, graduação ou pós-graduação, e sem declaração de reconhecimento pelo MEC.";
+    "Curso livre de capacitação profissional, nos termos da Lei nº 9.394/1996 e do Decreto nº 5.154/2004.";
   const issuerName = settings?.issuer_name || "Prof. Fernando Cabral";
   const issuerRole = settings?.issuer_role || "CEO & Founder — FCIA";
   const validationBase =

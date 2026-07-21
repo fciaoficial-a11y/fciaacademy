@@ -58,7 +58,7 @@ type Settings = {
 const DEFAULT_TEMPLATE =
   "A FCIA Academy certifica que {{student_name}} concluiu com aproveitamento o curso livre de capacitação e atualização profissional {{course_title}}, com carga horária total de {{workload_hours}} horas, concluído em {{completion_date}}.";
 const DEFAULT_FOOTER =
-  "Curso livre de capacitação e atualização profissional, sem equivalência a diploma de curso técnico, graduação ou pós-graduação, e sem declaração de reconhecimento pelo MEC.";
+  "Curso livre de capacitação profissional, nos termos da Lei nº 9.394/1996 e do Decreto nº 5.154/2004.";
 
 function applyTemplate(tpl: string, vars: Record<string, string | number>) {
   return tpl.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, k) =>
