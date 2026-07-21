@@ -60,7 +60,7 @@ const featuredCoursesQuery = queryOptions({
   queryFn: async (): Promise<FeaturedCourse[]> => {
     const { data: courses, error } = await supabase
       .from("courses")
-      .select("id, slug, title, description, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
+      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
       .eq("is_published", true)
       .order("price", { ascending: true })
       .order("sort_order", { ascending: true });
