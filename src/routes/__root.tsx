@@ -19,6 +19,7 @@ import { WhatsAppFloat } from "../components/site/WhatsAppFloat";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeProvider, themeBootScript } from "@/lib/theme";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 
 function NotFoundComponent() {
