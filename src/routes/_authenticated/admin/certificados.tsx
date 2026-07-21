@@ -28,15 +28,14 @@ import {
   adminUsersQuery,
   updateRow,
 } from "@/lib/admin-api";
-
-export const Route = createFileRoute("/_authenticated/admin/certificados")({
-  component: AdminCertificatesPage,
-});
-
 import {
   TEMPLATE_OPTIONS,
   type TemplateKey,
 } from "@/lib/certificate-templates";
+
+export const Route = createFileRoute("/_authenticated/admin/certificados")({
+  component: AdminCertificatesPage,
+});
 
 type Settings = {
   id: number;
@@ -85,34 +84,63 @@ function useSettings() {
 function AdminCertificatesPage() {
   return (
     <div>
-      <header>
-        <h1 className="font-display text-2xl font-semibold">Certificados</h1>
-        <p className="text-sm text-muted-foreground">
-          Configure identidade institucional, template, regras e gerencie certificados emitidos.
-        </p>
-      </header>
+      {/* Premium tech hero */}
+      <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0a0f1f] via-[#0b1226] to-[#111a3a] p-8 shadow-[0_20px_60px_-20px_rgba(34,211,238,0.35)]">
+        <div className="pointer-events-none absolute -left-16 -top-16 h-72 w-72 rounded-full bg-cyan-500/25 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-violet-500/25 blur-3xl" />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(148,163,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,255,1) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+        <div className="relative flex flex-wrap items-end justify-between gap-6">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.35em] text-cyan-300/90">
+              <span className="inline-flex h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
+              FCIA · DIGITAL CREDENTIAL SYSTEM
+            </div>
+            <h1 className="mt-3 font-display text-3xl font-semibold leading-tight text-white sm:text-4xl">
+              Certificados premium tech
+            </h1>
+            <p className="mt-2 max-w-2xl text-sm text-white/70">
+              Configure identidade institucional, escolha o modelo visual, ajuste regras
+              de emissão e gerencie credenciais emitidas — tudo com preview real em
+              alta fidelidade.
+            </p>
+          </div>
+          <div className="flex gap-2 rounded-2xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-white/70 backdrop-blur">
+            <span className="text-cyan-300">ID</span>
+            <span className="text-white/90">FCIA-2K26-{Math.floor(Math.random() * 900 + 100)}X</span>
+            <span className="text-white/40">·</span>
+            <span className="text-violet-300">SECURE</span>
+          </div>
+        </div>
+      </section>
 
-      <Tabs defaultValue="institucional" className="mt-6">
-        <TabsList className="flex flex-wrap gap-1">
-          <TabsTrigger value="institucional">
-            <Settings className="mr-2 h-4 w-4" /> Institucional
-          </TabsTrigger>
-          <TabsTrigger value="template">
+      <Tabs defaultValue="template" className="mt-8">
+        <TabsList className="inline-flex flex-wrap gap-1 rounded-2xl border border-white/10 bg-card/40 p-1 backdrop-blur">
+          <TabsTrigger value="template" className="rounded-xl px-4">
             <Sparkles className="mr-2 h-4 w-4" /> Template
           </TabsTrigger>
-          <TabsTrigger value="regras">
+          <TabsTrigger value="institucional" className="rounded-xl px-4">
+            <Settings className="mr-2 h-4 w-4" /> Institucional
+          </TabsTrigger>
+          <TabsTrigger value="regras" className="rounded-xl px-4">
             <Sliders className="mr-2 h-4 w-4" /> Regras
           </TabsTrigger>
-          <TabsTrigger value="gestao">
+          <TabsTrigger value="gestao" className="rounded-xl px-4">
             <ShieldCheck className="mr-2 h-4 w-4" /> Emitidos
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="institucional" className="mt-6">
-          <InstitutionalTab />
-        </TabsContent>
         <TabsContent value="template" className="mt-6">
           <TemplateTab />
+        </TabsContent>
+        <TabsContent value="institucional" className="mt-6">
+          <InstitutionalTab />
         </TabsContent>
         <TabsContent value="regras" className="mt-6">
           <RulesTab />
@@ -275,20 +303,31 @@ function TemplateTab() {
   if (isLoading) return <SkeletonBox />;
 
   const selected: TemplateKey = form.template_key ?? "dark_premium_tech";
+  const selectedOpt = TEMPLATE_OPTIONS.find((t) => t.key === selected)!;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* --- Model picker --- */}
-      <Card>
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-primary" />
-          <h2 className="font-display text-lg font-semibold">Modelo visual</h2>
+      <div>
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">
+              01 · Modelo visual
+            </div>
+            <h2 className="mt-1 font-display text-xl font-semibold">
+              Escolha a direção de arte da credencial
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Três direções fortemente diferenciadas — todas geram PDF em alta fidelidade
+              com os mesmos campos dinâmicos.
+            </p>
+          </div>
+          <div className="hidden font-mono text-[10px] uppercase tracking-widest text-muted-foreground sm:block">
+            {TEMPLATE_OPTIONS.length} MODELS · A/B READY
+          </div>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Escolha o layout que será aplicado a todos os certificados emitidos.
-        </p>
 
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
+        <div className="mt-5 grid gap-5 lg:grid-cols-3">
           {TEMPLATE_OPTIONS.map((opt) => {
             const active = selected === opt.key;
             return (
@@ -298,32 +337,60 @@ function TemplateTab() {
                 onClick={() =>
                   setForm((f) => ({ ...f, template_key: opt.key }))
                 }
-                className={`group relative flex flex-col overflow-hidden rounded-2xl border text-left transition-all ${
+                className={`group relative flex flex-col overflow-hidden rounded-3xl border-2 text-left transition-all duration-300 ${
                   active
-                    ? "border-primary ring-2 ring-primary/40"
-                    : "border-border/60 hover:border-primary/50"
+                    ? "border-primary shadow-[0_20px_60px_-25px_rgba(59,111,245,0.6)]"
+                    : "border-white/10 hover:border-primary/60 hover:-translate-y-0.5"
                 }`}
               >
-                <TemplateThumb
-                  templateKey={opt.key}
-                  institution={form.institution_name || "FCIA Academy"}
-                  title={form.certificate_title || "Certificado de Conclusão"}
-                />
-                <div className="flex flex-1 flex-col gap-1 border-t border-border/60 bg-card/60 p-4">
+                {/* Accent halo when active */}
+                {active && (
+                  <span
+                    className="pointer-events-none absolute inset-0 rounded-3xl opacity-70"
+                    style={{
+                      background: `radial-gradient(circle at 50% 0%, ${opt.accent}22, transparent 60%)`,
+                    }}
+                  />
+                )}
+                <div className="aspect-[297/210] w-full overflow-hidden">
+                  <PreviewCanvas
+                    templateKey={opt.key}
+                    institution={form.institution_name || "FCIA Academy"}
+                    title={form.certificate_title || "Certificado de Conclusão"}
+                    body="Concluiu com aproveitamento o curso livre de capacitação e atualização profissional."
+                    legalFooter="Curso livre de capacitação."
+                    issuerName={form.issuer_name || "Prof. Fernando Cabral"}
+                    issuerRole={form.issuer_role || "CEO & Founder — FCIA"}
+                    completionDate="21 · JULHO · 2026"
+                    compact
+                  />
+                </div>
+                <div className="relative flex flex-1 flex-col gap-2 border-t border-white/10 bg-card/70 p-5 backdrop-blur">
                   <div className="flex items-center justify-between gap-2">
-                    <p className="font-display text-sm font-semibold">
+                    <p className="font-display text-base font-semibold">
                       {opt.name}
                     </p>
-                    {active && (
-                      <span className="inline-flex items-center rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                        Selecionado
+                    {active ? (
+                      <span
+                        className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white"
+                        style={{ backgroundColor: opt.accent }}
+                      >
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                        Ativo
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                        Selecionar
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] uppercase tracking-widest text-primary/80">
+                  <p
+                    className="font-mono text-[10px] uppercase tracking-[0.25em]"
+                    style={{ color: opt.accent }}
+                  >
                     {opt.tagline}
                   </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
+                  <p className="text-xs leading-relaxed text-muted-foreground">
                     {opt.description}
                   </p>
                 </div>
@@ -331,19 +398,69 @@ function TemplateTab() {
             );
           })}
         </div>
-      </Card>
+      </div>
 
-      {/* --- Editor + Live preview --- */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <h2 className="font-display text-lg font-semibold">Conteúdo do certificado</h2>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Campos dinâmicos disponíveis: <code>{"{{student_name}}"}</code>,{" "}
-            <code>{"{{course_title}}"}</code>, <code>{"{{workload_hours}}"}</code>,{" "}
-            <code>{"{{completion_date}}"}</code>, <code>{"{{institution_name}}"}</code>.
-          </p>
+      {/* --- Large preview --- */}
+      <div>
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">
+              02 · Prévia em alta fidelidade
+            </div>
+            <h2 className="mt-1 font-display text-xl font-semibold">
+              {selectedOpt.name}
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Formato paisagem 297×210 — reflete o PDF final, com todos os campos
+              dinâmicos aplicados.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            <Eye className="h-3.5 w-3.5" />
+            LIVE PREVIEW · SAMPLE DATA
+          </div>
+        </div>
 
-          <div className="mt-4 space-y-4">
+        <div className="relative mt-5 overflow-hidden rounded-3xl border-2 border-white/10 bg-black/40 p-6 shadow-2xl backdrop-blur">
+          <div
+            className="pointer-events-none absolute inset-0 opacity-30"
+            style={{
+              background: `radial-gradient(circle at 20% 20%, ${selectedOpt.accent}22, transparent 50%), radial-gradient(circle at 80% 80%, ${selectedOpt.accent}22, transparent 50%)`,
+            }}
+          />
+          <div className="relative mx-auto aspect-[297/210] w-full max-w-4xl overflow-hidden rounded-xl shadow-[0_30px_100px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/10">
+            <PreviewCanvas
+              templateKey={selected}
+              institution={form.institution_name || "FCIA Academy"}
+              title={form.certificate_title || "Certificado de Conclusão"}
+              body={previewBody}
+              legalFooter={form.legal_footer || DEFAULT_FOOTER}
+              issuerName={form.issuer_name || "Prof. Fernando Cabral"}
+              issuerRole={form.issuer_role || "CEO & Founder — FCIA"}
+              completionDate={sampleDate}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* --- Editor --- */}
+      <div>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">
+          03 · Conteúdo dinâmico
+        </div>
+        <h2 className="mt-1 font-display text-xl font-semibold">
+          Ajuste o texto da credencial
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Campos disponíveis: <code className="rounded bg-muted px-1 py-0.5 text-xs">{"{{student_name}}"}</code>,{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">{"{{course_title}}"}</code>,{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">{"{{workload_hours}}"}</code>,{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">{"{{completion_date}}"}</code>,{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-xs">{"{{institution_name}}"}</code>.
+        </p>
+
+        <Card className="mt-4">
+          <div className="grid gap-4">
             <Field label="Título do certificado">
               <Input
                 value={form.certificate_title ?? ""}
@@ -355,7 +472,7 @@ function TemplateTab() {
             </Field>
             <Field label="Corpo do certificado">
               <Textarea
-                rows={6}
+                rows={5}
                 value={form.body_template ?? ""}
                 onChange={(e) =>
                   setForm((f) => ({ ...f, body_template: e.target.value }))
@@ -365,7 +482,7 @@ function TemplateTab() {
             </Field>
             <Field label="Rodapé legal">
               <Textarea
-                rows={4}
+                rows={3}
                 value={form.legal_footer ?? ""}
                 onChange={(e) =>
                   setForm((f) => ({ ...f, legal_footer: e.target.value }))
@@ -376,7 +493,12 @@ function TemplateTab() {
           </div>
 
           <div className="mt-6 flex justify-end">
-            <Button onClick={() => save.mutate()} disabled={save.isPending}>
+            <Button
+              onClick={() => save.mutate()}
+              disabled={save.isPending}
+              size="lg"
+              className="rounded-xl"
+            >
               {save.isPending ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
@@ -386,83 +508,12 @@ function TemplateTab() {
             </Button>
           </div>
         </Card>
-
-        <Card>
-          <div className="flex items-center gap-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <h2 className="font-display text-lg font-semibold">
-              Prévia — {TEMPLATE_OPTIONS.find((t) => t.key === selected)?.name}
-            </h2>
-          </div>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Preview visual do modelo com dados de exemplo. O PDF final é gerado no
-            momento da emissão.
-          </p>
-          <div className="mt-4">
-            <TemplatePreviewLarge
-              templateKey={selected}
-              institution={form.institution_name || "FCIA Academy"}
-              title={form.certificate_title || "Certificado de Conclusão"}
-              body={previewBody}
-              legalFooter={form.legal_footer || DEFAULT_FOOTER}
-              issuerName={form.issuer_name || "Prof. Fernando Cabral"}
-              issuerRole={form.issuer_role || "CEO & Founder — FCIA"}
-              completionDate={sampleDate}
-            />
-          </div>
-        </Card>
       </div>
     </div>
   );
 }
 
-// ---- Preview components (HTML approximations of each PDF template) ----
-
-interface PreviewProps {
-  templateKey: TemplateKey;
-  institution: string;
-  title: string;
-}
-
-function TemplateThumb({ templateKey, institution, title }: PreviewProps) {
-  // Small thumbnail preview shown inside the picker card.
-  return (
-    <div className="aspect-[297/210] w-full">
-      <div className="h-full w-full">
-        <PreviewCanvas
-          templateKey={templateKey}
-          institution={institution}
-          title={title}
-          body="Concluiu com aproveitamento o curso livre de capacitação e atualização profissional em Introdução à IA Generativa, carga horária total de 20 horas."
-          legalFooter="Curso livre de capacitação."
-          issuerName="Prof. Fernando Cabral"
-          issuerRole="CEO & Founder — FCIA"
-          completionDate="21 de julho de 2026"
-          compact
-        />
-      </div>
-    </div>
-  );
-}
-
-function TemplatePreviewLarge(props: {
-  templateKey: TemplateKey;
-  institution: string;
-  title: string;
-  body: string;
-  legalFooter: string;
-  issuerName: string;
-  issuerRole: string;
-  completionDate: string;
-}) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-border/60 shadow-lg">
-      <div className="aspect-[297/210] w-full">
-        <PreviewCanvas {...props} />
-      </div>
-    </div>
-  );
-}
+// ---- Preview canvases — high-fidelity HTML reflection of each PDF template ----
 
 interface CanvasProps {
   templateKey: TemplateKey;
@@ -476,8 +527,13 @@ interface CanvasProps {
   compact?: boolean;
 }
 
-function PreviewCanvas({
-  templateKey,
+function PreviewCanvas(props: CanvasProps) {
+  if (props.templateKey === "executive_tech") return <ExecutiveTechPreview {...props} />;
+  if (props.templateKey === "editorial_prestige") return <EditorialPrestigePreview {...props} />;
+  return <DarkPremiumTechPreview {...props} />;
+}
+
+function ExecutiveTechPreview({
   institution,
   title,
   body,
@@ -487,184 +543,398 @@ function PreviewCanvas({
   completionDate,
   compact,
 }: CanvasProps) {
-  if (templateKey === "executive_tech") {
-    return (
-      <div className="relative flex h-full w-full flex-col bg-[#f8f9fb] font-sans text-[#0a1a3a]">
-        <div className="flex items-center justify-between bg-[#0a1a3a] px-4 py-1.5 text-[8px] uppercase tracking-[0.25em] text-white sm:text-[10px]">
-          <span className="font-bold">{institution}</span>
-          <span className="text-[#c1d0f5]">Educação Executiva</span>
-        </div>
-        <div className="h-[3px] bg-[#3b6ff5]" />
-        <div className="flex flex-1 flex-col justify-between p-4 sm:p-6">
-          <div>
-            <p className="text-[8px] font-bold uppercase tracking-widest text-[#3b6ff5] sm:text-[10px]">
-              Certificado
-            </p>
-            <p className="mt-0.5 text-[8px] uppercase tracking-widest text-[#6b7590] sm:text-[10px]">
-              {title}
-            </p>
-            <p className="mt-3 font-serif text-lg font-bold leading-tight text-[#0a1a3a] sm:mt-4 sm:text-2xl">
-              {SAMPLE_STUDENT}
-            </p>
-            <div className="mt-1 h-[2px] w-10 bg-[#3b6ff5]" />
-            {!compact && (
-              <p className="mt-3 line-clamp-3 text-[10px] leading-relaxed text-[#2a324a] sm:text-xs">
-                {body}
-              </p>
-            )}
-          </div>
-          <div className="mt-3 flex items-end justify-between gap-3">
-            <div className="min-w-0 flex-1">
-              <div className="border-t border-[#0a1a3a] pt-1">
-                <p className="truncate text-[8px] font-bold sm:text-[10px]">
-                  {issuerName}
-                </p>
-                <p className="truncate text-[7px] italic text-[#6b7590] sm:text-[9px]">
-                  {issuerRole}
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="grid h-8 w-8 grid-cols-4 grid-rows-4 gap-[1px] rounded-sm border border-[#0a1a3a] bg-white p-[2px] sm:h-10 sm:w-10">
-                {Array.from({ length: 16 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={i % 3 === 0 ? "bg-[#0a1a3a]" : "bg-white"}
-                  />
-                ))}
-              </div>
-              <p className="mt-1 text-[6px] font-bold uppercase tracking-wider text-[#6b7590] sm:text-[7px]">
-                {SAMPLE_CODE}
-              </p>
-            </div>
-          </div>
-          {!compact && (
-            <p className="mt-2 text-center text-[6px] italic text-[#6b7590] sm:text-[7px]">
-              {legalFooter}
-            </p>
-          )}
-        </div>
+  return (
+    <div className="relative flex h-full w-full bg-[#f9f8f5] font-sans text-[#0b1632]">
+      {/* Left navy rail */}
+      <div className="relative flex w-[9%] flex-col items-center justify-between bg-[#0b1632] py-4">
+        <span className="text-[6px] font-bold uppercase tracking-[0.4em] text-white [writing-mode:vertical-rl] rotate-180">
+          {institution}
+        </span>
+        <span className="text-[5px] uppercase tracking-[0.3em] text-cyan-300/70 [writing-mode:vertical-rl] rotate-180">
+          Digital Credential
+        </span>
       </div>
-    );
-  }
+      {/* Cyan hairline */}
+      <div className="w-[0.5%] bg-[#0ea5e9]" />
 
-  if (templateKey === "editorial_prestige") {
-    return (
-      <div className="relative flex h-full w-full flex-col items-center justify-between bg-[#faf7f1] p-4 font-serif text-[#1c1d24] sm:p-6">
-        <div className="absolute inset-2 border border-[#1c1d24]/80 sm:inset-3" />
-        <div className="relative flex flex-col items-center pt-1">
-          <p className="text-[8px] font-bold uppercase tracking-[0.3em] sm:text-[10px]">
-            {institution}
+      {/* Content */}
+      <div className="flex flex-1 flex-col justify-between p-[3.5%]">
+        <div>
+          <div className="flex items-center justify-between font-mono text-[7px] uppercase tracking-widest text-[#6b7590] sm:text-[9px]">
+            <span>
+              <span className="text-[#0ea5e9] font-bold">N°</span>{" "}
+              <span className="font-bold text-[#0b1632]">{SAMPLE_CODE}</span>
+            </span>
+            <span className="font-bold">PROFESSIONAL PROGRAM</span>
+          </div>
+          <div className="mt-2 h-[2px] w-8 bg-[#0ea5e9]" />
+
+          <p className="mt-[3%] font-bold uppercase tracking-[0.35em] text-[#0ea5e9] text-[8px] sm:text-[10px]">
+            Certificado
           </p>
-          <div className="mt-1 h-[2px] w-10 bg-[#b8951f]" />
-        </div>
-        <div className="relative flex flex-col items-center text-center">
-          <p className="font-serif text-base leading-tight sm:text-2xl">{title}</p>
-          <p className="mt-1 text-[8px] italic text-[#6a5f4d] sm:text-[10px]">
-            Concedido a
+          <p className="mt-1 uppercase tracking-widest text-[#6b7590] text-[7px] sm:text-[9px]">
+            {title}
           </p>
-          <p className="mt-1 font-serif text-lg font-bold leading-tight sm:mt-2 sm:text-2xl">
+
+          <p
+            className="mt-[4%] font-serif font-bold leading-[0.95] tracking-tight text-[#0b1632]"
+            style={{
+              fontSize: compact ? "1.35rem" : "clamp(1.75rem, 5.5vw, 3.5rem)",
+            }}
+          >
             {SAMPLE_STUDENT}
           </p>
-          <div className="mt-1 h-[1px] w-16 bg-[#b8951f]" />
+          <div className="mt-2 h-[2px] w-14 bg-[#0ea5e9]" />
+
           {!compact && (
-            <p className="mt-2 line-clamp-2 max-w-[85%] text-[9px] leading-relaxed text-[#3a3a44] sm:text-[11px]">
+            <p className="mt-[3%] line-clamp-3 max-w-[92%] text-[10px] leading-relaxed text-[#2a324a] sm:text-xs">
               {body}
             </p>
           )}
-          <p className="mt-1 text-[8px] italic text-[#6a5f4d] sm:text-[10px]">
-            Carga de {SAMPLE_WORKLOAD}h · Concluído em {completionDate}
-          </p>
         </div>
-        <div className="relative flex w-full items-end justify-between gap-3">
-          <div className="text-left text-[7px] text-[#6a5f4d] sm:text-[8px]">
-            <p>Código: {SAMPLE_CODE}</p>
-            <p>Emitido em {completionDate}</p>
+
+        {/* Meta strip */}
+        <div className="mt-[3%] grid grid-cols-4 gap-3 font-mono">
+          {[
+            ["CARGA", `${SAMPLE_WORKLOAD}H`],
+            ["CONCLUSÃO", completionDate.toUpperCase()],
+            ["EMISSÃO", completionDate.toUpperCase()],
+            ["VERIFY", "FCIA.ID"],
+          ].map(([l, v]) => (
+            <div key={l} className="border-t border-[#0b1632]/25 pt-1">
+              <p className="text-[6px] font-bold tracking-widest text-[#6b7590] sm:text-[7px]">
+                {l}
+              </p>
+              <p className="mt-0.5 text-[8px] font-bold text-[#0b1632] sm:text-[10px]">
+                {v}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Signature + QR */}
+        <div className="mt-[3%] flex items-end justify-between gap-3">
+          <div className="min-w-0 max-w-[55%]">
+            <div className="h-px w-full bg-[#0b1632]" />
+            <p className="mt-1 font-serif text-[10px] font-bold sm:text-sm">{issuerName}</p>
+            <p className="italic text-[7px] text-[#6b7590] sm:text-[9px]">{issuerRole}</p>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="h-[2px] w-24 bg-[#1c1d24]" />
-            <p className="mt-0.5 text-[8px] font-bold sm:text-[10px]">{issuerName}</p>
-            <p className="text-[7px] italic text-[#6a5f4d] sm:text-[9px]">
-              {issuerRole}
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="grid h-7 w-7 grid-cols-4 grid-rows-4 gap-[1px] bg-white p-[1px] sm:h-8 sm:w-8">
-              {Array.from({ length: 16 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={i % 2 === 0 ? "bg-[#1c1d24]" : "bg-white"}
+          <div className="flex flex-col items-center gap-1">
+            <div className="relative">
+              {/* Corner ticks */}
+              {[
+                "top-0 left-0",
+                "top-0 right-0 rotate-90",
+                "bottom-0 left-0 -rotate-90",
+                "bottom-0 right-0 rotate-180",
+              ].map((c) => (
+                <span
+                  key={c}
+                  className={`pointer-events-none absolute h-2 w-2 border-l-2 border-t-2 border-[#0ea5e9] ${c}`}
                 />
               ))}
+              <div className="grid h-9 w-9 grid-cols-5 grid-rows-5 gap-[0.5px] border border-[#0b1632] bg-white p-[2px] sm:h-12 sm:w-12">
+                {Array.from({ length: 25 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={
+                      [0, 3, 6, 9, 12, 14, 17, 21, 22, 24].includes(i)
+                        ? "bg-[#0b1632]"
+                        : "bg-white"
+                    }
+                  />
+                ))}
+              </div>
             </div>
-            <p className="mt-0.5 text-[6px] font-bold uppercase tracking-wider text-[#6a5f4d]">
-              Validar
+            <p className="font-mono text-[6px] font-bold uppercase tracking-widest text-[#6b7590] sm:text-[7px]">
+              VERIFY · {SAMPLE_CODE}
             </p>
           </div>
         </div>
-      </div>
-    );
-  }
 
-  // Dark Premium Tech
+        {!compact && (
+          <p className="mt-2 max-w-[70%] text-[6px] italic leading-relaxed text-[#8b90a3] sm:text-[7px]">
+            {legalFooter}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function DarkPremiumTechPreview({
+  institution,
+  title,
+  body,
+  legalFooter,
+  issuerName,
+  issuerRole,
+  completionDate,
+  compact,
+}: CanvasProps) {
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#0b0f1e] font-sans text-white">
-      <div className="pointer-events-none absolute -left-8 -top-8 h-32 w-32 rounded-full bg-[#3c5cff]/25 blur-2xl" />
-      <div className="pointer-events-none absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-[#a78bfa]/25 blur-2xl" />
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#050814] font-sans text-white">
+      {/* Ambient glows */}
+      <div className="pointer-events-none absolute -left-16 -top-16 h-56 w-56 rounded-full bg-cyan-400/25 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-16 -right-16 h-56 w-56 rounded-full bg-violet-400/25 blur-3xl" />
+      {/* Grid */}
       <div
         className="pointer-events-none absolute inset-4 opacity-[0.09]"
         style={{
           backgroundImage:
-            "linear-gradient(#6b60ff 1px, transparent 1px), linear-gradient(90deg, #6b60ff 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
+            "linear-gradient(rgba(148,163,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,255,1) 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
         }}
       />
-      <div className="relative m-2 flex flex-1 flex-col border border-[#6b60ff]/50 p-3 sm:m-3 sm:p-5">
-        <div className="flex items-center justify-between text-[8px] uppercase tracking-[0.25em] sm:text-[10px]">
-          <span className="font-bold text-[#98adff]">{institution}</span>
-          <span className="text-[#b5bcd9]">Trilha IA</span>
+      {/* HUD corner brackets */}
+      {[
+        "top-2 left-2",
+        "top-2 right-2 rotate-90",
+        "bottom-2 left-2 -rotate-90",
+        "bottom-2 right-2 rotate-180",
+      ].map((c) => (
+        <span
+          key={c}
+          className={`pointer-events-none absolute h-4 w-4 border-l-2 border-t-2 border-cyan-400 ${c}`}
+        />
+      ))}
+      {/* Inner subtle frame */}
+      <div className="pointer-events-none absolute inset-3 rounded-[2px] border border-violet-400/30" />
+
+      <div className="relative flex flex-1 flex-col justify-between px-[4%] py-[4%]">
+        {/* Header row */}
+        <div className="flex items-center justify-between font-mono text-[7px] uppercase tracking-[0.35em] sm:text-[9px]">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
+            <span className="font-bold text-cyan-300">{institution}</span>
+            <span className="text-white/40">· DIGITAL CREDENTIAL</span>
+          </div>
+          <div className="rounded-sm border border-violet-400/40 bg-black/40 px-2 py-0.5 font-mono">
+            <span className="text-cyan-300">ID</span>{" "}
+            <span className="text-white">{SAMPLE_CODE}</span>
+          </div>
         </div>
-        <div className="mt-auto flex flex-col items-center text-center">
-          <p className="font-display text-base font-bold sm:text-2xl">{title}</p>
-          <p className="mt-2 font-display text-lg font-bold text-[#a1c4ff] sm:mt-3 sm:text-2xl">
+
+        {/* Center title block */}
+        <div className="flex flex-col items-center text-center">
+          <p className="font-mono uppercase tracking-[0.4em] text-white/50 text-[7px] sm:text-[9px]">
+            OFFICIALLY ISSUED · VERIFIED
+          </p>
+          <p
+            className="mt-[2%] font-display font-bold uppercase tracking-[0.15em] text-white"
+            style={{
+              fontSize: compact ? "0.9rem" : "clamp(1.2rem, 3.6vw, 2.3rem)",
+            }}
+          >
+            {title}
+          </p>
+          <div className="mt-2 h-[2px] w-12 bg-cyan-400" />
+          <p
+            className="mt-[3%] font-display font-bold leading-[0.95] text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-violet-200"
+            style={{
+              fontSize: compact ? "1.4rem" : "clamp(1.8rem, 5.5vw, 3.6rem)",
+            }}
+          >
             {SAMPLE_STUDENT}
           </p>
           {!compact && (
-            <p className="mt-2 line-clamp-2 max-w-[92%] text-[9px] leading-relaxed text-[#dfe3fa] sm:text-[11px]">
+            <p className="mt-[2%] max-w-[85%] text-[10px] leading-relaxed text-white/75 sm:text-xs">
               {body}
             </p>
           )}
         </div>
-        <div className="mt-auto flex items-end justify-between gap-3 pt-4">
-          <div className="min-w-0 flex-1">
-            <div className="border-t border-[#7d84c6]/60 pt-1">
-              <p className="truncate text-[8px] font-bold sm:text-[10px]">
-                {issuerName}
-              </p>
-              <p className="truncate text-[7px] italic text-[#b5bcd9] sm:text-[9px]">
-                {issuerRole}
+
+        {/* Meta chips */}
+        <div className="flex flex-col items-center gap-[3%]">
+          <div className="grid w-full max-w-[90%] grid-cols-4 gap-2 font-mono">
+            {[
+              ["WORKLOAD", `${SAMPLE_WORKLOAD}H`],
+              ["COMPLETED", completionDate.toUpperCase()],
+              ["ISSUED", completionDate.toUpperCase()],
+              ["TRACK", "FCIA · IA"],
+            ].map(([l, v]) => (
+              <div
+                key={l}
+                className="relative rounded-sm border border-violet-400/30 bg-black/30 px-2 py-1.5 backdrop-blur-sm"
+              >
+                <span className="absolute left-0 top-0 h-0.5 w-3 bg-cyan-400" />
+                <p className="text-[6px] font-bold uppercase tracking-widest text-white/50 sm:text-[7px]">
+                  {l}
+                </p>
+                <p className="mt-0.5 text-[8px] font-bold text-white sm:text-[10px]">
+                  {v}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Signature + Holo QR */}
+          <div className="flex w-full items-end justify-between gap-3">
+            <div className="min-w-0 max-w-[55%]">
+              <div className="h-px w-full bg-white/40" />
+              <p className="mt-1 text-[10px] font-bold text-white sm:text-sm">{issuerName}</p>
+              <p className="italic text-[7px] text-white/60 sm:text-[9px]">{issuerRole}</p>
+            </div>
+            <div className="relative flex flex-col items-center gap-1">
+              {/* Halo */}
+              <span className="pointer-events-none absolute inset-0 -m-2 rounded-full bg-cyan-400/25 blur-md" />
+              <span className="pointer-events-none absolute inset-0 -m-1 rounded-full bg-violet-400/25 blur-md" />
+              <div className="relative grid h-11 w-11 grid-cols-5 grid-rows-5 gap-[0.5px] bg-white p-[2px] sm:h-14 sm:w-14">
+                {Array.from({ length: 25 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={
+                      [0, 2, 5, 7, 10, 12, 15, 18, 21, 23].includes(i)
+                        ? "bg-[#050814]"
+                        : "bg-white"
+                    }
+                  />
+                ))}
+              </div>
+              <p className="relative font-mono text-[6px] font-bold uppercase tracking-widest text-cyan-300 sm:text-[7px]">
+                SCAN · VERIFY
               </p>
             </div>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="grid h-9 w-9 grid-cols-4 grid-rows-4 gap-[1px] bg-white p-[2px] sm:h-11 sm:w-11">
-              {Array.from({ length: 16 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={i * 7 % 3 === 0 ? "bg-[#0b0f1e]" : "bg-white"}
-                />
-              ))}
-            </div>
-            <p className="mt-1 text-[7px] font-bold uppercase tracking-wider sm:text-[8px]">
-              {SAMPLE_CODE}
+
+          {!compact && (
+            <p className="max-w-[75%] text-center text-[6px] italic leading-relaxed text-white/50 sm:text-[7px]">
+              {legalFooter}
             </p>
-          </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
+function EditorialPrestigePreview({
+  institution,
+  title,
+  body,
+  legalFooter,
+  issuerName,
+  issuerRole,
+  completionDate,
+  compact,
+}: CanvasProps) {
+  const year = "2026";
+  return (
+    <div className="relative flex h-full w-full flex-col bg-[#faf7ef] font-serif text-[#1a1a1f]">
+      {/* Double frame */}
+      <div className="absolute inset-2 border border-[#1a1a1f]" />
+      <div className="absolute inset-3 border border-[#b08050]" />
+      {/* Corner ornaments */}
+      {[
+        "top-3 left-3",
+        "top-3 right-3",
+        "bottom-3 left-3",
+        "bottom-3 right-3",
+      ].map((c) => (
+        <span
+          key={c}
+          className={`absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 bg-[#b08050] ${c}`}
+        />
+      ))}
+
+      <div className="relative flex flex-1 flex-col items-center px-[6%] py-[5%] text-center">
+        {/* Header */}
+        <p className="font-sans text-[7px] font-bold uppercase tracking-[0.5em] sm:text-[10px]">
+          {institution}
+        </p>
+        <div className="mt-1 h-[1px] w-8 bg-[#b08050]" />
+
+        {/* Big translucent year, top-right */}
+        <span
+          className="absolute right-[6%] top-[5%] font-serif text-[#b08050]/50 tracking-[0.15em]"
+          style={{ fontSize: compact ? "1.4rem" : "clamp(1.6rem, 4vw, 2.8rem)" }}
+        >
+          {year}
+        </span>
+
+        {/* Title */}
+        <p
+          className="mt-[5%] font-serif leading-tight tracking-tight"
+          style={{ fontSize: compact ? "1.1rem" : "clamp(1.6rem, 4.5vw, 3rem)" }}
+        >
+          {title}
+        </p>
+
+        {/* Concedido a */}
+        <p className="mt-[2%] italic tracking-widest text-[#6a5f4d] text-[7px] sm:text-[10px]">
+          · concedido a ·
+        </p>
+
+        {/* Student name */}
+        <p
+          className="mt-[2%] font-serif font-bold leading-[0.95] tracking-tight"
+          style={{
+            fontSize: compact ? "1.4rem" : "clamp(1.8rem, 5vw, 3.4rem)",
+          }}
+        >
+          {SAMPLE_STUDENT}
+        </p>
+        <div className="mt-2 h-[1px] w-24 bg-[#b08050]" />
+
+        {!compact && (
+          <p className="mt-[2%] max-w-[80%] text-[9px] leading-relaxed text-[#3a3a44] sm:text-[11px]">
+            {body}
+          </p>
+        )}
+
+        <p className="mt-[2%] italic tracking-wide text-[#6a5f4d] text-[7px] sm:text-[10px]">
+          carga horária de {SAMPLE_WORKLOAD}h · concluído em {completionDate}
+        </p>
+
+        {/* Spacer that pushes bottom row down */}
+        <div className="flex-1" />
+
+        {/* Signature centered */}
+        <div className="w-full max-w-[60%]">
+          <div className="mx-auto h-px w-full bg-[#1a1a1f]" />
+          <p className="mt-1 font-serif text-[10px] font-bold sm:text-sm">{issuerName}</p>
+          <p className="font-sans uppercase tracking-[0.3em] text-[#6a5f4d] text-[6px] sm:text-[8px]">
+            {issuerRole}
+          </p>
+        </div>
+
+        {/* Bottom row: code left / QR right */}
+        <div className="mt-3 flex w-full items-end justify-between font-sans">
+          <div className="text-left">
+            <p className="text-[6px] font-bold uppercase tracking-[0.3em] text-[#6a5f4d] sm:text-[7px]">
+              Código
+            </p>
+            <p className="font-mono text-[7px] sm:text-[9px]">{SAMPLE_CODE}</p>
+            <p className="mt-1 text-[6px] font-bold uppercase tracking-[0.3em] text-[#6a5f4d] sm:text-[7px]">
+              Emissão
+            </p>
+            <p className="font-serif italic text-[7px] sm:text-[9px]">{completionDate}</p>
+          </div>
+
+          <div className="flex flex-col items-center gap-1">
+            <div className="grid h-8 w-8 grid-cols-4 grid-rows-4 gap-[1px] bg-white p-[1px] sm:h-10 sm:w-10">
+              {Array.from({ length: 16 }).map((_, i) => (
+                <div
+                  key={i}
+                  className={i % 2 === 0 ? "bg-[#1a1a1f]" : "bg-white"}
+                />
+              ))}
+            </div>
+            <p className="font-sans text-[6px] font-bold uppercase tracking-[0.35em] text-[#b08050] sm:text-[7px]">
+              Validar
+            </p>
+          </div>
+        </div>
+
+        {!compact && (
+          <p className="mt-2 max-w-[70%] font-sans text-[6px] italic leading-relaxed text-[#8b8479] sm:text-[7px]">
+            {legalFooter}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
 
 // ------------------- Regras -------------------
 
@@ -916,9 +1186,11 @@ function ManagementTab() {
 
 // ------------------- Helpers -------------------
 
-function Card({ children }: { children: React.ReactNode }) {
+function Card({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-card/60 p-6 backdrop-blur-xl">
+    <div
+      className={`rounded-2xl border border-white/10 bg-card/60 p-6 backdrop-blur-xl ${className ?? ""}`}
+    >
       {children}
     </div>
   );
