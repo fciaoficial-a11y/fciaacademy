@@ -47,6 +47,7 @@ type FeaturedCourse = {
   slug: string;
   title: string;
   description: string | null;
+  cover_url: string | null;
   workload_hours: number | null;
   duration_minutes: number | null;
   price: number | null;
