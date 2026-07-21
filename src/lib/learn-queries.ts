@@ -56,7 +56,7 @@ export function courseLearnQuery(slug: string) {
       const { data: course, error } = await supabase
         .from("courses")
         .select(
-          "id, slug, title, description, level, duration_minutes, workload_hours, track_id, price, is_free, allow_pdf_download, tracks:track_id ( title, slug )"
+          "id, slug, title, description, level, duration_minutes, workload_hours, track_id, price, is_free, allow_pdf_download, full_pdf_path, tracks:track_id ( title, slug )"
         )
         .eq("slug", slug)
         .eq("is_published", true)
@@ -64,7 +64,7 @@ export function courseLearnQuery(slug: string) {
       if (error) throw error;
       if (!course) return null;
       const track = (course as unknown as { tracks: { title: string; slug: string } | null }).tracks;
-      const c = course as unknown as { price: number | null; is_free: boolean | null; workload_hours: number | null; allow_pdf_download: boolean | null };
+      const c = course as unknown as { price: number | null; is_free: boolean | null; workload_hours: number | null; allow_pdf_download: boolean | null; full_pdf_path: string | null };
       const detail: CourseDetail = {
         id: course.id,
         slug: course.slug,
@@ -79,13 +79,14 @@ export function courseLearnQuery(slug: string) {
         is_free: Boolean(c.is_free),
         workload_hours: Number(c.workload_hours ?? 0),
         allow_pdf_download: Boolean(c.allow_pdf_download),
+        full_pdf_path: c.full_pdf_path ?? null,
       };
 
 
       const { data: modules, error: mErr } = await supabase
         .from("modules")
         .select(
-          "id, course_id, slug, title, description, content_type, content_url, content_text, video_url, duration_minutes, sort_order, intro_video_path, intro_video_duration_seconds, intro_video_poster_path, pdf_path, pdf_file_name"
+          "id, course_id, slug, title, description, content_type, content_url, content_text, video_url, duration_minutes, sort_order, intro_video_path, intro_video_duration_seconds, intro_video_poster_path, pdf_path, pdf_file_name, complementary_content"
         )
 
         .eq("course_id", course.id)
