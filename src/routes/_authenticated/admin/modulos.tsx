@@ -181,7 +181,7 @@ function AdminModulesPage() {
                 </Field>
               )}
               {editing.content_type === "pdf" && (
-                <Field label="Arquivo PDF">
+                <Field label="Arquivo PDF (conteúdo principal)">
                   <PdfUploader
                     value={{
                       pdf_path: editing.pdf_path ?? null,
@@ -193,7 +193,21 @@ function AdminModulesPage() {
                 </Field>
               )}
               {editing.content_type === "text" && (
-                <Field label="Texto"><Textarea rows={6} value={editing.content_text ?? ""} onChange={(e) => setEditing({ ...editing, content_text: e.target.value })} /></Field>
+                <Field label="Conteúdo principal (Markdown)">
+                  <Textarea rows={10} value={editing.content_text ?? ""} onChange={(e) => setEditing({ ...editing, content_text: e.target.value })} placeholder="# Título&#10;Texto do módulo em Markdown (aceita **negrito**, listas, links, tabelas)." />
+                </Field>
+              )}
+              {editing.content_type !== "pdf" && (
+                <Field label="PDF complementar (opcional)">
+                  <PdfUploader
+                    value={{
+                      pdf_path: editing.pdf_path ?? null,
+                      pdf_file_name: editing.pdf_file_name ?? null,
+                      pdf_file_size: editing.pdf_file_size ?? null,
+                    }}
+                    onChange={handlePdfChange}
+                  />
+                </Field>
               )}
               <Field label="Vídeo de abertura do módulo (opcional, 20–45s)">
                 <VideoUploader
