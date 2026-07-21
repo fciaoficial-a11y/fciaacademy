@@ -156,6 +156,8 @@ function CourseLearnPage() {
   const [fontScale, setFontScale] = useState<number>(1);
   const [focusMode, setFocusMode] = useState<boolean>(false);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [justCompleted, setJustCompleted] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -175,7 +177,22 @@ function CourseLearnPage() {
   // Sempre que trocar de módulo, sobe ao topo e fecha o drawer
   useEffect(() => {
     setDrawerOpen(false);
+    setScrollProgress(0);
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeModule?.id]);
+
+  // Progresso de leitura por scroll (delight sutil e útil)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+      setScrollProgress(p);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [activeModule?.id]);
 
   const shareModule = async () => {
@@ -200,6 +217,34 @@ function CourseLearnPage() {
       return next > 1.3 ? 0.9 : next;
     });
   };
+
+  // Atalhos de teclado — sem fricção
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement | null)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target as HTMLElement)?.isContentEditable) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "ArrowRight" && next) { e.preventDefault(); setActive(next.slug); }
+      else if (e.key === "ArrowLeft" && prev) { e.preventDefault(); setActive(prev.slug); }
+      else if (e.key.toLowerCase() === "f") { e.preventDefault(); setFocusMode((v) => !v); }
+      else if (e.key.toLowerCase() === "m") { e.preventDefault(); setDrawerOpen((v) => !v); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [prev, next]);
+
+  const handleMarkComplete = () => {
+    if (isComplete || !userId) return;
+    markComplete.mutate(activeModule, {
+      onSuccess: () => {
+        setJustCompleted(true);
+        toast.success("Módulo concluído", { description: "Sua jornada avançou." });
+        window.setTimeout(() => setJustCompleted(false), 1200);
+      },
+    });
+  };
+
 
   const ModuleList = (
     <nav className="space-y-px">
@@ -343,11 +388,17 @@ function CourseLearnPage() {
           </div>
         </div>
 
-        {/* Barra fina de progresso */}
-        <div className="h-0.5 w-full bg-transparent">
+        {/* Progresso de leitura por scroll — feedback contínuo */}
+        <div className="relative h-[3px] w-full overflow-hidden bg-transparent">
           <div
-            className="h-full bg-primary transition-[width] duration-500"
+            className="absolute inset-y-0 left-0 bg-foreground/[0.06]"
             style={{ width: `${percent}%` }}
+            aria-hidden
+          />
+          <div
+            className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-primary to-accent transition-[width] duration-150 ease-out"
+            style={{ width: `${scrollProgress}%` }}
+            aria-hidden
           />
         </div>
       </div>
@@ -401,80 +452,125 @@ function CourseLearnPage() {
           )}
           style={{ fontSize: `${fontScale}rem` }}
         >
-          {/* Hero editorial do módulo */}
-          <header className="relative mb-12 pb-8 border-b border-border/50">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-foreground/[0.02] px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground dark:bg-foreground/[0.04]">
-              <span className="text-primary">Módulo {String(activeIndex + 1).padStart(2, "0")}</span>
-              <span className="text-muted-foreground/30">/</span>
-              <span>{String(modules.length).padStart(2, "0")}</span>
-              <span className="text-muted-foreground/30">·</span>
-              <span className="inline-flex items-center gap-1">
-                <ModuleTypeIcon type={activeModule.content_type} />
-                {activeModule.content_type === "video"
-                  ? "Vídeo"
-                  : activeModule.content_type === "pdf"
-                    ? "PDF"
-                    : "Leitura"}
-              </span>
-              <span className="text-muted-foreground/30">·</span>
-              <span className="inline-flex items-center gap-1">
-                <Clock className="h-3 w-3" /> {activeModule.duration_minutes} min
-              </span>
-            </div>
-            <h1 className="mt-5 font-display text-[2.1rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-[2.9rem]">
-              {activeModule.title}
-            </h1>
-            {activeModule.description && (
-              <p className="mt-5 max-w-[58ch] text-lg leading-[1.6] text-muted-foreground sm:text-[1.2rem]">
-                {activeModule.description}
-              </p>
-            )}
-          </header>
-
-
-          {activeModule.intro_video_path && (
-            <div className="mb-6">
-              <IntroVideoBlock moduleId={activeModule.id} title={activeModule.title} />
-            </div>
-          )}
-
-          <ModuleContent
-            module={activeModule}
-            course={course}
-            studentLabel={studentLabel}
-            completed={isComplete}
-            onComplete={() => {
-              if (!isComplete) markComplete.mutate(activeModule);
-            }}
-          />
-
-          {activeModule.content_type !== "pdf" && (
-            <div className="mt-6">
-              <ComplementaryPdf
-                module={activeModule}
-                course={course}
-                studentLabel={studentLabel}
-                completed={isComplete}
-                onComplete={() => {
-                  if (!isComplete) markComplete.mutate(activeModule);
-                }}
+          <div key={activeModule.id} className="animate-fade-in-soft">
+            {/* Hero editorial do módulo — com aura sutil */}
+            <header className="relative mb-12 pb-8 border-b border-border/50">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-24 -left-16 h-64 w-64 rounded-full bg-primary/10 blur-3xl dark:bg-primary/15"
               />
-            </div>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-10 right-0 h-40 w-40 rounded-full bg-accent/10 blur-3xl dark:bg-accent/20"
+              />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground shadow-sm backdrop-blur dark:bg-foreground/[0.04]">
+                  <span className="text-primary">Módulo {String(activeIndex + 1).padStart(2, "0")}</span>
+                  <span className="text-muted-foreground/30">/</span>
+                  <span>{String(modules.length).padStart(2, "0")}</span>
+                  <span className="text-muted-foreground/30">·</span>
+                  <span className="inline-flex items-center gap-1">
+                    <ModuleTypeIcon type={activeModule.content_type} />
+                    {activeModule.content_type === "video"
+                      ? "Vídeo"
+                      : activeModule.content_type === "pdf"
+                        ? "PDF"
+                        : "Leitura"}
+                  </span>
+                  <span className="text-muted-foreground/30">·</span>
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3 w-3" /> {activeModule.duration_minutes} min
+                  </span>
+                  {isComplete && (
+                    <>
+                      <span className="text-muted-foreground/30">·</span>
+                      <span className="inline-flex items-center gap-1 text-primary">
+                        <CheckCircle2 className="h-3 w-3" /> Concluído
+                      </span>
+                    </>
+                  )}
+                </div>
+                <h1 className="mt-5 font-display text-[2.1rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-[2.9rem]">
+                  {activeModule.title}
+                </h1>
+                {activeModule.description && (
+                  <p className="mt-5 max-w-[58ch] text-lg leading-[1.6] text-muted-foreground sm:text-[1.2rem]">
+                    {activeModule.description}
+                  </p>
+                )}
+              </div>
+            </header>
+
+            {activeModule.intro_video_path && (
+              <div className="mb-6">
+                <IntroVideoBlock moduleId={activeModule.id} title={activeModule.title} />
+              </div>
+            )}
+
+            <ModuleContent
+              module={activeModule}
+              course={course}
+              studentLabel={studentLabel}
+              completed={isComplete}
+              onComplete={handleMarkComplete}
+            />
+
+            {activeModule.content_type !== "pdf" && (
+              <div className="mt-6">
+                <ComplementaryPdf
+                  module={activeModule}
+                  course={course}
+                  studentLabel={studentLabel}
+                  completed={isComplete}
+                  onComplete={handleMarkComplete}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Próximo módulo — convite calmo ao avanço */}
+          {next && (
+            <button
+              type="button"
+              onClick={() => setActive(next.slug)}
+              className="group mt-10 flex w-full items-center gap-4 rounded-2xl border border-border/70 bg-card/50 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-card hover:shadow-md sm:p-6"
+            >
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform group-hover:scale-105">
+                <ArrowRight className="h-5 w-5" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/80">
+                  Próximo módulo · {String(activeIndex + 2).padStart(2, "0")} / {String(modules.length).padStart(2, "0")}
+                </p>
+                <p className="mt-1 truncate font-display text-lg font-semibold tracking-tight text-foreground">
+                  {next.title}
+                </p>
+                <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <ModuleTypeIcon type={next.content_type} />
+                  <span>{next.duration_minutes} min</span>
+                </p>
+              </div>
+            </button>
           )}
 
           {/* Barra de ação — sticky no mobile */}
-          <div className="mt-8 sticky bottom-3 z-20 space-y-3 rounded-2xl border border-border bg-card/95 p-3 sm:p-4 shadow-lg backdrop-blur">
+          <div className="mt-8 sticky bottom-3 z-20 space-y-3 rounded-2xl border border-border bg-card/95 p-3 sm:p-4 shadow-lg reader-focus-ring backdrop-blur">
             <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
               <Button
-                onClick={() => !isComplete && markComplete.mutate(activeModule)}
+                onClick={handleMarkComplete}
                 disabled={!userId || isComplete || markComplete.isPending}
                 variant={isComplete ? "secondary" : "default"}
-                className="col-span-2 rounded-full sm:col-span-1"
+                className={cn(
+                  "col-span-2 rounded-full transition-all sm:col-span-1",
+                  justCompleted && "animate-checkmark-pop",
+                )}
               >
                 {isComplete ? (
                   <>
                     <CheckCircle2 className="mr-2 h-4 w-4" /> Concluído
                   </>
+                ) : markComplete.isPending ? (
+                  "Concluindo…"
                 ) : (
                   "Marcar concluído"
                 )}
@@ -497,6 +593,7 @@ function CourseLearnPage() {
                   className="rounded-full"
                   disabled={!prev}
                   onClick={() => prev && setActive(prev.slug)}
+                  title="Módulo anterior (←)"
                 >
                   <ArrowLeft className="mr-1.5 h-4 w-4" /> Anterior
                 </Button>
@@ -505,6 +602,7 @@ function CourseLearnPage() {
                   className="rounded-full"
                   disabled={!next}
                   onClick={() => next && setActive(next.slug)}
+                  title="Próximo módulo (→)"
                 >
                   Próximo <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
@@ -531,14 +629,18 @@ function CourseLearnPage() {
             )}
           </div>
 
-          <footer className="mt-10 border-t border-border/60 pt-6 text-center text-xs text-muted-foreground">
-            FCIA Academy
+          <footer className="mt-10 flex flex-col items-center gap-1 border-t border-border/60 pt-6 text-center text-xs text-muted-foreground">
+            <span className="font-display text-[11px] font-semibold uppercase tracking-[0.28em]">FCIA Academy</span>
+            <span className="text-[10px] text-muted-foreground/60">
+              Dica: use <kbd className="rounded border border-border/60 bg-muted/40 px-1 font-mono text-[9px]">←</kbd> <kbd className="rounded border border-border/60 bg-muted/40 px-1 font-mono text-[9px]">→</kbd> para navegar · <kbd className="rounded border border-border/60 bg-muted/40 px-1 font-mono text-[9px]">F</kbd> foco · <kbd className="rounded border border-border/60 bg-muted/40 px-1 font-mono text-[9px]">M</kbd> módulos
+            </span>
           </footer>
         </section>
       </div>
     </div>
   );
 }
+
 
 
 function ModuleTypeIcon({ type }: { type: ModuleRow["content_type"] }) {

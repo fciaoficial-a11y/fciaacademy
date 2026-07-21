@@ -82,7 +82,7 @@ const kindStyles: Record<BlockKind, LevelStyle> = {
   objetivo: {
     level: "hero",
     wrapper:
-      "relative rounded-xl border-l-2 border-primary bg-primary/[0.04] px-6 py-6 sm:px-8 sm:py-7 dark:bg-primary/[0.06]",
+      "relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/[0.06] via-primary/[0.03] to-transparent px-6 py-6 sm:px-8 sm:py-7 shadow-sm dark:from-primary/[0.10] dark:via-primary/[0.05]",
     labelClass: "text-primary",
     icon: <Target className="h-3.5 w-3.5" />,
     label: "Objetivo do módulo",
@@ -91,7 +91,7 @@ const kindStyles: Record<BlockKind, LevelStyle> = {
   exemplo: {
     level: "callout",
     wrapper:
-      "rounded-lg border border-border/70 bg-surface-muted/50 px-5 py-5 sm:px-6 sm:py-6 dark:bg-surface/40",
+      "rounded-xl border border-border/70 bg-surface-muted/60 px-5 py-5 sm:px-6 sm:py-6 shadow-[0_1px_0_0_color-mix(in_oklab,var(--foreground)_3%,transparent)] dark:bg-surface/50",
     labelClass: "text-sky-700 dark:text-sky-300",
     icon: <Lightbulb className="h-3.5 w-3.5" />,
     label: "Exemplo prático",
@@ -100,7 +100,7 @@ const kindStyles: Record<BlockKind, LevelStyle> = {
   erros: {
     level: "alert",
     wrapper:
-      "rounded-lg border border-amber-500/25 border-l-2 border-l-amber-500 bg-amber-500/[0.05] px-5 py-5 sm:px-6 sm:py-6",
+      "relative overflow-hidden rounded-xl border border-amber-500/25 bg-amber-500/[0.05] px-5 py-5 sm:px-6 sm:py-6 before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-amber-500/70",
     labelClass: "text-amber-700 dark:text-amber-300",
     icon: <AlertTriangle className="h-3.5 w-3.5" />,
     label: "Erros comuns",
@@ -109,7 +109,7 @@ const kindStyles: Record<BlockKind, LevelStyle> = {
   fechamento: {
     level: "summary",
     wrapper:
-      "rounded-xl border-t-2 border-emerald-500/60 bg-emerald-500/[0.04] px-6 py-6 sm:px-8 sm:py-7",
+      "relative overflow-hidden rounded-2xl border border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.06] via-emerald-500/[0.03] to-transparent px-6 py-6 sm:px-8 sm:py-7 shadow-sm dark:from-emerald-500/[0.10]",
     labelClass: "text-emerald-700 dark:text-emerald-300",
     icon: <Sparkles className="h-3.5 w-3.5" />,
     label: "Fechamento",
@@ -117,7 +117,8 @@ const kindStyles: Record<BlockKind, LevelStyle> = {
   },
   transicao: {
     level: "section",
-    wrapper: "",
+    wrapper:
+      "rounded-xl border border-dashed border-violet-500/30 bg-violet-500/[0.04] px-5 py-5 sm:px-6 sm:py-6",
     labelClass: "text-violet-700 dark:text-violet-300",
     icon: <ArrowRight className="h-3.5 w-3.5" />,
     label: "Próximo passo",

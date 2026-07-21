@@ -237,6 +237,43 @@
     animation: pulse-glow 4s ease-in-out infinite;
   }
 
+  @keyframes fade-in-soft {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-soft {
+    animation: fade-in-soft 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes checkmark-pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .animate-checkmark-pop {
+    animation: checkmark-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes sheen {
+    0% { transform: translateX(-120%) skewX(-12deg); }
+    100% { transform: translateX(220%) skewX(-12deg); }
+  }
+  .hover-sheen { position: relative; overflow: hidden; }
+  .hover-sheen::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--foreground) 8%, transparent), transparent);
+    transform: translateX(-120%) skewX(-12deg);
+    pointer-events: none;
+  }
+  .hover-sheen:hover::after { animation: sheen 0.9s ease; }
+
+  .reader-focus-ring {
+    box-shadow:
+      0 1px 2px color-mix(in oklab, var(--foreground) 4%, transparent),
+      0 12px 40px -16px color-mix(in oklab, var(--primary) 34%, transparent);
+  }
+
   @keyframes grid-drift {
     from { background-position: 0 0; }
     to { background-position: 56px 56px; }
