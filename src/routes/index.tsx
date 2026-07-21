@@ -41,7 +41,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// ---------------- Featured course query ----------------
+// ---------------- Featured courses query ----------------
 type FeaturedCourse = {
   id: string;
   slug: string;
@@ -54,24 +54,26 @@ type FeaturedCourse = {
   modules_count: number;
 };
 
-const FEATURED_SLUG = "ia-fundamentos-profissionais";
-
-const featuredCourseQuery = queryOptions({
-  queryKey: ["home", "featured-course", FEATURED_SLUG],
-  queryFn: async (): Promise<FeaturedCourse | null> => {
-    const { data: course, error } = await supabase
+const featuredCoursesQuery = queryOptions({
+  queryKey: ["home", "featured-courses"],
+  queryFn: async (): Promise<FeaturedCourse[]> => {
+    const { data: courses, error } = await supabase
       .from("courses")
-      .select("id, slug, title, description, workload_hours, duration_minutes, price, certificate_enabled")
-      .eq("slug", FEATURED_SLUG)
+      .select("id, slug, title, description, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
       .eq("is_published", true)
-      .maybeSingle();
+      .order("price", { ascending: true })
+      .order("sort_order", { ascending: true });
     if (error) throw error;
-    if (!course) return null;
-    const { count } = await supabase
-      .from("modules")
-      .select("id", { count: "exact", head: true })
-      .eq("course_id", course.id);
-    return { ...(course as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
+    const list = courses ?? [];
+    return Promise.all(
+      list.map(async (c) => {
+        const { count } = await supabase
+          .from("modules")
+          .select("id", { count: "exact", head: true })
+          .eq("course_id", c.id);
+        return { ...(c as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
+      }),
+    );
   },
   staleTime: 60_000,
 });
