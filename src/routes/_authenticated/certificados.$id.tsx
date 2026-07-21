@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
@@ -135,7 +135,7 @@ function CertificateDetailPage() {
   }
 
   if (!cert) {
-    throw notFound();
+    return <CertificateNotFoundPage />;
   }
 
   const issued = new Date(cert.issued_at).toLocaleDateString("pt-BR", {
