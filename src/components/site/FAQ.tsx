@@ -5,28 +5,28 @@ export type FAQItem = { q: string; a: string };
 
 const defaultItems: FAQItem[] = [
   {
-    q: "Como funciona o acesso aos cursos?",
-    a: "Você tem acesso vitalício ao conteúdo da trilha contratada, incluindo atualizações futuras e comunidade de alunos.",
+    q: "Os cursos são gratuitos ou pagos?",
+    a: "Todos os cursos publicados na FCIA Academy são pagos, com compra avulsa por curso. Você paga uma vez pelo curso escolhido e libera o acesso imediatamente após a confirmação do PIX.",
+  },
+  {
+    q: "Como funciona o acesso após a compra?",
+    a: "Assim que o pagamento via PIX é confirmado, sua matrícula é liberada automaticamente e você passa a ter acesso vitalício ao curso comprado, incluindo vídeos, PDFs, materiais complementares e atualizações futuras.",
   },
   {
     q: "Preciso ter conhecimento prévio em tecnologia ou IA?",
-    a: "Não. As trilhas começam do zero e evoluem progressivamente. Você só precisa de vontade de aplicar.",
+    a: "Não. Os cursos começam do zero e evoluem progressivamente. Você só precisa de vontade de aplicar no seu contexto profissional.",
   },
   {
     q: "Tem certificado?",
-    a: "Sim. Cada trilha gera um certificado verificável ao concluir os módulos práticos.",
+    a: "Sim. Ao concluir 100% dos módulos e ser aprovado no exame final com no mínimo 70% de acerto, você emite um certificado digital verificável por código público e QR Code.",
   },
   {
-    q: "Como funciona a mentoria ao vivo?",
-    a: "Encontros semanais com especialistas, gravados e disponíveis em até 24h para quem não puder participar ao vivo.",
+    q: "Comprar um curso dá acesso a todos os outros?",
+    a: "Não. Cada curso é uma compra independente. Você adquire apenas o curso escolhido e pode comprar outros separadamente quando quiser.",
   },
   {
-    q: "Posso cancelar?",
-    a: "Você tem 7 dias de garantia incondicional. Se não fizer sentido, devolvemos 100% do valor.",
-  },
-  {
-    q: "A FCIA atende empresas?",
-    a: "Sim. Oferecemos plataforma white-label, trilhas customizadas, mentoria dedicada e relatórios de progresso para times.",
+    q: "Posso cancelar ou pedir reembolso?",
+    a: "Você tem 7 dias de garantia incondicional a partir da compra. Se o curso não fizer sentido para você, devolvemos 100% do valor pago.",
   },
 ];
 
