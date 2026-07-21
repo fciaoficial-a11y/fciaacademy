@@ -33,6 +33,11 @@ export const Route = createFileRoute("/_authenticated/admin/certificados")({
   component: AdminCertificatesPage,
 });
 
+import {
+  TEMPLATE_OPTIONS,
+  type TemplateKey,
+} from "@/lib/certificate-templates";
+
 type Settings = {
   id: number;
   institution_name: string;
@@ -48,6 +53,7 @@ type Settings = {
   legal_footer: string;
   min_score: number;
   auto_issue: boolean;
+  template_key: TemplateKey;
 };
 
 const DEFAULT_TEMPLATE =
