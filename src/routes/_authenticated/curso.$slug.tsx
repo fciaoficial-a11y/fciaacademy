@@ -202,7 +202,7 @@ function CourseLearnPage() {
   };
 
   const ModuleList = (
-    <nav className="space-y-1">
+    <nav className="space-y-0.5">
       {modules.map((m, i) => {
         const done = progressMap.get(m.id) ?? false;
         const active = m.id === activeModule.id;
@@ -211,32 +211,44 @@ function CourseLearnPage() {
             key={m.id}
             onClick={() => setActive(m.slug)}
             className={cn(
-              "flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
+              "group relative flex w-full items-start gap-2.5 rounded-md px-2.5 py-2 text-left transition-colors",
               active
-                ? "bg-primary/10 ring-1 ring-inset ring-primary/40"
-                : "hover:bg-muted/70",
+                ? "bg-foreground/[0.06] dark:bg-foreground/[0.08]"
+                : "hover:bg-foreground/[0.035] dark:hover:bg-foreground/[0.05]",
             )}
           >
+            {active && (
+              <span
+                aria-hidden
+                className="absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full bg-primary"
+              />
+            )}
             {done ? (
-              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              <CheckCircle2 className="mt-[3px] h-3.5 w-3.5 shrink-0 text-primary" />
             ) : (
-              <Circle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+              <Circle
+                className={cn(
+                  "mt-[3px] h-3.5 w-3.5 shrink-0",
+                  active ? "text-foreground/70" : "text-muted-foreground/60",
+                )}
+              />
             )}
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
-                <span>Módulo {i + 1}</span>
-                <ModuleTypeIcon type={m.content_type} />
+              <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">
+                <span>M{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-muted-foreground/40">·</span>
+                <span className="inline-flex items-center gap-1">
+                  <ModuleTypeIcon type={m.content_type} />
+                  {m.duration_minutes}min
+                </span>
               </div>
               <p
                 className={cn(
-                  "mt-0.5 truncate text-sm font-medium",
-                  active ? "text-foreground" : "text-foreground/80",
+                  "mt-0.5 truncate text-[13px] leading-snug",
+                  active ? "font-semibold text-foreground" : "font-medium text-foreground/75",
                 )}
               >
                 {m.title}
-              </p>
-              <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
-                <Clock className="h-3 w-3" /> {m.duration_minutes} min
               </p>
             </div>
           </button>
