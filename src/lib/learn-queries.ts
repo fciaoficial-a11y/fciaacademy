@@ -38,8 +38,9 @@ export type CourseDetail = {
   is_free: boolean;
   workload_hours: number;
   allow_pdf_download: boolean;
-
+  full_pdf_path: string | null;
 };
+
 
 
 export type ProgressRow = {
