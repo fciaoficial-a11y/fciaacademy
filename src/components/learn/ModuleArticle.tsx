@@ -234,31 +234,29 @@ function BlockSection({ block }: { block: Block }) {
 export function ModuleArticle({ markdown }: { markdown: string }) {
   const { intro, blocks } = useMemo(() => splitByH2(markdown), [markdown]);
 
-  // Sem H2 no conteúdo: renderiza dentro de um único card premium.
   if (blocks.length === 0) {
     return (
-      <article className="rounded-2xl border border-border bg-card/70 p-6 sm:p-8 backdrop-blur-sm">
-        <div className="max-w-[68ch] text-[15px] sm:text-base">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
-            {markdown.trim()}
-          </ReactMarkdown>
-        </div>
+      <article className="max-w-[66ch] text-[15px] leading-relaxed sm:text-base">
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+          {markdown.trim()}
+        </ReactMarkdown>
       </article>
     );
   }
 
   return (
-    <div className="space-y-5 sm:space-y-6">
+    <div className="space-y-10 sm:space-y-12">
       {intro && (
-        <div className="max-w-[68ch] text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <div className="max-w-[62ch] text-lg leading-relaxed text-foreground/80 sm:text-xl">
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
             {intro}
           </ReactMarkdown>
         </div>
       )}
       {blocks.map((b, i) => (
-        <BlockCard key={i} block={b} />
+        <BlockSection key={i} block={b} />
       ))}
     </div>
   );
 }
+
