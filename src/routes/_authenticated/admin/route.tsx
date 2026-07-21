@@ -15,6 +15,7 @@ import {
   Loader2,
   LogOut,
   Menu,
+  Rocket,
   Shield,
   Sparkles,
   User2,
