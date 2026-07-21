@@ -281,9 +281,16 @@ function Index() {
 
           <div className="mt-8">
             {featured.isLoading ? (
-              <div className="h-56 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
-            ) : course ? (
-              <FeaturedCourseCard course={course} />
+              <div className="grid gap-6 lg:grid-cols-2">
+                <div className="h-56 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+                <div className="h-56 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+              </div>
+            ) : courses.length > 0 ? (
+              <div className="grid gap-6 lg:grid-cols-2">
+                {courses.map((c) => (
+                  <FeaturedCourseCard key={c.id} course={c} />
+                ))}
+              </div>
             ) : (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
                 <p className="text-sm text-muted-foreground">
