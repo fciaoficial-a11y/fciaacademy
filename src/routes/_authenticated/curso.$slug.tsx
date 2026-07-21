@@ -156,6 +156,8 @@ function CourseLearnPage() {
   const [fontScale, setFontScale] = useState<number>(1);
   const [focusMode, setFocusMode] = useState<boolean>(false);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [justCompleted, setJustCompleted] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -175,7 +177,22 @@ function CourseLearnPage() {
   // Sempre que trocar de módulo, sobe ao topo e fecha o drawer
   useEffect(() => {
     setDrawerOpen(false);
+    setScrollProgress(0);
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeModule?.id]);
+
+  // Progresso de leitura por scroll (delight sutil e útil)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+      setScrollProgress(p);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [activeModule?.id]);
 
   const shareModule = async () => {
@@ -200,6 +217,34 @@ function CourseLearnPage() {
       return next > 1.3 ? 0.9 : next;
     });
   };
+
+  // Atalhos de teclado — sem fricção
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement | null)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target as HTMLElement)?.isContentEditable) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "ArrowRight" && next) { e.preventDefault(); setActive(next.slug); }
+      else if (e.key === "ArrowLeft" && prev) { e.preventDefault(); setActive(prev.slug); }
+      else if (e.key.toLowerCase() === "f") { e.preventDefault(); setFocusMode((v) => !v); }
+      else if (e.key.toLowerCase() === "m") { e.preventDefault(); setDrawerOpen((v) => !v); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [prev, next]);
+
+  const handleMarkComplete = () => {
+    if (isComplete || !userId) return;
+    markComplete.mutate(activeModule, {
+      onSuccess: () => {
+        setJustCompleted(true);
+        toast.success("Módulo concluído", { description: "Sua jornada avançou." });
+        window.setTimeout(() => setJustCompleted(false), 1200);
+      },
+    });
+  };
+
 
   const ModuleList = (
     <nav className="space-y-px">
