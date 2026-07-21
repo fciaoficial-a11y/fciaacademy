@@ -87,10 +87,11 @@ function CourseLearnPage() {
 
   const enrollmentQ = useQuery(enrollmentQuery(course.id, userId));
 
-  const isPurchaseCourse = course.price > 0;
+  const isPurchaseCourse = !course.is_free && course.price > 0;
   const hasEnrollment = !!enrollmentQ.data;
-  // Regra única: curso gratuito → acesso livre; curso pago → precisa de enrollment (criado pelo webhook após pagamento).
+  // Regra única: curso gratuito (is_free) → acesso livre; curso pago → precisa de enrollment (criado pelo webhook após pagamento).
   const hasAccess = isPurchaseCourse ? hasEnrollment : true;
+
 
   useEffect(() => {
     if (!userId || isPurchaseCourse) return;

@@ -33,7 +33,10 @@ export type CourseDetail = {
   track_title: string | null;
   track_slug: string | null;
   price: number;
+  is_free: boolean;
+  workload_hours: number;
   allow_pdf_download: boolean;
+
 };
 
 
@@ -50,7 +53,7 @@ export function courseLearnQuery(slug: string) {
       const { data: course, error } = await supabase
         .from("courses")
         .select(
-          "id, slug, title, description, level, duration_minutes, track_id, price, allow_pdf_download, tracks:track_id ( title, slug )"
+          "id, slug, title, description, level, duration_minutes, workload_hours, track_id, price, is_free, allow_pdf_download, tracks:track_id ( title, slug )"
         )
         .eq("slug", slug)
         .eq("is_published", true)
@@ -58,6 +61,7 @@ export function courseLearnQuery(slug: string) {
       if (error) throw error;
       if (!course) return null;
       const track = (course as unknown as { tracks: { title: string; slug: string } | null }).tracks;
+      const c = course as unknown as { price: number | null; is_free: boolean | null; workload_hours: number | null; allow_pdf_download: boolean | null };
       const detail: CourseDetail = {
         id: course.id,
         slug: course.slug,
@@ -68,9 +72,12 @@ export function courseLearnQuery(slug: string) {
         track_id: course.track_id,
         track_title: track?.title ?? null,
         track_slug: track?.slug ?? null,
-        price: Number((course as unknown as { price: number | null }).price ?? 0),
-        allow_pdf_download: Boolean((course as unknown as { allow_pdf_download: boolean | null }).allow_pdf_download),
+        price: Number(c.price ?? 0),
+        is_free: Boolean(c.is_free),
+        workload_hours: Number(c.workload_hours ?? 0),
+        allow_pdf_download: Boolean(c.allow_pdf_download),
       };
+
 
       const { data: modules, error: mErr } = await supabase
         .from("modules")

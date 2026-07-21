@@ -166,6 +166,7 @@ export type Database = {
           description: string
           duration_minutes: number
           id: string
+          is_free: boolean
           is_published: boolean
           level: string
           price: number
@@ -184,6 +185,7 @@ export type Database = {
           description: string
           duration_minutes?: number
           id?: string
+          is_free?: boolean
           is_published?: boolean
           level?: string
           price?: number
@@ -202,6 +204,7 @@ export type Database = {
           description?: string
           duration_minutes?: number
           id?: string
+          is_free?: boolean
           is_published?: boolean
           level?: string
           price?: number
