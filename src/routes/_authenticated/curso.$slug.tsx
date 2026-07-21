@@ -535,7 +535,7 @@ function CourseLearnPage() {
               </section>
             )}
 
-            {activeModule.content_type !== "pdf" && (
+            {activeModule.content_type !== "pdf" && activeModule.pdf_path && (
               <div className="mt-6">
                 <ComplementaryPdf
                   module={activeModule}
