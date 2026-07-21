@@ -110,14 +110,28 @@ function AdminCoursesPage() {
       <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-card/60 backdrop-blur-xl">
         <table className="w-full text-sm">
           <thead className="bg-white/5 text-left text-xs uppercase tracking-wider text-muted-foreground">
-            <tr><th className="px-4 py-3">Título</th><th className="px-4 py-3">Trilha</th><th className="px-4 py-3">Duração</th><th className="px-4 py-3">Status</th><th className="px-4 py-3 text-right">Ações</th></tr>
+            <tr>
+              <th className="px-4 py-3">Título</th>
+              <th className="px-4 py-3">Trilha</th>
+              <th className="px-4 py-3">Preço</th>
+              <th className="px-4 py-3">Carga</th>
+              <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3 text-right">Ações</th>
+            </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
             {courses.data?.map((c) => (
               <tr key={c.id}>
                 <td className="px-4 py-3 font-medium">{c.title}</td>
                 <td className="px-4 py-3 text-muted-foreground">{tracks.data?.find(t => t.id === c.track_id)?.title ?? "—"}</td>
-                <td className="px-4 py-3">{c.duration_minutes} min</td>
+                <td className="px-4 py-3">
+                  {c.is_free
+                    ? <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-400">Gratuito</span>
+                    : c.price > 0
+                      ? <span className="font-medium">{formatBRL(c.price)}</span>
+                      : <span className="rounded-full bg-destructive/15 px-2 py-0.5 text-xs text-destructive">Sem preço</span>}
+                </td>
+                <td className="px-4 py-3">{c.workload_hours}h</td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2 py-0.5 text-xs ${c.is_published ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"}`}>
                     {c.is_published ? "Publicado" : "Rascunho"}
@@ -144,14 +158,14 @@ function AdminCoursesPage() {
               </tr>
             ))}
             {!courses.data?.length && !courses.isLoading && (
-              <tr><td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">Nenhum curso ainda.</td></tr>
+              <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">Nenhum curso ainda.</td></tr>
             )}
           </tbody>
         </table>
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-xl">
+        <DialogContent className="max-h-[92vh] max-w-2xl overflow-y-auto">
           <DialogHeader><DialogTitle>{editing?.id ? "Editar curso" : "Novo curso"}</DialogTitle></DialogHeader>
           {editing && (
             <form className="grid gap-3" onSubmit={(e) => { e.preventDefault(); save.mutate(editing); }}>
@@ -169,11 +183,51 @@ function AdminCoursesPage() {
               <Field label="Título"><Input value={editing.title ?? ""} onChange={(e) => setEditing({ ...editing, title: e.target.value })} required /></Field>
               <Field label="Slug"><Input value={editing.slug ?? ""} onChange={(e) => setEditing({ ...editing, slug: e.target.value })} required /></Field>
               <Field label="Descrição"><Textarea rows={3} value={editing.description ?? ""} onChange={(e) => setEditing({ ...editing, description: e.target.value })} required /></Field>
+
+              <div className="rounded-xl border border-white/10 bg-background/60 p-3">
+                <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Comercial</div>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={!!editing.is_free}
+                    onChange={(e) => setEditing({ ...editing, is_free: e.target.checked, price: e.target.checked ? 0 : editing.price })}
+                  />
+                  Curso gratuito
+                </label>
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <Field label="Preço (BRL)">
+                    <Input
+                      type="number"
+                      min={0}
+                      step="0.01"
+                      value={editing.price ?? 0}
+                      disabled={!!editing.is_free}
+                      onChange={(e) => setEditing({ ...editing, price: Number(e.target.value) })}
+                    />
+                  </Field>
+                  <Field label="Carga horária (horas)">
+                    <Input
+                      type="number"
+                      min={1}
+                      value={editing.workload_hours ?? 0}
+                      onChange={(e) => setEditing({ ...editing, workload_hours: Number(e.target.value) })}
+                      required
+                    />
+                  </Field>
+                </div>
+                {!editing.is_free && (!editing.price || editing.price <= 0) && (
+                  <p className="mt-2 text-xs text-destructive">
+                    ⚠️ Sem preço definido. O curso não poderá ser publicado até você marcar como gratuito ou definir um valor maior que zero.
+                  </p>
+                )}
+              </div>
+
               <div className="grid grid-cols-3 gap-3">
-                <Field label="Duração (min)"><Input type="number" value={editing.duration_minutes ?? 0} onChange={(e) => setEditing({ ...editing, duration_minutes: Number(e.target.value) })} /></Field>
+                <Field label="Duração vídeo (min)"><Input type="number" value={editing.duration_minutes ?? 0} onChange={(e) => setEditing({ ...editing, duration_minutes: Number(e.target.value) })} /></Field>
                 <Field label="Nível"><Input value={editing.level ?? ""} onChange={(e) => setEditing({ ...editing, level: e.target.value })} /></Field>
                 <Field label="Ordem"><Input type="number" value={editing.sort_order ?? 0} onChange={(e) => setEditing({ ...editing, sort_order: Number(e.target.value) })} /></Field>
               </div>
+
               <Field label="Capa">
                 <div className="flex items-center gap-2">
                   <Input value={editing.cover_url ?? ""} onChange={(e) => setEditing({ ...editing, cover_url: e.target.value })} placeholder="URL da imagem" />
@@ -184,10 +238,22 @@ function AdminCoursesPage() {
                   </label>
                 </div>
               </Field>
-              <label className="flex items-center gap-2 text-sm">
-                <input type="checkbox" checked={!!editing.is_published} onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })} />
-                Publicado
-              </label>
+
+              <div className="flex flex-wrap gap-4 text-sm">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={!!editing.certificate_enabled} onChange={(e) => setEditing({ ...editing, certificate_enabled: e.target.checked })} />
+                  Emite certificado
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={!!editing.allow_pdf_download} onChange={(e) => setEditing({ ...editing, allow_pdf_download: e.target.checked })} />
+                  Permite download do PDF
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={!!editing.is_published} onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })} />
+                  Publicado
+                </label>
+              </div>
+
               <DialogFooter><Button type="submit" disabled={save.isPending}>Salvar</Button></DialogFooter>
             </form>
           )}
@@ -196,6 +262,7 @@ function AdminCoursesPage() {
     </div>
   );
 }
+
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return <div className="grid gap-1.5"><Label className="text-xs text-muted-foreground">{label}</Label>{children}</div>;
