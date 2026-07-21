@@ -33,7 +33,10 @@ export type CourseDetail = {
   track_title: string | null;
   track_slug: string | null;
   price: number;
+  is_free: boolean;
+  workload_hours: number;
   allow_pdf_download: boolean;
+
 };
 
 
