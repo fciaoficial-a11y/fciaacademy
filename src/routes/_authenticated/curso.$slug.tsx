@@ -72,43 +72,49 @@ function CourseLearnPage() {
   const { data } = useSuspenseQuery(courseLearnQuery(slug));
   const [userId, setUserId] = useState<string | undefined>();
   const [studentLabel, setStudentLabel] = useState<string>("Aluno");
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(async ({ data }) => {
       const u = data.user;
       setUserId(u?.id);
       const meta = (u?.user_metadata ?? {}) as { full_name?: string; name?: string };
       setStudentLabel(meta.full_name || meta.name || u?.email || "Aluno");
+      if (u?.id) {
+        const { data: adminCheck } = await supabase.rpc("has_role", {
+          _user_id: u.id,
+          _role: "admin",
+        });
+        setIsAdmin(!!adminCheck);
+      }
     });
   }, []);
 
-  if (!data) return null;
-  const { course, modules } = data;
+  const course = data?.course;
+  const modules = data?.modules ?? [];
 
-  const enrollmentQ = useQuery(enrollmentQuery(course.id, userId));
+  const enrollmentQ = useQuery(enrollmentQuery(course?.id ?? "", userId));
 
-  const isPurchaseCourse = !course.is_free && course.price > 0;
+  const isPurchaseCourse = !!course && !course.is_free && course.price > 0;
   const hasEnrollment = !!enrollmentQ.data;
-  // Regra única: curso gratuito (is_free) → acesso livre; curso pago → precisa de enrollment (criado pelo webhook após pagamento).
-  const hasAccess = isPurchaseCourse ? hasEnrollment : true;
-
+  // Admin sempre tem acesso. Curso gratuito → livre. Curso pago → precisa enrollment.
+  const hasAccess = isAdmin ? true : isPurchaseCourse ? hasEnrollment : true;
 
   useEffect(() => {
-    if (!userId || isPurchaseCourse) return;
+    if (!userId || !course || isPurchaseCourse || isAdmin) return;
     if (enrollmentQ.isFetched && !enrollmentQ.data) {
       enrollInCourse(course.id)
         .then(() => queryClient.invalidateQueries({ queryKey: ["enrollment", course.id, userId] }))
         .catch(() => {});
     }
-  }, [userId, isPurchaseCourse, enrollmentQ.isFetched, enrollmentQ.data, course.id, queryClient]);
+  }, [userId, isAdmin, isPurchaseCourse, enrollmentQ.isFetched, enrollmentQ.data, course, queryClient]);
 
-  const progress = useQuery(progressQuery(course.id, hasAccess ? userId : undefined));
+  const progress = useQuery(progressQuery(course?.id ?? "", hasAccess && course ? userId : undefined));
   const progressMap = useMemo(() => {
     const map = new Map<string, boolean>();
     (progress.data ?? []).forEach((p) => map.set(p.module_id, p.completed));
     return map;
   }, [progress.data]);
-
 
   const activeSlug = search.m ?? modules[0]?.slug;
   const activeModule = modules.find((m) => m.slug === activeSlug) ?? modules[0];
@@ -119,7 +125,7 @@ function CourseLearnPage() {
   const setActive = (mSlug: string) =>
     navigate({ to: "/curso/$slug", params: { slug }, search: { m: mSlug } });
 
-  const eligibility = useQuery(eligibilityQuery(hasAccess ? course.id : undefined, userId));
+  const eligibility = useQuery(eligibilityQuery(hasAccess && course ? course.id : undefined, userId));
 
   const markComplete = useMutation({
     mutationFn: async (mod: ModuleRow) => {
@@ -128,6 +134,7 @@ function CourseLearnPage() {
       if (error) throw error;
     },
     onSuccess: async () => {
+      if (!course) return;
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["progress", course.id, userId] }),
         queryClient.invalidateQueries({ queryKey: ["quiz-eligibility", course.id, userId] }),
@@ -135,23 +142,6 @@ function CourseLearnPage() {
     },
     onError: (e: Error) => toast.error(e.message || "Não foi possível concluir o módulo."),
   });
-
-  if (!hasAccess) {
-    return <Paywall course={course} />;
-  }
-
-  if (!activeModule) {
-    return (
-      <div className="mx-auto max-w-3xl px-6 py-20 text-center">
-        <h1 className="font-display text-2xl">Nenhum módulo disponível ainda.</h1>
-      </div>
-    );
-  }
-
-
-  const prev = activeIndex > 0 ? modules[activeIndex - 1] : null;
-  const next = activeIndex < modules.length - 1 ? modules[activeIndex + 1] : null;
-  const isComplete = progressMap.get(activeModule.id) ?? false;
 
   // Preferências locais de leitura
   const [fontScale, setFontScale] = useState<number>(1);
@@ -175,14 +165,12 @@ function CourseLearnPage() {
       window.localStorage.setItem("fcia-reader-focus", focusMode ? "1" : "0");
   }, [focusMode]);
 
-  // Sempre que trocar de módulo, sobe ao topo e fecha o drawer
   useEffect(() => {
     setDrawerOpen(false);
     setScrollProgress(0);
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeModule?.id]);
 
-  // Progresso de leitura por scroll (delight sutil e útil)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const onScroll = () => {
@@ -196,8 +184,27 @@ function CourseLearnPage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [activeModule?.id]);
 
-  const shareModule = async () => {
+  const prev = activeIndex > 0 ? modules[activeIndex - 1] : null;
+  const next = activeIndex < modules.length - 1 ? modules[activeIndex + 1] : null;
+  const isComplete = activeModule ? (progressMap.get(activeModule.id) ?? false) : false;
+
+  useEffect(() => {
     if (typeof window === "undefined") return;
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement | null)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target as HTMLElement)?.isContentEditable) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === "ArrowRight" && next) { e.preventDefault(); setActive(next.slug); }
+      else if (e.key === "ArrowLeft" && prev) { e.preventDefault(); setActive(prev.slug); }
+      else if (e.key.toLowerCase() === "f") { e.preventDefault(); setFocusMode((v) => !v); }
+      else if (e.key.toLowerCase() === "m") { e.preventDefault(); setDrawerOpen((v) => !v); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [prev, next]);
+
+  const shareModule = async () => {
+    if (typeof window === "undefined" || !activeModule || !course) return;
     const url = window.location.href;
     const shareData = { title: `${course.title} — ${activeModule.title}`, text: activeModule.title, url };
     try {
@@ -214,29 +221,13 @@ function CourseLearnPage() {
 
   const cycleFont = () => {
     setFontScale((s) => {
-      const next = Number((s + 0.1).toFixed(2));
-      return next > 1.3 ? 0.9 : next;
+      const nextS = Number((s + 0.1).toFixed(2));
+      return nextS > 1.3 ? 0.9 : nextS;
     });
   };
 
-  // Atalhos de teclado — sem fricção
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const onKey = (e: KeyboardEvent) => {
-      const tag = (e.target as HTMLElement | null)?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target as HTMLElement)?.isContentEditable) return;
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      if (e.key === "ArrowRight" && next) { e.preventDefault(); setActive(next.slug); }
-      else if (e.key === "ArrowLeft" && prev) { e.preventDefault(); setActive(prev.slug); }
-      else if (e.key.toLowerCase() === "f") { e.preventDefault(); setFocusMode((v) => !v); }
-      else if (e.key.toLowerCase() === "m") { e.preventDefault(); setDrawerOpen((v) => !v); }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [prev, next]);
-
   const handleMarkComplete = () => {
-    if (isComplete || !userId) return;
+    if (isComplete || !userId || !activeModule) return;
     markComplete.mutate(activeModule, {
       onSuccess: () => {
         setJustCompleted(true);
@@ -245,6 +236,20 @@ function CourseLearnPage() {
       },
     });
   };
+
+  if (!data || !course) return null;
+  if (!hasAccess) {
+    return <Paywall course={course} />;
+  }
+  if (!activeModule) {
+    return (
+      <div className="mx-auto max-w-3xl px-6 py-20 text-center">
+        <h1 className="font-display text-2xl">Nenhum módulo disponível ainda.</h1>
+      </div>
+    );
+  }
+
+
 
 
   const ModuleList = (
