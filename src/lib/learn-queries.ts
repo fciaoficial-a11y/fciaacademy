@@ -18,7 +18,9 @@ export type ModuleRow = {
   intro_video_poster_path: string | null;
   pdf_path: string | null;
   pdf_file_name: string | null;
+  complementary_content: string | null;
 };
+
 
 
 
