@@ -38,9 +38,9 @@ export const TEMPLATE_OPTIONS: TemplateOption[] = [
   {
     key: "dark_premium_tech",
     name: "Dark Premium Tech",
-    tagline: "Holográfico · Cyan · Violeta",
+    tagline: "Credencial digital · Editorial · Neon quieto",
     description:
-      "Fundo midnight com grid, glow duplo e selo holográfico. Feito para credenciais digitais de IA — parece um passaporte cripto de alto padrão.",
+      "Midnight profundo com um único halo cyan fora do eixo, tipografia serifada para o nome e módulo de credencial integrado. Assinatura visual autoral, sem molduras, com respiro de produto digital premium.",
     vibe: "dark",
     accent: "#22d3ee",
   },
