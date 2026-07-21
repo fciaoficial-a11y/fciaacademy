@@ -19,6 +19,7 @@ import { WhatsAppFloat } from "../components/site/WhatsAppFloat";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeProvider, themeBootScript } from "@/lib/theme";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 
 function NotFoundComponent() {
@@ -179,7 +180,7 @@ function RootComponent() {
           {!hideChrome && <SiteHeader />}
           {canGoBack && (
             <div className="sticky top-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <div className="mx-auto flex max-w-7xl items-center px-4 py-2">
+              <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -195,6 +196,7 @@ function RootComponent() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                   Voltar
                 </button>
+                <ThemeToggle />
               </div>
             </div>
           )}

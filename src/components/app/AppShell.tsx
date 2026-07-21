@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { registerDailyLogin } from "@/lib/gamification";
 import { isAdminQuery } from "@/lib/admin-api";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -111,6 +112,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
           </nav>
 
+          <div className="flex items-center gap-1">
+          <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="gap-2 rounded-full px-2 hover:bg-white/5">
@@ -132,6 +135,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          </div>
         </div>
       </header>
 

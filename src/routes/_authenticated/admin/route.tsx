@@ -34,6 +34,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   beforeLoad: async () => {
@@ -176,6 +177,7 @@ function AdminLayout() {
           </div>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button asChild variant="ghost" size="sm" className="hidden gap-2 text-muted-foreground hover:text-foreground sm:inline-flex">
               <Link to="/dashboard">
                 <ExternalLink className="h-4 w-4" />
