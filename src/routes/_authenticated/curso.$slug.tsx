@@ -152,181 +152,373 @@ function CourseLearnPage() {
   const next = activeIndex < modules.length - 1 ? modules[activeIndex + 1] : null;
   const isComplete = progressMap.get(activeModule.id) ?? false;
 
-  return (
-    <div className="min-h-screen bg-background">
-    <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[320px_1fr] lg:px-6">
-      <aside className="lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto">
-        <div className="rounded-2xl border border-border bg-card p-5">
-          <Link
-            to="/cursos"
-            className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground"
+  // Preferências locais de leitura
+  const [fontScale, setFontScale] = useState<number>(1);
+  const [focusMode, setFocusMode] = useState<boolean>(false);
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const s = Number(window.localStorage.getItem("fcia-reader-scale"));
+    if (!Number.isNaN(s) && s >= 0.9 && s <= 1.3) setFontScale(s);
+    setFocusMode(window.localStorage.getItem("fcia-reader-focus") === "1");
+  }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined")
+      window.localStorage.setItem("fcia-reader-scale", String(fontScale));
+  }, [fontScale]);
+  useEffect(() => {
+    if (typeof window !== "undefined")
+      window.localStorage.setItem("fcia-reader-focus", focusMode ? "1" : "0");
+  }, [focusMode]);
+
+  // Sempre que trocar de módulo, sobe ao topo e fecha o drawer
+  useEffect(() => {
+    setDrawerOpen(false);
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeModule?.id]);
+
+  const shareModule = async () => {
+    if (typeof window === "undefined") return;
+    const url = window.location.href;
+    const shareData = { title: `${course.title} — ${activeModule.title}`, text: activeModule.title, url };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(url);
+        toast.success("Link copiado");
+      }
+    } catch {
+      /* usuário cancelou */
+    }
+  };
+
+  const cycleFont = () => {
+    setFontScale((s) => {
+      const next = Number((s + 0.1).toFixed(2));
+      return next > 1.3 ? 0.9 : next;
+    });
+  };
+
+  const ModuleList = (
+    <nav className="space-y-1">
+      {modules.map((m, i) => {
+        const done = progressMap.get(m.id) ?? false;
+        const active = m.id === activeModule.id;
+        return (
+          <button
+            key={m.id}
+            onClick={() => setActive(m.slug)}
+            className={cn(
+              "flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors",
+              active
+                ? "bg-primary/10 ring-1 ring-inset ring-primary/40"
+                : "hover:bg-muted/70",
+            )}
           >
-            <ArrowLeft className="h-3 w-3" /> Catálogo
-          </Link>
-          <h2 className="mt-3 font-display text-lg font-semibold leading-tight">{course.title}</h2>
-          <div className="mt-4 space-y-2">
-            <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>Progresso</span>
-              <span className="font-medium text-foreground">{percent}%</span>
+            {done ? (
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            ) : (
+              <Circle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+            )}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
+                <span>Módulo {i + 1}</span>
+                <ModuleTypeIcon type={m.content_type} />
+              </div>
+              <p
+                className={cn(
+                  "mt-0.5 truncate text-sm font-medium",
+                  active ? "text-foreground" : "text-foreground/80",
+                )}
+              >
+                {m.title}
+              </p>
+              <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
+                <Clock className="h-3 w-3" /> {m.duration_minutes} min
+              </p>
             </div>
-            <Progress value={percent} />
-            <p className="text-xs text-muted-foreground">
-              {completedCount} de {modules.length} módulos
-            </p>
-          </div>
+          </button>
+        );
+      })}
+    </nav>
+  );
 
-          <nav className="mt-6 space-y-1">
-            {modules.map((m, i) => {
-              const done = progressMap.get(m.id) ?? false;
-              const active = m.id === activeModule.id;
-              return (
-                <button
-                  key={m.id}
-                  onClick={() => setActive(m.slug)}
-                  className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
-                    active
-                      ? "bg-primary/10 ring-1 ring-inset ring-primary/40"
-                      : "hover:bg-white/5"
-                  }`}
-                >
-                  {done ? (
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                  ) : (
-                    <Circle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
-                      <span>Módulo {i + 1}</span>
-                      <ModuleTypeIcon type={m.content_type} />
-                    </div>
-                    <p
-                      className={`mt-0.5 truncate text-sm font-medium ${
-                        active ? "text-foreground" : "text-foreground/80"
-                      }`}
-                    >
-                      {m.title}
-                    </p>
-                    <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
-                      <Clock className="h-3 w-3" /> {m.duration_minutes} min
-                    </p>
-                  </div>
-                </button>
-              );
-            })}
-          </nav>
-        </div>
-      </aside>
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Top reader toolbar */}
+      <div className="sticky top-[41px] z-30 border-b border-border/60 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+        <div className="mx-auto flex max-w-7xl items-center gap-2 px-3 py-2 sm:px-6">
+          <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
+            <SheetTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="gap-1.5 rounded-full lg:hidden"
+                aria-label="Abrir lista de módulos"
+              >
+                <Menu className="h-4 w-4" />
+                <span className="text-xs">Módulos</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[86vw] max-w-sm overflow-y-auto p-5">
+              <SheetHeader>
+                <SheetTitle className="text-left font-display text-base leading-tight">
+                  {course.title}
+                </SheetTitle>
+              </SheetHeader>
+              <div className="mt-4 space-y-2">
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <span>Progresso</span>
+                  <span className="font-medium text-foreground">{percent}%</span>
+                </div>
+                <Progress value={percent} />
+                <p className="text-xs text-muted-foreground">
+                  {completedCount} de {modules.length} módulos
+                </p>
+              </div>
+              <div className="mt-5">{ModuleList}</div>
+            </SheetContent>
+          </Sheet>
 
-      <section className="min-w-0">
-        <header className="mb-6">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
-            <ModuleTypeIcon type={activeModule.content_type} />
-            <span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[11px] uppercase tracking-widest text-muted-foreground">
               Módulo {activeIndex + 1} de {modules.length}
-            </span>
+            </p>
+            <p className="truncate text-sm font-medium">{activeModule.title}</p>
           </div>
-          <h1 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">
-            {activeModule.title}
-          </h1>
-          {activeModule.description && (
-            <p className="mt-2 text-muted-foreground">{activeModule.description}</p>
-          )}
-        </header>
 
-        {activeModule.intro_video_path && (
-          <div className="mb-6">
-            <IntroVideoBlock moduleId={activeModule.id} title={activeModule.title} />
-          </div>
-        )}
-
-        <ModuleContent
-          module={activeModule}
-          course={course}
-          studentLabel={studentLabel}
-          completed={isComplete}
-          onComplete={() => {
-            if (!isComplete) markComplete.mutate(activeModule);
-          }}
-        />
-
-        {activeModule.content_type !== "pdf" && (
-          <div className="mt-6">
-            <ComplementaryPdf
-              module={activeModule}
-              course={course}
-              studentLabel={studentLabel}
-              completed={isComplete}
-              onComplete={() => {
-                if (!isComplete) markComplete.mutate(activeModule);
-              }}
-            />
-          </div>
-        )}
-
-
-        <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <Button
-              onClick={() => !isComplete && markComplete.mutate(activeModule)}
-              disabled={!userId || isComplete || markComplete.isPending}
-              variant={isComplete ? "secondary" : "default"}
-              className="rounded-full"
-            >
-              {isComplete ? (
-                <>
-                  <CheckCircle2 className="mr-2 h-4 w-4" /> Módulo concluído
-                </>
-              ) : (
-                "Marcar como concluído"
-              )}
-            </Button>
-
-            <div className="flex flex-wrap gap-2">
-              {eligibility.data?.quiz_unlocked ? (
-                <Button asChild variant="secondary" className="rounded-full">
-                  <Link to="/quiz/$moduleId" params={{ moduleId: activeModule.id }}>
-                    Fazer quiz final
-                  </Link>
-                </Button>
-              ) : (
-                <Button variant="secondary" className="rounded-full" disabled>
-                  <Lock className="mr-2 h-4 w-4" /> Quiz bloqueado
-                </Button>
-              )}
+          <div className="flex items-center gap-1">
+            <div className="hidden items-center gap-1 sm:flex">
               <Button
-                variant="outline"
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={cycleFont}
+                title={`Tamanho do texto (${Math.round(fontScale * 100)}%)`}
+                aria-label="Ajustar tamanho do texto"
                 className="rounded-full"
-                disabled={!prev}
-                onClick={() => prev && setActive(prev.slug)}
               >
-                <ArrowLeft className="mr-2 h-4 w-4" /> Anterior
+                <Type className="h-4 w-4" />
               </Button>
               <Button
-                variant="outline"
+                type="button"
+                variant={focusMode ? "secondary" : "ghost"}
+                size="icon"
+                onClick={() => setFocusMode((v) => !v)}
+                title={focusMode ? "Sair do modo foco" : "Modo foco"}
+                aria-label="Alternar modo foco"
                 className="rounded-full"
-                disabled={!next}
-                onClick={() => next && setActive(next.slug)}
               >
-                Próximo <ArrowRight className="ml-2 h-4 w-4" />
+                <Focus className="h-4 w-4" />
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={shareModule}
+                title="Compartilhar módulo"
+                aria-label="Compartilhar módulo"
+                className="rounded-full"
+              >
+                <Share2 className="h-4 w-4" />
               </Button>
             </div>
+            <ThemeToggle />
           </div>
-          {eligibility.data && !eligibility.data.quiz_unlocked && (
-            <p className="text-xs text-muted-foreground">
-              Conclua todos os módulos para liberar o quiz final ({eligibility.data.completed_required_modules}/{eligibility.data.total_required_modules} concluídos).
-            </p>
-          )}
-          {eligibility.data?.quiz_unlocked && completedCount === modules.length && (
-            <p className="text-xs text-primary">
-              Curso concluído. Seu quiz final foi liberado.
-            </p>
-          )}
         </div>
-      </section>
-    </div>
+
+        {/* Barra fina de progresso */}
+        <div className="h-0.5 w-full bg-transparent">
+          <div
+            className="h-full bg-primary transition-[width] duration-500"
+            style={{ width: `${percent}%` }}
+          />
+        </div>
+      </div>
+
+      <div
+        className={cn(
+          "mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:py-8 lg:px-6",
+          focusMode ? "lg:grid-cols-1" : "lg:grid-cols-[320px_1fr]",
+        )}
+      >
+        <aside
+          className={cn(
+            "hidden lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto",
+            focusMode ? "lg:hidden" : "lg:block",
+          )}
+        >
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <Link
+              to="/cursos"
+              className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="h-3 w-3" /> Catálogo
+            </Link>
+            <h2 className="mt-3 font-display text-lg font-semibold leading-tight">
+              {course.title}
+            </h2>
+            <div className="mt-4 space-y-2">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span>Progresso</span>
+                <span className="font-medium text-foreground">{percent}%</span>
+              </div>
+              <Progress value={percent} />
+              <p className="text-xs text-muted-foreground">
+                {completedCount} de {modules.length} módulos
+              </p>
+            </div>
+            <div className="mt-6">{ModuleList}</div>
+          </div>
+        </aside>
+
+        <section
+          className={cn("min-w-0", focusMode && "mx-auto w-full max-w-3xl")}
+          style={{ fontSize: `${fontScale}rem` }}
+        >
+          {/* Hero do módulo */}
+          <header className="relative mb-6 overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/[0.08] via-card to-accent/[0.06] p-6 sm:p-8">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl"
+            />
+            <div className="relative">
+              <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-widest text-muted-foreground">
+                <span className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-background/60 px-2 py-0.5">
+                  <ModuleTypeIcon type={activeModule.content_type} />
+                  {activeModule.content_type === "video"
+                    ? "Vídeo"
+                    : activeModule.content_type === "pdf"
+                      ? "PDF"
+                      : "Leitura"}
+                </span>
+                <span>Módulo {activeIndex + 1} de {modules.length}</span>
+                <span className="inline-flex items-center gap-1">
+                  <Clock className="h-3 w-3" /> {activeModule.duration_minutes} min
+                </span>
+              </div>
+              <h1 className="mt-3 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+                {activeModule.title}
+              </h1>
+              {activeModule.description && (
+                <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
+                  {activeModule.description}
+                </p>
+              )}
+            </div>
+          </header>
+
+          {activeModule.intro_video_path && (
+            <div className="mb-6">
+              <IntroVideoBlock moduleId={activeModule.id} title={activeModule.title} />
+            </div>
+          )}
+
+          <ModuleContent
+            module={activeModule}
+            course={course}
+            studentLabel={studentLabel}
+            completed={isComplete}
+            onComplete={() => {
+              if (!isComplete) markComplete.mutate(activeModule);
+            }}
+          />
+
+          {activeModule.content_type !== "pdf" && (
+            <div className="mt-6">
+              <ComplementaryPdf
+                module={activeModule}
+                course={course}
+                studentLabel={studentLabel}
+                completed={isComplete}
+                onComplete={() => {
+                  if (!isComplete) markComplete.mutate(activeModule);
+                }}
+              />
+            </div>
+          )}
+
+          {/* Barra de ação — sticky no mobile */}
+          <div className="mt-8 sticky bottom-3 z-20 space-y-3 rounded-2xl border border-border bg-card/95 p-3 sm:p-4 shadow-lg backdrop-blur">
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
+              <Button
+                onClick={() => !isComplete && markComplete.mutate(activeModule)}
+                disabled={!userId || isComplete || markComplete.isPending}
+                variant={isComplete ? "secondary" : "default"}
+                className="col-span-2 rounded-full sm:col-span-1"
+              >
+                {isComplete ? (
+                  <>
+                    <CheckCircle2 className="mr-2 h-4 w-4" /> Concluído
+                  </>
+                ) : (
+                  "Marcar concluído"
+                )}
+              </Button>
+
+              <div className="col-span-2 flex flex-wrap gap-2 sm:col-span-1">
+                {eligibility.data?.quiz_unlocked ? (
+                  <Button asChild variant="secondary" className="rounded-full">
+                    <Link to="/quiz/$moduleId" params={{ moduleId: activeModule.id }}>
+                      Fazer quiz final
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button variant="secondary" className="rounded-full" disabled>
+                    <Lock className="mr-2 h-4 w-4" /> Quiz bloqueado
+                  </Button>
+                )}
+                <Button
+                  variant="outline"
+                  className="rounded-full"
+                  disabled={!prev}
+                  onClick={() => prev && setActive(prev.slug)}
+                >
+                  <ArrowLeft className="mr-1.5 h-4 w-4" /> Anterior
+                </Button>
+                <Button
+                  variant="outline"
+                  className="rounded-full"
+                  disabled={!next}
+                  onClick={() => next && setActive(next.slug)}
+                >
+                  Próximo <ArrowRight className="ml-1.5 h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full"
+                  aria-label="Voltar ao topo"
+                  onClick={() =>
+                    typeof window !== "undefined" && window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
+                >
+                  <ArrowUpToLine className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+            {eligibility.data && !eligibility.data.quiz_unlocked && (
+              <p className="text-xs text-muted-foreground">
+                Conclua todos os módulos para liberar o quiz final ({eligibility.data.completed_required_modules}/{eligibility.data.total_required_modules} concluídos).
+              </p>
+            )}
+            {eligibility.data?.quiz_unlocked && completedCount === modules.length && (
+              <p className="text-xs text-primary">Curso concluído. Seu quiz final foi liberado.</p>
+            )}
+          </div>
+
+          <footer className="mt-10 border-t border-border/60 pt-6 text-center text-xs text-muted-foreground">
+            FCIA Academy
+          </footer>
+        </section>
+      </div>
     </div>
   );
 }
+
 
 function ModuleTypeIcon({ type }: { type: ModuleRow["content_type"] }) {
   if (type === "video") return <PlayCircle className="h-3.5 w-3.5" />;
