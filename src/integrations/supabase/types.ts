@@ -165,6 +165,7 @@ export type Database = {
           created_at: string
           description: string
           duration_minutes: number
+          full_pdf_path: string | null
           id: string
           is_free: boolean
           is_published: boolean
@@ -184,6 +185,7 @@ export type Database = {
           created_at?: string
           description: string
           duration_minutes?: number
+          full_pdf_path?: string | null
           id?: string
           is_free?: boolean
           is_published?: boolean
@@ -203,6 +205,7 @@ export type Database = {
           created_at?: string
           description?: string
           duration_minutes?: number
+          full_pdf_path?: string | null
           id?: string
           is_free?: boolean
           is_published?: boolean
@@ -356,6 +359,7 @@ export type Database = {
       }
       modules: {
         Row: {
+          complementary_content: string | null
           content_text: string | null
           content_type: string
           content_url: string | null
@@ -381,6 +385,7 @@ export type Database = {
           video_url: string | null
         }
         Insert: {
+          complementary_content?: string | null
           content_text?: string | null
           content_type?: string
           content_url?: string | null
@@ -406,6 +411,7 @@ export type Database = {
           video_url?: string | null
         }
         Update: {
+          complementary_content?: string | null
           content_text?: string | null
           content_type?: string
           content_url?: string | null
