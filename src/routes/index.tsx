@@ -270,7 +270,7 @@ function Index() {
 
       {/* ============ CURSO EM DESTAQUE ============ */}
       <section id="curso-destaque" className="border-t border-white/5 bg-surface/30 py-14 sm:py-20">
-        <div className="mx-auto max-w-5xl px-6">
+        <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
               Comece por aqui
@@ -280,14 +280,14 @@ function Index() {
             </h2>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-10">
             {featured.isLoading ? (
-              <div className="grid gap-6 lg:grid-cols-2">
-                <div className="h-56 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
-                <div className="h-56 animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
               </div>
             ) : courses.length > 0 ? (
-              <div className="grid gap-6 lg:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2">
                 {courses.map((c) => (
                   <FeaturedCourseCard key={c.id} course={c} />
                 ))}
