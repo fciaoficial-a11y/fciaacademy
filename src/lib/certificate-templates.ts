@@ -116,9 +116,6 @@ function drawCentered(
     size,
     font,
     color: rgb(color.r, color.g, color.b),
-    ...(opts.characterSpacing
-      ? { characterSpacing: opts.characterSpacing }
-      : {}),
   });
 }
 
@@ -220,7 +217,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     font: helvBold,
     color: rgb(1, 1, 1),
     rotate: degrees(90),
-    characterSpacing: 4,
   });
   page.drawText("CERTIFICATE · DIGITAL CREDENTIAL", {
     x: 46,
@@ -229,7 +225,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     font: mono,
     color: rgb(0.7, 0.78, 0.95),
     rotate: degrees(90),
-    characterSpacing: 2,
   });
 
   // Content area
@@ -245,7 +240,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 7,
     font: monoBold,
     color: rgb(mute.r, mute.g, mute.b),
-    characterSpacing: 1,
   });
   page.drawText(ctx.validationCode, {
     x: cx + 18,
@@ -253,7 +247,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 9,
     font: monoBold,
     color: rgb(navy.r, navy.g, navy.b),
-    characterSpacing: 1.2,
   });
   const trackTxt = ctx.trackTitle
     ? `TRACK · ${ctx.trackTitle.toUpperCase()}`
@@ -265,7 +258,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 8,
     font: helvBold,
     color: rgb(mute.r, mute.g, mute.b),
-    characterSpacing: 2,
   });
 
   // Cyan tick
@@ -285,7 +277,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 9,
     font: helvBold,
     color: rgb(cyan.r, cyan.g, cyan.b),
-    characterSpacing: 4,
   });
   cy -= 14;
   page.drawText(ctx.certificateTitle.toUpperCase(), {
@@ -294,7 +285,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 11,
     font: helv,
     color: rgb(mute.r, mute.g, mute.b),
-    characterSpacing: 2,
   });
 
   // Student name — serif, huge, auto-fit
@@ -356,7 +346,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
       size: 7,
       font: monoBold,
       color: rgb(mute.r, mute.g, mute.b),
-      characterSpacing: 1.5,
     });
     page.drawText(value, {
       x,
@@ -364,7 +353,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
       size: 11,
       font: monoBold,
       color: rgb(navy.r, navy.g, navy.b),
-      characterSpacing: 0.8,
     });
   });
 
@@ -390,7 +378,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 8,
     font: helvOblique,
     color: rgb(mute.r, mute.g, mute.b),
-    characterSpacing: 0.5,
   });
 
   // QR module — bottom-right, clean frame
@@ -437,7 +424,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 7,
     font: monoBold,
     color: rgb(mute.r, mute.g, mute.b),
-    characterSpacing: 2,
   });
   page.drawText(ctx.validationCode, {
     x: qrX,
@@ -445,7 +431,6 @@ async function renderExecutiveTech(ctx: RenderContext): Promise<Uint8Array> {
     size: 8,
     font: monoBold,
     color: rgb(navy.r, navy.g, navy.b),
-    characterSpacing: 1.2,
   });
 
   // Legal footer — very small, italic, right-aligned near bottom edge
@@ -577,7 +562,6 @@ async function renderDarkPremiumTech(
     size: 11,
     font: helvBold,
     color: rgb(cyan.r, cyan.g, cyan.b),
-    characterSpacing: 4,
   });
   page.drawText("· DIGITAL CREDENTIAL", {
     x: 72 + helvBold.widthOfTextAtSize(ctx.institutionName.toUpperCase(), 11) + 8,
@@ -585,7 +569,6 @@ async function renderDarkPremiumTech(
     size: 8,
     font: helv,
     color: rgb(muted.r, muted.g, muted.b),
-    characterSpacing: 3,
   });
 
   const credLabel = `ID · ${ctx.validationCode}`;
@@ -596,18 +579,13 @@ async function renderDarkPremiumTech(
     size: 9,
     font: monoBold,
     color: rgb(text.r, text.g, text.b),
-    characterSpacing: 1.6,
   });
 
   // Eyebrow
-  drawCentered(page, "OFFICIALLY ISSUED · VERIFIED ON-CHAIN VIA FCIA.ID", height - 128, mono, 7.5, muted, {
-    characterSpacing: 3,
-  });
+  drawCentered(page, "OFFICIALLY ISSUED · VERIFIED ON-CHAIN VIA FCIA.ID", height - 128, mono, 7.5, muted);
 
   // Title (H1)
-  drawCentered(page, ctx.certificateTitle.toUpperCase(), height - 168, helvBold, 22, text, {
-    characterSpacing: 6,
-  });
+  drawCentered(page, ctx.certificateTitle.toUpperCase(), height - 168, helvBold, 22, text);
 
   // Cyan divider under title
   const dividerW = 60;
@@ -675,7 +653,6 @@ async function renderDarkPremiumTech(
       size: 7,
       font: monoBold,
       color: rgb(muted.r, muted.g, muted.b),
-      characterSpacing: 2,
     });
     page.drawText(value, {
       x: chipX + 12,
@@ -683,7 +660,6 @@ async function renderDarkPremiumTech(
       size: 11,
       font: monoBold,
       color: rgb(text.r, text.g, text.b),
-      characterSpacing: 0.8,
     });
     chipX += chipW + 16;
   }
@@ -752,7 +728,6 @@ async function renderDarkPremiumTech(
     size: 7,
     font: monoBold,
     color: rgb(cyan.r, cyan.g, cyan.b),
-    characterSpacing: 2,
   });
 
   // Legal footer
@@ -853,9 +828,7 @@ async function renderEditorialPrestige(
   orn(width - 42, height - 42);
 
   // Header
-  drawCentered(page, ctx.institutionName.toUpperCase(), height - 88, helvBold, 10, ink, {
-    characterSpacing: 6,
-  });
+  drawCentered(page, ctx.institutionName.toUpperCase(), height - 88, helvBold, 10, ink);
   // small gold divider
   const dW = 42;
   page.drawRectangle({
@@ -876,16 +849,13 @@ async function renderEditorialPrestige(
     font: times,
     color: rgb(gold.r, gold.g, gold.b),
     opacity: 0.55,
-    characterSpacing: 4,
   });
 
   // Title
   drawCentered(page, ctx.certificateTitle, height - 152, times, 32, ink);
 
   // "This is to certify that"
-  drawCentered(page, "· concedido a ·", height - 188, timesItalic, 11, muted, {
-    characterSpacing: 4,
-  });
+  drawCentered(page, "· concedido a ·", height - 188, timesItalic, 11, muted);
 
   // Student name — serif bold, big
   const nameSize = fitName(ctx.studentName, timesBold, 34, width - 220, 22);
@@ -929,9 +899,7 @@ async function renderEditorialPrestige(
     color: rgb(ink.r, ink.g, ink.b),
   });
   drawCentered(page, ctx.issuerName, 138, timesBold, 13, ink);
-  drawCentered(page, ctx.issuerRole.toUpperCase(), 124, helv, 8, muted, {
-    characterSpacing: 3,
-  });
+  drawCentered(page, ctx.issuerRole.toUpperCase(), 124, helv, 8, muted);
 
   // Left column — Code (monospaced) + date
   page.drawText("CÓDIGO", {
@@ -940,7 +908,6 @@ async function renderEditorialPrestige(
     size: 7,
     font: helvBold,
     color: rgb(muted.r, muted.g, muted.b),
-    characterSpacing: 3,
   });
   page.drawText(ctx.validationCode, {
     x: 78,
@@ -948,7 +915,6 @@ async function renderEditorialPrestige(
     size: 10,
     font: mono,
     color: rgb(ink.r, ink.g, ink.b),
-    characterSpacing: 1.2,
   });
   page.drawText("EMISSÃO", {
     x: 78,
@@ -956,7 +922,6 @@ async function renderEditorialPrestige(
     size: 7,
     font: helvBold,
     color: rgb(muted.r, muted.g, muted.b),
-    characterSpacing: 3,
   });
   page.drawText(ctx.issuedDate, {
     x: 78,
@@ -978,7 +943,6 @@ async function renderEditorialPrestige(
     size: 7,
     font: helvBold,
     color: rgb(gold.r, gold.g, gold.b),
-    characterSpacing: 3,
   });
 
   // Legal footer, very fine
