@@ -520,6 +520,16 @@ function CourseLearnPage() {
               onComplete={handleMarkComplete}
             />
 
+            {activeModule.complementary_content?.trim() && (
+              <section className="mt-10">
+                <div className="mb-4 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                  <span className="h-px w-8 bg-border" />
+                  Material complementar
+                </div>
+                <ModuleArticle markdown={activeModule.complementary_content} />
+              </section>
+            )}
+
             {activeModule.content_type !== "pdf" && (
               <div className="mt-6">
                 <ComplementaryPdf
@@ -531,6 +541,7 @@ function CourseLearnPage() {
                 />
               </div>
             )}
+
           </div>
 
           {/* Próximo módulo — convite calmo ao avanço */}
