@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-ro
 import { useMutation, useQuery, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   ArrowLeft,
   ArrowRight,
@@ -238,6 +240,20 @@ function CourseLearnPage() {
           }}
         />
 
+        {activeModule.content_type !== "pdf" && (
+          <div className="mt-6">
+            <ComplementaryPdf
+              module={activeModule}
+              course={course}
+              studentLabel={studentLabel}
+              completed={isComplete}
+              onComplete={() => {
+                if (!isComplete) markComplete.mutate(activeModule);
+              }}
+            />
+          </div>
+        )}
+
 
         <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -353,17 +369,65 @@ function ModuleContent({
     );
   }
   if (mod.content_type === "text") {
+    const md = mod.content_text?.trim();
+    if (!md) {
+      return (
+        <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center text-sm text-muted-foreground">
+          O conteúdo principal deste módulo será publicado em breve.
+        </div>
+      );
+    }
     return (
-      <article className="prose prose-invert max-w-none rounded-2xl border border-border bg-card p-8">
-        <pre className="whitespace-pre-wrap font-sans text-base leading-relaxed text-foreground">
-          {mod.content_text ?? "Sem conteúdo."}
-        </pre>
+      <article className="prose prose-invert max-w-none rounded-2xl border border-border bg-card p-8 prose-headings:font-display prose-headings:font-semibold prose-a:text-primary">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{md}</ReactMarkdown>
       </article>
     );
   }
   return (
     <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center text-muted-foreground">
       Conteúdo indisponível.
+    </div>
+  );
+}
+
+function ComplementaryPdf({
+  module: mod,
+  course,
+  studentLabel,
+  completed,
+  onComplete,
+}: {
+  module: ModuleRow;
+  course: CourseDetail;
+  studentLabel: string;
+  completed: boolean;
+  onComplete: () => void;
+}) {
+  if (!mod.pdf_path) {
+    return (
+      <div className="rounded-2xl border border-dashed border-border/70 bg-card/60 p-6 text-center">
+        <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground">
+          <FileText className="h-5 w-5" />
+        </div>
+        <p className="mt-3 text-xs uppercase tracking-widest text-muted-foreground">Material complementar</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          O PDF de apoio deste módulo será adicionado em breve.
+        </p>
+      </div>
+    );
+  }
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
+        <FileText className="h-3.5 w-3.5" /> Material complementar (PDF)
+      </div>
+      <SecurePdfModule
+        moduleId={mod.id}
+        studentLabel={studentLabel}
+        allowDownload={course.allow_pdf_download}
+        completed={completed}
+        onComplete={onComplete}
+      />
     </div>
   );
 }
