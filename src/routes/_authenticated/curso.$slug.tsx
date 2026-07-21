@@ -437,7 +437,11 @@ function CourseLearnPage() {
                 {completedCount} de {modules.length} módulos
               </p>
             </div>
+            {course.full_pdf_path && (
+              <FullPdfDownload path={course.full_pdf_path} title={course.title} />
+            )}
           </div>
+
           <div className="mt-6 border-t border-border/50 pt-4">
             <p className="mb-2 px-4 text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/60">
               Módulos
@@ -516,6 +520,16 @@ function CourseLearnPage() {
               onComplete={handleMarkComplete}
             />
 
+            {activeModule.complementary_content?.trim() && (
+              <section className="mt-10">
+                <div className="mb-4 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                  <span className="h-px w-8 bg-border" />
+                  Material complementar
+                </div>
+                <ModuleArticle markdown={activeModule.complementary_content} />
+              </section>
+            )}
+
             {activeModule.content_type !== "pdf" && (
               <div className="mt-6">
                 <ComplementaryPdf
@@ -527,6 +541,7 @@ function CourseLearnPage() {
                 />
               </div>
             )}
+
           </div>
 
           {/* Próximo módulo — convite calmo ao avanço */}
@@ -955,4 +970,38 @@ function Paywall({
 }
 
 
+
+function FullPdfDownload({ path, title }: { path: string; title: string }) {
+  const [loading, setLoading] = useState(false);
+  async function handle() {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.storage
+        .from("course-assets")
+        .createSignedUrl(path, 300);
+      if (error || !data?.signedUrl) throw error ?? new Error("Falha ao gerar link");
+      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+    } catch (e) {
+      toast.error((e as Error).message || "Não foi possível baixar o PDF");
+    } finally {
+      setLoading(false);
+    }
+  }
+  return (
+    <div className="mx-4 mt-5 rounded-xl border border-border/60 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-3">
+      <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+        E-book completo
+      </p>
+      <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-foreground/80">{title}</p>
+      <button
+        type="button"
+        onClick={handle}
+        disabled={loading}
+        className="mt-2 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-primary/90 px-2.5 py-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-primary-foreground transition hover:bg-primary disabled:opacity-60"
+      >
+        {loading ? "Gerando link…" : "Baixar PDF"}
+      </button>
+    </div>
+  );
+}
 
