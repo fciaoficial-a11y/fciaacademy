@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, LayoutDashboard } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 import { useAuth } from "@/lib/use-auth";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const nav = [
   { to: "/trilhas", label: "Trilhas" },
