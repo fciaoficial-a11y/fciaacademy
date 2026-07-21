@@ -16,6 +16,8 @@ export type ModuleRow = {
   intro_video_path: string | null;
   intro_video_duration_seconds: number | null;
   intro_video_poster_path: string | null;
+  pdf_path: string | null;
+  pdf_file_name: string | null;
 };
 
 
@@ -73,7 +75,7 @@ export function courseLearnQuery(slug: string) {
       const { data: modules, error: mErr } = await supabase
         .from("modules")
         .select(
-          "id, course_id, slug, title, description, content_type, content_url, content_text, video_url, duration_minutes, sort_order, intro_video_path, intro_video_duration_seconds, intro_video_poster_path"
+          "id, course_id, slug, title, description, content_type, content_url, content_text, video_url, duration_minutes, sort_order, intro_video_path, intro_video_duration_seconds, intro_video_poster_path, pdf_path, pdf_file_name"
         )
 
         .eq("course_id", course.id)
