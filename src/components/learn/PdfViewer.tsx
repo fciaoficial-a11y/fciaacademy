@@ -85,10 +85,9 @@ export function PdfViewer({
   const goPrev = () => setPageNumber((p) => Math.max(1, p - 1));
   const goNext = () => setPageNumber((p) => Math.min(numPages || 1, p + 1));
 
-  const watermark = useMemo(
-    () => `${studentLabel} · ${new Date().toLocaleDateString("pt-BR")}`,
-    [studentLabel]
-  );
+  // Padrão FCIA: marca institucional apenas, sem dados pessoais ou data.
+  void studentLabel;
+  const watermark = "FCIA Academy";
 
   const pdfOptions = useMemo(
     () => ({ cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`, cMapPacked: true }),

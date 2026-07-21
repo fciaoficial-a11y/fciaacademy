@@ -2,8 +2,7 @@ import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-ro
 import { useMutation, useQuery, useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { ModuleArticle } from "@/components/learn/ModuleArticle";
 import {
   ArrowLeft,
   ArrowRight,
@@ -145,6 +144,7 @@ function CourseLearnPage() {
   const isComplete = progressMap.get(activeModule.id) ?? false;
 
   return (
+    <div className="min-h-screen bg-background">
     <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[320px_1fr] lg:px-6">
       <aside className="lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] lg:overflow-y-auto">
         <div className="rounded-2xl border border-border bg-card p-5">
@@ -315,6 +315,7 @@ function CourseLearnPage() {
         </div>
       </section>
     </div>
+    </div>
   );
 }
 
@@ -377,11 +378,7 @@ function ModuleContent({
         </div>
       );
     }
-    return (
-      <article className="prose prose-invert max-w-none rounded-2xl border border-border bg-card p-8 prose-headings:font-display prose-headings:font-semibold prose-a:text-primary">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{md}</ReactMarkdown>
-      </article>
-    );
+    return <ModuleArticle markdown={md} />;
   }
   return (
     <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center text-muted-foreground">
