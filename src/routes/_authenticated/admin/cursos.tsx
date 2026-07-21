@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Eye, EyeOff, Pencil, Plus, Trash2, Upload } from "lucide-react";
+import { ExternalLink, Eye, EyeOff, Pencil, Plus, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -105,11 +105,20 @@ function AdminCoursesPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right">
-                  <Button variant="ghost" size="icon" onClick={() => togglePub.mutate(c)}>
+                  <Button variant="ghost" size="icon" onClick={() => togglePub.mutate(c)} title={c.is_published ? "Despublicar" : "Publicar"}>
                     {c.is_published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </Button>
-                  <Button variant="ghost" size="icon" onClick={() => { setEditing(c); setOpen(true); }}><Pencil className="h-4 w-4" /></Button>
-                  <Button variant="ghost" size="icon" onClick={() => { if (confirm(`Excluir "${c.title}"?`)) del.mutate(c.id); }}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => window.open(`/curso/${c.slug}`, "_blank", "noopener,noreferrer")}
+                    title="Ver curso"
+                    aria-label="Ver curso"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" onClick={() => { setEditing(c); setOpen(true); }} title="Editar"><Pencil className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="icon" onClick={() => { if (confirm(`Excluir "${c.title}"?`)) del.mutate(c.id); }} title="Excluir">
                     <Trash2 className="h-4 w-4 text-destructive" />
                   </Button>
                 </td>
