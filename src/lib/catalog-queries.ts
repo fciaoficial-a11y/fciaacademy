@@ -22,11 +22,14 @@ export type CourseRow = {
   title: string;
   description: string;
   duration_minutes: number;
+  workload_hours: number;
   level: string;
   cover_url: string | null;
   sort_order: number;
   price: number | null;
+  is_free: boolean;
 };
+
 
 export const tracksQuery = queryOptions({
   queryKey: ["tracks"],
