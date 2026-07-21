@@ -142,14 +142,14 @@ function CursosPage() {
                       <span
                         className={
                           "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium " +
-                          (!c.price || Number(c.price) === 0
+                          (c.is_free
                             ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                             : "bg-primary/10 text-primary")
                         }
                       >
-                        {!c.price || Number(c.price) === 0
+                        {c.is_free
                           ? "Gratuito"
-                          : `R$ ${Number(c.price).toFixed(2).replace(".", ",")}`}
+                          : `R$ ${Number(c.price ?? 0).toFixed(2).replace(".", ",")}`}
                       </span>
                     </div>
                     <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
@@ -158,8 +158,9 @@ function CursosPage() {
                     <div className="mt-auto flex items-center justify-between pt-5 text-xs text-muted-foreground">
                       <span className="inline-flex items-center gap-1">
                         <Clock className="h-3.5 w-3.5" />
-                        {Math.round(c.duration_minutes / 60)}h · {c.level}
+                        {c.workload_hours > 0 ? `${c.workload_hours}h` : `${Math.round(c.duration_minutes / 60)}h`} · {c.level}
                       </span>
+
                       <span className="inline-flex items-center gap-1 text-foreground">
                         Ver curso <ArrowUpRight className="h-3.5 w-3.5" />
                       </span>
