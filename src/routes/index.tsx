@@ -32,7 +32,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Comece pelo curso Fundamentos de IA para Profissionais: gratuito, com certificado ao concluir.",
+          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
