@@ -985,7 +985,20 @@ function FullPdfDownload({ path, title }: { path: string; title: string }) {
         .from("course-assets")
         .createSignedUrl(path, 300);
       if (error || !data?.signedUrl) throw error ?? new Error("Falha ao gerar link");
-      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+      // Baixa via blob para evitar que navegadores (ex.: Edge/SmartScreen)
+      // bloqueiem o domínio de storage ao abrir a URL diretamente.
+      const resp = await fetch(data.signedUrl);
+      if (!resp.ok) throw new Error("Falha ao baixar o PDF");
+      const blob = await resp.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const safeName = (title || "ebook").replace(/[^\w-]+/g, "_").toLowerCase();
+      const a = document.createElement("a");
+      a.href = objectUrl;
+      a.download = `${safeName}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
     } catch (e) {
       toast.error((e as Error).message || "Não foi possível baixar o PDF");
     } finally {
