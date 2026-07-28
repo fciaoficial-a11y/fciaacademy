@@ -185,7 +185,7 @@ function priceLabel(price: number | null | undefined): string {
 function Index() {
   const featured = useQuery(featuredCoursesQuery);
   const courses = featured.data ?? [];
-  const primaryHref = courses[0] ? `/curso/${courses[0].slug}` : "/cursos";
+  const primaryHref = courses[0] ? `/curso/${courses[0].slug}/oferta` : "/cursos";
 
   return (
     <>
@@ -449,8 +449,8 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
           <span className="font-display text-lg font-semibold text-accent">
             {priceLabel(course.price)}
           </span>
-          <PrimaryCTA to={`/curso/${course.slug}`} className="h-11 px-6 text-sm">
-            Acessar curso
+          <PrimaryCTA to={`/curso/${course.slug}/oferta`} className="h-11 px-6 text-sm">
+            Ver detalhes
           </PrimaryCTA>
         </div>
       </div>
