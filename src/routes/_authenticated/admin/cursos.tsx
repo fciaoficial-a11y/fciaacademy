@@ -188,9 +188,43 @@ function AdminCoursesPage() {
                 </td>
                 <td className="px-4 py-3">{c.workload_hours}h</td>
                 <td className="px-4 py-3">
-                  <span className={`rounded-full px-2 py-0.5 text-xs ${c.is_published ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"}`}>
-                    {c.is_published ? "Publicado" : "Rascunho"}
-                  </span>
+                  {(() => {
+                    const count = publishedModulesByCourse.get(c.id) ?? 0;
+                    const check = checkPublishReadiness({
+                      slug: c.slug,
+                      title: c.title,
+                      description: c.description,
+                      price: c.price,
+                      is_free: c.is_free,
+                      workload_hours: c.workload_hours,
+                      cover_url: c.cover_url,
+                      publishedModulesCount: count,
+                    });
+                    if (c.is_published) {
+                      return (
+                        <span className="rounded-full bg-primary/15 px-2 py-0.5 text-xs text-primary">Publicado</span>
+                      );
+                    }
+                    if (check.canPublish) {
+                      return (
+                        <span
+                          className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-400"
+                          title="Todos os itens do checklist estão prontos."
+                        >
+                          Pronto para publicar
+                        </span>
+                      );
+                    }
+                    const n = check.missing.length;
+                    return (
+                      <span
+                        className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs text-amber-400"
+                        title={summarizeMissing(check)}
+                      >
+                        Rascunho — falta {n} {n === 1 ? "item" : "itens"}
+                      </span>
+                    );
+                  })()}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <Button variant="ghost" size="icon" onClick={() => togglePub.mutate(c)} title={c.is_published ? "Despublicar" : "Publicar"}>
