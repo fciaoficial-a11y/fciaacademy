@@ -520,6 +520,7 @@ export interface ResolvedCourseTemplate {
   method: CourseMethodCopy | null;
   transformation: CourseTransformationCopy | null;
   bonuses: CourseBonusesCopy | null;
+  valueStack: CourseValueStackCopy | null;
 }
 
 interface ResolveArgs {
