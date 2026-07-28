@@ -397,7 +397,83 @@ function OfferPage() {
         </section>
       )}
 
+      {/* ============ VALUE STACK / ANCORAGEM ============ */}
+      {valueStack && (
+        <section className="border-b border-border/60 bg-gradient-to-b from-transparent to-primary/5">
+          <div className="mx-auto max-w-3xl px-4 py-12 md:py-16">
+            <div className="text-center">
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
+                O que entra no pacote
+              </span>
+              <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl md:text-4xl">
+                {valueStack.title}
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground">
+                {valueStack.intro}
+              </p>
+            </div>
+
+            <ul className="mt-8 divide-y divide-border/60 rounded-2xl border border-border/60 bg-card/40">
+              {valueStack.items.map((item, i) => (
+                <li key={i} className="flex items-start justify-between gap-4 px-4 py-4 sm:px-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <div>
+                      <p className="font-medium leading-snug">{item.label}</p>
+                      {item.note && (
+                        <p className="mt-0.5 text-xs text-muted-foreground">{item.note}</p>
+                      )}
+                    </div>
+                  </div>
+                  <span className="whitespace-nowrap text-sm font-semibold text-muted-foreground">
+                    {item.value}
+                  </span>
+                </li>
+              ))}
+              <li className="flex items-center justify-between gap-4 rounded-b-2xl bg-primary/10 px-4 py-4 sm:px-6">
+                <span className="text-sm font-medium uppercase tracking-wider text-primary">
+                  Total
+                </span>
+                <span className="font-display text-lg font-bold text-primary">
+                  {valueStack.totalLabel}
+                </span>
+              </li>
+            </ul>
+
+            <p className="mt-8 text-center text-base text-muted-foreground">
+              {valueStack.transition}
+            </p>
+
+            <div className="mt-6 flex flex-col items-center gap-2">
+              <span className="font-display text-5xl font-bold tracking-tight text-primary sm:text-6xl">
+                {valueStack.priceHighlight}
+              </span>
+              <span className="text-sm text-muted-foreground">{valueStack.priceCaption}</span>
+            </div>
+
+            <div className="mt-8 flex flex-col items-center gap-3">
+              <Button
+                size="lg"
+                className="w-full max-w-sm text-base"
+                onClick={() => setShowCheckout(true)}
+                disabled={alreadyOwns}
+              >
+                {alreadyOwns ? "Você já tem acesso a este curso" : valueStack.ctaLabel}
+              </Button>
+              <p className="text-center text-xs text-muted-foreground">
+                {valueStack.riskNote}
+              </p>
+            </div>
+
+            <p className="mx-auto mt-10 max-w-2xl border-t border-border/60 pt-6 text-center font-display text-base italic text-foreground/90 sm:text-lg">
+              {valueStack.closing}
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* ============ OFERTA ============ */}
+
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
           <div className="rounded-3xl border border-primary/30 bg-gradient-to-b from-primary/10 to-card/40 p-6 shadow-xl shadow-primary/5 md:p-10">
