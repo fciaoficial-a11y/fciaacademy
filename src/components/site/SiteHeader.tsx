@@ -59,7 +59,7 @@ export function SiteHeader() {
               </Link>
               <Link
                 to="/register"
-                className="group relative inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 text-[13.5px] font-semibold text-primary-foreground ring-glow transition-all hover:-translate-y-0.5"
+                className="group relative inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-gradient-to-r from-primary to-accent px-3 py-2 text-[13.5px] font-semibold text-primary-foreground ring-glow transition-all hover:-translate-y-0.5 sm:px-4"
               >
                 Criar conta
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
