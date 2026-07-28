@@ -678,6 +678,8 @@ export function resolveCourseTemplate({
     bonuses: override.bonuses ?? null,
     valueStack: override.valueStack ?? null,
     authority: override.authority ?? null,
+    guarantee: override.guarantee ?? null,
+    finalCta: override.finalCta ?? null,
   };
 }
 
