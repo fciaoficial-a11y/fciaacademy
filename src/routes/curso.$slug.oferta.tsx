@@ -216,7 +216,7 @@ function OfferPage() {
                   </span>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  “Aprendi na prática o que ninguém ensina no curso comum. Aqui eu entrego atalho.”
+                  “{hero.professorQuote}”
                 </p>
               </div>
             </div>
