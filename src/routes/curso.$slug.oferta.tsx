@@ -20,6 +20,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/use-auth";
 import { enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
+import { PostPurchaseUpsell } from "@/components/payments/PostPurchaseUpsell";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
