@@ -163,8 +163,8 @@ export function PostPurchaseUpsell({ purchasedSlug }: PostPurchaseUpsellProps) {
                 <Link
                   to="/curso/$slug/oferta"
                   params={{ slug: target.slug }}
-                  search={{ ref: "upsell" }}
                 >
+
                   {config.cta}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
