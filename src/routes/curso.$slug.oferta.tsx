@@ -303,6 +303,14 @@ function OfferPage() {
   const audience = getAudienceForCourse(course.slug);
   const testimonials = getTestimonialsForCourse(course.slug);
 
+  const { v: variantOverride } = Route.useSearch();
+  const variant = resolveOfferVariant(course.slug, variantOverride);
+  const priceCopy = buildPriceAnchor(
+    variant,
+    { price, anchorPrice, installment12, perDay },
+    formatBRL,
+  );
+
   const heroImageUrl =
     course.cover_url ?? "/__l5e/assets-v1/placeholder/course-cover.jpg";
 
