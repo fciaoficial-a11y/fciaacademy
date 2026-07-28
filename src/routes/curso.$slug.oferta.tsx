@@ -410,25 +410,29 @@ function OfferPage() {
                 Oferta de lançamento
               </span>
               <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">
-                Investimento único, acesso vitalício
+                {variant.offerTitle}
               </h2>
 
               <div className="mt-6 flex flex-col items-center gap-1">
-                <span className="text-sm text-muted-foreground line-through">
-                  De {formatBRL(anchorPrice)}
-                </span>
+                {priceCopy.strike && (
+                  <span className="text-sm text-muted-foreground line-through">
+                    {priceCopy.strike}
+                  </span>
+                )}
                 <div className="flex items-baseline gap-2">
                   <span className="text-sm text-muted-foreground">por</span>
                   <span className="font-display text-5xl font-bold tracking-tight text-primary sm:text-6xl">
-                    {formatBRL(price)}
+                    {priceCopy.primary}
                   </span>
                 </div>
-                <span className="mt-2 text-sm text-muted-foreground">
-                  ou até <strong className="text-foreground">12x de {formatBRL(installment12)}</strong> no cartão
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  Equivale a <strong className="text-foreground">{formatBRL(perDay)} por dia</strong> em 1 ano de acesso.
-                </span>
+                {priceCopy.supporting.map((line, i) => (
+                  <span
+                    key={i}
+                    className={i === 0 ? "mt-2 text-sm text-muted-foreground" : "text-xs text-muted-foreground"}
+                  >
+                    {line}
+                  </span>
+                ))}
               </div>
 
               <div className="mt-8 flex flex-col items-center gap-3">
