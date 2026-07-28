@@ -286,6 +286,7 @@ function OfferPage() {
   const { user, loading: authLoading } = useAuth();
   const enrollment = useQuery(enrollmentQuery(course?.id, user?.id));
   const [showCheckout, setShowCheckout] = useState(false);
+  const [justPaid, setJustPaid] = useState(false);
 
   useEffect(() => {
     if (!showCheckout) return;
