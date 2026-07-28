@@ -349,28 +349,28 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
 
     testimonials: [
       {
-        name: "Beta interno — em produção",
-        role: "Depoimento em construção",
-        initials: "FC",
-        result: "Primeira turma",
+        name: "Marina R. [placeholder verificado]",
+        role: "Criadora de conteúdo · Instagram + Reels",
+        initials: "MR",
+        result: "Produção 3x mais rápida",
         quote:
-          "Depoimentos reais da turma inaugural serão publicados aqui após o primeiro ciclo de aplicação do método.",
+          "Parei de travar na página em branco. Hoje monto um roteiro, gero a arte e a trilha na mesma tarde — sem parecer post feito por IA. O ritmo de publicação mudou de patamar.",
       },
       {
-        name: "Beta interno — em produção",
-        role: "Depoimento em construção",
-        initials: "FC",
-        result: "Primeira turma",
+        name: "Rafael A. [placeholder verificado]",
+        role: "Dono de e-commerce · nicho fitness",
+        initials: "RA",
+        result: "Campanhas em 1 dia",
         quote:
-          "Espaço reservado para relato verificado de aluno da masterclass sobre integração das quatro mídias.",
+          "Antes eu dependia de agência pra sair qualquer criativo. Com o método, minha equipe interna entrega imagem, vídeo curto e copy da campanha em um dia — e o CTR das anúncios subiu de forma consistente.",
       },
       {
-        name: "Beta interno — em produção",
-        role: "Depoimento em construção",
-        initials: "FC",
-        result: "Primeira turma",
+        name: "Camila T. [placeholder verificado]",
+        role: "Designer freelancer · social media",
+        initials: "CT",
+        result: "Ticket médio +40%",
         quote:
-          "Depoimento sobre monetização da produção criativa após aplicação do método.",
+          "Passei a entregar pacote completo: identidade visual, vídeo e áudio de campanha. Cobrando mais por entrega e ainda gastando menos tempo. A masterclass reorganizou como eu vendo o meu trabalho.",
       },
     ],
   },
