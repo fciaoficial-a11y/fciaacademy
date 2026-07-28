@@ -18,6 +18,7 @@ import { PixCheckout } from "@/components/payments/PixCheckout";
 import { PostPurchaseUpsell } from "@/components/payments/PostPurchaseUpsell";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ShuffleCards } from "@/components/ui/testimonial-cards";
 import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
 import {
   fillFaqPlaceholders,
@@ -459,49 +460,27 @@ function OfferPage() {
       {/* ===================== PROVA SOCIAL — 3 curtas ===================== */}
       <section className="border-b border-border/60 bg-card/20">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
-          <h2 className="max-w-xl font-display text-3xl font-bold sm:text-4xl">
-            Quem aplicou, virou a chave.
-          </h2>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {testimonials.slice(0, 3).map((t) => (
-              <figure
-                key={t.name + t.quote.slice(0, 12)}
-                className="flex flex-col rounded-2xl border border-border/60 bg-card/50 p-5"
-              >
-                <div className="flex gap-0.5 text-primary" aria-label="5 estrelas">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="mt-3 grow text-[14px] leading-relaxed text-foreground/90">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-4 flex items-center gap-3 border-t border-border/60 pt-3">
-                  {t.photoUrl ? (
-                    <img
-                      src={t.photoUrl}
-                      alt={t.name}
-                      loading="lazy"
-                      className="h-9 w-9 shrink-0 rounded-full object-cover ring-1 ring-primary/20"
-                    />
-                  ) : (
-                    <div
-                      aria-hidden
-                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/15 text-xs font-semibold text-primary ring-1 ring-primary/20"
-                    >
-                      {t.initials}
-                    </div>
-                  )}
-                  <div className="min-w-0 text-xs">
-                    <div className="truncate font-semibold text-foreground">{t.name}</div>
-                    <div className="truncate text-muted-foreground">{t.role}</div>
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <div>
+              <h2 className="max-w-xl font-display text-3xl font-bold sm:text-4xl">
+                Quem aplicou, virou a chave.
+              </h2>
+              <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-base">
+                Arraste os cards para ver diferentes histórias de quem aplicou o método.
+              </p>
+            </div>
+            <ShuffleCards
+              items={testimonials.slice(0, 3).map((t) => ({
+                quote: t.quote,
+                name: t.name,
+                role: t.role,
+                initials: t.initials,
+                photoUrl: t.photoUrl ?? undefined,
+              }))}
+            />
           </div>
         </div>
+
       </section>
 
       {/* ===================== OFERTA — bloco de fechamento único ===================== */}
