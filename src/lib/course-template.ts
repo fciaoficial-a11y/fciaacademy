@@ -227,16 +227,22 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
           name: "Criar",
           description:
             "Sistema fixo para transformar ideia em peça, sem depender do prompt certo aparecer por sorte.",
+          image: "/__mic_pillar/criar",
+          imageAlt: "Direção criativa com IA: ideação em frames sobre mesa iluminada.",
         },
         {
           name: "Encantar",
           description:
             "Padrão visual, ritmo e intenção. O que separa o amador do profissional.",
+          image: "/__mic_pillar/encantar",
+          imageAlt: "Composição editorial: página impressa e still cinematográfico convivendo.",
         },
         {
           name: "Vender",
           description:
             "Portfólio, oferta ou entrega ao cliente. Método sem monetização é hobby caro.",
+          image: "/__mic_pillar/vender",
+          imageAlt: "Mockup de portfólio digital em laptop e celular sobre mármore escuro.",
         },
       ],
       integrationTitle: "Quatro mídias, uma língua",
