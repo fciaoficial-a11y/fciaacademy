@@ -529,7 +529,7 @@ function OfferPage() {
                   </span>
                   <span className="inline-flex items-center gap-1.5">
                     <Lock className="h-3.5 w-3.5 text-primary" />
-                    PIX seguro · Asaas
+                    Pagamento seguro · Asaas
                   </span>
                 </div>
               </div>
