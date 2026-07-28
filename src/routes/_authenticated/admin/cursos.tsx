@@ -46,9 +46,33 @@ function AdminCoursesPage() {
   const qc = useQueryClient();
   const courses = useQuery(adminCoursesQuery);
   const tracks = useQuery(adminTracksQuery);
+  const modules = useQuery(adminModulesQuery);
   const [editing, setEditing] = useState<Draft | null>(null);
   const [open, setOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  const publishedModulesByCourse = useMemo(() => {
+    const map = new Map<string, number>();
+    (modules.data ?? []).forEach((m) => {
+      if (m.is_published) map.set(m.course_id, (map.get(m.course_id) ?? 0) + 1);
+    });
+    return map;
+  }, [modules.data]);
+
+  const editingCheck = useMemo(() => {
+    if (!editing) return null;
+    const count = editing.id ? publishedModulesByCourse.get(editing.id) ?? 0 : 0;
+    return checkPublishReadiness({
+      slug: editing.slug,
+      title: editing.title,
+      description: editing.description,
+      price: editing.price,
+      is_free: editing.is_free,
+      workload_hours: editing.workload_hours,
+      cover_url: editing.cover_url,
+      publishedModulesCount: count,
+    });
+  }, [editing, publishedModulesByCourse]);
 
   const save = useMutation({
     mutationFn: async (d: Draft) => {
