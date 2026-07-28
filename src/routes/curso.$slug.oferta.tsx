@@ -29,6 +29,25 @@ import {
   resolveCourseTemplate,
 } from "@/lib/course-template";
 import fernandoImg from "@/assets/fernando-cabral.webp.asset.json";
+import micPillarCriar from "@/assets/mic-pillar-criar.jpg";
+import micPillarEncantar from "@/assets/mic-pillar-encantar.jpg";
+import micPillarVender from "@/assets/mic-pillar-vender.jpg";
+import micShowcase from "@/assets/mic-showcase.jpg";
+
+/**
+ * Sentinelas usados em `course-template.ts` para referenciar imagens
+ * bundladas sem criar dependência de import no template.
+ */
+const VISUAL_MAP: Record<string, string> = {
+  "/__mic_pillar/criar": micPillarCriar,
+  "/__mic_pillar/encantar": micPillarEncantar,
+  "/__mic_pillar/vender": micPillarVender,
+  "/__mic_showcase": micShowcase,
+};
+function resolveVisual(v?: string): string | undefined {
+  if (!v) return undefined;
+  return VISUAL_MAP[v] ?? v;
+}
 
 interface OfferModule {
   id: string;
@@ -313,18 +332,36 @@ function OfferPage() {
             </p>
 
             <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {method.pillars.map((p, i) => (
-                <div
-                  key={p.name}
-                  className="rounded-2xl border border-primary/30 bg-gradient-to-b from-primary/10 to-card/40 p-6"
-                >
-                  <div className="font-display text-xs uppercase tracking-[0.16em] text-primary">
-                    Pilar {String(i + 1).padStart(2, "0")}
+              {method.pillars.map((p, i) => {
+                const pillarImg = resolveVisual(p.image);
+                return (
+                  <div
+                    key={p.name}
+                    className="group overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-b from-primary/10 to-card/40"
+                  >
+                    {pillarImg && (
+                      <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-primary/20">
+                        <img
+                          src={pillarImg}
+                          alt={p.imageAlt ?? p.name}
+                          loading="lazy"
+                          width={1024}
+                          height={1024}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="font-display text-xs uppercase tracking-[0.16em] text-primary">
+                        Pilar {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <div className="mt-2 font-display text-2xl font-bold">{p.name}</div>
+                      <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>
+                    </div>
                   </div>
-                  <div className="mt-2 font-display text-2xl font-bold">{p.name}</div>
-                  <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {method.integrationItems && method.integrationItems.length > 0 && (
@@ -367,6 +404,24 @@ function OfferPage() {
             <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
               {transformation.intro}
             </p>
+
+            {transformation.showcaseImage && (
+              <figure className="mt-10 overflow-hidden rounded-3xl border border-border/60 shadow-2xl shadow-primary/5">
+                <img
+                  src={resolveVisual(transformation.showcaseImage)}
+                  alt={transformation.showcaseAlt ?? "Mosaico editorial de peças criativas"}
+                  loading="lazy"
+                  width={1600}
+                  height={900}
+                  className="aspect-[16/9] w-full object-cover"
+                />
+                {transformation.showcaseCaption && (
+                  <figcaption className="border-t border-border/60 bg-card/60 px-4 py-3 text-center text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                    {transformation.showcaseCaption}
+                  </figcaption>
+                )}
+              </figure>
+            )}
 
             <div className="mt-10 grid gap-3 md:grid-cols-2">
               {transformation.pairs.map((pair) => (
@@ -704,34 +759,28 @@ function OfferPage() {
         </div>
       </section>
 
-      {/* ============ MÓDULOS ============ */}
+      {/* ============ MÓDULOS (accordion) ============ */}
       <section className="border-b border-border/60 bg-card/20">
         <div className="mx-auto max-w-4xl px-4 py-14 md:py-20">
           <div className="text-center">
             <h2 className="font-display text-2xl font-bold sm:text-3xl">O que você vai aprender</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              {course.modules.length} módulos · {course.workload_hours}h de conteúdo aplicado
+              {course.modules.length} aulas-mestras · {course.workload_hours}h de conteúdo aplicado
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Toque em cada aula para ver o conteúdo e o entregável.
             </p>
           </div>
 
-          <div className="mt-8 space-y-3">
+          <div className="mt-8 divide-y divide-border/60 overflow-hidden rounded-2xl border border-border/60 bg-card/60">
             {course.modules.map((m, idx) => (
-              <div
+              <ModuleAccordionItem
                 key={m.id}
-                className="rounded-2xl border border-border/60 bg-card/60 p-4 transition-colors hover:border-primary/40 md:p-5"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/15 font-display text-sm font-bold text-primary">
-                    {String(idx + 1).padStart(2, "0")}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-semibold">{m.title}</h3>
-                    {m.description && (
-                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{m.description}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
+                index={idx}
+                title={m.title}
+                description={m.description}
+                defaultOpen={idx === 0}
+              />
             ))}
           </div>
         </div>
@@ -1059,6 +1108,51 @@ function FaqItem({ q, children }: { q: string; children: React.ReactNode }) {
         <ChevronDown className={cn("h-4 w-4 shrink-0 transition-transform", open && "rotate-180")} />
       </button>
       {open && <div className="px-5 pb-5 text-sm text-muted-foreground">{children}</div>}
+    </div>
+  );
+}
+
+function ModuleAccordionItem({
+  index,
+  title,
+  description,
+  defaultOpen = false,
+}: {
+  index: number;
+  title: string;
+  description: string | null;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="bg-card/60">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center gap-4 px-4 py-4 text-left transition-colors hover:bg-primary/5 md:px-5"
+      >
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/15 font-display text-sm font-bold text-primary">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold leading-snug">{title}</span>
+          <span className="mt-0.5 block text-xs uppercase tracking-wider text-muted-foreground">
+            Aula-mestra {String(index + 1).padStart(2, "0")}
+          </span>
+        </span>
+        <ChevronDown
+          className={cn(
+            "h-5 w-5 shrink-0 text-muted-foreground transition-transform",
+            open && "rotate-180 text-primary",
+          )}
+        />
+      </button>
+      {open && description && (
+        <div className="border-t border-border/40 bg-background/40 px-4 pb-5 pt-4 text-sm leading-relaxed text-muted-foreground md:px-5 md:pl-[4.5rem]">
+          {description}
+        </div>
+      )}
     </div>
   );
 }
