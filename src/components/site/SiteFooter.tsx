@@ -41,8 +41,13 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-border/60 pt-6 text-center text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} FCIA Academy. Todos os direitos reservados.</span>
+        <div className="mt-12 border-t border-border/60 pt-6 text-center text-xs text-muted-foreground space-y-1">
+          <p>
+            © {new Date().getFullYear()} <span className="font-semibold text-foreground">FCIA Academy</span>® — Todos os direitos reservados.
+          </p>
+          <p className="text-[11px] opacity-70">
+            Conteúdo, marca e metodologia protegidos pela Lei nº 9.610/98. Uso, cópia ou redistribuição sem autorização é proibido.
+          </p>
         </div>
       </div>
     </footer>
