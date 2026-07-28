@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ExternalLink, Eye, EyeOff, Pencil, Plus, Trash2, Upload } from "lucide-react";
+import { AlertCircle, CheckCircle2, ExternalLink, Eye, EyeOff, Pencil, Plus, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   adminCoursesQuery,
+  adminModulesQuery,
   adminTracksQuery,
   deleteRow,
   insertRow,
@@ -23,6 +24,7 @@ import {
   uploadCourseAsset,
   type AdminCourse,
 } from "@/lib/admin-api";
+import { checkPublishReadiness, summarizeMissing } from "@/lib/publish-check";
 
 export const Route = createFileRoute("/_authenticated/admin/cursos")({
   component: AdminCoursesPage,
