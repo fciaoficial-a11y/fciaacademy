@@ -165,13 +165,13 @@ export function buildPriceAnchor(
   const { price, anchorPrice, installment12, perDay } = values;
 
   switch (variant.priceAnchor) {
-    case "installment":
+    case "single":
       return {
         strike: null,
         primary: formatBRL(price),
         supporting: [
-          `ou até 12x de ${formatBRL(installment12)} no cartão`,
-          "Pagamento facilitado — comece hoje.",
+          "Pagamento único via PIX · sem mensalidade, sem renovação.",
+          "Acesso liberado em segundos após a confirmação.",
         ],
       };
     case "perDay":
@@ -180,7 +180,7 @@ export function buildPriceAnchor(
         primary: formatBRL(price),
         supporting: [
           `Menos de ${formatBRL(perDay)} por dia em 1 ano de acesso.`,
-          `ou 12x de ${formatBRL(installment12)} no cartão`,
+          "Pagamento único via PIX · sem mensalidade.",
         ],
       };
     case "compare":
@@ -189,6 +189,7 @@ export function buildPriceAnchor(
         primary: formatBRL(price),
         supporting: [
           `Economize ${formatBRL(anchorPrice - price)} nesta oferta de lançamento.`,
+          "Pagamento único via PIX.",
         ],
       };
     case "combined":
@@ -197,8 +198,8 @@ export function buildPriceAnchor(
         strike: `De ${formatBRL(anchorPrice)}`,
         primary: formatBRL(price),
         supporting: [
-          `ou até 12x de ${formatBRL(installment12)} no cartão`,
           `Equivale a ${formatBRL(perDay)} por dia em 1 ano de acesso.`,
+          "Pagamento único via PIX · sem mensalidade.",
         ],
       };
   }
