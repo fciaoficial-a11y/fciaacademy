@@ -164,7 +164,7 @@ function OfferPage() {
     title: course.title,
     description: course.description,
   });
-  const { hero, audience, testimonials, faq, pain, method, transformation, bonuses, valueStack } = template;
+  const { hero, audience, testimonials, faq, pain, method, transformation, bonuses, valueStack, authority } = template;
 
   const { v: variantOverride } = Route.useSearch();
   const variant = resolveOfferVariant(course.slug, variantOverride);
@@ -467,6 +467,60 @@ function OfferPage() {
 
             <p className="mx-auto mt-10 max-w-2xl border-t border-border/60 pt-6 text-center font-display text-base italic text-foreground/90 sm:text-lg">
               {valueStack.closing}
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* ============ AUTORIDADE ============ */}
+      {authority && (
+        <section className="border-b border-border/60 bg-card/20">
+          <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
+            <div className="text-center">
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                {authority.eyebrow}
+              </span>
+              <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl md:text-4xl">
+                {authority.title}
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground">
+                {authority.intro}
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {authority.points.map((point, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 rounded-2xl border border-border/60 bg-card/40 p-4"
+                >
+                  <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <div>
+                    <p className="font-medium leading-snug">{point.title}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{point.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 to-transparent p-5 sm:p-6">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                  <GraduationCap className="h-6 w-6" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-display text-lg font-semibold">{authority.instructorName}</p>
+                  <p className="text-xs uppercase tracking-wider text-primary/90">
+                    {authority.instructorRole}
+                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground">{authority.instructorBio}</p>
+                </div>
+              </div>
+            </div>
+
+            <p className="mt-8 text-center text-sm italic text-muted-foreground">
+              {authority.transition}
             </p>
           </div>
         </section>

@@ -117,6 +117,21 @@ export interface CourseValueStackCopy {
   closing: string;
 }
 
+export interface CourseAuthorityPoint {
+  title: string;
+  description: string;
+}
+export interface CourseAuthorityCopy {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  points: CourseAuthorityPoint[];
+  instructorName: string;
+  instructorRole: string;
+  instructorBio: string;
+  transition: string;
+}
+
 export interface CourseTemplateOverride {
   hero?: CourseHeroOverride;
   audience?: CourseAudienceCopy;
@@ -130,6 +145,7 @@ export interface CourseTemplateOverride {
   transformation?: CourseTransformationCopy;
   bonuses?: CourseBonusesCopy;
   valueStack?: CourseValueStackCopy;
+  authority?: CourseAuthorityCopy;
 }
 
 
@@ -289,6 +305,46 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
       ctaLabel: "Garantir minha vaga por PIX — R$ 249,90",
       closing:
         "R$ 1.735 em conteúdo e bônus. R$ 249,90 uma única vez. A decisão que separa quem testa IA de quem entrega com IA cabe em um PIX.",
+    },
+
+    authority: {
+      eyebrow: "Por que confiar na FCIA Academy",
+      title: "Autoridade construída por método, curadoria e aplicação real.",
+      intro:
+        "A FCIA Academy não é um marketplace de aulas soltas. Cada masterclass é desenhada como um método aplicado — testado em produção antes de virar aula — e conduzida por um instrutor que vive de entregar com IA, não apenas de falar sobre ela.",
+      points: [
+        {
+          title: "Método aplicado, não teoria solta",
+          description:
+            "Cada aula existe para produzir uma entrega — imagem, vídeo, áudio ou roteiro em nível profissional.",
+        },
+        {
+          title: "Foco em resultado comercial",
+          description:
+            "A curadoria prioriza o que gera peça vendável, portfólio real e receita — não experimentos aleatórios.",
+        },
+        {
+          title: "Certificado com validade legal",
+          description:
+            "Emitido pela FCIA Academy sob a Lei 9.394/96, com código público de verificação.",
+        },
+        {
+          title: "Comunidade viva no Telegram",
+          description:
+            "Canal ativo para trocar prompts, referências e destravar bloqueios com quem também aplica o método.",
+        },
+        {
+          title: "Curadoria continuamente atualizada",
+          description:
+            "As ferramentas de IA mudam rápido. O método é revisto para manter o que funciona hoje, não o que funcionava mês passado.",
+        },
+      ],
+      instructorName: "Instrutor FCIA Academy",
+      instructorRole: "Curador e instrutor responsável pela masterclass",
+      instructorBio:
+        "Atua na aplicação prática de IA à produção criativa e comercial — imagem, vídeo, áudio e roteiro. A masterclass reproduz o mesmo método usado em entregas reais: direto, aplicado e com padrão profissional.",
+      transition:
+        "Autoridade é o que garante que o método funciona. A seguir, o que dizem quem já aplicou.",
     },
 
     testimonials: [
@@ -521,6 +577,7 @@ export interface ResolvedCourseTemplate {
   transformation: CourseTransformationCopy | null;
   bonuses: CourseBonusesCopy | null;
   valueStack: CourseValueStackCopy | null;
+  authority: CourseAuthorityCopy | null;
 }
 
 interface ResolveArgs {
@@ -557,6 +614,7 @@ export function resolveCourseTemplate({
     transformation: override.transformation ?? null,
     bonuses: override.bonuses ?? null,
     valueStack: override.valueStack ?? null,
+    authority: override.authority ?? null,
   };
 }
 
