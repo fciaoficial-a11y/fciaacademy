@@ -239,7 +239,7 @@ function CourseLearnPage() {
 
   if (!data || !course) return null;
   if (!hasAccess) {
-    return <Paywall course={course} />;
+    return <Paywall course={course} slug={slug} />;
   }
   if (!activeModule) {
     return (
