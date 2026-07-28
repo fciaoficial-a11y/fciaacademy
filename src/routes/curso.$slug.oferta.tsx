@@ -85,6 +85,10 @@ function offerQuery(slug: string) {
 }
 
 export const Route = createFileRoute("/curso/$slug/oferta")({
+  validateSearch: (search: Record<string, unknown>): { v?: "A" | "B" | "C" } => {
+    const v = search.v;
+    return v === "A" || v === "B" || v === "C" ? { v } : {};
+  },
   loader: async ({ params, context }) => {
     const data = await context.queryClient.ensureQueryData(offerQuery(params.slug));
     if (!data) throw notFound();
