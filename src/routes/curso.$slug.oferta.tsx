@@ -759,34 +759,28 @@ function OfferPage() {
         </div>
       </section>
 
-      {/* ============ MÓDULOS ============ */}
+      {/* ============ MÓDULOS (accordion) ============ */}
       <section className="border-b border-border/60 bg-card/20">
         <div className="mx-auto max-w-4xl px-4 py-14 md:py-20">
           <div className="text-center">
             <h2 className="font-display text-2xl font-bold sm:text-3xl">O que você vai aprender</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              {course.modules.length} módulos · {course.workload_hours}h de conteúdo aplicado
+              {course.modules.length} aulas-mestras · {course.workload_hours}h de conteúdo aplicado
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Toque em cada aula para ver o conteúdo e o entregável.
             </p>
           </div>
 
-          <div className="mt-8 space-y-3">
+          <div className="mt-8 divide-y divide-border/60 overflow-hidden rounded-2xl border border-border/60 bg-card/60">
             {course.modules.map((m, idx) => (
-              <div
+              <ModuleAccordionItem
                 key={m.id}
-                className="rounded-2xl border border-border/60 bg-card/60 p-4 transition-colors hover:border-primary/40 md:p-5"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/15 font-display text-sm font-bold text-primary">
-                    {String(idx + 1).padStart(2, "0")}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-semibold">{m.title}</h3>
-                    {m.description && (
-                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{m.description}</p>
-                    )}
-                  </div>
-                </div>
-              </div>
+                index={idx}
+                title={m.title}
+                description={m.description}
+                defaultOpen={idx === 0}
+              />
             ))}
           </div>
         </div>
