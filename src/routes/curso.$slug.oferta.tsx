@@ -200,7 +200,9 @@ function OfferPage() {
   const isMasterclass = course.slug === "metodo-ia-criativa";
   const productNoun = isMasterclass ? "masterclass" : "curso";
   // CTA neutro no topo (sem linguagem transacional / sem PIX).
-  const softCtaLabel = alreadyOwns ? "Você já tem acesso" : `Quero acessar o ${productNoun}`;
+  const softCtaLabel = alreadyOwns
+    ? "Você já tem acesso"
+    : isMasterclass ? "Quero acessar a masterclass" : "Quero acessar o curso";
   // CTA transacional só perto do preço.
   const hardCtaLabel = alreadyOwns ? "Você já tem acesso" : variant.primaryCta;
 
