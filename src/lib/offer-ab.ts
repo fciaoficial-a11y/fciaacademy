@@ -44,7 +44,7 @@ export interface OfferVariant {
 export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   A: {
     key: "A",
-    primaryCta: "Garantir minha vaga por PIX",
+    primaryCta: "Quero garantir minha vaga agora",
     primaryCtaShort: "Garantir vaga",
     heroHeadline: null,
     heroSubheadline: null,
@@ -55,8 +55,8 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   B: {
     key: "B",
-    primaryCta: "Quero começar agora por PIX",
-    primaryCtaShort: "Começar por PIX",
+    primaryCta: "Quero começar agora",
+    primaryCtaShort: "Começar agora",
     heroHeadline: null,
     heroSubheadline:
       "Aprenda o método aplicado que Fernando Cabral usa em consultorias reais — no seu ritmo, com certificado reconhecido.",
@@ -67,8 +67,8 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   C: {
     key: "C",
-    primaryCta: "Quero comprar agora por PIX",
-    primaryCtaShort: "Comprar por PIX",
+    primaryCta: "Quero acessar agora",
+    primaryCtaShort: "Acessar agora",
     heroHeadline: null,
     heroSubheadline:
       "Transforme sua rotina em resultado com IA — método aplicado, sem enrolação, sem código.",
