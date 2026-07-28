@@ -121,6 +121,61 @@ function formatBRL(value: number): string {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
+interface AudienceCopy {
+  forWhom: string[];
+  notForWhom: string[];
+}
+
+const AUDIENCE_BY_SLUG: Record<string, AudienceCopy> = {
+  "ia-sem-misterio": {
+    forWhom: [
+      "Profissionais que veem colegas usando IA e sentem que estão ficando para trás",
+      "Gestores e líderes que precisam decidir sobre IA na empresa sem depender do TI",
+      "Autônomos e liberais (advogados, contadores, consultores) que querem economizar horas por semana em tarefas repetitivas",
+      "Quem já testou ChatGPT solto, se frustrou com respostas rasas e quer um método estruturado",
+    ],
+    notForWhom: [
+      "Desenvolvedores buscando treinar modelos, fine-tuning ou fundamentos matemáticos de IA",
+      "Quem procura curso 100% teórico ou acadêmico sobre history/pesquisa de IA",
+      "Quem espera fórmula mágica de enriquecimento rápido usando IA",
+      "Quem não pretende dedicar ao menos 2 horas por semana para aplicar o que aprender",
+    ],
+  },
+  "venda-com-ia": {
+    forWhom: [
+      "Vendedores e SDRs que perdem horas escrevendo prospecção fria e follow-up manual",
+      "Donos de pequeno negócio que fazem a própria venda e não têm tempo para prospectar",
+      "Consultores e freelancers que precisam de fluxo constante de leads qualificados",
+      "Gerentes comerciais que querem padronizar abordagem do time usando IA",
+    ],
+    notForWhom: [
+      "Quem quer aprender teoria de vendas complexas B2B enterprise (ciclo longo, comitê de compra)",
+      "Quem procura curso de tráfego pago, anúncios ou funil de marketing digital",
+      "Quem não vende nada e não pretende começar a vender nos próximos 90 dias",
+      "Quem espera que a IA venda sozinha, sem envolvimento humano na conversa",
+    ],
+  },
+};
+
+const DEFAULT_AUDIENCE: AudienceCopy = {
+  forWhom: [
+    "Profissionais que querem aplicar IA no dia a dia sem enrolação técnica",
+    "Empreendedores e gestores buscando ganho real de produtividade",
+    "Quem já tentou aprender sozinho e se perdeu em ferramentas soltas",
+    "Executivos que precisam falar de IA com propriedade",
+  ],
+  notForWhom: [
+    "Quem busca curso teórico e acadêmico",
+    "Quem quer aprender a treinar modelos do zero em Python",
+    "Quem procura conteúdo gratuito ou promessa mágica",
+    "Quem não pretende aplicar nada do que aprender",
+  ],
+};
+
+function getAudienceForCourse(slug: string): AudienceCopy {
+  return AUDIENCE_BY_SLUG[slug] ?? DEFAULT_AUDIENCE;
+}
+
 function OfferPage() {
   const { slug } = Route.useParams();
   const { data: course } = useSuspenseQuery(offerQuery(slug));
