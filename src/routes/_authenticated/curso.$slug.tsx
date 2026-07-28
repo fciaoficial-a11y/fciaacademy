@@ -966,7 +966,14 @@ function Paywall({
           </div>
 
           <div className="mt-8">
-            <PixCheckout mode="course" courseId={course.id} title={course.title} />
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link to="/curso/$slug/oferta" params={{ slug: course.slug }}>
+                Ver detalhes e comprar
+              </Link>
+            </Button>
+            <p className="mt-3 text-xs text-muted-foreground">
+              A compra é feita na página do curso, com garantia de 7 dias e pagamento seguro via PIX.
+            </p>
           </div>
         </div>
       </div>
