@@ -896,6 +896,33 @@ function OfferPage() {
         </div>
       </section>
 
+      {/* ============ GARANTIA ============ */}
+      {guarantee && (
+        <section className="border-b border-border/60 bg-gradient-to-b from-primary/5 to-background">
+          <div className="mx-auto max-w-3xl px-4 py-14 md:py-20">
+            <div className="rounded-2xl border border-primary/30 bg-card/60 p-6 md:p-10">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
+                  <ShieldCheck className="h-5 w-5 text-primary" />
+                </div>
+                <span className="text-xs font-medium uppercase tracking-[0.16em] text-primary">
+                  {guarantee.eyebrow}
+                </span>
+              </div>
+              <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">
+                {guarantee.title}
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                {guarantee.body}
+              </p>
+              <p className="mt-4 text-sm font-medium text-foreground">
+                {guarantee.closing}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ============ FAQ ============ */}
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-3xl px-4 py-14 md:py-20">
