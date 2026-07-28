@@ -739,25 +739,29 @@ function OfferPage() {
       <section className="bg-gradient-to-b from-background to-primary/10">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center md:py-24">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Dê o próximo passo agora
+            {variant.finalCtaHeadline}
           </h2>
           <p className="mt-3 text-sm text-muted-foreground sm:text-base">
             {course.title} · {course.workload_hours}h · certificado incluso
           </p>
 
           <div className="mt-8 inline-flex flex-col items-center gap-3">
-            <div className="text-sm text-muted-foreground line-through">De {formatBRL(anchorPrice)}</div>
+            {priceCopy.strike && (
+              <div className="text-sm text-muted-foreground line-through">{priceCopy.strike}</div>
+            )}
             <div className="font-display text-5xl font-bold text-primary sm:text-6xl">
-              {formatBRL(price)}
+              {priceCopy.primary}
             </div>
-            <div className="text-xs text-muted-foreground">
-              ou 12x de {formatBRL(installment12)} · {formatBRL(perDay)}/dia em 1 ano
-            </div>
+            {priceCopy.supporting.length > 0 && (
+              <div className="text-xs text-muted-foreground">
+                {priceCopy.supporting.join(" · ")}
+              </div>
+            )}
           </div>
 
           <div className="mt-8 flex flex-col items-center gap-3">
             <Button size="lg" className="w-full max-w-sm text-base" onClick={() => setShowCheckout(true)} disabled={alreadyOwns}>
-              {alreadyOwns ? "Você já tem acesso" : "Quero garantir minha vaga"}
+              {alreadyOwns ? "Você já tem acesso" : variant.primaryCta}
             </Button>
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
