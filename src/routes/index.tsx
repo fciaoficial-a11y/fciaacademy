@@ -199,22 +199,37 @@ function Index() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
               <Sparkles className="h-3 w-3" />
-              Aprenda IA de um jeito simples e prático
+              Para profissionais que ainda não usam IA no trabalho
             </div>
 
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-              Use <span className="text-gradient">IA</span> para criar, estudar e fazer seu negócio crescer.
+              Pare de perder horas em tarefas repetitivas.{" "}
+              <span className="text-gradient">Domine IA</span> e entregue em minutos o que hoje leva o seu dia inteiro.
             </h1>
 
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
-              Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos
-              estudos ou no próprio negócio.
+              Método direto para gestores, vendedores e profissionais liberais aplicarem IA em relatórios,
+              propostas, atendimento e prospecção — mesmo sem background técnico. Em 30 dias você produz mais,
+              com menos esforço, e se posiciona como referência no seu mercado.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-              <PrimaryCTA to={primaryHref}>Começar agora</PrimaryCTA>
-              <SecondaryCTA href="#curso-destaque">Conhecer o curso</SecondaryCTA>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur lg:justify-start">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                <BadgeCheck className="h-5 w-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-foreground">Fernando Cabral</p>
+                <p className="text-xs text-muted-foreground">
+                  Especialista em IA aplicada a negócios · +15 anos formando profissionais no Brasil
+                </p>
+              </div>
             </div>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+              <PrimaryCTA to={primaryHref}>Quero aplicar IA no meu trabalho</PrimaryCTA>
+              <SecondaryCTA href="#curso-destaque">Ver o curso</SecondaryCTA>
+            </div>
+
           </div>
 
           <div className="relative order-last lg:order-none">
