@@ -267,6 +267,30 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
       closing:
         "O stack de bônus soma R$ 738. Junto da masterclass, forma o pacote completo da FCIA Academy.",
     },
+    valueStack: {
+      title: "Uma masterclass. Um pagamento. Acesso completo ao método.",
+      intro:
+        "Antes do preço, olhe o que entra no pacote. A masterclass sozinha já se paga na primeira peça entregue com padrão profissional. Os bônus existem para você chegar lá mais rápido.",
+      items: [
+        { label: "Masterclass Método IA Criativa (acesso vitalício)", value: "R$ 997" },
+        { label: "Biblioteca de Prompts Mestres", value: "R$ 197" },
+        { label: "Painel de Referências Visuais", value: "R$ 147" },
+        { label: "Guia de Integração das 4 Mídias", value: "R$ 197" },
+        { label: "Kit de Monetização Criativa", value: "R$ 197" },
+        { label: "Certificado digital reconhecido", value: "incluso" },
+      ],
+      totalLabel: "Valor real do pacote: R$ 1.735",
+      transition:
+        "Você não paga R$ 1.735. Nem R$ 997. Enquanto a turma inaugural estiver aberta, o acesso completo sai por:",
+      priceHighlight: "R$ 249,90",
+      priceCaption: "uma única vez · via PIX · sem mensalidade, sem renovação",
+      riskNote:
+        "Acesso liberado em segundos após a confirmação do PIX · Garantia incondicional de 7 dias",
+      ctaLabel: "Garantir minha vaga por PIX — R$ 249,90",
+      closing:
+        "R$ 1.735 em conteúdo e bônus. R$ 249,90 uma única vez. A decisão que separa quem testa IA de quem entrega com IA cabe em um PIX.",
+    },
+
     testimonials: [
       {
         name: "Beta interno — em produção",
