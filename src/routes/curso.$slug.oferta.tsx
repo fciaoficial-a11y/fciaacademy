@@ -603,11 +603,10 @@ function OfferPage() {
                   Certificado com validade legal
                 </h2>
                 <p className="mt-3 text-sm text-muted-foreground">
-                  Curso livre de capacitação profissional, emitido nos termos da
-                  <strong className="text-foreground"> Lei nº 9.394/1996</strong> (LDB) e do
-                  <strong className="text-foreground"> Decreto nº 5.154/2004</strong>. Certificado digital
-                  com código de verificação público e QR Code — pode ser incluído em currículo, LinkedIn e
-                  processos internos de RH.
+                  Curso livre de capacitação profissional, emitido de acordo com a
+                  <strong className="text-foreground"> Lei 9.394/96</strong> — a mesma lei que rege a
+                  educação no Brasil. Você recebe um certificado digital com QR Code e código público
+                  de validação, aceito em currículos, LinkedIn e processos de RH.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1">
