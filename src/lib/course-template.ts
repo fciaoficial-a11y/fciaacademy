@@ -66,7 +66,13 @@ export interface CoursePainCopy {
   bullets: string[];
   transition?: string;
 }
-export interface CourseMethodPillar { name: string; description: string }
+export interface CourseMethodPillar {
+  name: string;
+  description: string;
+  /** Visual editorial que reforça o pilar (URL/CDN ou import bundlado). */
+  image?: string;
+  imageAlt?: string;
+}
 export interface CourseMethodIntegrationItem { label: string; description: string }
 export interface CourseMethodCopy {
   title: string;
@@ -84,6 +90,10 @@ export interface CourseTransformationCopy {
   pairs: CourseTransformationPair[];
   synthesis?: string;
   transition?: string;
+  /** Mosaico visual editorial exibido acima dos pares antes/depois. */
+  showcaseImage?: string;
+  showcaseAlt?: string;
+  showcaseCaption?: string;
 }
 export interface CourseBonus {
   name: string;
