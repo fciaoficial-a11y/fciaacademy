@@ -144,146 +144,108 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
     },
     pain: {
       title:
-        "Você abre a ferramenta, gera, apaga, tenta de novo — e no fim publica algo que não te representa.",
+        "Você gera, apaga, tenta de novo — e publica algo que não te representa.",
       intro:
-        "A IA prometeu acelerar sua criação, mas na prática virou mais uma aba aberta. Você testa ChatGPT, Midjourney, Runway, Suno, ElevenLabs — cada um por conta própria, sem método, sem padrão. O resultado sai com cara de IA, sem identidade, sem intenção. E você, no fim, publica torcendo para funcionar.",
+        "A IA prometeu acelerar sua criação. Virou mais uma aba aberta. Ferramenta demais, método nenhum. E o resultado sai com cara de IA, não a sua cara.",
       bullets: [
-        "Gera dez versões da mesma imagem e nenhuma é boa o bastante para publicar",
-        "Trava no prompt: escreve, apaga, reescreve — e o resultado nunca chega perto do que estava na cabeça",
-        "Junta imagem, vídeo, música e roteiro que não conversam entre si — parece Frankenstein",
-        "Copia prompt do YouTube, aplica no seu caso e o resultado sai pior que o do tutorial",
-        "Sente que está sempre correndo atrás da próxima ferramenta, sem dominar nenhuma de verdade",
-        "Publica com insegurança e sente que o resultado tem cara de IA, não a sua cara",
-        "Vê outros criadores entregando peças profissionais e não entende como saíram do mesmo ponto que você",
+        "Gera dez versões e nenhuma boa o bastante para publicar",
+        "Trava no prompt e o resultado nunca chega perto do que estava na cabeça",
+        "Imagem, vídeo, música e roteiro que não conversam entre si",
+        "Corre atrás da próxima ferramenta sem dominar nenhuma de verdade",
+        "Publica com insegurança porque a peça tem cara de IA",
       ],
       transition:
-        "Isso não é falta de talento. É falta de método. E é exatamente o que a masterclass corrige.",
+        "Não é falta de talento. É falta de método. E é isso que a masterclass corrige.",
     },
     method: {
       title: "O problema nunca foi a ferramenta. Era a falta de método.",
       intro:
-        "Enquanto muita gente corre atrás da próxima ferramenta que apareceu no feed, quem realmente entrega resultado com IA faz o contrário: trabalha dentro de um processo claro. Ferramenta muda toda semana. Método, não. É isso que separa quem só testa IA de quem produz com consistência profissional.",
+        "Quem entrega resultado com IA não corre atrás de ferramenta — trabalha dentro de um processo. Ferramenta muda toda semana. Método, não.",
       pillars: [
         {
           name: "Criar",
           description:
-            "Você aprende a partir de um sistema fixo para transformar ideia em peça — sem depender do prompt certo aparecer por sorte.",
+            "Sistema fixo para transformar ideia em peça, sem depender do prompt certo aparecer por sorte.",
         },
         {
           name: "Encantar",
           description:
-            "Cada peça sai com padrão visual, ritmo e intenção. É o passo que separa o resultado amador do resultado profissional.",
+            "Padrão visual, ritmo e intenção. O que separa o amador do profissional.",
         },
         {
           name: "Vender",
           description:
-            "Você transforma o que produz em portfólio, oferta ou entrega ao cliente. Método sem monetização é hobby caro.",
+            "Portfólio, oferta ou entrega ao cliente. Método sem monetização é hobby caro.",
         },
       ],
       integrationTitle: "Quatro mídias, uma língua",
       integrationItems: [
         { label: "Imagem", description: "Ancora conceito e identidade visual." },
         { label: "Vídeo", description: "Dá movimento e emoção à narrativa." },
-        { label: "Música", description: "Fixa emoção e memória na peça final." },
+        { label: "Música", description: "Fixa emoção e memória na peça." },
         { label: "Roteiro", description: "Estrutura a mensagem e sustenta tudo." },
       ],
       differentiator:
-        "Tutorial ensina botão. Curso genérico ensina ferramenta. A masterclass ensina processo — e processo é o que continua funcionando mesmo quando a ferramenta muda.",
+        "Tutorial ensina botão. Curso genérico ensina ferramenta. A masterclass ensina processo.",
       transition:
-        "É por isso que a diferença aparece rápido na prática: no antes e depois de quem passa a criar com método.",
+        "A diferença aparece rápido — no antes e depois de quem passa a criar com método.",
     },
     transformation: {
       title:
         "A diferença entre usar IA e dominar IA aparece na primeira peça que você entrega.",
       intro:
-        "O método não muda só o que você produz. Ele muda como você produz. Sai o improviso de gerar versões no escuro torcendo para uma funcionar. Entra um processo em que cada peça nasce com intenção, padrão visual e coerência entre imagem, vídeo, música e roteiro. É a virada de quem tenta para quem entrega.",
+        "Sai o improviso de gerar no escuro. Entra um processo em que cada peça nasce com intenção e coerência entre as quatro mídias.",
       pairs: [
-        {
-          before: "Gerava dez versões torcendo para uma servir",
-          after: "Entrega a primeira versão já com padrão profissional",
-        },
-        {
-          before: "Prompt genérico copiado do YouTube",
-          after: "Prompt autoral, calibrado ao contexto e ao objetivo",
-        },
-        {
-          before: "Imagem, vídeo, áudio e roteiro desalinhados",
-          after: "As quatro mídias falam a mesma língua",
-        },
-        {
-          before: "Peça com cara de IA",
-          after: "Peça com identidade própria e intenção clara",
-        },
-        {
-          before: "Publicava com insegurança",
-          after: "Publica com clareza e intenção",
-        },
-        {
-          before: "Cobrava barato por não saber justificar o valor",
-          after: "Precifica como profissional",
-        },
-        {
-          before: "Dependia da próxima ferramenta da moda",
-          after: "Opera com método que sobrevive às mudanças",
-        },
+        { before: "Dez versões torcendo para uma servir", after: "Primeira versão já com padrão profissional" },
+        { before: "Prompt genérico copiado do YouTube", after: "Prompt autoral, calibrado ao objetivo" },
+        { before: "Imagem, vídeo, áudio e roteiro desalinhados", after: "As quatro mídias falam a mesma língua" },
+        { before: "Peça com cara de IA", after: "Peça com identidade própria" },
+        { before: "Publicava com insegurança", after: "Publica com clareza e intenção" },
+        { before: "Dependia da próxima ferramenta da moda", after: "Método que sobrevive às mudanças" },
       ],
       synthesis:
         "Você para de testar IA e começa a produzir com IA — no padrão de quem cobra para entregar.",
       transition:
-        "Essa transformação não acontece por acaso. Ela é construída, aula por aula, dentro da estrutura da masterclass.",
+        "Essa transformação é construída aula por aula, dentro da estrutura da masterclass.",
     },
     bonuses: {
       title:
-        "Você não sai só com a masterclass. Sai com o kit completo pra acelerar cada etapa.",
+        "Você não sai só com a masterclass. Sai com o kit completo para acelerar cada etapa.",
       intro:
-        "Os bônus não estão aqui pra inflar oferta. Estão aqui porque encurtam o caminho entre aprender e entregar. Cada um resolve uma fricção real de quem começa a produzir com IA: prompt que não sai, referência que falta, decisão que trava.",
+        "Bônus que encurtam o caminho entre aprender e entregar. Cada um resolve uma fricção real de quem produz com IA.",
       bonuses: [
         {
           name: "Biblioteca de Prompts Mestres",
           value: "R$ 197",
-          purpose: "Ponto de partida testado para imagem, vídeo, música e roteiro.",
+          purpose: "Ponto de partida testado para as quatro mídias.",
           description:
-            "Prompts prontos, categorizados por mídia e por objetivo, para você começar cada peça de um lugar profissional em vez do zero.",
+            "Prompts prontos, categorizados por mídia e objetivo, para começar cada peça de um lugar profissional.",
         },
         {
           name: "Painel de Referências Visuais",
           value: "R$ 147",
           purpose: "Direção estética pronta para peças com padrão.",
           description:
-            "Curadoria organizada por estilo, mood e uso — pare de perder tempo buscando referência solta no Pinterest.",
-        },
-        {
-          name: "Templates Editáveis de Roteiro",
-          value: "R$ 97",
-          purpose: "Estruturas de roteiro que já converteram, prontas para adaptar.",
-          description:
-            "Modelos de abertura, desenvolvimento e chamada usados em campanhas reais — plugue seu tema e ajuste.",
+            "Curadoria por estilo e mood — chega de perder tempo garimpando referência solta.",
         },
         {
           name: "Guia de Integração das 4 Mídias",
-          value: "R$ 147",
-          purpose: "Fluxo passo a passo para peças coerentes ponta-a-ponta.",
+          value: "R$ 197",
+          purpose: "Fluxo passo a passo para peças coerentes ponta a ponta.",
           description:
-            "Como fazer imagem, vídeo, áudio e roteiro nascerem da mesma direção — o exato ponto onde a maioria trava.",
+            "Como fazer imagem, vídeo, áudio e roteiro nascerem da mesma direção — onde a maioria trava.",
         },
         {
           name: "Kit de Monetização Criativa",
-          value: "R$ 147",
+          value: "R$ 197",
           purpose: "Do portfólio ao primeiro cliente pagante.",
           description:
-            "Como estruturar entrega, precificar, propor e fechar — para transformar o método em receita.",
-        },
-        {
-          name: "Comunidade Telegram FCIA",
-          value: "R$ 147",
-          purpose: "Atualizações e feedback direto quando a IA mudar (e ela vai mudar).",
-          description:
-            "Espaço fechado para alunos com atualizações de ferramentas, respostas e trocas de peças reais.",
+            "Como estruturar entrega, precificar, propor e fechar — transformar método em receita.",
         },
       ],
-      totalLabel: "R$ 782 em bônus",
+      totalLabel: "R$ 738 em bônus",
       closing:
-        "Só o stack de bônus soma R$ 782. Junto da masterclass, forma o pacote completo que a FCIA Academy oferece como produto principal.",
+        "O stack de bônus soma R$ 738. Junto da masterclass, forma o pacote completo da FCIA Academy.",
     },
     testimonials: [
       {
