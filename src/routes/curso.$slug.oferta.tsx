@@ -20,6 +20,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/use-auth";
 import { enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
+import { PostPurchaseUpsell } from "@/components/payments/PostPurchaseUpsell";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
@@ -286,6 +287,7 @@ function OfferPage() {
   const { user, loading: authLoading } = useAuth();
   const enrollment = useQuery(enrollmentQuery(course?.id, user?.id));
   const [showCheckout, setShowCheckout] = useState(false);
+  const [justPaid, setJustPaid] = useState(false);
 
   useEffect(() => {
     if (!showCheckout) return;
@@ -513,16 +515,20 @@ function OfferPage() {
                 </div>
               </div>
             ) : alreadyOwns ? (
-              <div className="rounded-2xl border border-border bg-card p-6 text-center">
-                <CheckCircle2 className="mx-auto h-8 w-8 text-primary" />
-                <p className="mt-2 text-sm">Você já está matriculado neste curso.</p>
-                <Button asChild className="mt-4">
-                  <Link to="/curso/$slug" params={{ slug: course.slug }}>Ir para o curso</Link>
-                </Button>
-              </div>
+              <>
+                <div className="rounded-2xl border border-border bg-card p-6 text-center">
+                  <CheckCircle2 className="mx-auto h-8 w-8 text-primary" />
+                  <p className="mt-2 text-sm">Você já está matriculado neste curso.</p>
+                  <Button asChild className="mt-4">
+                    <Link to="/curso/$slug" params={{ slug: course.slug }}>Ir para o curso</Link>
+                  </Button>
+                </div>
+                <PostPurchaseUpsell purchasedSlug={course.slug} />
+              </>
             ) : (
               <>
-                <PixCheckout mode="course" courseId={course.id} title={course.title} />
+                <PixCheckout mode="course" courseId={course.id} title={course.title} onPaid={() => setJustPaid(true)} />
+                {justPaid && <PostPurchaseUpsell purchasedSlug={course.slug} />}
                 <div className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-background/60 p-3 text-xs text-muted-foreground">
                   <Lock className="h-3.5 w-3.5 text-primary" />
                   Ambiente seguro · Asaas · PIX regulado pelo Banco Central
