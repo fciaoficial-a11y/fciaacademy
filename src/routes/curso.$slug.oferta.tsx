@@ -442,7 +442,7 @@ function OfferPage() {
                   onClick={() => setShowCheckout(true)}
                   disabled={alreadyOwns}
                 >
-                  {alreadyOwns ? "Você já tem acesso a este curso" : "Comprar via PIX agora"}
+                  {alreadyOwns ? "Você já tem acesso a este curso" : variant.primaryCta}
                 </Button>
                 <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
