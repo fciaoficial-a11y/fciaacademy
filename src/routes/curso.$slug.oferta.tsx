@@ -785,12 +785,14 @@ function OfferPage() {
               {course.workload_hours}h · certificado
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-[11px] text-muted-foreground line-through">{formatBRL(anchorPrice)}</span>
-              <span className="font-display text-lg font-bold text-primary">{formatBRL(price)}</span>
+              {priceCopy.strike && (
+                <span className="text-[11px] text-muted-foreground line-through">{priceCopy.strike.replace(/^De\s*/, "")}</span>
+              )}
+              <span className="font-display text-lg font-bold text-primary">{priceCopy.primary}</span>
             </div>
           </div>
           <Button size="sm" className="shrink-0" onClick={() => setShowCheckout(true)} disabled={alreadyOwns}>
-            {alreadyOwns ? "Acessar" : "Comprar"}
+            {alreadyOwns ? "Acessar" : variant.primaryCtaShort}
           </Button>
         </div>
       </div>
