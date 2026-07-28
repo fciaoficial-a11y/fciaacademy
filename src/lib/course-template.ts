@@ -349,7 +349,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
       priceCaption: "uma única vez · acesso vitalício · sem mensalidade, sem renovação",
       riskNote:
         "Acesso liberado em segundos após a confirmação do pagamento · Garantia incondicional de 7 dias",
-      ctaLabel: "Quero começar agora — R$ 249,90",
+      ctaLabel: "Começar agora — R$ 249,90",
       closing:
         "R$ 1.735 em conteúdo e bônus. R$ 249,90 uma única vez. A decisão que separa quem testa IA de quem entrega com IA começa aqui.",
     },
