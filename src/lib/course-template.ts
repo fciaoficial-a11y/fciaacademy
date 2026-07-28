@@ -132,6 +132,19 @@ export interface CourseAuthorityCopy {
   transition: string;
 }
 
+export interface CourseGuaranteeCopy {
+  eyebrow: string;
+  title: string;
+  body: string;
+  closing: string;
+}
+
+export interface CourseFinalCtaCopy {
+  eyebrow?: string;
+  promise: string;
+  microcopy?: string;
+}
+
 export interface CourseTemplateOverride {
   hero?: CourseHeroOverride;
   audience?: CourseAudienceCopy;
@@ -146,6 +159,8 @@ export interface CourseTemplateOverride {
   bonuses?: CourseBonusesCopy;
   valueStack?: CourseValueStackCopy;
   authority?: CourseAuthorityCopy;
+  guarantee?: CourseGuaranteeCopy;
+  finalCta?: CourseFinalCtaCopy;
 }
 
 
