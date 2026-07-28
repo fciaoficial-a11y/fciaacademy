@@ -22,6 +22,7 @@ import { enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
 import fernandoImg from "@/assets/fernando-cabral.webp.asset.json";
 
 interface OfferModule {
