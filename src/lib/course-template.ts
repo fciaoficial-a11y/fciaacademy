@@ -25,6 +25,19 @@
  *    audiência → módulos → certificado → depoimentos → FAQ → CTA final.
  */
 
+// Testimonial avatars (real-looking portraits, used only in the ShuffleCards deck)
+import avatarMarinaR from "@/assets/testimonials/marina-r.jpg";
+import avatarRafaelA from "@/assets/testimonials/rafael-a.jpg";
+import avatarCamilaT from "@/assets/testimonials/camila-t.jpg";
+import avatarRicardoM from "@/assets/testimonials/ricardo-m.jpg";
+import avatarJulianaP from "@/assets/testimonials/juliana-p.jpg";
+import avatarDiegoA from "@/assets/testimonials/diego-a.jpg";
+import avatarCamilaR from "@/assets/testimonials/camila-r.jpg";
+import avatarAndersonL from "@/assets/testimonials/anderson-l.jpg";
+import avatarPatriciaS from "@/assets/testimonials/patricia-s.jpg";
+
+
+
 export interface CourseAudienceCopy {
   forWhom: string[];
   notForWhom: string[];
