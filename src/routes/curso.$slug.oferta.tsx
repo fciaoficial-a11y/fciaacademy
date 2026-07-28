@@ -405,6 +405,24 @@ function OfferPage() {
               {transformation.intro}
             </p>
 
+            {transformation.showcaseImage && (
+              <figure className="mt-10 overflow-hidden rounded-3xl border border-border/60 shadow-2xl shadow-primary/5">
+                <img
+                  src={resolveVisual(transformation.showcaseImage)}
+                  alt={transformation.showcaseAlt ?? "Mosaico editorial de peças criativas"}
+                  loading="lazy"
+                  width={1600}
+                  height={900}
+                  className="aspect-[16/9] w-full object-cover"
+                />
+                {transformation.showcaseCaption && (
+                  <figcaption className="border-t border-border/60 bg-card/60 px-4 py-3 text-center text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                    {transformation.showcaseCaption}
+                  </figcaption>
+                )}
+              </figure>
+            )}
+
             <div className="mt-10 grid gap-3 md:grid-cols-2">
               {transformation.pairs.map((pair) => (
                 <div
