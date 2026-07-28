@@ -12,9 +12,9 @@ interface AuthShellProps {
 
 export function AuthShell({ eyebrow, title, subtitle, footer, children }: AuthShellProps) {
   return (
-    <div className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-16">
+    <div className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden px-4 py-16">
       <div className="absolute inset-0 -z-10 tech-grid opacity-30" aria-hidden />
-      <div className="absolute left-1/2 top-1/3 -z-10 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute left-1/2 top-1/3 -z-10 h-[480px] w-[480px] max-w-full -translate-x-1/2 rounded-full bg-primary/20 blur-3xl" aria-hidden />
 
       <div className="w-full max-w-md">
         <Link to="/" className="mb-8 flex items-center justify-center gap-2.5">
