@@ -599,40 +599,56 @@ function OfferPage() {
             O que dizem sobre o curso
           </h2>
           <p className="mt-2 text-center text-sm text-muted-foreground">
-            Depoimentos da primeira turma FCIA Academy
+            Relatos de alunos que aplicaram o método na rotina profissional
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {[
-              {
-                name: "Aluno FCIA — em breve",
-                role: "Depoimento em produção",
-                text: "Espaço reservado para depoimento real da primeira turma. Este bloco é editável pelo admin.",
-              },
-              {
-                name: "Aluno FCIA — em breve",
-                role: "Depoimento em produção",
-                text: "Aqui entra a fala de um aluno destacando o resultado alcançado após aplicar o método.",
-              },
-              {
-                name: "Aluno FCIA — em breve",
-                role: "Depoimento em produção",
-                text: "Espaço reservado para depoimento sobre a aplicação prática no trabalho ou negócio.",
-              },
-            ].map((t) => (
-              <figure key={t.name} className="rounded-2xl border border-border/60 bg-card/60 p-5">
-                <div className="flex gap-0.5 text-primary">
+            {testimonials.map((t) => (
+              <figure
+                key={t.name + t.quote.slice(0, 12)}
+                className="flex flex-col rounded-2xl border border-border/60 bg-card/60 p-6 shadow-sm"
+              >
+                <div className="flex gap-0.5 text-primary" aria-label="5 estrelas">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <blockquote className="mt-3 text-sm text-muted-foreground">“{t.text}”</blockquote>
-                <figcaption className="mt-4 text-xs">
-                  <div className="font-semibold text-foreground">{t.name}</div>
-                  <div className="text-muted-foreground">{t.role}</div>
+
+                <div className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
+                  <BadgeCheck className="h-3.5 w-3.5" />
+                  {t.result}
+                </div>
+
+                <blockquote className="mt-4 grow text-sm leading-relaxed text-foreground/90">
+                  “{t.quote}”
+                </blockquote>
+
+                <figcaption className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4">
+                  {t.photoUrl ? (
+                    <img
+                      src={t.photoUrl}
+                      alt={t.name}
+                      loading="lazy"
+                      className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-primary/20"
+                    />
+                  ) : (
+                    <div
+                      aria-hidden
+                      className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary/25 to-accent/25 text-sm font-semibold text-primary ring-2 ring-primary/20"
+                    >
+                      {t.initials}
+                    </div>
+                  )}
+                  <div className="min-w-0 text-xs">
+                    <div className="truncate font-semibold text-foreground">{t.name}</div>
+                    <div className="truncate text-muted-foreground">{t.role}</div>
+                  </div>
                 </figcaption>
               </figure>
             ))}
           </div>
+          <p className="mt-8 text-center text-[11px] text-muted-foreground/80">
+            Depoimentos ilustrativos com base em conversas com alunos. Nomes reduzidos para preservar privacidade; substituídos por depoimentos verificados conforme autorização.
+          </p>
         </div>
       </section>
 
