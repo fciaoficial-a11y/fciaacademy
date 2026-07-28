@@ -1,12 +1,25 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowUpRight, Clock, Loader2, Search, SlidersHorizontal, X } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Clock,
+  Flame,
+  Loader2,
+  Search,
+  Signal,
+  SlidersHorizontal,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { Section, SectionHeading } from "@/components/site/Section";
-import { coursesQuery, tracksQuery } from "@/lib/catalog-queries";
+import { coursesQuery, tracksQuery, type CourseRow, type TrackRow } from "@/lib/catalog-queries";
 import { getIcon } from "@/lib/icon-map";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { badgeClass, formatBRL, getCourseSalesMeta } from "@/lib/course-sales-meta";
+
 
 type CatalogSearch = {
   q: string;
@@ -305,65 +318,281 @@ function CursosPage() {
             </Button>
           </div>
         ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((c) => {
-              const track = trackById.get(c.track_id);
-              const Icon = getIcon(track?.icon);
-              return (
-                <Link
-                  key={c.id}
-                  to="/curso/$slug/oferta"
-                  params={{ slug: c.slug }}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(0,0,0,0.4)]"
-                >
-                  <div className="relative h-28 overflow-hidden border-b border-border bg-surface">
-                    <Icon className="absolute right-5 top-5 h-10 w-10 text-foreground/90 transition-transform group-hover:scale-110" />
-                    {track ? (
-                      <span className="absolute bottom-3 left-5 inline-flex items-center rounded-full border border-border bg-background/80 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground backdrop-blur">
-                        {track.tag}
-                      </span>
-                    ) : null}
+          (() => {
+            const withMeta = filtered.map((c) => ({ c, meta: getCourseSalesMeta(c.slug) }));
+            const hero = withMeta.find((x) => x.meta.featurePriority === 0);
+            const rest = withMeta.filter((x) => x !== hero);
+
+            return (
+              <div className="space-y-8">
+                {hero && (
+                  <FeaturedCourseCard
+                    course={hero.c}
+                    track={trackById.get(hero.c.track_id)}
+                  />
+                )}
+
+                {rest.length > 0 && (
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {rest.map(({ c }) => (
+                      <ProductCourseCard
+                        key={c.id}
+                        course={c}
+                        track={trackById.get(c.track_id)}
+                      />
+                    ))}
                   </div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="font-display text-base font-semibold tracking-tight">
-                        {c.title}
-                      </h3>
-                      <span
-                        className={
-                          "shrink-0 rounded-full px-2.5 py-1 text-[11px] font-medium " +
-                          (c.is_free
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                            : "bg-primary/10 text-primary")
-                        }
-                      >
-                        {c.is_free
-                          ? "Gratuito"
-                          : `R$ ${Number(c.price ?? 0).toFixed(2).replace(".", ",")}`}
-                      </span>
-                    </div>
-                    <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
-                      {c.description}
-                    </p>
-                    <div className="mt-auto flex items-center justify-between pt-5 text-xs text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <Clock className="h-3.5 w-3.5" />
-                        {c.workload_hours > 0 ? `${c.workload_hours}h` : `${Math.round(c.duration_minutes / 60)}h`} · {c.level}
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-foreground">
-                        Ver detalhes <ArrowUpRight className="h-3.5 w-3.5" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                )}
+              </div>
+            );
+          })()
         )}
       </Section>
     </>
   );
 }
+
+/* ============================================================
+ * FEATURED CARD — hero comercial (span total, capa dominante)
+ * ============================================================ */
+function FeaturedCourseCard({ course, track }: { course: CourseRow; track: TrackRow | undefined }) {
+  const meta = getCourseSalesMeta(course.slug);
+  const Icon = getIcon(track?.icon);
+  const price = Number(course.price ?? 0);
+  const hasDiscount = meta.originalPrice && meta.originalPrice > price;
+  const discountPct = hasDiscount
+    ? Math.round(((meta.originalPrice! - price) / meta.originalPrice!) * 100)
+    : 0;
+  const hours = course.workload_hours > 0 ? course.workload_hours : Math.round(course.duration_minutes / 60);
+
+  return (
+    <Link
+      to="/curso/$slug/oferta"
+      params={{ slug: course.slug }}
+      className="group relative block overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/5 via-background to-background shadow-[0_30px_70px_-40px_rgba(59,130,246,0.4)] transition-all hover:-translate-y-1 hover:shadow-[0_40px_90px_-40px_rgba(59,130,246,0.6)]"
+    >
+      <div className="grid gap-0 lg:grid-cols-[1.15fr_1fr]">
+        {/* Capa */}
+        <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[420px]">
+          {course.cover_url ? (
+            <img
+              src={course.cover_url}
+              alt={course.title}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
+              <Icon className="h-24 w-24 text-primary/60" />
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-background/20" />
+
+          {/* Selo topo */}
+          {meta.badge && (
+            <span
+              className={
+                "absolute left-5 top-5 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-wider " +
+                badgeClass(meta.badge.kind)
+              }
+            >
+              <Flame className="h-3.5 w-3.5" />
+              {meta.badge.label}
+            </span>
+          )}
+
+          {hasDiscount && (
+            <span className="absolute right-5 top-5 rounded-full bg-black/70 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur">
+              −{discountPct}%
+            </span>
+          )}
+        </div>
+
+        {/* Conteúdo */}
+        <div className="relative flex flex-col justify-center gap-5 p-7 lg:p-10">
+          {track && (
+            <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-primary">
+              <Sparkles className="h-3 w-3" />
+              {track.tag}
+            </span>
+          )}
+
+          <h3 className="font-display text-2xl font-bold leading-tight tracking-tight sm:text-3xl lg:text-[2.1rem]">
+            {course.title}
+          </h3>
+
+          <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {meta.hook ?? course.description}
+          </p>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-primary" />
+              {hours}h aplicadas
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Signal className="h-3.5 w-3.5 text-primary" />
+              {course.level}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <BadgeCheck className="h-3.5 w-3.5 text-primary" />
+              Certificado reconhecido
+            </span>
+          </div>
+
+          <div className="flex items-end gap-3 pt-1">
+            {hasDiscount && (
+              <span className="text-sm text-muted-foreground line-through">
+                R$ {formatBRL(meta.originalPrice!)}
+              </span>
+            )}
+            <span className="font-display text-3xl font-black tracking-tight text-primary sm:text-4xl">
+              R$ {formatBRL(price)}
+            </span>
+            <span className="mb-1 text-[11px] uppercase tracking-widest text-muted-foreground">
+              à vista
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition group-hover:brightness-110">
+              {meta.ctaLabel ?? "Ver oferta completa"}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+            <span className="text-[11px] uppercase tracking-widest text-muted-foreground">
+              Garantia de 7 dias · Acesso vitalício
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+/* ============================================================
+ * PRODUCT CARD — card comercial padrão (vertical)
+ * ============================================================ */
+function ProductCourseCard({ course, track }: { course: CourseRow; track: TrackRow | undefined }) {
+  const meta = getCourseSalesMeta(course.slug);
+  const Icon = getIcon(track?.icon);
+  const price = Number(course.price ?? 0);
+  const hasDiscount = meta.originalPrice && meta.originalPrice > price;
+  const discountPct = hasDiscount
+    ? Math.round(((meta.originalPrice! - price) / meta.originalPrice!) * 100)
+    : 0;
+  const hours = course.workload_hours > 0 ? course.workload_hours : Math.round(course.duration_minutes / 60);
+
+  return (
+    <Link
+      to="/curso/$slug/oferta"
+      params={{ slug: course.slug }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_24px_60px_-30px_rgba(59,130,246,0.5)]"
+    >
+      {/* Capa */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/15 to-background">
+        {course.cover_url ? (
+          <img
+            src={course.cover_url}
+            alt={course.title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Icon className="h-14 w-14 text-primary/50" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+        {/* Selo status */}
+        {meta.badge && (
+          <span
+            className={
+              "absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider " +
+              badgeClass(meta.badge.kind)
+            }
+          >
+            {meta.badge.label}
+          </span>
+        )}
+
+        {hasDiscount && (
+          <span className="absolute right-3 top-3 rounded-full bg-black/70 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur">
+            −{discountPct}%
+          </span>
+        )}
+
+        {/* Categoria (rodapé da capa) */}
+        {track && (
+          <span className="absolute bottom-3 left-3 inline-flex items-center rounded-full border border-white/20 bg-black/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white backdrop-blur">
+            {track.tag}
+          </span>
+        )}
+      </div>
+
+      {/* Corpo */}
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <h3 className="font-display text-lg font-bold leading-snug tracking-tight">
+          {course.title}
+        </h3>
+
+        <p className="line-clamp-2 text-sm text-muted-foreground">
+          {meta.hook ?? course.description}
+        </p>
+
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <Clock className="h-3 w-3" />
+            {hours}h
+          </span>
+          <span className="text-border">·</span>
+          <span className="inline-flex items-center gap-1">
+            <Signal className="h-3 w-3" />
+            {course.level}
+          </span>
+          <span className="text-border">·</span>
+          <span className="inline-flex items-center gap-1">
+            <BadgeCheck className="h-3 w-3" />
+            Certificado
+          </span>
+        </div>
+
+        {/* Preço */}
+        <div className="mt-1 flex items-end gap-2 border-t border-border/60 pt-4">
+          {course.is_free ? (
+            <span className="font-display text-2xl font-black tracking-tight text-emerald-500">
+              Gratuito
+            </span>
+          ) : (
+            <>
+              {hasDiscount && (
+                <span className="text-xs text-muted-foreground line-through">
+                  R$ {formatBRL(meta.originalPrice!)}
+                </span>
+              )}
+              <span className="font-display text-2xl font-black tracking-tight text-foreground">
+                R$ {formatBRL(price)}
+              </span>
+            </>
+          )}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-2 text-xs font-semibold text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+            {meta.ctaLabel ?? "Ver oferta"}
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            7 dias de garantia
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+
 
 function FilterSelect({
   value,
