@@ -887,8 +887,11 @@ function OfferPage() {
               </figure>
             ))}
           </div>
-          <p className="mt-8 text-center text-[11px] text-muted-foreground/80">
-            Depoimentos ilustrativos com base em conversas com alunos. Nomes reduzidos para preservar privacidade; substituídos por depoimentos verificados conforme autorização.
+          <p className="mt-6 text-center text-sm italic text-muted-foreground">
+            Antes de decidir, tire as últimas dúvidas — reunimos abaixo o que costuma travar a matrícula.
+          </p>
+          <p className="mt-3 text-center text-[11px] text-muted-foreground/80">
+            Depoimentos ilustrativos marcados como <span className="font-medium">[placeholder verificado]</span>, baseados em conversas com alunos e beta interno. Serão substituídos por relatos autorizados conforme a turma inaugural for concluindo o método.
           </p>
         </div>
       </section>
