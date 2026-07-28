@@ -955,8 +955,8 @@ function OfferPage() {
               {finalCta.promise}
             </p>
           )}
-          <p className="mt-3 text-sm text-muted-foreground">
-            {course.title} · {course.workload_hours}h · certificado incluso
+          <p className="mt-3 text-xs uppercase tracking-widest text-muted-foreground">
+            {course.workload_hours}h · certificado reconhecido · acesso vitalício
           </p>
 
           <div className="mt-8 inline-flex flex-col items-center gap-3">
@@ -997,25 +997,29 @@ function OfferPage() {
       </section>
 
       {/* ============ STICKY MOBILE CTA ============ */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-background/95 px-4 py-3 backdrop-blur md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-background/95 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2.5 shadow-[0_-8px_24px_-12px_hsl(var(--primary)/0.25)] backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-md items-center gap-3">
           <div className="min-w-0 flex-1">
-            <div className="truncate text-xs text-muted-foreground">
-              {course.workload_hours}h · certificado
+            <div className="truncate text-[11px] uppercase tracking-wider text-muted-foreground">
+              PIX · acesso vitalício
             </div>
-            <div className="flex items-baseline gap-1">
+            <div className="flex items-baseline gap-1.5">
               {priceCopy.strike && (
                 <span className="text-[11px] text-muted-foreground line-through">{priceCopy.strike.replace(/^De\s*/, "")}</span>
               )}
               <span className="font-display text-lg font-bold text-primary">{priceCopy.primary}</span>
             </div>
           </div>
-          <Button size="sm" className="shrink-0" onClick={() => setShowCheckout(true)} disabled={alreadyOwns}>
+          <Button
+            className="h-11 shrink-0 px-4 text-sm font-semibold"
+            onClick={() => setShowCheckout(true)}
+            disabled={alreadyOwns}
+          >
             {alreadyOwns ? "Acessar" : variant.primaryCtaShort}
           </Button>
         </div>
       </div>
-      <div aria-hidden className="h-20 md:hidden" />
+      <div aria-hidden className="h-24 md:hidden" />
     </div>
   );
 }

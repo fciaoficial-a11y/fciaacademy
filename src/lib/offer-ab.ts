@@ -16,10 +16,10 @@ export type OfferVariantKey = "A" | "B" | "C";
 
 /** Modo de ancoragem de preço exibido no bloco de oferta e CTA final. */
 export type PriceAnchorMode =
-  | "installment" // "12x de R$X no cartão"
+  | "single" // "pagamento único via PIX"
   | "perDay" // "menos de R$X por dia"
   | "compare" // "De R$Y por R$X"
-  | "combined"; // combina os 3
+  | "combined"; // combina compare + perDay
 
 export interface OfferVariant {
   key: OfferVariantKey;
@@ -44,7 +44,7 @@ export interface OfferVariant {
 export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   A: {
     key: "A",
-    primaryCta: "Quero garantir minha vaga",
+    primaryCta: "Garantir minha vaga por PIX",
     primaryCtaShort: "Garantir vaga",
     heroHeadline: null,
     heroSubheadline: null,
@@ -55,8 +55,8 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   B: {
     key: "B",
-    primaryCta: "Começar agora",
-    primaryCtaShort: "Começar",
+    primaryCta: "Quero começar agora por PIX",
+    primaryCtaShort: "Começar por PIX",
     heroHeadline: null,
     heroSubheadline:
       "Aprenda o método aplicado que Fernando Cabral usa em consultorias reais — no seu ritmo, com certificado reconhecido.",
@@ -67,14 +67,14 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   C: {
     key: "C",
-    primaryCta: "Quero aprender IA na prática",
-    primaryCtaShort: "Aprender agora",
+    primaryCta: "Quero comprar agora por PIX",
+    primaryCtaShort: "Comprar por PIX",
     heroHeadline: null,
     heroSubheadline:
       "Transforme sua rotina em resultado com IA — método aplicado, sem enrolação, sem código.",
     heroEyebrow: "Método FCIA · Aplicado ao seu dia a dia",
     offerTitle: "Um investimento, todos os benefícios",
-    priceAnchor: "installment",
+    priceAnchor: "single",
     finalCtaHeadline: "Sua próxima habilidade começa aqui",
   },
 };
@@ -165,13 +165,13 @@ export function buildPriceAnchor(
   const { price, anchorPrice, installment12, perDay } = values;
 
   switch (variant.priceAnchor) {
-    case "installment":
+    case "single":
       return {
         strike: null,
         primary: formatBRL(price),
         supporting: [
-          `ou até 12x de ${formatBRL(installment12)} no cartão`,
-          "Pagamento facilitado — comece hoje.",
+          "Pagamento único via PIX · sem mensalidade, sem renovação.",
+          "Acesso liberado em segundos após a confirmação.",
         ],
       };
     case "perDay":
@@ -180,7 +180,7 @@ export function buildPriceAnchor(
         primary: formatBRL(price),
         supporting: [
           `Menos de ${formatBRL(perDay)} por dia em 1 ano de acesso.`,
-          `ou 12x de ${formatBRL(installment12)} no cartão`,
+          "Pagamento único via PIX · sem mensalidade.",
         ],
       };
     case "compare":
@@ -189,6 +189,7 @@ export function buildPriceAnchor(
         primary: formatBRL(price),
         supporting: [
           `Economize ${formatBRL(anchorPrice - price)} nesta oferta de lançamento.`,
+          "Pagamento único via PIX.",
         ],
       };
     case "combined":
@@ -197,8 +198,8 @@ export function buildPriceAnchor(
         strike: `De ${formatBRL(anchorPrice)}`,
         primary: formatBRL(price),
         supporting: [
-          `ou até 12x de ${formatBRL(installment12)} no cartão`,
           `Equivale a ${formatBRL(perDay)} por dia em 1 ano de acesso.`,
+          "Pagamento único via PIX · sem mensalidade.",
         ],
       };
   }
