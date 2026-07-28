@@ -286,7 +286,7 @@ function JourneyColumn({ userId, hasBio }: { userId: string; hasBio: boolean }) 
       };
     }
     if (certList.length === 0) {
-      return { label: "Explorar trilhas", to: "/trilhas" as const, params: undefined };
+      return { label: "Explorar cursos", to: "/cursos" as const, params: undefined };
     }
     return { label: "Ver evolução", to: "/evolucao" as const, params: undefined };
   })();
@@ -349,8 +349,8 @@ function JourneyColumn({ userId, hasBio }: { userId: string; hasBio: boolean }) 
           <EmptyRow
             icon={<BookOpen className="h-4 w-4" />}
             text="Nenhum curso iniciado ainda."
-            ctaLabel="Ver trilhas"
-            ctaTo="/trilhas"
+            ctaLabel="Ver cursos"
+            ctaTo="/cursos"
           />
         ) : (
           <ul className="mt-4 space-y-3">
@@ -392,8 +392,8 @@ function JourneyColumn({ userId, hasBio }: { userId: string; hasBio: boolean }) 
           <EmptyRow
             icon={<Award className="h-4 w-4" />}
             text="Nenhum certificado ainda. Conclua um curso para começar."
-            ctaLabel="Explorar trilhas"
-            ctaTo="/trilhas"
+            ctaLabel="Explorar cursos"
+            ctaTo="/cursos"
           />
         ) : (
           <ul className="mt-4 space-y-2 text-sm">
@@ -427,8 +427,8 @@ function JourneyColumn({ userId, hasBio }: { userId: string; hasBio: boolean }) 
           <EmptyRow
             icon={<Trophy className="h-4 w-4" />}
             text="Nenhuma conquista ainda. Complete um módulo para desbloquear."
-            ctaLabel="Ver trilhas"
-            ctaTo="/trilhas"
+            ctaLabel="Ver cursos"
+            ctaTo="/cursos"
           />
         ) : (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -462,7 +462,7 @@ function EmptyRow({
   icon: React.ReactNode;
   text: string;
   ctaLabel: string;
-  ctaTo: "/trilhas" | "/dashboard" | "/evolucao";
+  ctaTo: "/cursos" | "/dashboard" | "/evolucao";
 }) {
   return (
     <div className="mt-4 flex flex-col items-start gap-3 rounded-lg border border-dashed border-white/10 bg-background/30 p-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
