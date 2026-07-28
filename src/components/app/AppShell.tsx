@@ -83,11 +83,19 @@ export function AppShell({ children }: { children: ReactNode }) {
     .toUpperCase();
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-white/5 bg-background/70 backdrop-blur-xl">
+    <div
+      className="flex min-h-screen flex-col bg-background text-foreground"
+      style={{ ["--mode-tone" as string]: "var(--mode-student)" }}
+      data-mode="student"
+    >
+      <header className="mode-ribbon sticky top-0 z-40 border-b border-white/5 bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6">
           <Link to="/dashboard" className="flex items-center gap-2.5">
             <Logo size={34} />
+            <span className="mode-chip hidden sm:inline-flex">
+              <GraduationCap className="h-3 w-3" />
+              Aluno
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
