@@ -362,9 +362,17 @@ function OfferPage() {
                 className="aspect-[4/3] w-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-4 -left-4 hidden rounded-2xl border border-border/60 bg-card px-4 py-3 shadow-xl md:block">
-              <div className="text-xs uppercase tracking-widest text-muted-foreground">Carga horária</div>
-              <div className="mt-0.5 font-display text-2xl font-bold">{course.workload_hours}h</div>
+            <div className="absolute -bottom-4 -left-4 hidden items-center gap-3 rounded-2xl border border-border/60 bg-card px-4 py-3 shadow-xl md:flex">
+              <div>
+                <div className="text-xs uppercase tracking-widest text-muted-foreground">Carga horária</div>
+                <div className="mt-0.5 font-display text-2xl font-bold">{course.workload_hours}h</div>
+              </div>
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary"
+                title="Certificado reconhecido conforme a Lei 9.394/96 (LDB)"
+              >
+                <BadgeCheck className="h-3.5 w-3.5" /> Certificado reconhecido
+              </span>
             </div>
           </div>
         </div>
@@ -429,6 +437,29 @@ function OfferPage() {
                     Pagamento seguro · Asaas · PIX Banco Central
                   </span>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-8 grid gap-3 border-t border-border/60 pt-6 text-sm sm:grid-cols-2">
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>Acesso vitalício ao curso e às futuras atualizações</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{course.workload_hours}h de conteúdo aplicado + materiais em PDF</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>
+                  Certificado digital reconhecido —{" "}
+                  <strong className="text-foreground">curso livre nos termos da Lei 9.394/96</strong>,
+                  com código público de validação
+                </span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>Suporte por WhatsApp durante todo o curso</span>
               </div>
             </div>
           </div>
@@ -572,11 +603,10 @@ function OfferPage() {
                   Certificado com validade legal
                 </h2>
                 <p className="mt-3 text-sm text-muted-foreground">
-                  Curso livre de capacitação profissional, emitido nos termos da
-                  <strong className="text-foreground"> Lei nº 9.394/1996</strong> (LDB) e do
-                  <strong className="text-foreground"> Decreto nº 5.154/2004</strong>. Certificado digital
-                  com código de verificação público e QR Code — pode ser incluído em currículo, LinkedIn e
-                  processos internos de RH.
+                  Curso livre de capacitação profissional, emitido de acordo com a
+                  <strong className="text-foreground"> Lei 9.394/96</strong> — a mesma lei que rege a
+                  educação no Brasil. Você recebe um certificado digital com QR Code e código público
+                  de validação, aceito em currículos, LinkedIn e processos de RH.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1">
