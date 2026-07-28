@@ -67,6 +67,13 @@ const featuredCoursesQuery = queryOptions({
       .order("sort_order", { ascending: true });
     if (error) throw error;
     const list = courses ?? [];
+    // Masterclass sempre em primeiro lugar na vitrine da home
+    const MASTERCLASS_SLUG = "metodo-ia-criativa";
+    list.sort((a, b) => {
+      if (a.slug === MASTERCLASS_SLUG) return -1;
+      if (b.slug === MASTERCLASS_SLUG) return 1;
+      return 0;
+    });
     return Promise.all(
       list.map(async (c) => {
         const { count } = await supabase
