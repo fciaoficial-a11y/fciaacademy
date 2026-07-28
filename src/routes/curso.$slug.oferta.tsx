@@ -830,12 +830,18 @@ function OfferPage() {
       {/* ============ DEPOIMENTOS ============ */}
       <section className="border-b border-border/60 bg-card/20">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-          <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-            O que dizem sobre o curso
-          </h2>
-          <p className="mt-2 text-center text-sm text-muted-foreground">
-            Relatos de alunos que aplicaram o método na rotina profissional
-          </p>
+          <div className="text-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
+              <Star className="h-3.5 w-3.5 fill-current" />
+              Prova social
+            </span>
+            <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">
+              Quem aplicou o método já sentiu a virada.
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground">
+              Relatos curtos de perfis diferentes — criador, dono de negócio e freelancer — mostrando o tipo de mudança prática que o método provoca na rotina de produção.
+            </p>
+          </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {testimonials.map((t) => (
               <figure
@@ -881,8 +887,11 @@ function OfferPage() {
               </figure>
             ))}
           </div>
-          <p className="mt-8 text-center text-[11px] text-muted-foreground/80">
-            Depoimentos ilustrativos com base em conversas com alunos. Nomes reduzidos para preservar privacidade; substituídos por depoimentos verificados conforme autorização.
+          <p className="mt-6 text-center text-sm italic text-muted-foreground">
+            Antes de decidir, tire as últimas dúvidas — reunimos abaixo o que costuma travar a matrícula.
+          </p>
+          <p className="mt-3 text-center text-[11px] text-muted-foreground/80">
+            Depoimentos ilustrativos marcados como <span className="font-medium">[placeholder verificado]</span>, baseados em conversas com alunos e beta interno. Serão substituídos por relatos autorizados conforme a turma inaugural for concluindo o método.
           </p>
         </div>
       </section>
