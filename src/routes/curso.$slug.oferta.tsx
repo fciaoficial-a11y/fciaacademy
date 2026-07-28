@@ -192,13 +192,13 @@ function OfferPage() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
           <div className="min-w-0">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> {variant.heroEyebrow}
+              <Sparkles className="h-3.5 w-3.5" /> {variant.heroEyebrow ?? hero.eyebrow}
             </span>
             <h1 className="mt-4 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-              {variant.heroHeadline ?? course.title}
+              {variant.heroHeadline ?? hero.headline}
             </h1>
             <p className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              {variant.heroSubheadline ?? course.description}
+              {variant.heroSubheadline ?? hero.subheadline}
             </p>
 
             <div className="mt-6 flex items-center gap-4 rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur">
