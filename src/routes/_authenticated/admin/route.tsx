@@ -221,7 +221,7 @@ function AdminLayout() {
 
       <div className="mx-auto flex w-full max-w-[1400px] flex-1 gap-6 px-4 py-6 md:px-6 lg:grid lg:grid-cols-[220px_1fr]">
         <aside className="hidden lg:sticky lg:top-20 lg:block lg:self-start">
-          <div className="mb-3 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">Admin</div>
+          <div className="mb-3 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--mode-admin)" }}>Painel operacional</div>
           <SidebarNav />
         </aside>
         <section className="min-w-0">
