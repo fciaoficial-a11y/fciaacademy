@@ -16,10 +16,10 @@ export type OfferVariantKey = "A" | "B" | "C";
 
 /** Modo de ancoragem de preço exibido no bloco de oferta e CTA final. */
 export type PriceAnchorMode =
-  | "installment" // "12x de R$X no cartão"
+  | "single" // "pagamento único via PIX"
   | "perDay" // "menos de R$X por dia"
   | "compare" // "De R$Y por R$X"
-  | "combined"; // combina os 3
+  | "combined"; // combina compare + perDay
 
 export interface OfferVariant {
   key: OfferVariantKey;
