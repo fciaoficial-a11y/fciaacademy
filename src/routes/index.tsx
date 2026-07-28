@@ -67,6 +67,13 @@ const featuredCoursesQuery = queryOptions({
       .order("sort_order", { ascending: true });
     if (error) throw error;
     const list = courses ?? [];
+    // Masterclass sempre em primeiro lugar na vitrine da home
+    const MASTERCLASS_SLUG = "metodo-ia-criativa";
+    list.sort((a, b) => {
+      if (a.slug === MASTERCLASS_SLUG) return -1;
+      if (b.slug === MASTERCLASS_SLUG) return 1;
+      return 0;
+    });
     return Promise.all(
       list.map(async (c) => {
         const { count } = await supabase
@@ -185,7 +192,13 @@ function priceLabel(price: number | null | undefined): string {
 function Index() {
   const featured = useQuery(featuredCoursesQuery);
   const courses = featured.data ?? [];
-  const primaryHref = courses[0] ? `/curso/${courses[0].slug}/oferta` : "/cursos";
+  const MASTERCLASS_SLUG = "metodo-ia-criativa";
+  const hasMasterclass = courses.some((c) => c.slug === MASTERCLASS_SLUG);
+  const primaryHref = hasMasterclass
+    ? `/curso/${MASTERCLASS_SLUG}/oferta`
+    : courses[0]
+      ? `/curso/${courses[0].slug}/oferta`
+      : "/cursos";
 
   return (
     <>
@@ -200,7 +213,7 @@ function Index() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
               <Sparkles className="h-3 w-3" />
-              Para profissionais que ainda não usam IA no trabalho
+              Nova Masterclass · Método IA Criativa
             </div>
 
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
@@ -227,8 +240,8 @@ function Index() {
             </div>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-              <PrimaryCTA to={primaryHref}>Quero aplicar IA no meu trabalho</PrimaryCTA>
-              <SecondaryCTA href="#curso-destaque">Ver o curso</SecondaryCTA>
+              <PrimaryCTA to={primaryHref}>Conhecer a Masterclass</PrimaryCTA>
+              <SecondaryCTA href="#curso-destaque">Ver todos os cursos</SecondaryCTA>
             </div>
 
           </div>
@@ -404,9 +417,23 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
   const modulesLabel =
     course.modules_count > 0 ? `${course.modules_count} módulo${course.modules_count > 1 ? "s" : ""}` : null;
   const coverSrc = course.cover_url && course.cover_url.length > 0 ? course.cover_url : courseImage.url;
+  const isMasterclass = course.slug === "metodo-ia-criativa";
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:border-primary/40">
+    <article
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5",
+        isMasterclass
+          ? "border-primary/50 shadow-[0_0_60px_-15px_hsl(var(--primary)/0.45)] hover:border-primary/70"
+          : "border-white/10 hover:border-primary/40",
+      )}
+    >
+      {isMasterclass ? (
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent"
+          aria-hidden
+        />
+      ) : null}
       <div className="relative aspect-[16/10] w-full overflow-hidden">
         <ImageWithFallback
           src={coverSrc}
@@ -418,9 +445,16 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" aria-hidden />
-        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-background/60 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground backdrop-blur">
-          <BookOpen className="h-3 w-3" />
-          Curso
+        <span
+          className={cn(
+            "absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] backdrop-blur",
+            isMasterclass
+              ? "border-primary/50 bg-primary/20 text-primary-foreground"
+              : "border-white/20 bg-background/60 text-foreground",
+          )}
+        >
+          {isMasterclass ? <Sparkles className="h-3 w-3" /> : <BookOpen className="h-3 w-3" />}
+          {isMasterclass ? "Masterclass · Destaque" : "Curso"}
         </span>
       </div>
 
@@ -450,7 +484,7 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
             {priceLabel(course.price)}
           </span>
           <PrimaryCTA to={`/curso/${course.slug}/oferta`} className="h-11 px-6 text-sm">
-            Ver detalhes
+            {isMasterclass ? "Ver Masterclass" : "Ver detalhes"}
           </PrimaryCTA>
         </div>
       </div>
