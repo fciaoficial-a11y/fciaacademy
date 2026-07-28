@@ -942,10 +942,20 @@ function OfferPage() {
       {/* ============ CTA FINAL ============ */}
       <section className="bg-gradient-to-b from-background to-primary/10">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center md:py-24">
-          <h2 className="font-display text-3xl font-bold sm:text-4xl">
+          {finalCta?.eyebrow && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
+              {finalCta.eyebrow}
+            </span>
+          )}
+          <h2 className="mt-4 font-display text-3xl font-bold sm:text-4xl">
             {variant.finalCtaHeadline}
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+          {finalCta?.promise && (
+            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
+              {finalCta.promise}
+            </p>
+          )}
+          <p className="mt-3 text-sm text-muted-foreground">
             {course.title} · {course.workload_hours}h · certificado incluso
           </p>
 
@@ -967,6 +977,11 @@ function OfferPage() {
             <Button size="lg" className="w-full max-w-sm text-base" onClick={() => setShowCheckout(true)} disabled={alreadyOwns}>
               {alreadyOwns ? "Você já tem acesso" : variant.primaryCta}
             </Button>
+            {finalCta?.microcopy && (
+              <p className="max-w-md text-xs text-muted-foreground">
+                {finalCta.microcopy}
+              </p>
+            )}
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4 text-primary" />
