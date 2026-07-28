@@ -449,8 +449,8 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
           <span className="font-display text-lg font-semibold text-accent">
             {priceLabel(course.price)}
           </span>
-          <PrimaryCTA to={`/curso/${course.slug}`} className="h-11 px-6 text-sm">
-            Acessar curso
+          <PrimaryCTA to={`/curso/${course.slug}/oferta`} className="h-11 px-6 text-sm">
+            Ver detalhes
           </PrimaryCTA>
         </div>
       </div>
