@@ -332,18 +332,36 @@ function OfferPage() {
             </p>
 
             <div className="mt-10 grid gap-4 md:grid-cols-3">
-              {method.pillars.map((p, i) => (
-                <div
-                  key={p.name}
-                  className="rounded-2xl border border-primary/30 bg-gradient-to-b from-primary/10 to-card/40 p-6"
-                >
-                  <div className="font-display text-xs uppercase tracking-[0.16em] text-primary">
-                    Pilar {String(i + 1).padStart(2, "0")}
+              {method.pillars.map((p, i) => {
+                const pillarImg = resolveVisual(p.image);
+                return (
+                  <div
+                    key={p.name}
+                    className="group overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-b from-primary/10 to-card/40"
+                  >
+                    {pillarImg && (
+                      <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-primary/20">
+                        <img
+                          src={pillarImg}
+                          alt={p.imageAlt ?? p.name}
+                          loading="lazy"
+                          width={1024}
+                          height={1024}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="font-display text-xs uppercase tracking-[0.16em] text-primary">
+                        Pilar {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <div className="mt-2 font-display text-2xl font-bold">{p.name}</div>
+                      <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>
+                    </div>
                   </div>
-                  <div className="mt-2 font-display text-2xl font-bold">{p.name}</div>
-                  <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {method.integrationItems && method.integrationItems.length > 0 && (
