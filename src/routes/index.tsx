@@ -185,7 +185,7 @@ function priceLabel(price: number | null | undefined): string {
 function Index() {
   const featured = useQuery(featuredCoursesQuery);
   const courses = featured.data ?? [];
-  const primaryHref = courses[0] ? `/curso/${courses[0].slug}` : "/cursos";
+  const primaryHref = courses[0] ? `/curso/${courses[0].slug}/oferta` : "/cursos";
 
   return (
     <>
