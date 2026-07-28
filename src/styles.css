@@ -162,6 +162,11 @@
   --chart-3: oklch(0.78 0.17 200);
   --chart-4: oklch(0.72 0.2 280);
   --chart-5: oklch(0.65 0.22 230);
+
+  /* Dark mode: tons contextuais mais vivos */
+  --mode-public: oklch(0.7 0.21 255);
+  --mode-student: oklch(0.74 0.18 160);
+  --mode-admin: oklch(0.78 0.19 65);
 }
 
 @layer base {
