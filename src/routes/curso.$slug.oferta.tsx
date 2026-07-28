@@ -24,6 +24,10 @@ import { PostPurchaseUpsell } from "@/components/payments/PostPurchaseUpsell";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
+import {
+  fillFaqPlaceholders,
+  resolveCourseTemplate,
+} from "@/lib/course-template";
 import fernandoImg from "@/assets/fernando-cabral.webp.asset.json";
 
 interface OfferModule {
