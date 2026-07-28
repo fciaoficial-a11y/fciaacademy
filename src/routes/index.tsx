@@ -213,7 +213,7 @@ function Index() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
               <Sparkles className="h-3 w-3" />
-              Para profissionais que ainda não usam IA no trabalho
+              Nova Masterclass · Método IA Criativa
             </div>
 
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
