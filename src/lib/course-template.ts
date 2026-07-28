@@ -556,6 +556,7 @@ export function resolveCourseTemplate({
     method: override.method ?? null,
     transformation: override.transformation ?? null,
     bonuses: override.bonuses ?? null,
+    valueStack: override.valueStack ?? null,
   };
 }
 
