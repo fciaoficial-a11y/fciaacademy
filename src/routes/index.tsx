@@ -192,7 +192,13 @@ function priceLabel(price: number | null | undefined): string {
 function Index() {
   const featured = useQuery(featuredCoursesQuery);
   const courses = featured.data ?? [];
-  const primaryHref = courses[0] ? `/curso/${courses[0].slug}/oferta` : "/cursos";
+  const MASTERCLASS_SLUG = "metodo-ia-criativa";
+  const hasMasterclass = courses.some((c) => c.slug === MASTERCLASS_SLUG);
+  const primaryHref = hasMasterclass
+    ? `/curso/${MASTERCLASS_SLUG}/oferta`
+    : courses[0]
+      ? `/curso/${courses[0].slug}/oferta`
+      : "/cursos";
 
   return (
     <>
