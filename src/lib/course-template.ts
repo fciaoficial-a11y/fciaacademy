@@ -639,6 +639,8 @@ export interface ResolvedCourseTemplate {
   bonuses: CourseBonusesCopy | null;
   valueStack: CourseValueStackCopy | null;
   authority: CourseAuthorityCopy | null;
+  guarantee: CourseGuaranteeCopy | null;
+  finalCta: CourseFinalCtaCopy | null;
 }
 
 interface ResolveArgs {
