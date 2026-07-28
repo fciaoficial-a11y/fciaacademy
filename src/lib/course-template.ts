@@ -550,6 +550,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "SDR · SaaS B2B",
         initials: "CR",
         result: "3x mais reuniões agendadas",
+        photoUrl: avatarCamilaR,
         quote:
           "Copiava e colava o mesmo template para todo mundo. Agora personalizo cada abordagem em 40 segundos com IA e o lead responde. Bati meta trimestral em 5 semanas.",
       },
@@ -558,6 +559,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Dono de estúdio de design",
         initials: "AL",
         result: "Fechou 4 clientes em 30 dias",
+        photoUrl: avatarAndersonL,
         quote:
           "Eu odiava prospectar. Achava que era chato e invasivo. O método do Fernando me deu abordagem consultiva com IA — parece conversa, não venda. Meu funil nunca esteve tão cheio.",
       },
@@ -566,10 +568,12 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Consultora financeira autônoma",
         initials: "PS",
         result: "Follow-up automático que fecha",
+        photoUrl: avatarPatriciaS,
         quote:
           "Perdia venda no follow-up porque esquecia de responder no tempo certo. Montei minha esteira com IA e mensagens prontas por contexto. Duas semanas depois, fechei três contratos parados há meses.",
       },
     ],
+
   },
 };
 
