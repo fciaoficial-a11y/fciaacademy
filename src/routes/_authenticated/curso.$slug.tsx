@@ -933,8 +933,10 @@ function IntroVideoBlock({ moduleId, title }: { moduleId: string; title: string 
 
 function Paywall({
   course,
+  slug,
 }: {
   course: { id: string; title: string; description: string; track_title: string | null; price: number };
+  slug: string;
 }) {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:py-24">
