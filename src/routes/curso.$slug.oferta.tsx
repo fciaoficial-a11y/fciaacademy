@@ -358,7 +358,7 @@ function OfferPage() {
                 onClick={() => setShowCheckout(true)}
                 disabled={alreadyOwns}
               >
-                {alreadyOwns ? "Você já tem acesso" : "Quero garantir minha vaga"}
+                {alreadyOwns ? "Você já tem acesso" : variant.primaryCta}
               </Button>
               <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                 <ShieldCheck className="h-4 w-4 text-primary" /> 7 dias de garantia
