@@ -146,8 +146,12 @@ function AdminLayout() {
   );
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-white/5 bg-background/80 backdrop-blur-xl">
+    <div
+      className="flex min-h-screen flex-col bg-background text-foreground"
+      style={{ ["--mode-tone" as string]: "var(--mode-admin)" }}
+      data-mode="admin"
+    >
+      <header className="mode-ribbon sticky top-0 z-40 border-b border-white/5 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[1400px] items-center justify-between gap-4 px-4 md:px-6">
           <div className="flex items-center gap-3">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -160,7 +164,7 @@ function AdminLayout() {
                 <SheetTitle className="sr-only">Menu administrativo</SheetTitle>
                 <div className="flex h-14 items-center gap-2 border-b border-white/5 px-4">
                   <Logo size={28} />
-                  <span className="text-xs font-medium uppercase tracking-[0.18em] text-primary">Admin</span>
+                  <span className="mode-chip">Admin</span>
                 </div>
                 <div className="p-3">
                   <SidebarNav onNavigate={() => setMobileOpen(false)} />
@@ -170,7 +174,7 @@ function AdminLayout() {
             <Link to="/admin" className="flex items-center gap-2.5">
               <Logo size={30} />
             </Link>
-            <span className="hidden items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.14em] text-primary sm:inline-flex">
+            <span className="mode-chip hidden sm:inline-flex">
               <Shield className="h-3 w-3" />
               Admin
             </span>
@@ -217,7 +221,7 @@ function AdminLayout() {
 
       <div className="mx-auto flex w-full max-w-[1400px] flex-1 gap-6 px-4 py-6 md:px-6 lg:grid lg:grid-cols-[220px_1fr]">
         <aside className="hidden lg:sticky lg:top-20 lg:block lg:self-start">
-          <div className="mb-3 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">Admin</div>
+          <div className="mb-3 text-[11px] font-medium uppercase tracking-[0.18em]" style={{ color: "var(--mode-admin)" }}>Painel operacional</div>
           <SidebarNav />
         </aside>
         <section className="min-w-0">

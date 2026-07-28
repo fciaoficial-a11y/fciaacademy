@@ -14,13 +14,18 @@ export function SiteHeader() {
   const isAuthed = Boolean(user);
 
   return (
-    <header className="sticky top-0 z-50">
+    <header
+      className="mode-ribbon sticky top-0 z-50"
+      style={{ ["--mode-tone" as string]: "var(--mode-public)" }}
+      data-mode="public"
+    >
       <div className="absolute inset-0 -z-10 border-b border-white/5 bg-background/60 backdrop-blur-xl backdrop-saturate-150" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
       <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-6 px-6">
         <Link to="/" className="group flex items-center gap-2.5 justify-self-start">
           <Logo size={36} priority />
+          <span className="mode-chip hidden sm:inline-flex">Vitrine</span>
         </Link>
 
         <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-1.5 py-1 backdrop-blur md:flex">
