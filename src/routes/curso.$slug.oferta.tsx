@@ -523,7 +523,8 @@ function OfferPage() {
               </div>
             ) : (
               <>
-                <PixCheckout mode="course" courseId={course.id} title={course.title} />
+                <PixCheckout mode="course" courseId={course.id} title={course.title} onPaid={() => setJustPaid(true)} />
+                {justPaid && <PostPurchaseUpsell purchasedSlug={course.slug} />}
                 <div className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-border/60 bg-background/60 p-3 text-xs text-muted-foreground">
                   <Lock className="h-3.5 w-3.5 text-primary" />
                   Ambiente seguro · Asaas · PIX regulado pelo Banco Central
