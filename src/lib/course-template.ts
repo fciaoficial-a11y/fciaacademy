@@ -498,6 +498,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Gerente comercial · indústria",
         initials: "RM",
         result: "Economizou 6h/semana em relatórios",
+        photoUrl: avatarRicardoM,
         quote:
           "Eu abria o ChatGPT e não sabia o que pedir. Saí do curso com prompts prontos para relatório gerencial, e-mail difícil e ata de reunião. Meu chefe achou que contratei um assistente.",
       },
@@ -506,6 +507,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Advogada tributarista",
         initials: "JP",
         result: "Petições em 1/3 do tempo",
+        photoUrl: avatarJulianaP,
         quote:
           "Passei anos com medo de a IA me substituir. O Fernando mostrou o contrário: virei a advogada que resolve mais casos por semana. A IA revisa e organiza — eu decido.",
       },
@@ -514,10 +516,12 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Diretor de operações",
         initials: "DA",
         result: "Time inteiro usando IA em 30 dias",
+        photoUrl: avatarDiegoA,
         quote:
           "Eu precisava explicar IA para a diretoria sem parecer amador. O curso me deu vocabulário, exemplos práticos e um plano de rollout. Levei a IA para dentro da empresa com segurança.",
       },
     ],
+
   },
 
   "venda-com-ia": {
