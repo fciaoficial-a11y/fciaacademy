@@ -580,31 +580,11 @@ function OfferPage() {
             Perguntas frequentes
           </h2>
           <div className="mt-8 space-y-3">
-            <FaqItem q={`Vale ${formatBRL(price)}?`}>
-              O curso reúne o método que Fernando Cabral aplica em consultorias reais. Você paga uma vez
-              e usa o conteúdo por tempo indeterminado — o custo por dia ao longo de 1 ano é de{" "}
-              {formatBRL(perDay)}.
-            </FaqItem>
-            <FaqItem q="Por quanto tempo tenho acesso?">
-              Acesso vitalício ao conteúdo publicado neste curso, com atualizações incluídas quando
-              lançarmos novas aulas dentro deste mesmo produto.
-            </FaqItem>
-            <FaqItem q="Tem suporte?">
-              Sim. Você pode enviar dúvidas pelo canal oficial da FCIA (WhatsApp e e-mail de suporte).
-              Respondemos em dias úteis.
-            </FaqItem>
-            <FaqItem q="Emite certificado?">
-              Sim. Ao concluir 100% dos módulos obrigatórios e atingir 70% no exame final, o certificado
-              é emitido automaticamente com código de validação público (Lei 9.394/96 · Decreto 5.154/04).
-            </FaqItem>
-            <FaqItem q="E se eu não gostar?">
-              Você tem 7 dias corridos de garantia incondicional. Se decidir que não é para você, pedimos
-              o cancelamento e devolvemos 100% do valor pago — sem burocracia.
-            </FaqItem>
-            <FaqItem q="Como funciona o pagamento?">
-              O pagamento é feito via PIX, processado pela Asaas, regulado pelo Banco Central. A
-              confirmação e liberação do acesso é automática assim que o banco confirma o PIX.
-            </FaqItem>
+            {faq.map((item) => (
+              <FaqItem key={item.q} q={fillFaqPlaceholders(item.q, faqVars)}>
+                {fillFaqPlaceholders(item.a, faqVars)}
+              </FaqItem>
+            ))}
           </div>
         </div>
       </section>
