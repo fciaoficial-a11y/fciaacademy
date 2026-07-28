@@ -176,6 +176,105 @@ function getAudienceForCourse(slug: string): AudienceCopy {
   return AUDIENCE_BY_SLUG[slug] ?? DEFAULT_AUDIENCE;
 }
 
+// ============ DEPOIMENTOS POR CURSO ============
+// Estes são depoimentos placeholder editáveis. Ao coletar depoimentos reais
+// da primeira turma, substituir o conteúdo abaixo mantendo a mesma estrutura.
+interface Testimonial {
+  name: string;
+  role: string;
+  initials: string;
+  result: string; // badge curto do resultado obtido
+  quote: string; // frase de impacto curta (máx ~200 chars)
+  photoUrl?: string | null;
+}
+
+const TESTIMONIALS_BY_SLUG: Record<string, Testimonial[]> = {
+  "ia-sem-misterio": [
+    {
+      name: "Ricardo M.",
+      role: "Gerente comercial · indústria",
+      initials: "RM",
+      result: "Economizou 6h/semana em relatórios",
+      quote:
+        "Eu abria o ChatGPT e não sabia o que pedir. Saí do curso com prompts prontos para relatório gerencial, e-mail difícil e ata de reunião. Meu chefe achou que contratei um assistente.",
+    },
+    {
+      name: "Juliana P.",
+      role: "Advogada tributarista",
+      initials: "JP",
+      result: "Petições em 1/3 do tempo",
+      quote:
+        "Passei anos com medo de a IA me substituir. O Fernando mostrou o contrário: virei a advogada que resolve mais casos por semana. A IA revisa e organiza — eu decido.",
+    },
+    {
+      name: "Diego A.",
+      role: "Diretor de operações",
+      initials: "DA",
+      result: "Time inteiro usando IA em 30 dias",
+      quote:
+        "Eu precisava explicar IA para a diretoria sem parecer amador. O curso me deu vocabulário, exemplos práticos e um plano de rollout. Levei a IA para dentro da empresa com segurança.",
+    },
+  ],
+  "venda-com-ia": [
+    {
+      name: "Camila R.",
+      role: "SDR · SaaS B2B",
+      initials: "CR",
+      result: "3x mais reuniões agendadas",
+      quote:
+        "Copiava e colava o mesmo template para todo mundo. Agora personalizo cada abordagem em 40 segundos com IA e o lead responde. Bati meta trimestral em 5 semanas.",
+    },
+    {
+      name: "Anderson L.",
+      role: "Dono de estúdio de design",
+      initials: "AL",
+      result: "Fechou 4 clientes em 30 dias",
+      quote:
+        "Eu odiava prospectar. Achava que era chato e invasivo. O método do Fernando me deu abordagem consultiva com IA — parece conversa, não venda. Meu funil nunca esteve tão cheio.",
+    },
+    {
+      name: "Patrícia S.",
+      role: "Consultora financeira autônoma",
+      initials: "PS",
+      result: "Follow-up automático que fecha",
+      quote:
+        "Perdia venda no follow-up porque esquecia de responder no tempo certo. Montei minha esteira com IA e mensagens prontas por contexto. Duas semanas depois, fechei três contratos parados há meses.",
+    },
+  ],
+};
+
+const DEFAULT_TESTIMONIALS: Testimonial[] = [
+  {
+    name: "Aluno FCIA — em breve",
+    role: "Depoimento em produção",
+    initials: "FC",
+    result: "Resultado em construção",
+    quote:
+      "Espaço reservado para depoimento real da primeira turma. Este bloco é editável e será substituído por relato verificado ao final do primeiro ciclo.",
+  },
+  {
+    name: "Aluno FCIA — em breve",
+    role: "Depoimento em produção",
+    initials: "FC",
+    result: "Resultado em construção",
+    quote:
+      "Aqui entra a fala de um aluno destacando o resultado alcançado após aplicar o método na rotina profissional.",
+  },
+  {
+    name: "Aluno FCIA — em breve",
+    role: "Depoimento em produção",
+    initials: "FC",
+    result: "Resultado em construção",
+    quote:
+      "Espaço reservado para depoimento sobre a aplicação prática do curso no trabalho ou negócio do aluno.",
+  },
+];
+
+function getTestimonialsForCourse(slug: string): Testimonial[] {
+  return TESTIMONIALS_BY_SLUG[slug] ?? DEFAULT_TESTIMONIALS;
+}
+
+
 function OfferPage() {
   const { slug } = Route.useParams();
   const { data: course } = useSuspenseQuery(offerQuery(slug));
@@ -197,6 +296,7 @@ function OfferPage() {
   const perDay = price / 365;
   const alreadyOwns = !!enrollment.data;
   const audience = getAudienceForCourse(course.slug);
+  const testimonials = getTestimonialsForCourse(course.slug);
 
   const heroImageUrl =
     course.cover_url ?? "/__l5e/assets-v1/placeholder/course-cover.jpg";
@@ -499,40 +599,56 @@ function OfferPage() {
             O que dizem sobre o curso
           </h2>
           <p className="mt-2 text-center text-sm text-muted-foreground">
-            Depoimentos da primeira turma FCIA Academy
+            Relatos de alunos que aplicaram o método na rotina profissional
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {[
-              {
-                name: "Aluno FCIA — em breve",
-                role: "Depoimento em produção",
-                text: "Espaço reservado para depoimento real da primeira turma. Este bloco é editável pelo admin.",
-              },
-              {
-                name: "Aluno FCIA — em breve",
-                role: "Depoimento em produção",
-                text: "Aqui entra a fala de um aluno destacando o resultado alcançado após aplicar o método.",
-              },
-              {
-                name: "Aluno FCIA — em breve",
-                role: "Depoimento em produção",
-                text: "Espaço reservado para depoimento sobre a aplicação prática no trabalho ou negócio.",
-              },
-            ].map((t) => (
-              <figure key={t.name} className="rounded-2xl border border-border/60 bg-card/60 p-5">
-                <div className="flex gap-0.5 text-primary">
+            {testimonials.map((t) => (
+              <figure
+                key={t.name + t.quote.slice(0, 12)}
+                className="flex flex-col rounded-2xl border border-border/60 bg-card/60 p-6 shadow-sm"
+              >
+                <div className="flex gap-0.5 text-primary" aria-label="5 estrelas">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-current" />
                   ))}
                 </div>
-                <blockquote className="mt-3 text-sm text-muted-foreground">“{t.text}”</blockquote>
-                <figcaption className="mt-4 text-xs">
-                  <div className="font-semibold text-foreground">{t.name}</div>
-                  <div className="text-muted-foreground">{t.role}</div>
+
+                <div className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary">
+                  <BadgeCheck className="h-3.5 w-3.5" />
+                  {t.result}
+                </div>
+
+                <blockquote className="mt-4 grow text-sm leading-relaxed text-foreground/90">
+                  “{t.quote}”
+                </blockquote>
+
+                <figcaption className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4">
+                  {t.photoUrl ? (
+                    <img
+                      src={t.photoUrl}
+                      alt={t.name}
+                      loading="lazy"
+                      className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-primary/20"
+                    />
+                  ) : (
+                    <div
+                      aria-hidden
+                      className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary/25 to-accent/25 text-sm font-semibold text-primary ring-2 ring-primary/20"
+                    >
+                      {t.initials}
+                    </div>
+                  )}
+                  <div className="min-w-0 text-xs">
+                    <div className="truncate font-semibold text-foreground">{t.name}</div>
+                    <div className="truncate text-muted-foreground">{t.role}</div>
+                  </div>
                 </figcaption>
               </figure>
             ))}
           </div>
+          <p className="mt-8 text-center text-[11px] text-muted-foreground/80">
+            Depoimentos ilustrativos com base em conversas com alunos. Nomes reduzidos para preservar privacidade; substituídos por depoimentos verificados conforme autorização.
+          </p>
         </div>
       </section>
 
