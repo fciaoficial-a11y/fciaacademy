@@ -955,8 +955,8 @@ function OfferPage() {
               {finalCta.promise}
             </p>
           )}
-          <p className="mt-3 text-sm text-muted-foreground">
-            {course.title} · {course.workload_hours}h · certificado incluso
+          <p className="mt-3 text-xs uppercase tracking-widest text-muted-foreground">
+            {course.workload_hours}h · certificado reconhecido · acesso vitalício
           </p>
 
           <div className="mt-8 inline-flex flex-col items-center gap-3">
