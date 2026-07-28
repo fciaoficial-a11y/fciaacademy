@@ -121,6 +121,61 @@ function formatBRL(value: number): string {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
+interface AudienceCopy {
+  forWhom: string[];
+  notForWhom: string[];
+}
+
+const AUDIENCE_BY_SLUG: Record<string, AudienceCopy> = {
+  "ia-sem-misterio": {
+    forWhom: [
+      "Profissionais que veem colegas usando IA e sentem que estão ficando para trás",
+      "Gestores e líderes que precisam decidir sobre IA na empresa sem depender do TI",
+      "Autônomos e liberais (advogados, contadores, consultores) que querem economizar horas por semana em tarefas repetitivas",
+      "Quem já testou ChatGPT solto, se frustrou com respostas rasas e quer um método estruturado",
+    ],
+    notForWhom: [
+      "Desenvolvedores buscando treinar modelos, fine-tuning ou fundamentos matemáticos de IA",
+      "Quem procura curso 100% teórico ou acadêmico sobre history/pesquisa de IA",
+      "Quem espera fórmula mágica de enriquecimento rápido usando IA",
+      "Quem não pretende dedicar ao menos 2 horas por semana para aplicar o que aprender",
+    ],
+  },
+  "venda-com-ia": {
+    forWhom: [
+      "Vendedores e SDRs que perdem horas escrevendo prospecção fria e follow-up manual",
+      "Donos de pequeno negócio que fazem a própria venda e não têm tempo para prospectar",
+      "Consultores e freelancers que precisam de fluxo constante de leads qualificados",
+      "Gerentes comerciais que querem padronizar abordagem do time usando IA",
+    ],
+    notForWhom: [
+      "Quem quer aprender teoria de vendas complexas B2B enterprise (ciclo longo, comitê de compra)",
+      "Quem procura curso de tráfego pago, anúncios ou funil de marketing digital",
+      "Quem não vende nada e não pretende começar a vender nos próximos 90 dias",
+      "Quem espera que a IA venda sozinha, sem envolvimento humano na conversa",
+    ],
+  },
+};
+
+const DEFAULT_AUDIENCE: AudienceCopy = {
+  forWhom: [
+    "Profissionais que querem aplicar IA no dia a dia sem enrolação técnica",
+    "Empreendedores e gestores buscando ganho real de produtividade",
+    "Quem já tentou aprender sozinho e se perdeu em ferramentas soltas",
+    "Executivos que precisam falar de IA com propriedade",
+  ],
+  notForWhom: [
+    "Quem busca curso teórico e acadêmico",
+    "Quem quer aprender a treinar modelos do zero em Python",
+    "Quem procura conteúdo gratuito ou promessa mágica",
+    "Quem não pretende aplicar nada do que aprender",
+  ],
+};
+
+function getAudienceForCourse(slug: string): AudienceCopy {
+  return AUDIENCE_BY_SLUG[slug] ?? DEFAULT_AUDIENCE;
+}
+
 function OfferPage() {
   const { slug } = Route.useParams();
   const { data: course } = useSuspenseQuery(offerQuery(slug));
@@ -141,6 +196,7 @@ function OfferPage() {
   const installment12 = price / 12;
   const perDay = price / 365;
   const alreadyOwns = !!enrollment.data;
+  const audience = getAudienceForCourse(course.slug);
 
   const heroImageUrl =
     course.cover_url ?? "/__l5e/assets-v1/placeholder/course-cover.jpg";
@@ -331,38 +387,41 @@ function OfferPage() {
 
       {/* ============ PARA QUEM É / NÃO É ============ */}
       <section className="border-b border-border/60">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-14 md:grid-cols-2 md:py-20">
-          <div className="rounded-3xl border border-primary/30 bg-card/40 p-6 md:p-8">
-            <h3 className="font-display text-xl font-bold text-primary">Para quem é este curso</h3>
-            <ul className="mt-4 space-y-3 text-sm">
-              {[
-                "Profissionais que querem aplicar IA no dia a dia sem enrolação técnica",
-                "Empreendedores e gestores buscando ganho real de produtividade",
-                "Quem já tentou aprender IA sozinho e se perdeu em ferramentas soltas",
-                "Executivos que precisam falar de IA com propriedade",
-              ].map((item) => (
-                <li key={item} className="flex gap-2">
-                  <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div className="text-center">
+            <h2 className="font-display text-2xl font-bold sm:text-3xl">
+              Este curso é para você?
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Leia antes de comprar. Preferimos que você entre certo do que peça reembolso depois.
+            </p>
           </div>
-          <div className="rounded-3xl border border-border/60 bg-card/20 p-6 md:p-8">
-            <h3 className="font-display text-xl font-bold text-muted-foreground">Para quem NÃO é</h3>
-            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-              {[
-                "Quem busca curso teórico e acadêmico de IA",
-                "Quem quer aprender a treinar modelos do zero em Python",
-                "Quem procura conteúdo gratuito ou promessa mágica",
-                "Quem não pretende aplicar nada do que aprender",
-              ].map((item) => (
-                <li key={item} className="flex gap-2">
-                  <X className="h-5 w-5 shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border border-primary/30 bg-card/40 p-6 md:p-8">
+              <h3 className="font-display text-xl font-bold text-primary">Para quem é este curso</h3>
+              <ul className="mt-4 space-y-3 text-sm">
+                {audience.forWhom.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-3xl border border-border/60 bg-card/20 p-6 md:p-8">
+              <h3 className="font-display text-xl font-bold text-muted-foreground">
+                Para quem NÃO é este curso
+              </h3>
+              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+                {audience.notForWhom.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <X className="mt-0.5 h-5 w-5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
