@@ -592,10 +592,7 @@ function ProductCourseCard({ course, track }: { course: CourseRow; track: TrackR
   );
 }
 
-      </Section>
-    </>
-  );
-}
+
 
 function FilterSelect({
   value,
