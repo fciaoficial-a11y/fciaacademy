@@ -274,6 +274,9 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         "Você para de testar IA e começa a produzir com IA — no padrão de quem cobra para entregar.",
       transition:
         "Essa transformação é construída aula por aula, dentro da estrutura da masterclass.",
+      showcaseImage: "/__mic_showcase",
+      showcaseAlt: "Mosaico editorial com quatro peças: retrato, still de paisagem, capa e roteiro impresso.",
+      showcaseCaption: "Imagem · vídeo · música · roteiro. Quatro mídias, uma direção.",
     },
     bonuses: {
       title:
