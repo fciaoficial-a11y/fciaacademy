@@ -117,6 +117,21 @@ export interface CourseValueStackCopy {
   closing: string;
 }
 
+export interface CourseAuthorityPoint {
+  title: string;
+  description: string;
+}
+export interface CourseAuthorityCopy {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  points: CourseAuthorityPoint[];
+  instructorName: string;
+  instructorRole: string;
+  instructorBio: string;
+  transition: string;
+}
+
 export interface CourseTemplateOverride {
   hero?: CourseHeroOverride;
   audience?: CourseAudienceCopy;
@@ -130,6 +145,7 @@ export interface CourseTemplateOverride {
   transformation?: CourseTransformationCopy;
   bonuses?: CourseBonusesCopy;
   valueStack?: CourseValueStackCopy;
+  authority?: CourseAuthorityCopy;
 }
 
 
