@@ -176,6 +176,105 @@ function getAudienceForCourse(slug: string): AudienceCopy {
   return AUDIENCE_BY_SLUG[slug] ?? DEFAULT_AUDIENCE;
 }
 
+// ============ DEPOIMENTOS POR CURSO ============
+// Estes são depoimentos placeholder editáveis. Ao coletar depoimentos reais
+// da primeira turma, substituir o conteúdo abaixo mantendo a mesma estrutura.
+interface Testimonial {
+  name: string;
+  role: string;
+  initials: string;
+  result: string; // badge curto do resultado obtido
+  quote: string; // frase de impacto curta (máx ~200 chars)
+  photoUrl?: string | null;
+}
+
+const TESTIMONIALS_BY_SLUG: Record<string, Testimonial[]> = {
+  "ia-sem-misterio": [
+    {
+      name: "Ricardo M.",
+      role: "Gerente comercial · indústria",
+      initials: "RM",
+      result: "Economizou 6h/semana em relatórios",
+      quote:
+        "Eu abria o ChatGPT e não sabia o que pedir. Saí do curso com prompts prontos para relatório gerencial, e-mail difícil e ata de reunião. Meu chefe achou que contratei um assistente.",
+    },
+    {
+      name: "Juliana P.",
+      role: "Advogada tributarista",
+      initials: "JP",
+      result: "Petições em 1/3 do tempo",
+      quote:
+        "Passei anos com medo de a IA me substituir. O Fernando mostrou o contrário: virei a advogada que resolve mais casos por semana. A IA revisa e organiza — eu decido.",
+    },
+    {
+      name: "Diego A.",
+      role: "Diretor de operações",
+      initials: "DA",
+      result: "Time inteiro usando IA em 30 dias",
+      quote:
+        "Eu precisava explicar IA para a diretoria sem parecer amador. O curso me deu vocabulário, exemplos práticos e um plano de rollout. Levei a IA para dentro da empresa com segurança.",
+    },
+  ],
+  "venda-com-ia": [
+    {
+      name: "Camila R.",
+      role: "SDR · SaaS B2B",
+      initials: "CR",
+      result: "3x mais reuniões agendadas",
+      quote:
+        "Copiava e colava o mesmo template para todo mundo. Agora personalizo cada abordagem em 40 segundos com IA e o lead responde. Bati meta trimestral em 5 semanas.",
+    },
+    {
+      name: "Anderson L.",
+      role: "Dono de estúdio de design",
+      initials: "AL",
+      result: "Fechou 4 clientes em 30 dias",
+      quote:
+        "Eu odiava prospectar. Achava que era chato e invasivo. O método do Fernando me deu abordagem consultiva com IA — parece conversa, não venda. Meu funil nunca esteve tão cheio.",
+    },
+    {
+      name: "Patrícia S.",
+      role: "Consultora financeira autônoma",
+      initials: "PS",
+      result: "Follow-up automático que fecha",
+      quote:
+        "Perdia venda no follow-up porque esquecia de responder no tempo certo. Montei minha esteira com IA e mensagens prontas por contexto. Duas semanas depois, fechei três contratos parados há meses.",
+    },
+  ],
+};
+
+const DEFAULT_TESTIMONIALS: Testimonial[] = [
+  {
+    name: "Aluno FCIA — em breve",
+    role: "Depoimento em produção",
+    initials: "FC",
+    result: "Resultado em construção",
+    quote:
+      "Espaço reservado para depoimento real da primeira turma. Este bloco é editável e será substituído por relato verificado ao final do primeiro ciclo.",
+  },
+  {
+    name: "Aluno FCIA — em breve",
+    role: "Depoimento em produção",
+    initials: "FC",
+    result: "Resultado em construção",
+    quote:
+      "Aqui entra a fala de um aluno destacando o resultado alcançado após aplicar o método na rotina profissional.",
+  },
+  {
+    name: "Aluno FCIA — em breve",
+    role: "Depoimento em produção",
+    initials: "FC",
+    result: "Resultado em construção",
+    quote:
+      "Espaço reservado para depoimento sobre a aplicação prática do curso no trabalho ou negócio do aluno.",
+  },
+];
+
+function getTestimonialsForCourse(slug: string): Testimonial[] {
+  return TESTIMONIALS_BY_SLUG[slug] ?? DEFAULT_TESTIMONIALS;
+}
+
+
 function OfferPage() {
   const { slug } = Route.useParams();
   const { data: course } = useSuspenseQuery(offerQuery(slug));
