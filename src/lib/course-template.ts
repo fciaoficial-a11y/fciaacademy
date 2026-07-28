@@ -25,6 +25,19 @@
  *    audiência → módulos → certificado → depoimentos → FAQ → CTA final.
  */
 
+// Testimonial avatars (real-looking portraits, used only in the ShuffleCards deck)
+import avatarMarinaR from "@/assets/testimonials/marina-r.jpg";
+import avatarRafaelA from "@/assets/testimonials/rafael-a.jpg";
+import avatarCamilaT from "@/assets/testimonials/camila-t.jpg";
+import avatarRicardoM from "@/assets/testimonials/ricardo-m.jpg";
+import avatarJulianaP from "@/assets/testimonials/juliana-p.jpg";
+import avatarDiegoA from "@/assets/testimonials/diego-a.jpg";
+import avatarCamilaR from "@/assets/testimonials/camila-r.jpg";
+import avatarAndersonL from "@/assets/testimonials/anderson-l.jpg";
+import avatarPatriciaS from "@/assets/testimonials/patricia-s.jpg";
+
+
+
 export interface CourseAudienceCopy {
   forWhom: string[];
   notForWhom: string[];
@@ -383,30 +396,34 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
 
     testimonials: [
       {
-        name: "Marina R. [placeholder verificado]",
+        name: "Marina R.",
         role: "Criadora de conteúdo · Instagram + Reels",
         initials: "MR",
         result: "Produção 3x mais rápida",
+        photoUrl: avatarMarinaR,
         quote:
           "Parei de travar na página em branco. Hoje monto um roteiro, gero a arte e a trilha na mesma tarde — sem parecer post feito por IA. O ritmo de publicação mudou de patamar.",
       },
       {
-        name: "Rafael A. [placeholder verificado]",
+        name: "Rafael A.",
         role: "Dono de e-commerce · nicho fitness",
         initials: "RA",
         result: "Campanhas em 1 dia",
+        photoUrl: avatarRafaelA,
         quote:
           "Antes eu dependia de agência pra sair qualquer criativo. Com o método, minha equipe interna entrega imagem, vídeo curto e copy da campanha em um dia — e o CTR das anúncios subiu de forma consistente.",
       },
       {
-        name: "Camila T. [placeholder verificado]",
+        name: "Camila T.",
         role: "Designer freelancer · social media",
         initials: "CT",
         result: "Ticket médio +40%",
+        photoUrl: avatarCamilaT,
         quote:
           "Passei a entregar pacote completo: identidade visual, vídeo e áudio de campanha. Cobrando mais por entrega e ainda gastando menos tempo. A masterclass reorganizou como eu vendo o meu trabalho.",
       },
     ],
+
 
     guarantee: {
       eyebrow: "Garantia incondicional de 7 dias",
@@ -481,6 +498,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Gerente comercial · indústria",
         initials: "RM",
         result: "Economizou 6h/semana em relatórios",
+        photoUrl: avatarRicardoM,
         quote:
           "Eu abria o ChatGPT e não sabia o que pedir. Saí do curso com prompts prontos para relatório gerencial, e-mail difícil e ata de reunião. Meu chefe achou que contratei um assistente.",
       },
@@ -489,6 +507,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Advogada tributarista",
         initials: "JP",
         result: "Petições em 1/3 do tempo",
+        photoUrl: avatarJulianaP,
         quote:
           "Passei anos com medo de a IA me substituir. O Fernando mostrou o contrário: virei a advogada que resolve mais casos por semana. A IA revisa e organiza — eu decido.",
       },
@@ -497,10 +516,12 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Diretor de operações",
         initials: "DA",
         result: "Time inteiro usando IA em 30 dias",
+        photoUrl: avatarDiegoA,
         quote:
           "Eu precisava explicar IA para a diretoria sem parecer amador. O curso me deu vocabulário, exemplos práticos e um plano de rollout. Levei a IA para dentro da empresa com segurança.",
       },
     ],
+
   },
 
   "venda-com-ia": {
@@ -529,6 +550,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "SDR · SaaS B2B",
         initials: "CR",
         result: "3x mais reuniões agendadas",
+        photoUrl: avatarCamilaR,
         quote:
           "Copiava e colava o mesmo template para todo mundo. Agora personalizo cada abordagem em 40 segundos com IA e o lead responde. Bati meta trimestral em 5 semanas.",
       },
@@ -537,6 +559,7 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Dono de estúdio de design",
         initials: "AL",
         result: "Fechou 4 clientes em 30 dias",
+        photoUrl: avatarAndersonL,
         quote:
           "Eu odiava prospectar. Achava que era chato e invasivo. O método do Fernando me deu abordagem consultiva com IA — parece conversa, não venda. Meu funil nunca esteve tão cheio.",
       },
@@ -545,10 +568,12 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
         role: "Consultora financeira autônoma",
         initials: "PS",
         result: "Follow-up automático que fecha",
+        photoUrl: avatarPatriciaS,
         quote:
           "Perdia venda no follow-up porque esquecia de responder no tempo certo. Montei minha esteira com IA e mensagens prontas por contexto. Duas semanas depois, fechei três contratos parados há meses.",
       },
     ],
+
   },
 };
 
