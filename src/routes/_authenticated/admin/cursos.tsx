@@ -84,8 +84,19 @@ function AdminCoursesPage() {
         throw new Error("Informe a carga horária (horas > 0).");
       }
       if (d.is_published) {
-        if (!d.is_free && (!d.price || d.price <= 0)) {
-          throw new Error("Para publicar: marque como gratuito ou defina um preço maior que zero.");
+        const count = d.id ? publishedModulesByCourse.get(d.id) ?? 0 : 0;
+        const check = checkPublishReadiness({
+          slug: d.slug,
+          title: d.title,
+          description: d.description,
+          price: d.price,
+          is_free: d.is_free,
+          workload_hours: d.workload_hours,
+          cover_url: d.cover_url,
+          publishedModulesCount: count,
+        });
+        if (!check.canPublish) {
+          throw new Error(summarizeMissing(check));
         }
       }
       if (d.id) await updateRow("courses", d.id, d);
@@ -105,7 +116,25 @@ function AdminCoursesPage() {
   });
 
   const togglePub = useMutation({
-    mutationFn: (c: AdminCourse) => updateRow("courses", c.id, { is_published: !c.is_published }),
+    mutationFn: async (c: AdminCourse) => {
+      if (!c.is_published) {
+        const count = publishedModulesByCourse.get(c.id) ?? 0;
+        const check = checkPublishReadiness({
+          slug: c.slug,
+          title: c.title,
+          description: c.description,
+          price: c.price,
+          is_free: c.is_free,
+          workload_hours: c.workload_hours,
+          cover_url: c.cover_url,
+          publishedModulesCount: count,
+        });
+        if (!check.canPublish) {
+          throw new Error(summarizeMissing(check));
+        }
+      }
+      await updateRow("courses", c.id, { is_published: !c.is_published });
+    },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin", "courses"] }),
     onError: (e: Error) => toast.error(e.message),
   });
