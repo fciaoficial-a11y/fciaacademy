@@ -475,7 +475,7 @@ function OfferPage() {
                 name: t.name,
                 role: t.role,
                 initials: t.initials,
-                photoUrl: t.photoUrl,
+                photoUrl: t.photoUrl ?? undefined,
               }))}
             />
           </div>
