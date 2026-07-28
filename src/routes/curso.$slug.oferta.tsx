@@ -197,8 +197,10 @@ function OfferPage() {
   const heroImageUrl =
     course.cover_url ?? "/__l5e/assets-v1/placeholder/course-cover.jpg";
 
+  const isMasterclass = course.slug === "metodo-ia-criativa";
+  const productNoun = isMasterclass ? "masterclass" : "curso";
   // CTA neutro no topo (sem linguagem transacional / sem PIX).
-  const softCtaLabel = alreadyOwns ? "Você já tem acesso" : "Quero acessar a masterclass";
+  const softCtaLabel = alreadyOwns ? "Você já tem acesso" : `Quero acessar o ${productNoun}`;
   // CTA transacional só perto do preço.
   const hardCtaLabel = alreadyOwns ? "Você já tem acesso" : variant.primaryCta;
 
