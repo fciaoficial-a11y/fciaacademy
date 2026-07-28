@@ -164,7 +164,7 @@ function OfferPage() {
     title: course.title,
     description: course.description,
   });
-  const { hero, audience, testimonials, faq, pain, method, transformation, bonuses, valueStack, authority } = template;
+  const { hero, audience, testimonials, faq, pain, method, transformation, bonuses, valueStack, authority, guarantee, finalCta } = template;
 
   const { v: variantOverride } = Route.useSearch();
   const variant = resolveOfferVariant(course.slug, variantOverride);
@@ -896,6 +896,33 @@ function OfferPage() {
         </div>
       </section>
 
+      {/* ============ GARANTIA ============ */}
+      {guarantee && (
+        <section className="border-b border-border/60 bg-gradient-to-b from-primary/5 to-background">
+          <div className="mx-auto max-w-3xl px-4 py-14 md:py-20">
+            <div className="rounded-2xl border border-primary/30 bg-card/60 p-6 md:p-10">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
+                  <ShieldCheck className="h-5 w-5 text-primary" />
+                </div>
+                <span className="text-xs font-medium uppercase tracking-[0.16em] text-primary">
+                  {guarantee.eyebrow}
+                </span>
+              </div>
+              <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">
+                {guarantee.title}
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                {guarantee.body}
+              </p>
+              <p className="mt-4 text-sm font-medium text-foreground">
+                {guarantee.closing}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ============ FAQ ============ */}
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-3xl px-4 py-14 md:py-20">
@@ -915,10 +942,20 @@ function OfferPage() {
       {/* ============ CTA FINAL ============ */}
       <section className="bg-gradient-to-b from-background to-primary/10">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center md:py-24">
-          <h2 className="font-display text-3xl font-bold sm:text-4xl">
+          {finalCta?.eyebrow && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
+              {finalCta.eyebrow}
+            </span>
+          )}
+          <h2 className="mt-4 font-display text-3xl font-bold sm:text-4xl">
             {variant.finalCtaHeadline}
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+          {finalCta?.promise && (
+            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
+              {finalCta.promise}
+            </p>
+          )}
+          <p className="mt-3 text-sm text-muted-foreground">
             {course.title} · {course.workload_hours}h · certificado incluso
           </p>
 
@@ -940,6 +977,11 @@ function OfferPage() {
             <Button size="lg" className="w-full max-w-sm text-base" onClick={() => setShowCheckout(true)} disabled={alreadyOwns}>
               {alreadyOwns ? "Você já tem acesso" : variant.primaryCta}
             </Button>
+            {finalCta?.microcopy && (
+              <p className="max-w-md text-xs text-muted-foreground">
+                {finalCta.microcopy}
+              </p>
+            )}
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4 text-primary" />

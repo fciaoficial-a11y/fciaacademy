@@ -132,6 +132,19 @@ export interface CourseAuthorityCopy {
   transition: string;
 }
 
+export interface CourseGuaranteeCopy {
+  eyebrow: string;
+  title: string;
+  body: string;
+  closing: string;
+}
+
+export interface CourseFinalCtaCopy {
+  eyebrow?: string;
+  promise: string;
+  microcopy?: string;
+}
+
 export interface CourseTemplateOverride {
   hero?: CourseHeroOverride;
   audience?: CourseAudienceCopy;
@@ -146,6 +159,8 @@ export interface CourseTemplateOverride {
   bonuses?: CourseBonusesCopy;
   valueStack?: CourseValueStackCopy;
   authority?: CourseAuthorityCopy;
+  guarantee?: CourseGuaranteeCopy;
+  finalCta?: CourseFinalCtaCopy;
 }
 
 
@@ -373,7 +388,53 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
           "Passei a entregar pacote completo: identidade visual, vídeo e áudio de campanha. Cobrando mais por entrega e ainda gastando menos tempo. A masterclass reorganizou como eu vendo o meu trabalho.",
       },
     ],
+
+    guarantee: {
+      eyebrow: "Garantia incondicional de 7 dias",
+      title: "O risco é nosso, não seu.",
+      body:
+        "Entre, assista, aplique. Se em até 7 dias corridos você sentir que a masterclass não é para você, basta pedir o cancelamento por e-mail e devolvemos 100% do valor pago — sem formulário, sem justificativa, sem burocracia.",
+      closing:
+        "Você só continua se o método fizer sentido na sua rotina. Simples assim.",
+    },
+
+    faqReplace: true,
+    faq: [
+      {
+        q: "Preciso já saber usar IA para acompanhar?",
+        a: "Não. A masterclass começa do essencial e evolui para nível profissional. Se você nunca abriu uma ferramenta de IA, consegue acompanhar. Se já usa, ganha método para elevar o padrão.",
+      },
+      {
+        q: "Quando recebo o acesso depois do pagamento?",
+        a: "Assim que o PIX é confirmado pelo banco, o acesso é liberado automaticamente — normalmente em segundos. Você recebe as instruções por e-mail e já pode entrar na plataforma.",
+      },
+      {
+        q: "Vou precisar pagar ferramentas extras?",
+        a: "A masterclass funciona com versões gratuitas ou de baixo custo das ferramentas indicadas. Planos pagos são opcionais e recomendados apenas quando ampliam sua entrega comercial — nunca obrigatórios para concluir o método.",
+      },
+      {
+        q: "Serve para iniciantes de verdade?",
+        a: "Sim. O método é aplicado, passo a passo, com entregas concretas em cada aula. Iniciantes chegam à primeira peça pronta ainda nas primeiras masterclasses.",
+      },
+      {
+        q: "O certificado tem validade legal?",
+        a: "Sim. É emitido pela FCIA Academy sob a Lei 9.394/96, com código público de verificação. Vale como formação livre para portfólio, currículo e comprovação profissional.",
+      },
+      {
+        q: "Como funciona a garantia de 7 dias?",
+        a: "Você tem 7 dias corridos a partir do pagamento para pedir o reembolso total, por qualquer motivo. Basta enviar um e-mail ao suporte — devolvemos 100% do valor, sem burocracia.",
+      },
+    ],
+
+    finalCta: {
+      eyebrow: "Sua decisão hoje",
+      promise:
+        "Sair do post feito por IA e começar a entregar peça pronta para publicar, vender ou entregar ao cliente — nas quatro mídias.",
+      microcopy:
+        "Acesso vitalício · certificado incluso · pagamento único via PIX.",
+    },
   },
+
 
   "ia-sem-misterio": {
     hero: {
@@ -578,6 +639,8 @@ export interface ResolvedCourseTemplate {
   bonuses: CourseBonusesCopy | null;
   valueStack: CourseValueStackCopy | null;
   authority: CourseAuthorityCopy | null;
+  guarantee: CourseGuaranteeCopy | null;
+  finalCta: CourseFinalCtaCopy | null;
 }
 
 interface ResolveArgs {
@@ -615,6 +678,8 @@ export function resolveCourseTemplate({
     bonuses: override.bonuses ?? null,
     valueStack: override.valueStack ?? null,
     authority: override.authority ?? null,
+    guarantee: override.guarantee ?? null,
+    finalCta: override.finalCta ?? null,
   };
 }
 
