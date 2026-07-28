@@ -100,8 +100,10 @@ function TrackDetail() {
         ) : (
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {courses.map((c) => (
-              <article
+              <Link
                 key={c.id}
+                to="/curso/$slug/oferta"
+                params={{ slug: c.slug }}
                 className="group flex flex-col rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-primary/40"
               >
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-foreground">
@@ -114,9 +116,9 @@ function TrackDetail() {
                     <Clock className="h-3.5 w-3.5" />
                     {c.workload_hours > 0 ? `${c.workload_hours}h` : `${Math.round(c.duration_minutes / 60)}h`}
                   </span>
-                  <span>{c.level}</span>
+                  <span className="text-foreground">Ver detalhes →</span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         )}

@@ -122,7 +122,7 @@ function CursosPage() {
               return (
                 <Link
                   key={c.id}
-                  to="/curso/$slug"
+                  to="/curso/$slug/oferta"
                   params={{ slug: c.slug }}
                   className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(0,0,0,0.4)]"
                 >
@@ -162,7 +162,7 @@ function CursosPage() {
                       </span>
 
                       <span className="inline-flex items-center gap-1 text-foreground">
-                        Ver curso <ArrowUpRight className="h-3.5 w-3.5" />
+                        Ver detalhes <ArrowUpRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>
