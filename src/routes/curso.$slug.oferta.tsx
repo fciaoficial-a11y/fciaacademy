@@ -1111,3 +1111,48 @@ function FaqItem({ q, children }: { q: string; children: React.ReactNode }) {
     </div>
   );
 }
+
+function ModuleAccordionItem({
+  index,
+  title,
+  description,
+  defaultOpen = false,
+}: {
+  index: number;
+  title: string;
+  description: string | null;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="bg-card/60">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center gap-4 px-4 py-4 text-left transition-colors hover:bg-primary/5 md:px-5"
+      >
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/15 font-display text-sm font-bold text-primary">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold leading-snug">{title}</span>
+          <span className="mt-0.5 block text-xs uppercase tracking-wider text-muted-foreground">
+            Aula-mestra {String(index + 1).padStart(2, "0")}
+          </span>
+        </span>
+        <ChevronDown
+          className={cn(
+            "h-5 w-5 shrink-0 text-muted-foreground transition-transform",
+            open && "rotate-180 text-primary",
+          )}
+        />
+      </button>
+      {open && description && (
+        <div className="border-t border-border/40 bg-background/40 px-4 pb-5 pt-4 text-sm leading-relaxed text-muted-foreground md:px-5 md:pl-[4.5rem]">
+          {description}
+        </div>
+      )}
+    </div>
+  );
+}
