@@ -296,6 +296,7 @@ function OfferPage() {
   const perDay = price / 365;
   const alreadyOwns = !!enrollment.data;
   const audience = getAudienceForCourse(course.slug);
+  const testimonials = getTestimonialsForCourse(course.slug);
 
   const heroImageUrl =
     course.cover_url ?? "/__l5e/assets-v1/placeholder/course-cover.jpg";
