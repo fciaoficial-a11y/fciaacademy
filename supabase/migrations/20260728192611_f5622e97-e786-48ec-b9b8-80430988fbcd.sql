@@ -1,0 +1,1 @@
+UPDATE public.courses SET cover_url = '/__l5e/assets-v1/f42cbd50-75ad-4369-8e3e-e9972bfe0359/cover-metodo-ia-criativa.jpg' WHERE slug = 'metodo-ia-criativa';
