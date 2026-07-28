@@ -162,7 +162,7 @@ function CursosPage() {
                       </span>
 
                       <span className="inline-flex items-center gap-1 text-foreground">
-                        Ver curso <ArrowUpRight className="h-3.5 w-3.5" />
+                        Ver detalhes <ArrowUpRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </div>
