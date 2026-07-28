@@ -259,7 +259,7 @@ function OfferPage() {
               />
 
               <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-background/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary backdrop-blur">
-                <Sparkles className="h-3 w-3" /> Masterclass
+                <Sparkles className="h-3 w-3" /> {isMasterclass ? "Masterclass" : "Curso oficial"}
               </div>
             </div>
           </div>
