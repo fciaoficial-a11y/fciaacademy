@@ -20,7 +20,6 @@ export function SiteFooter() {
             <FooterCol
               title="Explorar"
               links={[
-                { to: "/trilhas", label: "Trilhas" },
                 { to: "/cursos", label: "Cursos" },
                 { to: "/turmas", label: "Turmas" },
                 { to: "/inscricao", label: "Inscrever-se" },
