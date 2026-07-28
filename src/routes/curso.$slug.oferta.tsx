@@ -439,6 +439,29 @@ function OfferPage() {
                 </div>
               </div>
             </div>
+
+            <div className="mt-8 grid gap-3 border-t border-border/60 pt-6 text-sm sm:grid-cols-2">
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>Acesso vitalício ao curso e às futuras atualizações</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>{course.workload_hours}h de conteúdo aplicado + materiais em PDF</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>
+                  Certificado digital reconhecido —{" "}
+                  <strong className="text-foreground">curso livre nos termos da Lei 9.394/96</strong>,
+                  com código público de validação
+                </span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <span>Suporte por WhatsApp durante todo o curso</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
