@@ -240,8 +240,8 @@ function Index() {
             </div>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-              <PrimaryCTA to={primaryHref}>Quero aplicar IA no meu trabalho</PrimaryCTA>
-              <SecondaryCTA href="#curso-destaque">Ver o curso</SecondaryCTA>
+              <PrimaryCTA to={primaryHref}>Conhecer a Masterclass</PrimaryCTA>
+              <SecondaryCTA href="#curso-destaque">Ver todos os cursos</SecondaryCTA>
             </div>
 
           </div>
