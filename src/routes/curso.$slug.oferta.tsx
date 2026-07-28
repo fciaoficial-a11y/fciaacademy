@@ -24,6 +24,10 @@ import { PostPurchaseUpsell } from "@/components/payments/PostPurchaseUpsell";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
+import {
+  fillFaqPlaceholders,
+  resolveCourseTemplate,
+} from "@/lib/course-template";
 import fernandoImg from "@/assets/fernando-cabral.webp.asset.json";
 
 interface OfferModule {
@@ -127,159 +131,11 @@ function formatBRL(value: number): string {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-interface AudienceCopy {
-  forWhom: string[];
-  notForWhom: string[];
-}
-
-const AUDIENCE_BY_SLUG: Record<string, AudienceCopy> = {
-  "ia-sem-misterio": {
-    forWhom: [
-      "Profissionais que veem colegas usando IA e sentem que estão ficando para trás",
-      "Gestores e líderes que precisam decidir sobre IA na empresa sem depender do TI",
-      "Autônomos e liberais (advogados, contadores, consultores) que querem economizar horas por semana em tarefas repetitivas",
-      "Quem já testou ChatGPT solto, se frustrou com respostas rasas e quer um método estruturado",
-    ],
-    notForWhom: [
-      "Desenvolvedores buscando treinar modelos, fine-tuning ou fundamentos matemáticos de IA",
-      "Quem procura curso 100% teórico ou acadêmico sobre history/pesquisa de IA",
-      "Quem espera fórmula mágica de enriquecimento rápido usando IA",
-      "Quem não pretende dedicar ao menos 2 horas por semana para aplicar o que aprender",
-    ],
-  },
-  "venda-com-ia": {
-    forWhom: [
-      "Vendedores e SDRs que perdem horas escrevendo prospecção fria e follow-up manual",
-      "Donos de pequeno negócio que fazem a própria venda e não têm tempo para prospectar",
-      "Consultores e freelancers que precisam de fluxo constante de leads qualificados",
-      "Gerentes comerciais que querem padronizar abordagem do time usando IA",
-    ],
-    notForWhom: [
-      "Quem quer aprender teoria de vendas complexas B2B enterprise (ciclo longo, comitê de compra)",
-      "Quem procura curso de tráfego pago, anúncios ou funil de marketing digital",
-      "Quem não vende nada e não pretende começar a vender nos próximos 90 dias",
-      "Quem espera que a IA venda sozinha, sem envolvimento humano na conversa",
-    ],
-  },
-};
-
-const DEFAULT_AUDIENCE: AudienceCopy = {
-  forWhom: [
-    "Profissionais que querem aplicar IA no dia a dia sem enrolação técnica",
-    "Empreendedores e gestores buscando ganho real de produtividade",
-    "Quem já tentou aprender sozinho e se perdeu em ferramentas soltas",
-    "Executivos que precisam falar de IA com propriedade",
-  ],
-  notForWhom: [
-    "Quem busca curso teórico e acadêmico",
-    "Quem quer aprender a treinar modelos do zero em Python",
-    "Quem procura conteúdo gratuito ou promessa mágica",
-    "Quem não pretende aplicar nada do que aprender",
-  ],
-};
-
-function getAudienceForCourse(slug: string): AudienceCopy {
-  return AUDIENCE_BY_SLUG[slug] ?? DEFAULT_AUDIENCE;
-}
-
-// ============ DEPOIMENTOS POR CURSO ============
-// Estes são depoimentos placeholder editáveis. Ao coletar depoimentos reais
-// da primeira turma, substituir o conteúdo abaixo mantendo a mesma estrutura.
-interface Testimonial {
-  name: string;
-  role: string;
-  initials: string;
-  result: string; // badge curto do resultado obtido
-  quote: string; // frase de impacto curta (máx ~200 chars)
-  photoUrl?: string | null;
-}
-
-const TESTIMONIALS_BY_SLUG: Record<string, Testimonial[]> = {
-  "ia-sem-misterio": [
-    {
-      name: "Ricardo M.",
-      role: "Gerente comercial · indústria",
-      initials: "RM",
-      result: "Economizou 6h/semana em relatórios",
-      quote:
-        "Eu abria o ChatGPT e não sabia o que pedir. Saí do curso com prompts prontos para relatório gerencial, e-mail difícil e ata de reunião. Meu chefe achou que contratei um assistente.",
-    },
-    {
-      name: "Juliana P.",
-      role: "Advogada tributarista",
-      initials: "JP",
-      result: "Petições em 1/3 do tempo",
-      quote:
-        "Passei anos com medo de a IA me substituir. O Fernando mostrou o contrário: virei a advogada que resolve mais casos por semana. A IA revisa e organiza — eu decido.",
-    },
-    {
-      name: "Diego A.",
-      role: "Diretor de operações",
-      initials: "DA",
-      result: "Time inteiro usando IA em 30 dias",
-      quote:
-        "Eu precisava explicar IA para a diretoria sem parecer amador. O curso me deu vocabulário, exemplos práticos e um plano de rollout. Levei a IA para dentro da empresa com segurança.",
-    },
-  ],
-  "venda-com-ia": [
-    {
-      name: "Camila R.",
-      role: "SDR · SaaS B2B",
-      initials: "CR",
-      result: "3x mais reuniões agendadas",
-      quote:
-        "Copiava e colava o mesmo template para todo mundo. Agora personalizo cada abordagem em 40 segundos com IA e o lead responde. Bati meta trimestral em 5 semanas.",
-    },
-    {
-      name: "Anderson L.",
-      role: "Dono de estúdio de design",
-      initials: "AL",
-      result: "Fechou 4 clientes em 30 dias",
-      quote:
-        "Eu odiava prospectar. Achava que era chato e invasivo. O método do Fernando me deu abordagem consultiva com IA — parece conversa, não venda. Meu funil nunca esteve tão cheio.",
-    },
-    {
-      name: "Patrícia S.",
-      role: "Consultora financeira autônoma",
-      initials: "PS",
-      result: "Follow-up automático que fecha",
-      quote:
-        "Perdia venda no follow-up porque esquecia de responder no tempo certo. Montei minha esteira com IA e mensagens prontas por contexto. Duas semanas depois, fechei três contratos parados há meses.",
-    },
-  ],
-};
-
-const DEFAULT_TESTIMONIALS: Testimonial[] = [
-  {
-    name: "Aluno FCIA — em breve",
-    role: "Depoimento em produção",
-    initials: "FC",
-    result: "Resultado em construção",
-    quote:
-      "Espaço reservado para depoimento real da primeira turma. Este bloco é editável e será substituído por relato verificado ao final do primeiro ciclo.",
-  },
-  {
-    name: "Aluno FCIA — em breve",
-    role: "Depoimento em produção",
-    initials: "FC",
-    result: "Resultado em construção",
-    quote:
-      "Aqui entra a fala de um aluno destacando o resultado alcançado após aplicar o método na rotina profissional.",
-  },
-  {
-    name: "Aluno FCIA — em breve",
-    role: "Depoimento em produção",
-    initials: "FC",
-    result: "Resultado em construção",
-    quote:
-      "Espaço reservado para depoimento sobre a aplicação prática do curso no trabalho ou negócio do aluno.",
-  },
-];
-
-function getTestimonialsForCourse(slug: string): Testimonial[] {
-  return TESTIMONIALS_BY_SLUG[slug] ?? DEFAULT_TESTIMONIALS;
-}
-
+// Todo conteúdo editorial por curso (audiência, depoimentos, FAQ, herói)
+// vive em `src/lib/course-template.ts`. Este componente apenas consome
+// o template resolvido. Publicar um novo curso = criar no banco + (opcional)
+// adicionar override lá. Layout, ordem de seções e regras de conversão
+// são fixos aqui e não devem ser editados por curso.
 
 function OfferPage() {
   const { slug } = Route.useParams();
@@ -302,8 +158,13 @@ function OfferPage() {
   const installment12 = price / 12;
   const perDay = price / 365;
   const alreadyOwns = !!enrollment.data;
-  const audience = getAudienceForCourse(course.slug);
-  const testimonials = getTestimonialsForCourse(course.slug);
+
+  const template = resolveCourseTemplate({
+    slug: course.slug,
+    title: course.title,
+    description: course.description,
+  });
+  const { hero, audience, testimonials, faq } = template;
 
   const { v: variantOverride } = Route.useSearch();
   const variant = resolveOfferVariant(course.slug, variantOverride);
@@ -312,6 +173,13 @@ function OfferPage() {
     { price, anchorPrice, installment12, perDay },
     formatBRL,
   );
+
+  const faqVars = {
+    price: formatBRL(price),
+    perDay: formatBRL(perDay),
+    workload: `${course.workload_hours}h`,
+  };
+
 
   const heroImageUrl =
     course.cover_url ?? "/__l5e/assets-v1/placeholder/course-cover.jpg";
@@ -324,13 +192,13 @@ function OfferPage() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
           <div className="min-w-0">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> {variant.heroEyebrow}
+              <Sparkles className="h-3.5 w-3.5" /> {variant.heroEyebrow ?? hero.eyebrow}
             </span>
             <h1 className="mt-4 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-              {variant.heroHeadline ?? course.title}
+              {variant.heroHeadline ?? hero.headline}
             </h1>
             <p className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              {variant.heroSubheadline ?? course.description}
+              {variant.heroSubheadline ?? hero.subheadline}
             </p>
 
             <div className="mt-6 flex items-center gap-4 rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur">
@@ -348,7 +216,7 @@ function OfferPage() {
                   </span>
                 </div>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  “Aprendi na prática o que ninguém ensina no curso comum. Aqui eu entrego atalho.”
+                  “{hero.professorQuote}”
                 </p>
               </div>
             </div>
@@ -712,31 +580,11 @@ function OfferPage() {
             Perguntas frequentes
           </h2>
           <div className="mt-8 space-y-3">
-            <FaqItem q={`Vale ${formatBRL(price)}?`}>
-              O curso reúne o método que Fernando Cabral aplica em consultorias reais. Você paga uma vez
-              e usa o conteúdo por tempo indeterminado — o custo por dia ao longo de 1 ano é de{" "}
-              {formatBRL(perDay)}.
-            </FaqItem>
-            <FaqItem q="Por quanto tempo tenho acesso?">
-              Acesso vitalício ao conteúdo publicado neste curso, com atualizações incluídas quando
-              lançarmos novas aulas dentro deste mesmo produto.
-            </FaqItem>
-            <FaqItem q="Tem suporte?">
-              Sim. Você pode enviar dúvidas pelo canal oficial da FCIA (WhatsApp e e-mail de suporte).
-              Respondemos em dias úteis.
-            </FaqItem>
-            <FaqItem q="Emite certificado?">
-              Sim. Ao concluir 100% dos módulos obrigatórios e atingir 70% no exame final, o certificado
-              é emitido automaticamente com código de validação público (Lei 9.394/96 · Decreto 5.154/04).
-            </FaqItem>
-            <FaqItem q="E se eu não gostar?">
-              Você tem 7 dias corridos de garantia incondicional. Se decidir que não é para você, pedimos
-              o cancelamento e devolvemos 100% do valor pago — sem burocracia.
-            </FaqItem>
-            <FaqItem q="Como funciona o pagamento?">
-              O pagamento é feito via PIX, processado pela Asaas, regulado pelo Banco Central. A
-              confirmação e liberação do acesso é automática assim que o banco confirma o PIX.
-            </FaqItem>
+            {faq.map((item) => (
+              <FaqItem key={item.q} q={fillFaqPlaceholders(item.q, faqVars)}>
+                {fillFaqPlaceholders(item.a, faqVars)}
+              </FaqItem>
+            ))}
           </div>
         </div>
       </section>
