@@ -164,7 +164,7 @@ function OfferPage() {
     title: course.title,
     description: course.description,
   });
-  const { hero, audience, testimonials, faq, pain, method, transformation, bonuses } = template;
+  const { hero, audience, testimonials, faq, pain, method, transformation, bonuses, valueStack } = template;
 
   const { v: variantOverride } = Route.useSearch();
   const variant = resolveOfferVariant(course.slug, variantOverride);
