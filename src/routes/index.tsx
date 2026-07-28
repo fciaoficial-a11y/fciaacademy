@@ -4,6 +4,7 @@ import { queryOptions } from "@tanstack/react-query";
 import {
   ArrowUpRight,
   Award,
+  BadgeCheck,
   BookOpen,
   GraduationCap,
   Lightbulb,
