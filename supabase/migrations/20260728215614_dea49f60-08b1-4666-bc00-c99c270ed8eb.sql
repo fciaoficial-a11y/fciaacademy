@@ -1,0 +1,1 @@
+UPDATE public.courses SET cover_url = 'https://fciaacademy.lovable.app/__l5e/assets-v1/1ffce372-d5e3-4d48-bb91-ad69e09135f7/metodo-ia-criativa-cover.jpg', updated_at = now() WHERE slug = 'metodo-ia-criativa';
