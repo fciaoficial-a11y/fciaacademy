@@ -44,7 +44,7 @@ export interface OfferVariant {
 export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   A: {
     key: "A",
-    primaryCta: "Quero garantir minha vaga agora",
+    primaryCta: "Garantir vaga",
     primaryCtaShort: "Garantir vaga",
     heroHeadline: null,
     heroSubheadline: null,
@@ -55,7 +55,7 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   B: {
     key: "B",
-    primaryCta: "Quero começar agora",
+    primaryCta: "Começar agora",
     primaryCtaShort: "Começar agora",
     heroHeadline: null,
     heroSubheadline:
@@ -67,7 +67,7 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   C: {
     key: "C",
-    primaryCta: "Quero acessar agora",
+    primaryCta: "Acessar agora",
     primaryCtaShort: "Acessar agora",
     heroHeadline: null,
     heroSubheadline:
