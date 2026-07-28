@@ -339,10 +339,10 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
             "As ferramentas de IA mudam rápido. O método é revisto para manter o que funciona hoje, não o que funcionava mês passado.",
         },
       ],
-      instructorName: "Kaio Cruz",
-      instructorRole: "Fundador da FCIA Academy · Instrutor da masterclass",
+      instructorName: "Instrutor FCIA Academy",
+      instructorRole: "Curador e instrutor responsável pela masterclass",
       instructorBio:
-        "Trabalha há anos aplicando IA à produção criativa e comercial — de peças visuais a roteiros e áudio. Ensina o mesmo método que usa no dia a dia: direto, prático e focado em entrega com padrão profissional.",
+        "Atua na aplicação prática de IA à produção criativa e comercial — imagem, vídeo, áudio e roteiro. A masterclass reproduz o mesmo método usado em entregas reais: direto, aplicado e com padrão profissional.",
       transition:
         "Autoridade é o que garante que o método funciona. A seguir, o que dizem quem já aplicou.",
     },
