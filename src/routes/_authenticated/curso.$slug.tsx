@@ -967,7 +967,7 @@ function Paywall({
 
           <div className="mt-8">
             <Button asChild size="lg" className="w-full sm:w-auto">
-              <Link to="/curso/$slug/oferta" params={{ slug: course.slug }}>
+              <Link to="/curso/$slug/oferta" params={{ slug }}>
                 Ver detalhes e comprar
               </Link>
             </Button>
