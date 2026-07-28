@@ -22,6 +22,7 @@ import { enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
 import fernandoImg from "@/assets/fernando-cabral.webp.asset.json";
 
 interface OfferModule {
@@ -85,6 +86,10 @@ function offerQuery(slug: string) {
 }
 
 export const Route = createFileRoute("/curso/$slug/oferta")({
+  validateSearch: (search: Record<string, unknown>): { v?: "A" | "B" | "C" } => {
+    const v = search.v;
+    return v === "A" || v === "B" || v === "C" ? { v } : {};
+  },
   loader: async ({ params, context }) => {
     const data = await context.queryClient.ensureQueryData(offerQuery(params.slug));
     if (!data) throw notFound();
@@ -298,6 +303,14 @@ function OfferPage() {
   const audience = getAudienceForCourse(course.slug);
   const testimonials = getTestimonialsForCourse(course.slug);
 
+  const { v: variantOverride } = Route.useSearch();
+  const variant = resolveOfferVariant(course.slug, variantOverride);
+  const priceCopy = buildPriceAnchor(
+    variant,
+    { price, anchorPrice, installment12, perDay },
+    formatBRL,
+  );
+
   const heroImageUrl =
     course.cover_url ?? "/__l5e/assets-v1/placeholder/course-cover.jpg";
 
@@ -309,13 +322,13 @@ function OfferPage() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
           <div className="min-w-0">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> Oferta oficial FCIA
+              <Sparkles className="h-3.5 w-3.5" /> {variant.heroEyebrow}
             </span>
             <h1 className="mt-4 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
-              {course.title}
+              {variant.heroHeadline ?? course.title}
             </h1>
             <p className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              {course.description}
+              {variant.heroSubheadline ?? course.description}
             </p>
 
             <div className="mt-6 flex items-center gap-4 rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur">
@@ -345,7 +358,7 @@ function OfferPage() {
                 onClick={() => setShowCheckout(true)}
                 disabled={alreadyOwns}
               >
-                {alreadyOwns ? "Você já tem acesso" : "Quero garantir minha vaga"}
+                {alreadyOwns ? "Você já tem acesso" : variant.primaryCta}
               </Button>
               <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                 <ShieldCheck className="h-4 w-4 text-primary" /> 7 dias de garantia
@@ -397,25 +410,29 @@ function OfferPage() {
                 Oferta de lançamento
               </span>
               <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">
-                Investimento único, acesso vitalício
+                {variant.offerTitle}
               </h2>
 
               <div className="mt-6 flex flex-col items-center gap-1">
-                <span className="text-sm text-muted-foreground line-through">
-                  De {formatBRL(anchorPrice)}
-                </span>
+                {priceCopy.strike && (
+                  <span className="text-sm text-muted-foreground line-through">
+                    {priceCopy.strike}
+                  </span>
+                )}
                 <div className="flex items-baseline gap-2">
                   <span className="text-sm text-muted-foreground">por</span>
                   <span className="font-display text-5xl font-bold tracking-tight text-primary sm:text-6xl">
-                    {formatBRL(price)}
+                    {priceCopy.primary}
                   </span>
                 </div>
-                <span className="mt-2 text-sm text-muted-foreground">
-                  ou até <strong className="text-foreground">12x de {formatBRL(installment12)}</strong> no cartão
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  Equivale a <strong className="text-foreground">{formatBRL(perDay)} por dia</strong> em 1 ano de acesso.
-                </span>
+                {priceCopy.supporting.map((line, i) => (
+                  <span
+                    key={i}
+                    className={i === 0 ? "mt-2 text-sm text-muted-foreground" : "text-xs text-muted-foreground"}
+                  >
+                    {line}
+                  </span>
+                ))}
               </div>
 
               <div className="mt-8 flex flex-col items-center gap-3">
@@ -425,7 +442,7 @@ function OfferPage() {
                   onClick={() => setShowCheckout(true)}
                   disabled={alreadyOwns}
                 >
-                  {alreadyOwns ? "Você já tem acesso a este curso" : "Comprar via PIX agora"}
+                  {alreadyOwns ? "Você já tem acesso a este curso" : variant.primaryCta}
                 </Button>
                 <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1.5">
@@ -722,25 +739,29 @@ function OfferPage() {
       <section className="bg-gradient-to-b from-background to-primary/10">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center md:py-24">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Dê o próximo passo agora
+            {variant.finalCtaHeadline}
           </h2>
           <p className="mt-3 text-sm text-muted-foreground sm:text-base">
             {course.title} · {course.workload_hours}h · certificado incluso
           </p>
 
           <div className="mt-8 inline-flex flex-col items-center gap-3">
-            <div className="text-sm text-muted-foreground line-through">De {formatBRL(anchorPrice)}</div>
+            {priceCopy.strike && (
+              <div className="text-sm text-muted-foreground line-through">{priceCopy.strike}</div>
+            )}
             <div className="font-display text-5xl font-bold text-primary sm:text-6xl">
-              {formatBRL(price)}
+              {priceCopy.primary}
             </div>
-            <div className="text-xs text-muted-foreground">
-              ou 12x de {formatBRL(installment12)} · {formatBRL(perDay)}/dia em 1 ano
-            </div>
+            {priceCopy.supporting.length > 0 && (
+              <div className="text-xs text-muted-foreground">
+                {priceCopy.supporting.join(" · ")}
+              </div>
+            )}
           </div>
 
           <div className="mt-8 flex flex-col items-center gap-3">
             <Button size="lg" className="w-full max-w-sm text-base" onClick={() => setShowCheckout(true)} disabled={alreadyOwns}>
-              {alreadyOwns ? "Você já tem acesso" : "Quero garantir minha vaga"}
+              {alreadyOwns ? "Você já tem acesso" : variant.primaryCta}
             </Button>
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
@@ -764,12 +785,14 @@ function OfferPage() {
               {course.workload_hours}h · certificado
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-[11px] text-muted-foreground line-through">{formatBRL(anchorPrice)}</span>
-              <span className="font-display text-lg font-bold text-primary">{formatBRL(price)}</span>
+              {priceCopy.strike && (
+                <span className="text-[11px] text-muted-foreground line-through">{priceCopy.strike.replace(/^De\s*/, "")}</span>
+              )}
+              <span className="font-display text-lg font-bold text-primary">{priceCopy.primary}</span>
             </div>
           </div>
           <Button size="sm" className="shrink-0" onClick={() => setShowCheckout(true)} disabled={alreadyOwns}>
-            {alreadyOwns ? "Acessar" : "Comprar"}
+            {alreadyOwns ? "Acessar" : variant.primaryCtaShort}
           </Button>
         </div>
       </div>
