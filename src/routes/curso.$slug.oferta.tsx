@@ -18,6 +18,7 @@ import { PixCheckout } from "@/components/payments/PixCheckout";
 import { PostPurchaseUpsell } from "@/components/payments/PostPurchaseUpsell";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ShuffleCards } from "@/components/ui/testimonial-cards";
 import { buildPriceAnchor, resolveOfferVariant } from "@/lib/offer-ab";
 import {
   fillFaqPlaceholders,
