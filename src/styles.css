@@ -118,6 +118,11 @@
   --sidebar-accent-foreground: oklch(0.21 0.03 255);
   --sidebar-border: oklch(0.92 0.01 245);
   --sidebar-ring: oklch(0.68 0.14 232);
+
+  /* Contextual mode tones — usados para diferenciar visitante / aluno / admin */
+  --mode-public: oklch(0.68 0.14 232);   /* mesma vibe do primário — descoberta */
+  --mode-student: oklch(0.66 0.15 165);  /* verde-esmeralda — estudo */
+  --mode-admin: oklch(0.72 0.17 60);     /* âmbar — operacional */
 }
 
 
