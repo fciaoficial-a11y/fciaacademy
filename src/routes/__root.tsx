@@ -153,7 +153,7 @@ const HIDE_CHROME_PREFIXES = [
   "/curso/",
   "/certificados",
 ];
-const HIDE_STICKY_PREFIXES = ["/login", "/register", "/forgot-password", "/reset-password", "/dashboard", "/profile", "/admin", "/settings", "/quiz", "/certificados", "/curso/"];
+const HIDE_STICKY_PREFIXES = ["/login", "/register", "/forgot-password", "/reset-password", "/dashboard", "/profile", "/admin", "/settings", "/quiz", "/certificados"];
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
