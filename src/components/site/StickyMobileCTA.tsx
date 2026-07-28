@@ -45,6 +45,8 @@ export function StickyMobileCTA() {
     "inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/30 ring-1 ring-white/10 transition active:scale-[0.98]";
 
   return (
+    <>
+    <div aria-hidden className="h-24 lg:hidden" />
     <div
       className="fixed inset-x-0 bottom-0 z-50 lg:hidden"
       style={{ paddingBottom: "max(env(safe-area-inset-bottom), 0.5rem)" }}
