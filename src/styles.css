@@ -432,3 +432,23 @@ body #lovable-badge:focus-within {
   pointer-events: none !important;
   transform: translateY(20px) scale(.95) !important;
 }
+
+/* ============ Contextual mode helpers ============ */
+@utility mode-ribbon {
+  position: relative;
+}
+@utility mode-ribbon::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    color-mix(in oklab, var(--mode-tone, var(--primary)) 60%, transparent) 20%,
+    var(--mode-tone, var(--primary)) 50%,
+    color-mix(in oklab, var(--mode-tone, var(--primary)) 60%, transparent) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
