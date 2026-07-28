@@ -16,6 +16,14 @@ import {
   type PaidPlanId,
 } from "@/lib/payments";
 
+/**
+ * Checkout PIX direto — 1 curso por transação.
+ *
+ * O modelo operacional oficial da FCIA Academy (ver `docs/PURCHASE_FLOW.md`)
+ * define o funil: home/catálogo → /curso/:slug/oferta → PIX direto → acesso.
+ * Não existe carrinho, bundle ou pagamento agregando múltiplos cursos.
+ * Só reintroduzir suporte multi-item com decisão de produto explícita.
+ */
 export type PixCheckoutProps =
   | { mode?: "plan"; planId: PaidPlanId; courseId?: string; title?: string; onPaid?: () => void }
   | { mode: "course"; courseId: string; title: string; onPaid?: () => void; planId?: never };
