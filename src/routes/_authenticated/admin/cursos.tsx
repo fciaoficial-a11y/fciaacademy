@@ -294,6 +294,34 @@ function AdminCoursesPage() {
                 </div>
               </Field>
 
+              {editingCheck && (
+                <div className={`rounded-xl border p-3 text-sm ${editingCheck.canPublish ? "border-emerald-500/30 bg-emerald-500/5" : "border-amber-500/30 bg-amber-500/5"}`}>
+                  <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+                    {editingCheck.canPublish
+                      ? <><CheckCircle2 className="h-4 w-4 text-emerald-500" /><span className="text-emerald-500">Pronto para publicar</span></>
+                      : <><AlertCircle className="h-4 w-4 text-amber-500" /><span className="text-amber-500">Checklist de publicação</span></>}
+                  </div>
+                  <ul className="grid gap-1">
+                    {editingCheck.items.map((it) => (
+                      <li key={it.id} className="flex items-start gap-2 text-xs">
+                        {it.ok
+                          ? <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                          : <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-500" />}
+                        <span className={it.ok ? "text-muted-foreground" : "text-foreground"}>
+                          {it.label}
+                          {!it.ok && it.hint && <span className="ml-1 text-muted-foreground">— {it.hint}</span>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  {!editingCheck.canPublish && (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Enquanto faltar algum item, o curso permanece em rascunho. A regra é aplicada também no banco.
+                    </p>
+                  )}
+                </div>
+              )}
+
               <div className="flex flex-wrap gap-4 text-sm">
                 <label className="flex items-center gap-2">
                   <input type="checkbox" checked={!!editing.certificate_enabled} onChange={(e) => setEditing({ ...editing, certificate_enabled: e.target.checked })} />
@@ -303,8 +331,13 @@ function AdminCoursesPage() {
                   <input type="checkbox" checked={!!editing.allow_pdf_download} onChange={(e) => setEditing({ ...editing, allow_pdf_download: e.target.checked })} />
                   Permite download do PDF
                 </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" checked={!!editing.is_published} onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })} />
+                <label className="flex items-center gap-2" title={editingCheck && !editingCheck.canPublish ? "Complete o checklist acima para publicar." : ""}>
+                  <input
+                    type="checkbox"
+                    checked={!!editing.is_published}
+                    disabled={!!editingCheck && !editingCheck.canPublish && !editing.is_published}
+                    onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })}
+                  />
                   Publicado
                 </label>
               </div>
