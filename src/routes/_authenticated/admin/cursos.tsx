@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ExternalLink, Eye, EyeOff, Pencil, Plus, Trash2, Upload } from "lucide-react";
+import { AlertCircle, CheckCircle2, ExternalLink, Eye, EyeOff, Pencil, Plus, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   adminCoursesQuery,
+  adminModulesQuery,
   adminTracksQuery,
   deleteRow,
   insertRow,
@@ -23,6 +24,7 @@ import {
   uploadCourseAsset,
   type AdminCourse,
 } from "@/lib/admin-api";
+import { checkPublishReadiness, summarizeMissing } from "@/lib/publish-check";
 
 export const Route = createFileRoute("/_authenticated/admin/cursos")({
   component: AdminCoursesPage,
@@ -44,9 +46,33 @@ function AdminCoursesPage() {
   const qc = useQueryClient();
   const courses = useQuery(adminCoursesQuery);
   const tracks = useQuery(adminTracksQuery);
+  const modules = useQuery(adminModulesQuery);
   const [editing, setEditing] = useState<Draft | null>(null);
   const [open, setOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  const publishedModulesByCourse = useMemo(() => {
+    const map = new Map<string, number>();
+    (modules.data ?? []).forEach((m) => {
+      if (m.is_published) map.set(m.course_id, (map.get(m.course_id) ?? 0) + 1);
+    });
+    return map;
+  }, [modules.data]);
+
+  const editingCheck = useMemo(() => {
+    if (!editing) return null;
+    const count = editing.id ? publishedModulesByCourse.get(editing.id) ?? 0 : 0;
+    return checkPublishReadiness({
+      slug: editing.slug,
+      title: editing.title,
+      description: editing.description,
+      price: editing.price,
+      is_free: editing.is_free,
+      workload_hours: editing.workload_hours,
+      cover_url: editing.cover_url,
+      publishedModulesCount: count,
+    });
+  }, [editing, publishedModulesByCourse]);
 
   const save = useMutation({
     mutationFn: async (d: Draft) => {
@@ -58,8 +84,19 @@ function AdminCoursesPage() {
         throw new Error("Informe a carga horária (horas > 0).");
       }
       if (d.is_published) {
-        if (!d.is_free && (!d.price || d.price <= 0)) {
-          throw new Error("Para publicar: marque como gratuito ou defina um preço maior que zero.");
+        const count = d.id ? publishedModulesByCourse.get(d.id) ?? 0 : 0;
+        const check = checkPublishReadiness({
+          slug: d.slug,
+          title: d.title,
+          description: d.description,
+          price: d.price,
+          is_free: d.is_free,
+          workload_hours: d.workload_hours,
+          cover_url: d.cover_url,
+          publishedModulesCount: count,
+        });
+        if (!check.canPublish) {
+          throw new Error(summarizeMissing(check));
         }
       }
       if (d.id) await updateRow("courses", d.id, d);
@@ -79,7 +116,25 @@ function AdminCoursesPage() {
   });
 
   const togglePub = useMutation({
-    mutationFn: (c: AdminCourse) => updateRow("courses", c.id, { is_published: !c.is_published }),
+    mutationFn: async (c: AdminCourse) => {
+      if (!c.is_published) {
+        const count = publishedModulesByCourse.get(c.id) ?? 0;
+        const check = checkPublishReadiness({
+          slug: c.slug,
+          title: c.title,
+          description: c.description,
+          price: c.price,
+          is_free: c.is_free,
+          workload_hours: c.workload_hours,
+          cover_url: c.cover_url,
+          publishedModulesCount: count,
+        });
+        if (!check.canPublish) {
+          throw new Error(summarizeMissing(check));
+        }
+      }
+      await updateRow("courses", c.id, { is_published: !c.is_published });
+    },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin", "courses"] }),
     onError: (e: Error) => toast.error(e.message),
   });
@@ -239,6 +294,34 @@ function AdminCoursesPage() {
                 </div>
               </Field>
 
+              {editingCheck && (
+                <div className={`rounded-xl border p-3 text-sm ${editingCheck.canPublish ? "border-emerald-500/30 bg-emerald-500/5" : "border-amber-500/30 bg-amber-500/5"}`}>
+                  <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+                    {editingCheck.canPublish
+                      ? <><CheckCircle2 className="h-4 w-4 text-emerald-500" /><span className="text-emerald-500">Pronto para publicar</span></>
+                      : <><AlertCircle className="h-4 w-4 text-amber-500" /><span className="text-amber-500">Checklist de publicação</span></>}
+                  </div>
+                  <ul className="grid gap-1">
+                    {editingCheck.items.map((it) => (
+                      <li key={it.id} className="flex items-start gap-2 text-xs">
+                        {it.ok
+                          ? <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                          : <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-500" />}
+                        <span className={it.ok ? "text-muted-foreground" : "text-foreground"}>
+                          {it.label}
+                          {!it.ok && it.hint && <span className="ml-1 text-muted-foreground">— {it.hint}</span>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  {!editingCheck.canPublish && (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Enquanto faltar algum item, o curso permanece em rascunho. A regra é aplicada também no banco.
+                    </p>
+                  )}
+                </div>
+              )}
+
               <div className="flex flex-wrap gap-4 text-sm">
                 <label className="flex items-center gap-2">
                   <input type="checkbox" checked={!!editing.certificate_enabled} onChange={(e) => setEditing({ ...editing, certificate_enabled: e.target.checked })} />
@@ -248,8 +331,13 @@ function AdminCoursesPage() {
                   <input type="checkbox" checked={!!editing.allow_pdf_download} onChange={(e) => setEditing({ ...editing, allow_pdf_download: e.target.checked })} />
                   Permite download do PDF
                 </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" checked={!!editing.is_published} onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })} />
+                <label className="flex items-center gap-2" title={editingCheck && !editingCheck.canPublish ? "Complete o checklist acima para publicar." : ""}>
+                  <input
+                    type="checkbox"
+                    checked={!!editing.is_published}
+                    disabled={!!editingCheck && !editingCheck.canPublish && !editing.is_published}
+                    onChange={(e) => setEditing({ ...editing, is_published: e.target.checked })}
+                  />
                   Publicado
                 </label>
               </div>
