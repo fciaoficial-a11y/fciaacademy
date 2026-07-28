@@ -577,6 +577,7 @@ export interface ResolvedCourseTemplate {
   transformation: CourseTransformationCopy | null;
   bonuses: CourseBonusesCopy | null;
   valueStack: CourseValueStackCopy | null;
+  authority: CourseAuthorityCopy | null;
 }
 
 interface ResolveArgs {
