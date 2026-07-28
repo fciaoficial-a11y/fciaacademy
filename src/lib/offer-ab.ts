@@ -44,7 +44,7 @@ export interface OfferVariant {
 export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   A: {
     key: "A",
-    primaryCta: "Quero garantir minha vaga",
+    primaryCta: "Garantir minha vaga por PIX",
     primaryCtaShort: "Garantir vaga",
     heroHeadline: null,
     heroSubheadline: null,
@@ -55,8 +55,8 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   B: {
     key: "B",
-    primaryCta: "Começar agora",
-    primaryCtaShort: "Começar",
+    primaryCta: "Quero começar agora por PIX",
+    primaryCtaShort: "Começar por PIX",
     heroHeadline: null,
     heroSubheadline:
       "Aprenda o método aplicado que Fernando Cabral usa em consultorias reais — no seu ritmo, com certificado reconhecido.",
@@ -67,14 +67,14 @@ export const OFFER_VARIANTS: Record<OfferVariantKey, OfferVariant> = {
   },
   C: {
     key: "C",
-    primaryCta: "Quero aprender IA na prática",
-    primaryCtaShort: "Aprender agora",
+    primaryCta: "Quero comprar agora por PIX",
+    primaryCtaShort: "Comprar por PIX",
     heroHeadline: null,
     heroSubheadline:
       "Transforme sua rotina em resultado com IA — método aplicado, sem enrolação, sem código.",
     heroEyebrow: "Método FCIA · Aplicado ao seu dia a dia",
     offerTitle: "Um investimento, todos os benefícios",
-    priceAnchor: "installment",
+    priceAnchor: "single",
     finalCtaHeadline: "Sua próxima habilidade começa aqui",
   },
 };
