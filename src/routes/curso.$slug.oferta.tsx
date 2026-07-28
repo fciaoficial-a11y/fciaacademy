@@ -515,13 +515,16 @@ function OfferPage() {
                 </div>
               </div>
             ) : alreadyOwns ? (
-              <div className="rounded-2xl border border-border bg-card p-6 text-center">
-                <CheckCircle2 className="mx-auto h-8 w-8 text-primary" />
-                <p className="mt-2 text-sm">Você já está matriculado neste curso.</p>
-                <Button asChild className="mt-4">
-                  <Link to="/curso/$slug" params={{ slug: course.slug }}>Ir para o curso</Link>
-                </Button>
-              </div>
+              <>
+                <div className="rounded-2xl border border-border bg-card p-6 text-center">
+                  <CheckCircle2 className="mx-auto h-8 w-8 text-primary" />
+                  <p className="mt-2 text-sm">Você já está matriculado neste curso.</p>
+                  <Button asChild className="mt-4">
+                    <Link to="/curso/$slug" params={{ slug: course.slug }}>Ir para o curso</Link>
+                  </Button>
+                </div>
+                <PostPurchaseUpsell purchasedSlug={course.slug} />
+              </>
             ) : (
               <>
                 <PixCheckout mode="course" courseId={course.id} title={course.title} onPaid={() => setJustPaid(true)} />
