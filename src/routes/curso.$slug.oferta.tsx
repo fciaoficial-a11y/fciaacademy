@@ -205,36 +205,66 @@ function OfferPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* ============ HERO ============ */}
+      {/* ============ HERO — visual-dominant ============ */}
       <section className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/15),transparent_60%)]" />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-12 md:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-          <div className="min-w-0">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-primary">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/18),transparent_65%)]" />
+        <div className="relative mx-auto grid max-w-6xl gap-8 px-4 py-10 md:py-16 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-14">
+          {/* Capa — vem antes no mobile, protagonista */}
+          <div className="relative order-1 lg:order-2">
+            <div className="group relative overflow-hidden rounded-3xl border border-border/60 shadow-2xl shadow-primary/20 ring-1 ring-primary/10">
+              <img
+                src={heroImageUrl}
+                alt={`Capa do curso ${course.title}`}
+                loading="eager"
+                fetchPriority="high"
+                className="aspect-[4/5] w-full object-cover sm:aspect-[3/4] lg:aspect-[4/5]"
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
+              <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-background/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary backdrop-blur">
+                <Sparkles className="h-3 w-3" /> Masterclass
+              </div>
+              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                <div className="rounded-xl border border-border/60 bg-background/80 px-3 py-2 backdrop-blur">
+                  <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Carga</div>
+                  <div className="font-display text-lg font-bold leading-none">{course.workload_hours}h</div>
+                </div>
+                <span
+                  className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary backdrop-blur"
+                  title="Certificado reconhecido conforme a Lei 9.394/96 (LDB)"
+                >
+                  <BadgeCheck className="h-3.5 w-3.5" /> Certificado reconhecido
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Texto — enxuto */}
+          <div className="order-2 min-w-0 lg:order-1">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-primary">
               <Sparkles className="h-3.5 w-3.5" /> {variant.heroEyebrow ?? hero.eyebrow}
             </span>
-            <h1 className="mt-4 font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+            <h1 className="mt-4 font-display text-[2rem] font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
               {variant.heroHeadline ?? hero.headline}
             </h1>
-            <p className="mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            <p className="mt-4 max-w-xl text-[15px] text-muted-foreground sm:text-base">
               {variant.heroSubheadline ?? hero.subheadline}
             </p>
 
-            <div className="mt-6 flex items-center gap-4 rounded-2xl border border-border/60 bg-card/60 p-4 backdrop-blur">
+            <div className="mt-5 flex items-center gap-3 rounded-2xl border border-border/60 bg-card/60 p-3 backdrop-blur">
               <img
                 src={fernandoImg.url}
                 alt="Fernando Cabral, professor da FCIA Academy"
                 loading="eager"
-                className="h-16 w-16 shrink-0 rounded-full object-cover ring-2 ring-primary/40"
+                className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-primary/40"
               />
               <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-semibold">Fernando Cabral</span>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[11px] font-medium text-primary">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="text-sm font-semibold">Fernando Cabral</span>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/15 px-1.5 py-0.5 text-[10px] font-medium text-primary">
                     <BadgeCheck className="h-3 w-3" /> Especialista em IA
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground">
+                <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
                   “{hero.professorQuote}”
                 </p>
               </div>
@@ -254,29 +284,6 @@ function OfferPage() {
               </span>
             </div>
           </div>
-
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-border/60 shadow-2xl shadow-primary/10">
-              <img
-                src={heroImageUrl}
-                alt={`Capa do curso ${course.title}`}
-                loading="eager"
-                className="aspect-[4/3] w-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-4 -left-4 hidden items-center gap-3 rounded-2xl border border-border/60 bg-card px-4 py-3 shadow-xl md:flex">
-              <div>
-                <div className="text-xs uppercase tracking-widest text-muted-foreground">Carga horária</div>
-                <div className="mt-0.5 font-display text-2xl font-bold">{course.workload_hours}h</div>
-              </div>
-              <span
-                className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary"
-                title="Certificado reconhecido conforme a Lei 9.394/96 (LDB)"
-              >
-                <BadgeCheck className="h-3.5 w-3.5" /> Certificado reconhecido
-              </span>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -287,6 +294,49 @@ function OfferPage() {
           <SocialStat icon={<Star className="h-5 w-5" />} label="Avaliação" value="4.9/5" />
           <SocialStat icon={<Award className="h-5 w-5" />} label="Certificado" value="Reconhecido" />
           <SocialStat icon={<Zap className="h-5 w-5" />} label="Acesso" value="Vitalício" />
+        </div>
+      </section>
+
+      {/* ============ MOSAICO CRIATIVO — o que sai do método ============ */}
+      <section className="border-b border-border/60 bg-background">
+        <div className="mx-auto max-w-6xl px-4 py-10 md:py-14">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-primary">
+                <Sparkles className="h-3 w-3" /> Peças criadas com o método
+              </span>
+              <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl">
+                Imagem, direção, composição e portfólio — tudo saindo do mesmo sistema.
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm text-muted-foreground">
+              Um recorte visual do que alunos entregam ao final das aulas-mestras. Peças reais, não mockups genéricos.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+            {[
+              { src: micPillarCriar, label: "Direção de imagem", alt: "Criação editorial com IA" },
+              { src: micPillarEncantar, label: "Composição editorial", alt: "Página editorial impressa com still cinematográfico" },
+              { src: micShowcase, label: "Moodboard & arte", alt: "Moodboard de direção criativa" },
+              { src: micPillarVender, label: "Portfólio & oferta", alt: "Portfólio digital em laptop e mobile" },
+            ].map((item) => (
+              <figure
+                key={item.label}
+                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/40"
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  loading="lazy"
+                  className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/85 via-background/20 to-transparent" />
+                <figcaption className="absolute inset-x-3 bottom-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/90">
+                  {item.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
