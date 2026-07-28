@@ -164,7 +164,7 @@ function OfferPage() {
     title: course.title,
     description: course.description,
   });
-  const { hero, audience, testimonials, faq } = template;
+  const { hero, audience, testimonials, faq, pain, method, transformation, bonuses } = template;
 
   const { v: variantOverride } = Route.useSearch();
   const variant = resolveOfferVariant(course.slug, variantOverride);
@@ -270,6 +270,132 @@ function OfferPage() {
           <SocialStat icon={<Zap className="h-5 w-5" />} label="Acesso" value="Vitalício" />
         </div>
       </section>
+
+      {/* ============ DOR (opcional) ============ */}
+      {pain && (
+        <section className="border-b border-border/60">
+          <div className="mx-auto max-w-4xl px-4 py-14 md:py-20">
+            <h2 className="font-display text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+              {pain.title}
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+              {pain.intro}
+            </p>
+            <ul className="mt-8 space-y-3">
+              {pain.bullets.map((b) => (
+                <li
+                  key={b}
+                  className="flex gap-3 rounded-2xl border border-border/60 bg-card/40 p-4 text-sm"
+                >
+                  <X className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+            {pain.transition && (
+              <p className="mt-8 border-l-2 border-primary/60 pl-4 text-base font-medium text-foreground/90">
+                {pain.transition}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ============ MÉTODO (opcional) ============ */}
+      {method && (
+        <section className="border-b border-border/60 bg-card/20">
+          <div className="mx-auto max-w-5xl px-4 py-14 md:py-20">
+            <h2 className="font-display text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+              {method.title}
+            </h2>
+            <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
+              {method.intro}
+            </p>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {method.pillars.map((p, i) => (
+                <div
+                  key={p.name}
+                  className="rounded-2xl border border-primary/30 bg-gradient-to-b from-primary/10 to-card/40 p-6"
+                >
+                  <div className="font-display text-xs uppercase tracking-[0.16em] text-primary">
+                    Pilar {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="mt-2 font-display text-2xl font-bold">{p.name}</div>
+                  <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {method.integrationItems && method.integrationItems.length > 0 && (
+              <div className="mt-10 rounded-3xl border border-border/60 bg-card/40 p-6 md:p-8">
+                {method.integrationTitle && (
+                  <h3 className="font-display text-lg font-semibold">{method.integrationTitle}</h3>
+                )}
+                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  {method.integrationItems.map((it) => (
+                    <div key={it.label} className="rounded-xl border border-border/60 bg-background/60 p-4">
+                      <div className="font-semibold text-primary">{it.label}</div>
+                      <p className="mt-1 text-sm text-muted-foreground">{it.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {method.differentiator && (
+              <p className="mt-8 max-w-3xl text-base leading-relaxed text-foreground/90">
+                {method.differentiator}
+              </p>
+            )}
+            {method.transition && (
+              <p className="mt-4 border-l-2 border-primary/60 pl-4 text-base font-medium text-foreground/90">
+                {method.transition}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ============ TRANSFORMAÇÃO (opcional) ============ */}
+      {transformation && (
+        <section className="border-b border-border/60">
+          <div className="mx-auto max-w-5xl px-4 py-14 md:py-20">
+            <h2 className="font-display text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+              {transformation.title}
+            </h2>
+            <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
+              {transformation.intro}
+            </p>
+
+            <div className="mt-10 grid gap-3 md:grid-cols-2">
+              {transformation.pairs.map((pair) => (
+                <div
+                  key={pair.before}
+                  className="grid grid-cols-1 gap-2 rounded-2xl border border-border/60 bg-card/40 p-4 md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-4"
+                >
+                  <div className="text-sm text-muted-foreground line-through decoration-muted-foreground/40">
+                    {pair.before}
+                  </div>
+                  <div className="hidden text-primary md:block">→</div>
+                  <div className="text-sm font-medium text-foreground">{pair.after}</div>
+                </div>
+              ))}
+            </div>
+
+            {transformation.synthesis && (
+              <p className="mt-8 rounded-2xl border border-primary/30 bg-primary/5 p-5 text-center font-display text-lg font-semibold text-foreground">
+                {transformation.synthesis}
+              </p>
+            )}
+            {transformation.transition && (
+              <p className="mt-4 border-l-2 border-primary/60 pl-4 text-base font-medium text-foreground/90">
+                {transformation.transition}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ============ OFERTA ============ */}
       <section className="border-b border-border/60">
@@ -480,6 +606,64 @@ function OfferPage() {
           </div>
         </div>
       </section>
+
+      {/* ============ BÔNUS (opcional) ============ */}
+      {bonuses && (
+        <section className="border-b border-border/60 bg-card/20">
+          <div className="mx-auto max-w-5xl px-4 py-14 md:py-20">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="font-display text-xs uppercase tracking-[0.16em] text-primary">
+                Bônus inclusos
+              </span>
+            </div>
+            <h2 className="mt-3 font-display text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+              {bonuses.title}
+            </h2>
+            <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground">
+              {bonuses.intro}
+            </p>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-2">
+              {bonuses.bonuses.map((b, i) => (
+                <div
+                  key={b.name}
+                  className="rounded-2xl border border-border/60 bg-card/40 p-5"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="font-display text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                        Bônus {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <div className="mt-1 font-display text-lg font-semibold">{b.name}</div>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                      {b.value}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm font-medium text-foreground/90">{b.purpose}</p>
+                  {b.description && (
+                    <p className="mt-2 text-sm text-muted-foreground">{b.description}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {(bonuses.totalLabel || bonuses.closing) && (
+              <div className="mt-8 rounded-2xl border border-primary/30 bg-primary/5 p-5 text-center">
+                {bonuses.totalLabel && (
+                  <div className="font-display text-2xl font-bold text-primary">
+                    {bonuses.totalLabel}
+                  </div>
+                )}
+                {bonuses.closing && (
+                  <p className="mt-2 text-sm text-foreground/90">{bonuses.closing}</p>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ============ CERTIFICADO ============ */}
       {course.certificate_enabled && (

@@ -56,6 +56,49 @@ export interface CourseHeroOverride {
   professorQuote?: string;
 }
 
+/**
+ * Blocos editoriais OPCIONAIS. Quando presentes, a página de oferta
+ * renderiza a seção correspondente. Ausência = seção não aparece.
+ */
+export interface CoursePainCopy {
+  title: string;
+  intro: string;
+  bullets: string[];
+  transition?: string;
+}
+export interface CourseMethodPillar { name: string; description: string }
+export interface CourseMethodIntegrationItem { label: string; description: string }
+export interface CourseMethodCopy {
+  title: string;
+  intro: string;
+  pillars: CourseMethodPillar[];
+  integrationTitle?: string;
+  integrationItems?: CourseMethodIntegrationItem[];
+  differentiator?: string;
+  transition?: string;
+}
+export interface CourseTransformationPair { before: string; after: string }
+export interface CourseTransformationCopy {
+  title: string;
+  intro: string;
+  pairs: CourseTransformationPair[];
+  synthesis?: string;
+  transition?: string;
+}
+export interface CourseBonus {
+  name: string;
+  value: string;
+  purpose: string;
+  description?: string;
+}
+export interface CourseBonusesCopy {
+  title: string;
+  intro: string;
+  bonuses: CourseBonus[];
+  totalLabel?: string;
+  closing?: string;
+}
+
 export interface CourseTemplateOverride {
   hero?: CourseHeroOverride;
   audience?: CourseAudienceCopy;
@@ -64,6 +107,10 @@ export interface CourseTemplateOverride {
   faq?: CourseFaqItem[];
   /** Substitui totalmente o FAQ ao invés de mesclar. */
   faqReplace?: boolean;
+  pain?: CoursePainCopy;
+  method?: CourseMethodCopy;
+  transformation?: CourseTransformationCopy;
+  bonuses?: CourseBonusesCopy;
 }
 
 // ==================================================================
@@ -71,6 +118,201 @@ export interface CourseTemplateOverride {
 // ==================================================================
 
 export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> = {
+  "metodo-ia-criativa": {
+    hero: {
+      eyebrow: "Masterclass FCIA · Produto principal",
+      headline:
+        "Crie imagem, vídeo, música e roteiro com IA em nível profissional — sem cara de robô, sem tutorial solto.",
+      subheadline:
+        "A masterclass da FCIA Academy que te leva do zero à peça pronta para publicar, vender ou entregar ao cliente — com método aplicado às quatro mídias, não a uma ferramenta isolada.",
+      professorQuote:
+        "Ferramenta muda toda semana. Método, não. Aqui você aprende o processo que continua funcionando quando a próxima IA aparecer.",
+    },
+    audience: {
+      forWhom: [
+        "Criadores de conteúdo que querem produzir mais rápido, sem perder padrão visual",
+        "Social medias e freelancers que precisam entregar peças coerentes para clientes exigentes",
+        "Empreendedores e donos de negócio que produzem o próprio marketing e não têm tempo a perder",
+        "Marketers e produtores que querem integrar imagem, vídeo, áudio e roteiro num fluxo único",
+      ],
+      notForWhom: [
+        "Quem procura tutorial solto de uma única ferramenta específica",
+        "Quem quer aprender programação, fine-tuning ou fundamentos matemáticos de IA",
+        "Quem espera resultado profissional sem aplicar o método nas próprias peças",
+        "Quem não pretende publicar, vender ou entregar nada nos próximos 30 dias",
+      ],
+    },
+    pain: {
+      title:
+        "Você abre a ferramenta, gera, apaga, tenta de novo — e no fim publica algo que não te representa.",
+      intro:
+        "A IA prometeu acelerar sua criação, mas na prática virou mais uma aba aberta. Você testa ChatGPT, Midjourney, Runway, Suno, ElevenLabs — cada um por conta própria, sem método, sem padrão. O resultado sai com cara de IA, sem identidade, sem intenção. E você, no fim, publica torcendo para funcionar.",
+      bullets: [
+        "Gera dez versões da mesma imagem e nenhuma é boa o bastante para publicar",
+        "Trava no prompt: escreve, apaga, reescreve — e o resultado nunca chega perto do que estava na cabeça",
+        "Junta imagem, vídeo, música e roteiro que não conversam entre si — parece Frankenstein",
+        "Copia prompt do YouTube, aplica no seu caso e o resultado sai pior que o do tutorial",
+        "Sente que está sempre correndo atrás da próxima ferramenta, sem dominar nenhuma de verdade",
+        "Publica com insegurança e sente que o resultado tem cara de IA, não a sua cara",
+        "Vê outros criadores entregando peças profissionais e não entende como saíram do mesmo ponto que você",
+      ],
+      transition:
+        "Isso não é falta de talento. É falta de método. E é exatamente o que a masterclass corrige.",
+    },
+    method: {
+      title: "O problema nunca foi a ferramenta. Era a falta de método.",
+      intro:
+        "Enquanto muita gente corre atrás da próxima ferramenta que apareceu no feed, quem realmente entrega resultado com IA faz o contrário: trabalha dentro de um processo claro. Ferramenta muda toda semana. Método, não. É isso que separa quem só testa IA de quem produz com consistência profissional.",
+      pillars: [
+        {
+          name: "Criar",
+          description:
+            "Você aprende a partir de um sistema fixo para transformar ideia em peça — sem depender do prompt certo aparecer por sorte.",
+        },
+        {
+          name: "Encantar",
+          description:
+            "Cada peça sai com padrão visual, ritmo e intenção. É o passo que separa o resultado amador do resultado profissional.",
+        },
+        {
+          name: "Vender",
+          description:
+            "Você transforma o que produz em portfólio, oferta ou entrega ao cliente. Método sem monetização é hobby caro.",
+        },
+      ],
+      integrationTitle: "Quatro mídias, uma língua",
+      integrationItems: [
+        { label: "Imagem", description: "Ancora conceito e identidade visual." },
+        { label: "Vídeo", description: "Dá movimento e emoção à narrativa." },
+        { label: "Música", description: "Fixa emoção e memória na peça final." },
+        { label: "Roteiro", description: "Estrutura a mensagem e sustenta tudo." },
+      ],
+      differentiator:
+        "Tutorial ensina botão. Curso genérico ensina ferramenta. A masterclass ensina processo — e processo é o que continua funcionando mesmo quando a ferramenta muda.",
+      transition:
+        "É por isso que a diferença aparece rápido na prática: no antes e depois de quem passa a criar com método.",
+    },
+    transformation: {
+      title:
+        "A diferença entre usar IA e dominar IA aparece na primeira peça que você entrega.",
+      intro:
+        "O método não muda só o que você produz. Ele muda como você produz. Sai o improviso de gerar versões no escuro torcendo para uma funcionar. Entra um processo em que cada peça nasce com intenção, padrão visual e coerência entre imagem, vídeo, música e roteiro. É a virada de quem tenta para quem entrega.",
+      pairs: [
+        {
+          before: "Gerava dez versões torcendo para uma servir",
+          after: "Entrega a primeira versão já com padrão profissional",
+        },
+        {
+          before: "Prompt genérico copiado do YouTube",
+          after: "Prompt autoral, calibrado ao contexto e ao objetivo",
+        },
+        {
+          before: "Imagem, vídeo, áudio e roteiro desalinhados",
+          after: "As quatro mídias falam a mesma língua",
+        },
+        {
+          before: "Peça com cara de IA",
+          after: "Peça com identidade própria e intenção clara",
+        },
+        {
+          before: "Publicava com insegurança",
+          after: "Publica com clareza e intenção",
+        },
+        {
+          before: "Cobrava barato por não saber justificar o valor",
+          after: "Precifica como profissional",
+        },
+        {
+          before: "Dependia da próxima ferramenta da moda",
+          after: "Opera com método que sobrevive às mudanças",
+        },
+      ],
+      synthesis:
+        "Você para de testar IA e começa a produzir com IA — no padrão de quem cobra para entregar.",
+      transition:
+        "Essa transformação não acontece por acaso. Ela é construída, aula por aula, dentro da estrutura da masterclass.",
+    },
+    bonuses: {
+      title:
+        "Você não sai só com a masterclass. Sai com o kit completo pra acelerar cada etapa.",
+      intro:
+        "Os bônus não estão aqui pra inflar oferta. Estão aqui porque encurtam o caminho entre aprender e entregar. Cada um resolve uma fricção real de quem começa a produzir com IA: prompt que não sai, referência que falta, decisão que trava.",
+      bonuses: [
+        {
+          name: "Biblioteca de Prompts Mestres",
+          value: "R$ 197",
+          purpose: "Ponto de partida testado para imagem, vídeo, música e roteiro.",
+          description:
+            "Prompts prontos, categorizados por mídia e por objetivo, para você começar cada peça de um lugar profissional em vez do zero.",
+        },
+        {
+          name: "Painel de Referências Visuais",
+          value: "R$ 147",
+          purpose: "Direção estética pronta para peças com padrão.",
+          description:
+            "Curadoria organizada por estilo, mood e uso — pare de perder tempo buscando referência solta no Pinterest.",
+        },
+        {
+          name: "Templates Editáveis de Roteiro",
+          value: "R$ 97",
+          purpose: "Estruturas de roteiro que já converteram, prontas para adaptar.",
+          description:
+            "Modelos de abertura, desenvolvimento e chamada usados em campanhas reais — plugue seu tema e ajuste.",
+        },
+        {
+          name: "Guia de Integração das 4 Mídias",
+          value: "R$ 147",
+          purpose: "Fluxo passo a passo para peças coerentes ponta-a-ponta.",
+          description:
+            "Como fazer imagem, vídeo, áudio e roteiro nascerem da mesma direção — o exato ponto onde a maioria trava.",
+        },
+        {
+          name: "Kit de Monetização Criativa",
+          value: "R$ 147",
+          purpose: "Do portfólio ao primeiro cliente pagante.",
+          description:
+            "Como estruturar entrega, precificar, propor e fechar — para transformar o método em receita.",
+        },
+        {
+          name: "Comunidade Telegram FCIA",
+          value: "R$ 147",
+          purpose: "Atualizações e feedback direto quando a IA mudar (e ela vai mudar).",
+          description:
+            "Espaço fechado para alunos com atualizações de ferramentas, respostas e trocas de peças reais.",
+        },
+      ],
+      totalLabel: "R$ 782 em bônus",
+      closing:
+        "Só o stack de bônus soma R$ 782. Junto da masterclass, forma o pacote completo que a FCIA Academy oferece como produto principal.",
+    },
+    testimonials: [
+      {
+        name: "Beta interno — em produção",
+        role: "Depoimento em construção",
+        initials: "FC",
+        result: "Primeira turma",
+        quote:
+          "Depoimentos reais da turma inaugural serão publicados aqui após o primeiro ciclo de aplicação do método.",
+      },
+      {
+        name: "Beta interno — em produção",
+        role: "Depoimento em construção",
+        initials: "FC",
+        result: "Primeira turma",
+        quote:
+          "Espaço reservado para relato verificado de aluno da masterclass sobre integração das quatro mídias.",
+      },
+      {
+        name: "Beta interno — em produção",
+        role: "Depoimento em construção",
+        initials: "FC",
+        result: "Primeira turma",
+        quote:
+          "Depoimento sobre monetização da produção criativa após aplicação do método.",
+      },
+    ],
+  },
+
   "ia-sem-misterio": {
     hero: {
       eyebrow: "Curso oficial FCIA · Turma inaugural",
@@ -268,6 +510,10 @@ export interface ResolvedCourseTemplate {
   audience: CourseAudienceCopy;
   testimonials: CourseTestimonial[];
   faq: CourseFaqItem[];
+  pain: CoursePainCopy | null;
+  method: CourseMethodCopy | null;
+  transformation: CourseTransformationCopy | null;
+  bonuses: CourseBonusesCopy | null;
 }
 
 interface ResolveArgs {
@@ -299,6 +545,10 @@ export function resolveCourseTemplate({
     audience: override.audience ?? DEFAULT_AUDIENCE,
     testimonials: override.testimonials ?? DEFAULT_TESTIMONIALS,
     faq,
+    pain: override.pain ?? null,
+    method: override.method ?? null,
+    transformation: override.transformation ?? null,
+    bonuses: override.bonuses ?? null,
   };
 }
 
