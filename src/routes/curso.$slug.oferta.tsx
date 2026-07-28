@@ -362,9 +362,17 @@ function OfferPage() {
                 className="aspect-[4/3] w-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-4 -left-4 hidden rounded-2xl border border-border/60 bg-card px-4 py-3 shadow-xl md:block">
-              <div className="text-xs uppercase tracking-widest text-muted-foreground">Carga horária</div>
-              <div className="mt-0.5 font-display text-2xl font-bold">{course.workload_hours}h</div>
+            <div className="absolute -bottom-4 -left-4 hidden items-center gap-3 rounded-2xl border border-border/60 bg-card px-4 py-3 shadow-xl md:flex">
+              <div>
+                <div className="text-xs uppercase tracking-widest text-muted-foreground">Carga horária</div>
+                <div className="mt-0.5 font-display text-2xl font-bold">{course.workload_hours}h</div>
+              </div>
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary"
+                title="Certificado reconhecido conforme a Lei 9.394/96 (LDB)"
+              >
+                <BadgeCheck className="h-3.5 w-3.5" /> Certificado reconhecido
+              </span>
             </div>
           </div>
         </div>
