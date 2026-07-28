@@ -346,12 +346,12 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
       transition:
         "Você não paga R$ 1.735. Nem R$ 997. Enquanto a turma inaugural estiver aberta, o acesso completo sai por:",
       priceHighlight: "R$ 249,90",
-      priceCaption: "uma única vez · via PIX · sem mensalidade, sem renovação",
+      priceCaption: "uma única vez · acesso vitalício · sem mensalidade, sem renovação",
       riskNote:
-        "Acesso liberado em segundos após a confirmação do PIX · Garantia incondicional de 7 dias",
-      ctaLabel: "Garantir minha vaga por PIX — R$ 249,90",
+        "Acesso liberado em segundos após a confirmação do pagamento · Garantia incondicional de 7 dias",
+      ctaLabel: "Quero começar agora — R$ 249,90",
       closing:
-        "R$ 1.735 em conteúdo e bônus. R$ 249,90 uma única vez. A decisão que separa quem testa IA de quem entrega com IA cabe em um PIX.",
+        "R$ 1.735 em conteúdo e bônus. R$ 249,90 uma única vez. A decisão que separa quem testa IA de quem entrega com IA começa aqui.",
     },
 
     authority: {
