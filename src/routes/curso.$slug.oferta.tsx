@@ -29,6 +29,25 @@ import {
   resolveCourseTemplate,
 } from "@/lib/course-template";
 import fernandoImg from "@/assets/fernando-cabral.webp.asset.json";
+import micPillarCriar from "@/assets/mic-pillar-criar.jpg";
+import micPillarEncantar from "@/assets/mic-pillar-encantar.jpg";
+import micPillarVender from "@/assets/mic-pillar-vender.jpg";
+import micShowcase from "@/assets/mic-showcase.jpg";
+
+/**
+ * Sentinelas usados em `course-template.ts` para referenciar imagens
+ * bundladas sem criar dependência de import no template.
+ */
+const VISUAL_MAP: Record<string, string> = {
+  "/__mic_pillar/criar": micPillarCriar,
+  "/__mic_pillar/encantar": micPillarEncantar,
+  "/__mic_pillar/vender": micPillarVender,
+  "/__mic_showcase": micShowcase,
+};
+function resolveVisual(v?: string): string | undefined {
+  if (!v) return undefined;
+  return VISUAL_MAP[v] ?? v;
+}
 
 interface OfferModule {
   id: string;
