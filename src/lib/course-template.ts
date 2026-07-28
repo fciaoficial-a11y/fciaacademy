@@ -396,30 +396,34 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
 
     testimonials: [
       {
-        name: "Marina R. [placeholder verificado]",
+        name: "Marina R.",
         role: "Criadora de conteúdo · Instagram + Reels",
         initials: "MR",
         result: "Produção 3x mais rápida",
+        photoUrl: avatarMarinaR,
         quote:
           "Parei de travar na página em branco. Hoje monto um roteiro, gero a arte e a trilha na mesma tarde — sem parecer post feito por IA. O ritmo de publicação mudou de patamar.",
       },
       {
-        name: "Rafael A. [placeholder verificado]",
+        name: "Rafael A.",
         role: "Dono de e-commerce · nicho fitness",
         initials: "RA",
         result: "Campanhas em 1 dia",
+        photoUrl: avatarRafaelA,
         quote:
           "Antes eu dependia de agência pra sair qualquer criativo. Com o método, minha equipe interna entrega imagem, vídeo curto e copy da campanha em um dia — e o CTR das anúncios subiu de forma consistente.",
       },
       {
-        name: "Camila T. [placeholder verificado]",
+        name: "Camila T.",
         role: "Designer freelancer · social media",
         initials: "CT",
         result: "Ticket médio +40%",
+        photoUrl: avatarCamilaT,
         quote:
           "Passei a entregar pacote completo: identidade visual, vídeo e áudio de campanha. Cobrando mais por entrega e ainda gastando menos tempo. A masterclass reorganizou como eu vendo o meu trabalho.",
       },
     ],
+
 
     guarantee: {
       eyebrow: "Garantia incondicional de 7 dias",
