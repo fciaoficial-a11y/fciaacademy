@@ -5,9 +5,9 @@ import { useAuth } from "@/lib/use-auth";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const nav = [
-  { to: "/trilhas", label: "Trilhas" },
   { to: "/cursos", label: "Cursos" },
 ] as const;
+
 
 export function SiteHeader() {
   const { user, loading } = useAuth();

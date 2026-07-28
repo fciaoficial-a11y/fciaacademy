@@ -87,7 +87,7 @@ function CursosPage() {
             onChange={(e) => setTrackFilter(e.target.value)}
             className="rounded-full border border-border bg-background px-4 py-3 text-sm outline-none"
           >
-            <option value="all">Todas as trilhas</option>
+            <option value="all">Todas as categorias</option>
             {tracks.map((t) => (
               <option key={t.id} value={t.id}>{t.title}</option>
             ))}
