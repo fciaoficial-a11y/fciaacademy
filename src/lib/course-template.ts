@@ -99,6 +99,24 @@ export interface CourseBonusesCopy {
   closing?: string;
 }
 
+export interface CourseValueStackItem {
+  label: string;
+  value: string;
+  note?: string;
+}
+export interface CourseValueStackCopy {
+  title: string;
+  intro: string;
+  items: CourseValueStackItem[];
+  totalLabel: string;
+  transition: string;
+  priceHighlight: string;
+  priceCaption: string;
+  riskNote: string;
+  ctaLabel: string;
+  closing: string;
+}
+
 export interface CourseTemplateOverride {
   hero?: CourseHeroOverride;
   audience?: CourseAudienceCopy;
@@ -111,7 +129,9 @@ export interface CourseTemplateOverride {
   method?: CourseMethodCopy;
   transformation?: CourseTransformationCopy;
   bonuses?: CourseBonusesCopy;
+  valueStack?: CourseValueStackCopy;
 }
+
 
 // ==================================================================
 //  OVERRIDES POR CURSO — editável livremente
