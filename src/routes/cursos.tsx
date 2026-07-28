@@ -77,7 +77,7 @@ function CursosPage() {
 
   const update = (patch: Partial<CatalogSearch>) => {
     navigate({
-      search: (prev) => ({ ...(prev as CatalogSearch), ...patch }),
+      search: (prev: CatalogSearch) => ({ ...prev, ...patch }),
       replace: true,
       resetScroll: false,
     });
