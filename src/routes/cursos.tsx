@@ -1,12 +1,25 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowUpRight, Clock, Loader2, Search, SlidersHorizontal, X } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Clock,
+  Flame,
+  Loader2,
+  Search,
+  Signal,
+  SlidersHorizontal,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { Section, SectionHeading } from "@/components/site/Section";
-import { coursesQuery, tracksQuery } from "@/lib/catalog-queries";
+import { coursesQuery, tracksQuery, type CourseRow, type TrackRow } from "@/lib/catalog-queries";
 import { getIcon } from "@/lib/icon-map";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { badgeClass, formatBRL, getCourseSalesMeta } from "@/lib/course-sales-meta";
+
 
 type CatalogSearch = {
   q: string;
