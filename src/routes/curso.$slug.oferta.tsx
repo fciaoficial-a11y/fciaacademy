@@ -331,38 +331,41 @@ function OfferPage() {
 
       {/* ============ PARA QUEM É / NÃO É ============ */}
       <section className="border-b border-border/60">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-14 md:grid-cols-2 md:py-20">
-          <div className="rounded-3xl border border-primary/30 bg-card/40 p-6 md:p-8">
-            <h3 className="font-display text-xl font-bold text-primary">Para quem é este curso</h3>
-            <ul className="mt-4 space-y-3 text-sm">
-              {[
-                "Profissionais que querem aplicar IA no dia a dia sem enrolação técnica",
-                "Empreendedores e gestores buscando ganho real de produtividade",
-                "Quem já tentou aprender IA sozinho e se perdeu em ferramentas soltas",
-                "Executivos que precisam falar de IA com propriedade",
-              ].map((item) => (
-                <li key={item} className="flex gap-2">
-                  <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+          <div className="text-center">
+            <h2 className="font-display text-2xl font-bold sm:text-3xl">
+              Este curso é para você?
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Leia antes de comprar. Preferimos que você entre certo do que peça reembolso depois.
+            </p>
           </div>
-          <div className="rounded-3xl border border-border/60 bg-card/20 p-6 md:p-8">
-            <h3 className="font-display text-xl font-bold text-muted-foreground">Para quem NÃO é</h3>
-            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-              {[
-                "Quem busca curso teórico e acadêmico de IA",
-                "Quem quer aprender a treinar modelos do zero em Python",
-                "Quem procura conteúdo gratuito ou promessa mágica",
-                "Quem não pretende aplicar nada do que aprender",
-              ].map((item) => (
-                <li key={item} className="flex gap-2">
-                  <X className="h-5 w-5 shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border border-primary/30 bg-card/40 p-6 md:p-8">
+              <h3 className="font-display text-xl font-bold text-primary">Para quem é este curso</h3>
+              <ul className="mt-4 space-y-3 text-sm">
+                {audience.forWhom.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-3xl border border-border/60 bg-card/20 p-6 md:p-8">
+              <h3 className="font-display text-xl font-bold text-muted-foreground">
+                Para quem NÃO é este curso
+              </h3>
+              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+                {audience.notForWhom.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <X className="mt-0.5 h-5 w-5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
