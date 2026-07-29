@@ -19,11 +19,14 @@ import { SupportSection } from "@/components/ebook-ia-sem-complicacao/SupportSec
 import { TargetAudienceSection } from "@/components/ebook-ia-sem-complicacao/TargetAudienceSection";
 import { WhatsAppButton } from "@/components/ebook-ia-sem-complicacao/WhatsAppButton";
 import { EBOOK_CONFIG } from "@/lib/ebook-ia-sem-complicacao/config";
+import ogImage from "@/assets/ebook-ia-sem-complicacao/og-image.jpg.asset.json";
 
-const PAGE_URL = "https://fciaacademy.lovable.app/ebook-ia-sem-complicacao";
+const SITE_ORIGIN = "https://fciaacademy.lovable.app";
+const PAGE_URL = `${SITE_ORIGIN}/ebook-ia-sem-complicacao`;
 const PAGE_TITLE = "IA Sem Complicação — Guia + Bônus | FCIA Academy";
 const PAGE_DESCRIPTION =
   "O guia definitivo para dominar Inteligência Artificial no dia a dia, sem termos técnicos. Ebook + bônus 50 tarefas para vender usando IA por R$ 47,90.";
+const OG_IMAGE_URL = `${SITE_ORIGIN}${ogImage.url}`;
 
 export const Route = createFileRoute("/ebook-ia-sem-complicacao")({
   head: () => ({
@@ -34,9 +37,13 @@ export const Route = createFileRoute("/ebook-ia-sem-complicacao")({
       { property: "og:description", content: PAGE_DESCRIPTION },
       { property: "og:type", content: "product" },
       { property: "og:url", content: PAGE_URL },
+      { property: "og:image", content: OG_IMAGE_URL },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: PAGE_TITLE },
       { name: "twitter:description", content: PAGE_DESCRIPTION },
+      { name: "twitter:image", content: OG_IMAGE_URL },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
   }),
