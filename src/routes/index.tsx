@@ -300,7 +300,7 @@ function Index() {
 
 
       {/* ============ CURSO EM DESTAQUE ============ */}
-      <section id="curso-destaque" className="relative border-t border-white/5 bg-surface/30 py-16 sm:py-24 lg:py-32">
+      <section id="curso-destaque" className="relative border-t border-white/5 bg-surface/30 py-14 sm:py-24 lg:py-32">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
           aria-hidden
