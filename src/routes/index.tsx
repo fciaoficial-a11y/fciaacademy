@@ -405,26 +405,34 @@ function Index() {
               />
             </div>
 
-            <div className="min-w-0 text-center sm:text-left">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-400/[0.08] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-amber-400">
+            <div className="min-w-0 sm:text-left">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-400/[0.08] px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-amber-400 sm:px-2.5 sm:text-[10px] sm:tracking-[0.22em]">
                 <BookOpen className="h-3 w-3" />
                 Ebook oficial
               </div>
-              <h3 className="mt-2 font-display text-lg font-semibold tracking-tight sm:text-xl lg:text-[1.375rem]">
+              <h3 className="mt-1.5 font-display text-base font-semibold tracking-tight sm:mt-2 sm:text-xl lg:text-[1.375rem]">
                 IA Sem Complicação
               </h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
+              <p className="mt-1 line-clamp-2 text-[12px] leading-snug text-muted-foreground sm:mt-1.5 sm:line-clamp-none sm:text-sm sm:leading-relaxed">
                 Guia prático + bônus de 50 tarefas prontas para vender usando IA.
               </p>
+              <div className="mt-2 flex items-center gap-2 sm:hidden">
+                <span className="font-display text-base font-semibold text-amber-400">R$ 37,90</span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+                  Conhecer
+                  <ArrowUpRight className="h-3 w-3" />
+                </span>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center gap-1.5 sm:items-end">
+            <div className="hidden flex-col items-end gap-1.5 sm:flex">
               <span className="font-display text-lg font-semibold text-amber-400 sm:text-xl">R$ 37,90</span>
               <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground">
                 Conhecer
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </div>
+
           </Link>
         </div>
       </section>
