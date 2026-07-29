@@ -478,7 +478,7 @@ function Index() {
 
 
       {/* ============ SOBRE O PROFESSOR ============ */}
-      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-28">
+      <section className="border-t border-white/5 py-12 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-5xl px-6 lg:px-8">
           <div className="grid gap-10 sm:gap-12 lg:grid-cols-[minmax(240px,320px)_1fr] lg:items-center lg:gap-16">
             <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px] lg:mx-0 lg:max-w-none">
