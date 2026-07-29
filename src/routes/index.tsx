@@ -468,10 +468,10 @@ function Index() {
 
 
       {/* ============ SOBRE O PROFESSOR ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-20">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="grid gap-8 sm:gap-10 lg:grid-cols-[minmax(220px,300px)_1fr] lg:items-center lg:gap-14">
-            <div className="relative mx-auto w-full max-w-[280px] lg:mx-0">
+      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-28">
+        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+          <div className="grid gap-10 sm:gap-12 lg:grid-cols-[minmax(240px,320px)_1fr] lg:items-center lg:gap-16">
+            <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px] lg:mx-0 lg:max-w-none">
               <div className="pointer-events-none absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-accent/30 blur-2xl" aria-hidden />
               <ImageWithFallback
                 src={professorImage.url}
@@ -484,15 +484,22 @@ function Index() {
               />
             </div>
 
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
                 Sobre o Professor
               </div>
-              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+              <blockquote className="mt-5 font-display text-2xl font-semibold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.25rem]">
+                <span className="text-muted-foreground/60">“</span>
                 Tecnologia só faz sentido quando <span className="text-gradient">melhora a vida real</span>.
-              </h2>
-              <p className="mt-4 text-base font-semibold text-foreground">Prof. Fernando Cabral</p>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                <span className="text-muted-foreground/60">”</span>
+              </blockquote>
+              <div className="mt-6 flex flex-col items-center gap-1 lg:items-start">
+                <p className="text-base font-semibold text-foreground">Prof. Fernando Cabral</p>
+                <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                  Fundador · FCIA Academy
+                </p>
+              </div>
+              <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:mx-0">
                 Professor, estrategista e fundador da FCIA. Fernando Cabral une inteligência artificial,
                 criatividade e estratégia para ajudar pessoas e pequenos negócios a entenderem a tecnologia
                 e aplicarem ferramentas atuais com clareza.
@@ -501,6 +508,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 
 
       {/* ============ FAQ ============ */}
