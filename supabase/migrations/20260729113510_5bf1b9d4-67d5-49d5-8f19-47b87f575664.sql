@@ -1,0 +1,2 @@
+UPDATE public.courses SET cover_url = '/__l5e/assets-v1/a9b0ba81-dbb0-41da-92af-4ebae2915186/ia-sem-misterio-cover.jpeg' WHERE slug = 'ia-sem-misterio';
+UPDATE public.courses SET cover_url = '/__l5e/assets-v1/66477ea4-178a-4839-8801-4f217c9ec6b0/venda-com-ia-cover.jpeg' WHERE slug = 'venda-com-ia';
