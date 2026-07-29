@@ -376,7 +376,7 @@ function Index() {
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
               <span className="text-[11px] uppercase tracking-widest text-muted-foreground">
-                R$ 5,00 · acesso imediato
+                R$ 37,90 · acesso imediato
               </span>
             </div>
           </Link>
