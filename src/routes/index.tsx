@@ -37,8 +37,20 @@ export const Route = createFileRoute("/")({
           "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://fciaacademy.lovable.app/" },
+      {
+        property: "og:image",
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+      },
+      { property: "og:image:width", content: "1920" },
+      { property: "og:image:height", content: "1080" },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:image",
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+      },
     ],
+    links: [{ rel: "canonical", href: "https://fciaacademy.lovable.app/" }],
   }),
   component: Index,
 });
