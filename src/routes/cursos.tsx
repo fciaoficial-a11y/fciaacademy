@@ -107,11 +107,17 @@ function CursosPage() {
     [courses],
   );
 
+  // O ebook oficial "ia-sem-complicacao" existe em `courses` (product_type='ebook')
+  // apenas para reaproveitar o fluxo PIX/entrega. Ele NÃO faz parte da vitrine de
+  // cursos: é exibido em um bloco secundário próprio ("Material oficial"), abaixo.
+  const EBOOK_SLUG = "ia-sem-complicacao";
+
   const filtered = useMemo(() => {
     const q = search.q.trim().toLowerCase();
     const wl = WORKLOAD_BUCKETS[search.workload] ?? WORKLOAD_BUCKETS.all;
     const pr = PRICE_OPTIONS[search.price] ?? PRICE_OPTIONS.all;
     return courses.filter((c) => {
+      if (c.slug === EBOOK_SLUG) return false;
       if (search.track !== "all" && c.track_id !== search.track) return false;
       if (search.level !== "all" && c.level !== search.level) return false;
       const hours = c.workload_hours > 0 ? c.workload_hours : Math.round(c.duration_minutes / 60);
@@ -336,7 +342,6 @@ function CursosPage() {
 
                 {(rest.length > 0 || !hero) && (
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    <EbookProductCard />
                     {rest.map(({ c }) => (
                       <ProductCourseCard
                         key={c.id}
@@ -351,6 +356,25 @@ function CursosPage() {
           })()
         )}
       </Section>
+
+      {/* Bloco secundário — material oficial (ebook), separado da vitrine de cursos */}
+      {!loading && !hasActive && (
+        <Section className="border-t border-border">
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                Material oficial
+              </p>
+              <h2 className="mt-1 font-display text-xl font-semibold tracking-tight sm:text-2xl">
+                Ebook complementar da FCIA
+              </h2>
+            </div>
+          </div>
+          <div className="max-w-md">
+            <EbookProductCard />
+          </div>
+        </Section>
+      )}
     </>
   );
 }
