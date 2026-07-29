@@ -16,7 +16,7 @@ export const EBOOK_CONFIG = {
   /** Link externo para o serviço de consultoria/mentoria. */
   consultingUrl: "https://proffernandocabral.lovable.app/",
   /** Preço exibido em CTAs e no rodapé da oferta. */
-  priceLabel: "R$ 5,00",
+  priceLabel: "R$ 37,90",
 } as const;
 
 export type EbookConfig = typeof EBOOK_CONFIG;
