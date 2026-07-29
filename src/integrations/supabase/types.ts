@@ -166,6 +166,7 @@ export type Database = {
           certificate_enabled: boolean
           cover_url: string | null
           created_at: string
+          delivery_url: string | null
           description: string
           duration_minutes: number
           full_pdf_path: string | null
@@ -174,6 +175,7 @@ export type Database = {
           is_published: boolean
           level: string
           price: number
+          product_type: string
           slug: string
           sort_order: number
           title: string
@@ -186,6 +188,7 @@ export type Database = {
           certificate_enabled?: boolean
           cover_url?: string | null
           created_at?: string
+          delivery_url?: string | null
           description: string
           duration_minutes?: number
           full_pdf_path?: string | null
@@ -194,6 +197,7 @@ export type Database = {
           is_published?: boolean
           level?: string
           price?: number
+          product_type?: string
           slug: string
           sort_order?: number
           title: string
@@ -206,6 +210,7 @@ export type Database = {
           certificate_enabled?: boolean
           cover_url?: string | null
           created_at?: string
+          delivery_url?: string | null
           description?: string
           duration_minutes?: number
           full_pdf_path?: string | null
@@ -214,6 +219,7 @@ export type Database = {
           is_published?: boolean
           level?: string
           price?: number
+          product_type?: string
           slug?: string
           sort_order?: number
           title?: string
