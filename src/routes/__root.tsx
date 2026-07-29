@@ -219,6 +219,7 @@ function RootComponent() {
         </div>
         {!hideChrome && <WhatsAppFloat />}
         {!hideChrome && <BackToTop />}
+        <InstallPWA />
 
         <Toaster />
       </ThemeProvider>
