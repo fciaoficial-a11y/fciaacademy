@@ -14,7 +14,12 @@ const schema = z.object({
   password: z.string().min(1, "Informe sua senha").max(72),
 });
 
+const searchSchema = z.object({
+  redirect: z.string().startsWith("/").optional(),
+});
+
 export const Route = createFileRoute("/login")({
+  validateSearch: (search) => searchSchema.parse(search),
   head: () => ({
     meta: [
       { title: "Entrar — FCIA Academy" },
@@ -26,6 +31,7 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { redirect } = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +52,11 @@ function LoginPage() {
       return;
     }
     toast.success("Bem-vindo de volta!");
-    navigate({ to: "/dashboard" });
+    if (redirect) {
+      navigate({ to: redirect });
+    } else {
+      navigate({ to: "/dashboard" });
+    }
   }
 
   return (
