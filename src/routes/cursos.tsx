@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
   BadgeCheck,
+  BookMarked,
   Clock,
   Flame,
   Loader2,
@@ -19,6 +20,7 @@ import { getIcon } from "@/lib/icon-map";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { badgeClass, formatBRL, getCourseSalesMeta } from "@/lib/course-sales-meta";
+import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
 
 
 type CatalogSearch = {
