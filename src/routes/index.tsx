@@ -313,10 +313,14 @@ function Index() {
 
           <div className="mt-10">
             {featured.isLoading ? (
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
-                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+              <div className="space-y-6 lg:space-y-8">
+                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03] lg:h-[440px]" />
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div className="h-[380px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+                  <div className="h-[380px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
+                </div>
               </div>
+
             ) : courses.length > 0 ? (
               (() => {
                 const flagship = courses.find((c) => c.slug === MASTERCLASS_SLUG);
