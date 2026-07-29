@@ -1,12 +1,14 @@
 /**
  * Configuração externa da landing /ebook-ia-sem-complicacao.
  *
- * Mantém checkout, WhatsApp e link de consultoria em um único ponto para
- * evitar hardcode nos componentes migrados do projeto "Renda Extra IA".
+ * Ponto único para: identidade do produto na plataforma, WhatsApp e
+ * link da consultoria. O checkout deixou de ser externo (Kiwify): a compra
+ * roda agora pelo fluxo PIX nativo da FCIA Academy — ver EbookLandingPage
+ * e /ebook-ia-sem-complicacao/entrega.
  */
 export const EBOOK_CONFIG = {
-  /** URL do checkout externo (Kiwify) do produto principal. */
-  checkoutUrl: "https://pay.kiwify.com.br/ksSJFM5",
+  /** Slug do produto no catálogo interno (tabela `courses`, product_type='ebook'). */
+  courseSlug: "ia-sem-complicacao",
   /** Número do WhatsApp (formato internacional, sem "+" nem espaços). */
   whatsappNumber: "5594999553574",
   /** Mensagem pré-preenchida ao abrir o WhatsApp. */

@@ -25,6 +25,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ValidarCertificadoCodigoRouteImport } from './routes/validar-certificado.$codigo'
 import { Route as TrilhasSlugRouteImport } from './routes/trilhas.$slug'
+import { Route as EbookIaSemComplicacaoEntregaRouteImport } from './routes/ebook-ia-sem-complicacao.entrega'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedEvolucaoRouteImport } from './routes/_authenticated/evolucao'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -129,6 +130,12 @@ const TrilhasSlugRoute = TrilhasSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => TrilhasRoute,
 } as any)
+const EbookIaSemComplicacaoEntregaRoute =
+  EbookIaSemComplicacaoEntregaRouteImport.update({
+    id: '/entrega',
+    path: '/entrega',
+    getParentRoute: () => EbookIaSemComplicacaoRoute,
+  } as any)
 const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -262,7 +269,7 @@ const ApiPublicWebhooksAsaasRoute = ApiPublicWebhooksAsaasRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cursos': typeof CursosRoute
-  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRoute
+  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRouteWithChildren
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -278,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
@@ -302,7 +310,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cursos': typeof CursosRoute
-  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRoute
+  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRouteWithChildren
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -316,6 +324,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
@@ -342,7 +351,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/cursos': typeof CursosRoute
-  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRoute
+  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRouteWithChildren
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -358,6 +367,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/evolucao': typeof AuthenticatedEvolucaoRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/_authenticated/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
@@ -400,6 +410,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/evolucao'
     | '/profile'
+    | '/ebook-ia-sem-complicacao/entrega'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/admin/ai-studio'
@@ -438,6 +449,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/evolucao'
     | '/profile'
+    | '/ebook-ia-sem-complicacao/entrega'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/admin/ai-studio'
@@ -479,6 +491,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/evolucao'
     | '/_authenticated/profile'
+    | '/ebook-ia-sem-complicacao/entrega'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/_authenticated/admin/ai-studio'
@@ -505,7 +518,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   CursosRoute: typeof CursosRoute
-  EbookIaSemComplicacaoRoute: typeof EbookIaSemComplicacaoRoute
+  EbookIaSemComplicacaoRoute: typeof EbookIaSemComplicacaoRouteWithChildren
   EmpresasRoute: typeof EmpresasRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InscricaoRoute: typeof InscricaoRoute
@@ -634,6 +647,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trilhas/$slug'
       preLoaderRoute: typeof TrilhasSlugRouteImport
       parentRoute: typeof TrilhasRoute
+    }
+    '/ebook-ia-sem-complicacao/entrega': {
+      id: '/ebook-ia-sem-complicacao/entrega'
+      path: '/entrega'
+      fullPath: '/ebook-ia-sem-complicacao/entrega'
+      preLoaderRoute: typeof EbookIaSemComplicacaoEntregaRouteImport
+      parentRoute: typeof EbookIaSemComplicacaoRoute
     }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
@@ -874,6 +894,19 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface EbookIaSemComplicacaoRouteChildren {
+  EbookIaSemComplicacaoEntregaRoute: typeof EbookIaSemComplicacaoEntregaRoute
+}
+
+const EbookIaSemComplicacaoRouteChildren: EbookIaSemComplicacaoRouteChildren = {
+  EbookIaSemComplicacaoEntregaRoute: EbookIaSemComplicacaoEntregaRoute,
+}
+
+const EbookIaSemComplicacaoRouteWithChildren =
+  EbookIaSemComplicacaoRoute._addFileChildren(
+    EbookIaSemComplicacaoRouteChildren,
+  )
+
 interface TrilhasRouteChildren {
   TrilhasSlugRoute: typeof TrilhasSlugRoute
 }
@@ -889,7 +922,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   CursosRoute: CursosRoute,
-  EbookIaSemComplicacaoRoute: EbookIaSemComplicacaoRoute,
+  EbookIaSemComplicacaoRoute: EbookIaSemComplicacaoRouteWithChildren,
   EmpresasRoute: EmpresasRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   InscricaoRoute: InscricaoRoute,
