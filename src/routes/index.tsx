@@ -604,7 +604,7 @@ function FeaturedCourseCard({
       <div
         className={cn(
           "flex flex-1 flex-col",
-          isFlagship ? "p-6 sm:p-8 lg:p-12" : "p-6",
+          isFlagship ? "p-5 sm:p-8 lg:p-12" : "p-5 sm:p-6",
         )}
       >
         {isFlagship ? (
