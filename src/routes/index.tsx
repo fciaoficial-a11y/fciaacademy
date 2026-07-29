@@ -162,8 +162,8 @@ const faqItems = [
     a: "Não. O curso foi feito para quem está começando. A linguagem é simples e cada módulo parte do zero.",
   },
   {
-    q: "O curso é gratuito?",
-    a: "Sim. O curso Fundamentos de IA para Profissionais é gratuito. Basta criar sua conta para acessar.",
+    q: "Qual é o investimento?",
+    a: "Cada curso tem um valor único, pago via PIX, com acesso imediato após a confirmação. Não há mensalidade, renovação ou cobrança recorrente.",
   },
   {
     q: "Como funciona o certificado?",
