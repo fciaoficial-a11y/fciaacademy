@@ -30,10 +30,13 @@ export function myCertificatesQuery(userId: string | undefined) {
         .eq("user_id", userId)
         .order("issued_at", { ascending: false });
       if (error) throw error;
-      return (data ?? []).map((c: any) => ({
+      type RawRow = Omit<CertificateRow, "courses"> & {
+        courses: CertificateRow["courses"] | CertificateRow["courses"][];
+      };
+      return ((data ?? []) as RawRow[]).map((c) => ({
         ...c,
-        courses: Array.isArray(c.courses) ? c.courses[0] : c.courses,
-      })) as CertificateRow[];
+        courses: Array.isArray(c.courses) ? c.courses[0] ?? null : c.courses,
+      }));
     },
     staleTime: 10_000,
   });

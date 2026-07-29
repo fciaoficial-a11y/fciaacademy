@@ -113,10 +113,11 @@ export function PdfUploader({ value, onChange, disabled }: Props) {
         setState("idle");
         setPendingName(null);
         toast.success("PDF enviado.");
-      } catch (e: any) {
+      } catch (e) {
+        const message = e instanceof Error ? e.message : "Falha no upload.";
         setState("error");
-        setErrorMsg(e.message);
-        toast.error(e.message);
+        setErrorMsg(message);
+        toast.error(message);
       }
     },
     [onChange]
