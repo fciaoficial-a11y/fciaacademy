@@ -47,6 +47,35 @@ export type Database = {
         }
         Relationships: []
       }
+      bonus_downloads: {
+        Row: {
+          bonus_id: string
+          downloaded_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          bonus_id: string
+          downloaded_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          bonus_id?: string
+          downloaded_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bonus_downloads_bonus_id_fkey"
+            columns: ["bonus_id"]
+            isOneToOne: false
+            referencedRelation: "course_bonuses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       certificate_settings: {
         Row: {
           auto_issue: boolean
@@ -153,6 +182,62 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "certificates_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course_bonuses: {
+        Row: {
+          course_id: string
+          cover_url: string | null
+          created_at: string
+          description: string
+          id: string
+          is_published: boolean
+          pdf_path: string | null
+          slug: string
+          sort_order: number
+          subtitle: string | null
+          title: string
+          updated_at: string
+          value_label: string | null
+        }
+        Insert: {
+          course_id: string
+          cover_url?: string | null
+          created_at?: string
+          description: string
+          id?: string
+          is_published?: boolean
+          pdf_path?: string | null
+          slug: string
+          sort_order?: number
+          subtitle?: string | null
+          title: string
+          updated_at?: string
+          value_label?: string | null
+        }
+        Update: {
+          course_id?: string
+          cover_url?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          is_published?: boolean
+          pdf_path?: string | null
+          slug?: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string
+          updated_at?: string
+          value_label?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_bonuses_course_id_fkey"
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
@@ -1040,6 +1125,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      get_bonus_download_path: { Args: { _bonus_id: string }; Returns: string }
       get_module_intro_video_path: {
         Args: { _module_id: string }
         Returns: {
