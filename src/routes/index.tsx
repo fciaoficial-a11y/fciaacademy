@@ -245,7 +245,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="relative order-first lg:order-none">
+          <div className="relative order-first flex items-center lg:order-none lg:self-stretch">
             <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-2xl" aria-hidden />
             <ImageWithFallback
               src={heroImage.url}
@@ -255,7 +255,7 @@ function Index() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative aspect-[4/3] w-full rounded-[1.25rem] border border-white/10 bg-background/40 object-contain shadow-2xl sm:rounded-[1.5rem] lg:aspect-auto lg:h-full"
+              className="relative aspect-[4/3] w-full rounded-[1.25rem] border border-white/10 bg-background/40 object-contain shadow-2xl sm:rounded-[1.5rem] lg:aspect-[16/10] lg:my-auto"
             />
           </div>
 
