@@ -31,7 +31,7 @@ const SITE_ORIGIN = "https://fciaacademy.lovable.app";
 const PAGE_URL = `${SITE_ORIGIN}/ebook-ia-sem-complicacao`;
 const PAGE_TITLE = "IA Sem Complicação — Guia + Bônus | FCIA Academy";
 const PAGE_DESCRIPTION =
-  "O guia definitivo para dominar Inteligência Artificial no dia a dia, sem termos técnicos. Ebook + bônus 50 tarefas para vender usando IA por R$ 47,90.";
+  "O guia definitivo para dominar Inteligência Artificial no dia a dia, sem termos técnicos. Ebook + bônus 50 tarefas para vender usando IA por R$ 37,90.";
 const OG_IMAGE_URL = `${SITE_ORIGIN}${ogImage.url}`;
 
 export const Route = createFileRoute("/ebook-ia-sem-complicacao")({
