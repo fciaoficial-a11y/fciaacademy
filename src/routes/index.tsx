@@ -212,34 +212,34 @@ function Index() {
           className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/25 blur-[160px] animate-pulse-glow"
           aria-hidden
         />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-14 pt-12 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20 lg:px-8 lg:pb-24 lg:pt-28">
+        <div className="relative mx-auto grid max-w-6xl gap-6 px-6 pb-10 pt-8 sm:gap-10 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20 lg:px-8 lg:pb-24 lg:pt-28">
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-primary backdrop-blur sm:text-[11px]">
               <Sparkles className="h-3 w-3" />
               Nova Masterclass · Método IA Criativa
             </div>
 
-            <h1 className="mx-auto mt-5 max-w-[16ch] font-display text-[2.25rem] font-semibold leading-[1.04] tracking-tight sm:text-5xl lg:mx-0 lg:mt-6 lg:max-w-[18ch] lg:text-[3.5rem]">
+            <h1 className="mx-auto mt-4 max-w-[15ch] font-display text-[1.95rem] font-semibold leading-[1.05] tracking-tight sm:mt-5 sm:max-w-[16ch] sm:text-5xl lg:mx-0 lg:mt-6 lg:max-w-[18ch] lg:text-[3.5rem]">
               Use <span className="text-gradient">IA</span> para fazer em minutos o que hoje leva horas.
             </h1>
 
-            <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-lg sm:text-lg lg:mx-0">
+            <p className="mx-auto mt-3 max-w-[38ch] text-[14px] leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-lg sm:text-lg lg:mx-0">
               Aprenda a usar IA em relatórios, propostas, atendimento e prospecção — mesmo começando do zero.
             </p>
 
-            <div className="mx-auto mt-7 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur sm:mt-8 lg:mx-0 lg:max-w-lg">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                <BadgeCheck className="h-5 w-5" />
+            <div className="mx-auto mt-5 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-left backdrop-blur sm:mt-8 sm:px-4 sm:py-3 lg:mx-0 lg:max-w-lg">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary sm:h-10 sm:w-10">
+                <BadgeCheck className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-foreground">Fernando Cabral</p>
-                <p className="text-xs leading-relaxed text-muted-foreground">
+                <p className="text-[11px] leading-snug text-muted-foreground sm:text-xs sm:leading-relaxed">
                   Especialista em IA aplicada a negócios · +15 anos formando profissionais no Brasil
                 </p>
               </div>
             </div>
 
-            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+            <div className="mt-5 flex flex-col items-stretch gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 lg:justify-start">
               <PrimaryCTA to={primaryHref} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
               <SecondaryCTA href="#curso-destaque" className="w-full sm:w-auto">Ver todos os cursos</SecondaryCTA>
             </div>
@@ -255,9 +255,10 @@ function Index() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative aspect-[5/4] w-full rounded-[1.25rem] border border-white/10 object-cover shadow-2xl sm:aspect-[4/3] sm:rounded-[1.5rem] lg:aspect-[5/4]"
+              className="relative aspect-[4/3] w-full rounded-[1.25rem] border border-white/10 object-cover shadow-2xl sm:aspect-[4/3] sm:rounded-[1.5rem] lg:aspect-[5/4]"
             />
           </div>
+
         </div>
       </section>
 
