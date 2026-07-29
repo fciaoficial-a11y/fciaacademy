@@ -17,11 +17,6 @@ type SbFacade = {
 };
 const sb = supabase as unknown as SbFacade;
 
-async function callRpc<T>(name: string, args?: Record<string, unknown>): Promise<T | null> {
-  const { data, error } = await sb.rpc(name, args);
-  if (error) throw error;
-  return (data ?? null) as T | null;
-}
 
 /* ------------ role check ------------ */
 export const isAdminQuery = queryOptions({
