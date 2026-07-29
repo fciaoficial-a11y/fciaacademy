@@ -1,12 +1,22 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-const sb = supabase as unknown as {
+/**
+ * Untyped facade over the generated Supabase client.
+ *
+ * Several RPCs and tables consumed here are not present in the generated
+ * `Database` types (admin RPCs, dynamic tables used by generic mutations).
+ * Centralizing the cast in one place keeps the rest of the module clean
+ * and preserves runtime behavior identical to the generated client.
+ */
+type SbFacade = {
   from: (t: string) => any;
-  rpc: (n: string, args?: Record<string, unknown>) => any;
+  rpc: (n: string, args?: Record<string, unknown>) => Promise<{ data: any; error: any }>;
   storage: any;
-  auth: any;
+  auth: typeof supabase.auth;
 };
+const sb = supabase as unknown as SbFacade;
+
 
 /* ------------ role check ------------ */
 export const isAdminQuery = queryOptions({
