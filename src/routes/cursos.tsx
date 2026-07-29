@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight,
   BadgeCheck,
+  BookMarked,
   Clock,
   Flame,
   Loader2,
@@ -19,6 +20,7 @@ import { getIcon } from "@/lib/icon-map";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { badgeClass, formatBRL, getCourseSalesMeta } from "@/lib/course-sales-meta";
+import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
 
 
 type CatalogSearch = {
@@ -332,8 +334,9 @@ function CursosPage() {
                   />
                 )}
 
-                {rest.length > 0 && (
+                {(rest.length > 0 || !hero) && (
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <EbookProductCard />
                     {rest.map(({ c }) => (
                       <ProductCourseCard
                         key={c.id}
@@ -591,6 +594,81 @@ function ProductCourseCard({ course, track }: { course: CourseRow; track: TrackR
     </Link>
   );
 }
+
+/* ============================================================
+ * EBOOK CARD — descoberta interna do produto oficial /ebook-ia-sem-complicacao
+ * Mantém o mesmo sistema visual do ProductCourseCard, com selo próprio.
+ * ============================================================ */
+function EbookProductCard() {
+  return (
+    <Link
+      to="/ebook-ia-sem-complicacao"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_24px_60px_-30px_rgba(59,130,246,0.5)]"
+    >
+      <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/15 to-background">
+        <img
+          src={ebookMockup.url}
+          alt="Ebook IA Sem Complicação"
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/95 to-orange-500/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-[0_8px_24px_-8px_rgba(251,191,36,0.6)]">
+          <BookMarked className="h-3 w-3" />
+          Ebook oficial
+        </span>
+
+        <span className="absolute bottom-3 left-3 inline-flex items-center rounded-full border border-white/20 bg-black/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-white backdrop-blur">
+          Material · FCIA
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col gap-3 p-5">
+        <h3 className="font-display text-lg font-bold leading-snug tracking-tight">
+          IA Sem Complicação
+        </h3>
+
+        <p className="line-clamp-2 text-sm text-muted-foreground">
+          Guia direto para aplicar IA no dia a dia — mais um bônus com 50 tarefas prontas para vender usando IA.
+        </p>
+
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <BookMarked className="h-3 w-3" />
+            Ebook + bônus
+          </span>
+          <span className="text-border">·</span>
+          <span className="inline-flex items-center gap-1">
+            <BadgeCheck className="h-3 w-3" />
+            Acesso imediato
+          </span>
+        </div>
+
+        <div className="mt-1 flex items-end gap-2 border-t border-border/60 pt-4">
+          <span className="font-display text-2xl font-black tracking-tight text-foreground">
+            R$ 47,90
+          </span>
+          <span className="mb-1 text-[10px] uppercase tracking-widest text-muted-foreground">
+            à vista
+          </span>
+        </div>
+
+        <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-2 text-xs font-semibold text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+            Ver ebook
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            7 dias de garantia
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+
 
 
 
