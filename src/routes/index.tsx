@@ -264,32 +264,31 @@ function Index() {
 
 
       {/* ============ PARA QUEM É ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-20">
-
-        <div className="mx-auto max-w-6xl px-6">
+      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
               Para quem é
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
               IA para a <span className="text-gradient">vida real</span>.
             </h2>
           </div>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-6">
             {audience.map((a) => {
               const Icon = a.icon;
               return (
                 <li
                   key={a.title}
-                  className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-primary/30 hover:bg-white/[0.05]"
+                  className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:bg-white/[0.05] lg:flex-col lg:gap-4 lg:p-6"
                 >
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/25 bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
                     <Icon className="h-4 w-4" />
                   </span>
-                  <div>
-                    <div className="text-sm font-semibold text-foreground">{a.title}</div>
-                    <div className="mt-0.5 text-sm text-muted-foreground">{a.text}</div>
+                  <div className="min-w-0">
+                    <div className="text-sm font-semibold text-foreground lg:text-[15px]">{a.title}</div>
+                    <div className="mt-0.5 text-sm leading-relaxed text-muted-foreground">{a.text}</div>
                   </div>
                 </li>
               );
@@ -297,6 +296,7 @@ function Index() {
           </ul>
         </div>
       </section>
+
 
       {/* ============ CURSO EM DESTAQUE ============ */}
       <section id="curso-destaque" className="border-t border-white/5 bg-surface/30 py-16 sm:py-20 lg:py-28">
