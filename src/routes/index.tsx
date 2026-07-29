@@ -299,54 +299,77 @@ function Index() {
 
 
       {/* ============ CURSO EM DESTAQUE ============ */}
-      <section id="curso-destaque" className="border-t border-white/5 bg-surface/30 py-16 sm:py-20 lg:py-28">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
-              Comece por aqui
+      <section id="curso-destaque" className="relative border-t border-white/5 bg-surface/30 py-16 sm:py-24 lg:py-32">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
+          aria-hidden
+        />
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-primary sm:text-[11px]">
+                Comece por aqui
+              </div>
+              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
+                Seu primeiro passo em <span className="text-gradient">IA</span>.
+              </h2>
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-              Seu primeiro passo em <span className="text-gradient">IA</span>.
-            </h2>
+            <Link
+              to="/cursos"
+              className="hidden shrink-0 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex sm:items-center sm:gap-1.5"
+            >
+              Ver catálogo completo
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-12 lg:mt-16">
             {featured.isLoading ? (
-              <div className="space-y-6 lg:space-y-8">
-                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03] lg:h-[440px]" />
+              <div className="space-y-6 lg:space-y-10">
+                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03] lg:h-[460px]" />
                 <div className="grid gap-6 sm:grid-cols-2">
                   <div className="h-[380px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
                   <div className="h-[380px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
                 </div>
               </div>
-
             ) : courses.length > 0 ? (
               (() => {
                 const flagship = courses.find((c) => c.slug === MASTERCLASS_SLUG);
                 const supporting = courses.filter((c) => c.slug !== MASTERCLASS_SLUG);
                 return (
-                  <div className="space-y-6 lg:space-y-8">
+                  <div className="space-y-8 lg:space-y-12">
                     {flagship ? <FeaturedCourseCard course={flagship} variant="flagship" /> : null}
                     {supporting.length > 0 ? (
-                      <div
-                        className={cn(
-                          "grid gap-6",
-                          supporting.length === 1
-                            ? "sm:grid-cols-1 lg:mx-auto lg:max-w-xl"
-                            : supporting.length === 2
-                              ? "sm:grid-cols-2"
-                              : "sm:grid-cols-2 lg:grid-cols-3",
-                        )}
-                      >
-                        {supporting.map((c) => (
-                          <FeaturedCourseCard key={c.id} course={c} variant="supporting" />
-                        ))}
-                      </div>
+                      <>
+                        {flagship ? (
+                          <div className="flex items-center gap-4 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-[11px]">
+                            <span className="h-px flex-1 bg-white/10" aria-hidden />
+                            <span>Cursos complementares</span>
+                            <span className="h-px flex-1 bg-white/10" aria-hidden />
+                          </div>
+                        ) : null}
+                        <div
+                          className={cn(
+                            "grid gap-6 lg:gap-8",
+                            supporting.length === 1
+                              ? "sm:grid-cols-1 lg:mx-auto lg:max-w-xl"
+                              : supporting.length === 2
+                                ? "sm:grid-cols-2"
+                                : "sm:grid-cols-2 lg:grid-cols-3",
+                          )}
+                        >
+                          {supporting.map((c) => (
+                            <FeaturedCourseCard key={c.id} course={c} variant="supporting" />
+                          ))}
+                        </div>
+                      </>
                     ) : null}
+                    <div className="flex justify-center sm:hidden">
+                      <SecondaryCTA to="/cursos" className="w-full">Ver catálogo completo</SecondaryCTA>
+                    </div>
                   </div>
                 );
               })()
-
             ) : (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
                 <p className="text-sm text-muted-foreground">
@@ -360,6 +383,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 
       {/* ============ EBOOK — DESCOBERTA DISCRETA ============ */}
       <section className="py-10 sm:py-12 lg:py-14">
