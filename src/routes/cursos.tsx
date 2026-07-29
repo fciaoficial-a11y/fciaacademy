@@ -671,7 +671,7 @@ function EbookProductCard() {
 
         <div className="mt-1 flex items-end gap-2 border-t border-border/60 pt-4">
           <span className="font-display text-2xl font-black tracking-tight text-foreground">
-            R$ 47,90
+            R$ 5,00
           </span>
           <span className="mb-1 text-[10px] uppercase tracking-widest text-muted-foreground">
             à vista
