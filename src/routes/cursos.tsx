@@ -334,8 +334,9 @@ function CursosPage() {
                   />
                 )}
 
-                {rest.length > 0 && (
+                {(rest.length > 0 || !hero) && (
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <EbookProductCard />
                     {rest.map(({ c }) => (
                       <ProductCourseCard
                         key={c.id}
