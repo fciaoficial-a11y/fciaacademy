@@ -210,6 +210,7 @@ function RootComponent() {
           {!hideStickyCTA && <StickyMobileCTA />}
         </div>
         {!hideChrome && <WhatsAppFloat />}
+        {!hideChrome && <BackToTop />}
 
         <Toaster />
       </ThemeProvider>
