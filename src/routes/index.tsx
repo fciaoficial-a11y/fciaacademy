@@ -336,6 +336,51 @@ function Index() {
         </div>
       </section>
 
+      {/* ============ EBOOK — DESCOBERTA DISCRETA ============ */}
+      <section className="border-t border-white/5 py-12 sm:py-16">
+        <div className="mx-auto max-w-5xl px-6">
+          <Link
+            to="/ebook-ia-sem-complicacao"
+            className="group grid items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/30 hover:bg-white/[0.05] sm:grid-cols-[160px_1fr_auto] sm:gap-8 sm:p-6"
+          >
+            <div className="relative mx-auto w-full max-w-[160px] shrink-0 sm:mx-0">
+              <div className="pointer-events-none absolute -inset-2 rounded-xl bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-xl" aria-hidden />
+              <img
+                src={ebookMockup.url}
+                alt="Ebook IA Sem Complicação"
+                loading="lazy"
+                width={320}
+                height={400}
+                className="relative aspect-[4/5] w-full rounded-xl border border-white/10 object-cover shadow-lg"
+              />
+            </div>
+
+            <div className="min-w-0 text-center sm:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-amber-400">
+                <BookOpen className="h-3 w-3" />
+                Material oficial · Ebook
+              </div>
+              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight sm:text-2xl">
+                IA Sem Complicação
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Guia prático para aplicar IA no dia a dia — com bônus de 50 tarefas prontas para vender usando IA.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center gap-2 sm:items-end">
+              <span className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition group-hover:-translate-y-0.5">
+                Conhecer o ebook
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
+              <span className="text-[11px] uppercase tracking-widest text-muted-foreground">
+                R$ 47,90 · acesso imediato
+              </span>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       {/* ============ COMO FUNCIONA ============ */}
       <section className="border-t border-white/5 py-14 sm:py-20">
         <div className="mx-auto max-w-5xl px-6">
