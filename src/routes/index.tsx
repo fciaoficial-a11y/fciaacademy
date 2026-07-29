@@ -212,42 +212,40 @@ function Index() {
           className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/25 blur-[160px] animate-pulse-glow"
           aria-hidden
         />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:pb-20 lg:pt-24">
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-14 pt-12 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20 lg:px-8 lg:pb-24 lg:pt-28">
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-primary backdrop-blur sm:text-[11px]">
               <Sparkles className="h-3 w-3" />
               Nova Masterclass · Método IA Criativa
             </div>
 
-            <h1 className="mt-5 max-w-[18ch] font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.5rem] lg:mx-0 mx-auto">
+            <h1 className="mx-auto mt-5 max-w-[16ch] font-display text-[2.25rem] font-semibold leading-[1.04] tracking-tight sm:text-5xl lg:mx-0 lg:mt-6 lg:max-w-[18ch] lg:text-[3.5rem]">
               Use <span className="text-gradient">IA</span> para fazer em minutos o que hoje leva horas.
             </h1>
 
-            <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+            <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-lg sm:text-lg lg:mx-0">
               Aprenda a usar IA em relatórios, propostas, atendimento e prospecção — mesmo começando do zero.
             </p>
 
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur lg:justify-start">
+            <div className="mx-auto mt-7 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur sm:mt-8 lg:mx-0 lg:max-w-lg">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
                 <BadgeCheck className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-foreground">Fernando Cabral</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="truncate text-sm font-semibold text-foreground">Fernando Cabral</p>
+                <p className="text-xs leading-relaxed text-muted-foreground">
                   Especialista em IA aplicada a negócios · +15 anos formando profissionais no Brasil
                 </p>
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-              <PrimaryCTA to={primaryHref}>Conhecer a Masterclass</PrimaryCTA>
-              <SecondaryCTA href="#curso-destaque">Ver todos os cursos</SecondaryCTA>
+            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+              <PrimaryCTA to={primaryHref} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
+              <SecondaryCTA href="#curso-destaque" className="w-full sm:w-auto">Ver todos os cursos</SecondaryCTA>
             </div>
-
           </div>
 
-          <div className="relative order-last lg:order-none">
+          <div className="relative order-first lg:order-none">
             <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-2xl" aria-hidden />
             <ImageWithFallback
               src={heroImage.url}
@@ -257,11 +255,12 @@ function Index() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative aspect-[4/3] w-full rounded-[1.5rem] border border-white/10 object-cover shadow-2xl lg:aspect-[5/4]"
+              className="relative aspect-[5/4] w-full rounded-[1.25rem] border border-white/10 object-cover shadow-2xl sm:aspect-[4/3] sm:rounded-[1.5rem] lg:aspect-[5/4]"
             />
           </div>
         </div>
       </section>
+
 
 
       {/* ============ PARA QUEM É ============ */}
