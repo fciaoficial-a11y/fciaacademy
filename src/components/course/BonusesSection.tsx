@@ -92,9 +92,18 @@ function BonusCard({ bonus }: { bonus: CourseBonusPublic }) {
     setLoading(true);
     try {
       const { url } = await getBonusDownloadUrl({ data: { bonusId: bonus.id } });
-      // Open in a new tab; the browser will download or preview the PDF.
-      if (typeof window !== "undefined") {
-        window.open(url, "_blank", "noopener,noreferrer");
+      // Trigger a native download via an anchor tag. This avoids being flagged
+      // by browser safe-browsing filters (Edge SmartScreen) that sometimes
+      // block window.open() to preview subdomains.
+      if (typeof document !== "undefined") {
+        const a = document.createElement("a");
+        a.href = url;
+        a.rel = "noopener noreferrer";
+        a.target = "_blank";
+        a.download = `${bonus.slug}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
       }
       toast.success("Download liberado.");
     } catch (err) {
