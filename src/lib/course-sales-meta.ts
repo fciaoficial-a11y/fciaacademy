@@ -32,7 +32,7 @@ export type CourseSalesMeta = {
 export const COURSE_SALES_META: Record<string, CourseSalesMeta> = {
   "metodo-ia-criativa": {
     badge: { kind: "bestseller", label: "Best Seller · Masterclass" },
-    originalPrice: 1735,
+    originalPrice: 749.9,
     hook: "O método aplicado que transforma IA em criação, presença e vendas — masterclass completa em 10 aulas.",
     ctaLabel: "Quero a masterclass",
     featurePriority: 0,
