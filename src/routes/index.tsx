@@ -255,7 +255,7 @@ function Index() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative w-full rounded-[1.25rem] border border-white/10 bg-background/40 object-contain shadow-2xl sm:rounded-[1.5rem]"
+              className="relative aspect-[4/3] w-full rounded-[1.25rem] border border-white/10 bg-background/40 object-contain shadow-2xl sm:rounded-[1.5rem] lg:aspect-auto lg:h-full"
             />
           </div>
 
