@@ -67,7 +67,9 @@ const featuredCoursesQuery = queryOptions({
       .order("price", { ascending: true })
       .order("sort_order", { ascending: true });
     if (error) throw error;
-    const list = courses ?? [];
+    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
+    const EBOOK_SLUG = "ia-sem-complicacao";
+    const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
     // Masterclass sempre em primeiro lugar na vitrine da home
     const MASTERCLASS_SLUG = "metodo-ia-criativa";
     list.sort((a, b) => {
