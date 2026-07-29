@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import "./ebook-ia-sem-complicacao/ebook-landing.css";
 
 import { AnimatedSection } from "@/components/ebook-ia-sem-complicacao/AnimatedSection";
@@ -19,6 +21,10 @@ import { SupportSection } from "@/components/ebook-ia-sem-complicacao/SupportSec
 import { TargetAudienceSection } from "@/components/ebook-ia-sem-complicacao/TargetAudienceSection";
 import { WhatsAppButton } from "@/components/ebook-ia-sem-complicacao/WhatsAppButton";
 import { EBOOK_CONFIG } from "@/lib/ebook-ia-sem-complicacao/config";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/lib/use-auth";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { PixCheckout } from "@/components/payments/PixCheckout";
 import ogImage from "@/assets/ebook-ia-sem-complicacao/og-image.jpg.asset.json";
 
 const SITE_ORIGIN = "https://fciaacademy.lovable.app";
@@ -51,9 +57,38 @@ export const Route = createFileRoute("/ebook-ia-sem-complicacao")({
 });
 
 function EbookLandingPage() {
+  const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+
+  // Produto interno (courses, product_type='ebook').
+  const productQuery = useQuery({
+    queryKey: ["ebook-product", EBOOK_CONFIG.courseSlug],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("courses")
+        .select("id, title, slug, price, is_published")
+        .eq("slug", EBOOK_CONFIG.courseSlug)
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
   const handleCtaClick = () => {
-    window.open(EBOOK_CONFIG.checkoutUrl, "_blank", "noopener,noreferrer");
+    // Deslogado → login com retorno para a landing.
+    if (!authLoading && !user) {
+      navigate({ to: "/login", search: { redirect: "/ebook-ia-sem-complicacao" } });
+      return;
+    }
+    // Já matriculado → ir direto para entrega. Verificação forte fica na página /entrega.
+    if (user && productQuery.data) {
+      setCheckoutOpen(true);
+    }
   };
+
+  const product = productQuery.data;
 
   return (
     <main className="ebook-landing min-h-screen">
@@ -73,6 +108,25 @@ function EbookLandingPage() {
       <AnimatedSection><FinalCTASection onCtaClick={handleCtaClick} /></AnimatedSection>
       <Footer />
       <WhatsAppButton />
+
+      <Dialog open={checkoutOpen} onOpenChange={setCheckoutOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Compra do ebook via PIX</DialogTitle>
+          </DialogHeader>
+          {product && (
+            <PixCheckout
+              mode="course"
+              courseId={product.id}
+              title={product.title}
+              onPaid={() => {
+                setCheckoutOpen(false);
+                navigate({ to: "/ebook-ia-sem-complicacao/entrega" });
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }
