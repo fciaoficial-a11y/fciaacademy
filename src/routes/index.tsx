@@ -387,7 +387,7 @@ function Index() {
 
 
       {/* ============ EBOOK — DESCOBERTA DISCRETA ============ */}
-      <section className="py-12 sm:py-14 lg:py-16">
+      <section className="py-8 sm:py-14 lg:py-16">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <Link
             to="/ebook-ia-sem-complicacao"
