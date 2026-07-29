@@ -265,7 +265,7 @@ function Index() {
 
 
       {/* ============ PARA QUEM É ============ */}
-      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-24">
+      <section className="border-t border-white/5 py-12 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
