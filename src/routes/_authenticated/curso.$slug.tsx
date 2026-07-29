@@ -31,6 +31,7 @@ import { courseLearnQuery, progressQuery, type CourseDetail, type ModuleRow } fr
 import { eligibilityQuery } from "@/lib/quiz-queries";
 import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
+import { BonusesSection } from "@/components/course/BonusesSection";
 import { PdfViewer } from "@/components/learn/PdfViewer";
 import { getModulePdfUrl } from "@/lib/pdf.functions";
 import { getModuleIntroVideoUrl } from "@/lib/video.functions";
@@ -649,6 +650,14 @@ function CourseLearnPage() {
               <p className="text-xs text-primary">Curso concluído. Seu quiz final foi liberado.</p>
             )}
           </div>
+
+          {course.slug === "metodo-ia-criativa" && (
+            <BonusesSection
+              courseId={course.id}
+              hasAccess={hasAccess}
+              className="mt-12"
+            />
+          )}
 
           <footer className="mt-10 flex flex-col items-center gap-1 border-t border-border/60 pt-6 text-center text-xs text-muted-foreground">
             <span className="font-display text-[11px] font-semibold uppercase tracking-[0.28em]">FCIA Academy</span>
