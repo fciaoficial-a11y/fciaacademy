@@ -2,6 +2,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Gift, Package } from "lucide-react";
 import ebookCover from "@/assets/ebook-ia-sem-complicacao/ebook-cover-official.png.asset.json";
 import bonusImage from "@/assets/ebook-ia-sem-complicacao/bonus-cover-official.png.asset.json";
+import { EBOOK_CONFIG } from "@/lib/ebook-ia-sem-complicacao/config";
+
+// Ex.: "R$ 37,90" → { integer: "37", decimals: "90" }
+const priceMatch = EBOOK_CONFIG.priceLabel.match(/(\d+)[.,](\d{2})/);
+const PRICE_INT = priceMatch?.[1] ?? "37";
+const PRICE_DEC = priceMatch?.[2] ?? "90";
 
 interface OfferSectionProps {
   onCtaClick: () => void;
@@ -60,8 +66,8 @@ export function OfferSection({ onCtaClick }: OfferSectionProps) {
               <p className="text-muted-foreground mb-2">Tudo isso por apenas</p>
               <div className="flex items-center justify-center gap-2">
                 <span className="text-2xl text-muted-foreground">R$</span>
-                <span className="font-display text-6xl md:text-7xl font-extrabold text-gradient">47</span>
-                <span className="text-2xl text-muted-foreground">,90</span>
+                <span className="font-display text-6xl md:text-7xl font-extrabold text-gradient">{PRICE_INT}</span>
+                <span className="text-2xl text-muted-foreground">,{PRICE_DEC}</span>
               </div>
               <p className="text-muted-foreground mt-2">Pagamento único • Acesso vitalício</p>
             </div>
