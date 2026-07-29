@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Gift, Package } from "lucide-react";
-import ebookCover from "@/assets/ebook-ia-sem-complicacao/ebook-cover-3d.png.asset.json";
-import bonusImage from "@/assets/ebook-ia-sem-complicacao/bonus-50-tarefas.png.asset.json";
+import ebookCover from "@/assets/ebook-ia-sem-complicacao/ebook-cover-official.png.asset.json";
+import bonusImage from "@/assets/ebook-ia-sem-complicacao/bonus-cover-official.png.asset.json";
 
 interface OfferSectionProps {
   onCtaClick: () => void;
