@@ -220,14 +220,11 @@ function Index() {
             </div>
 
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-              Pare de perder horas em tarefas repetitivas.{" "}
-              <span className="text-gradient">Domine IA</span> e entregue em minutos o que hoje leva o seu dia inteiro.
+              Use <span className="text-gradient">IA</span> para fazer em minutos o que hoje leva horas.
             </h1>
 
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
-              Método direto para gestores, vendedores e profissionais liberais aplicarem IA em relatórios,
-              propostas, atendimento e prospecção — mesmo sem background técnico. Em 30 dias você produz mais,
-              com menos esforço, e se posiciona como referência no seu mercado.
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+              Aprenda a usar IA em relatórios, propostas, atendimento e prospecção — mesmo começando do zero.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur lg:justify-start">
