@@ -1,0 +1,1 @@
+DROP TRIGGER IF EXISTS trg_xp_module ON public.module_progress;
