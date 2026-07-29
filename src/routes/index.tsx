@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import heroImage from "@/assets/hero-ai.webp.asset.json";
 import courseImage from "@/assets/course-ai.webp.asset.json";
 import professorImage from "@/assets/fernando-cabral.webp.asset.json";
+import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
