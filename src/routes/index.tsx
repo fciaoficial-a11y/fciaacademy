@@ -537,12 +537,12 @@ function FeaturedCourseCard({
   return (
     <article
       className={cn(
-        "group relative overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5",
+        "group relative overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5",
         isFlagship
-          ? "flex flex-col lg:grid lg:grid-cols-[1.15fr_1fr] lg:items-stretch"
+          ? "flex flex-col lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-stretch"
           : "flex h-full flex-col",
         isMasterclass
-          ? "border-primary/50 shadow-[0_0_60px_-15px_hsl(var(--primary)/0.45)] hover:border-primary/70"
+          ? "border-primary/50 shadow-[0_0_60px_-15px_hsl(var(--primary)/0.45)] hover:border-primary/70 hover:shadow-[0_0_80px_-15px_hsl(var(--primary)/0.6)]"
           : "border-white/10 hover:border-primary/40",
       )}
     >
@@ -555,7 +555,9 @@ function FeaturedCourseCard({
       <div
         className={cn(
           "relative w-full overflow-hidden",
-          isFlagship ? "aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[380px]" : "aspect-[16/10]",
+          isFlagship
+            ? "aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[420px]"
+            : "aspect-[16/10]",
         )}
       >
         <ImageWithFallback
@@ -565,12 +567,20 @@ function FeaturedCourseCard({
           height={750}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" aria-hidden />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-0",
+            isFlagship
+              ? "bg-gradient-to-t from-background/80 via-background/10 to-transparent lg:bg-gradient-to-r lg:from-background/60 lg:via-transparent lg:to-transparent"
+              : "bg-gradient-to-t from-background/70 via-transparent to-transparent",
+          )}
+          aria-hidden
+        />
         <span
           className={cn(
-            "absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] backdrop-blur",
+            "absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] backdrop-blur",
             isMasterclass
               ? "border-primary/50 bg-primary/20 text-primary-foreground"
               : "border-white/20 bg-background/60 text-foreground",
@@ -584,13 +594,20 @@ function FeaturedCourseCard({
       <div
         className={cn(
           "flex flex-1 flex-col",
-          isFlagship ? "p-6 sm:p-8 lg:p-10" : "p-6",
+          isFlagship ? "p-6 sm:p-8 lg:p-12" : "p-6",
         )}
       >
+        {isFlagship ? (
+          <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground lg:text-[11px]">
+            Curso principal · 10 aulas
+          </div>
+        ) : null}
         <h3
           className={cn(
             "font-display font-semibold tracking-tight",
-            isFlagship ? "text-2xl sm:text-3xl lg:text-[2rem] lg:leading-tight" : "text-xl sm:text-2xl",
+            isFlagship
+              ? "text-[1.625rem] leading-[1.1] sm:text-3xl lg:text-[2.25rem]"
+              : "text-xl sm:text-2xl",
           )}
         >
           {course.title}
@@ -599,15 +616,15 @@ function FeaturedCourseCard({
         {course.description ? (
           <p
             className={cn(
-              "mt-2 text-sm leading-relaxed text-muted-foreground",
-              isFlagship ? "lg:mt-3 lg:text-base line-clamp-3" : "line-clamp-2",
+              "mt-3 text-sm leading-relaxed text-muted-foreground",
+              isFlagship ? "lg:text-[15px] lg:leading-relaxed line-clamp-3" : "line-clamp-2",
             )}
           >
             {course.description}
           </p>
         ) : null}
 
-        <ul className={cn("flex flex-wrap gap-2 text-xs", isFlagship ? "mt-6" : "mt-5")}>
+        <ul className={cn("flex flex-wrap gap-2 text-xs", isFlagship ? "mt-6 lg:mt-7" : "mt-5")}>
           <Chip>{formatWorkload(course)}</Chip>
           {modulesLabel ? <Chip>{modulesLabel}</Chip> : null}
           {course.certificate_enabled ? (
@@ -619,25 +636,41 @@ function FeaturedCourseCard({
 
         <div
           className={cn(
-            "mt-auto flex items-center justify-between gap-3",
-            isFlagship ? "pt-8" : "pt-6",
+            "mt-auto",
+            isFlagship
+              ? "flex flex-col gap-4 pt-8 sm:flex-row sm:items-center sm:justify-between lg:pt-10"
+              : "flex items-center justify-between gap-3 pt-6",
           )}
         >
-          <span
+          <div className="flex flex-col">
+            {isFlagship ? (
+              <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+                Acesso vitalício
+              </span>
+            ) : null}
+            <span
+              className={cn(
+                "font-display font-semibold text-accent",
+                isFlagship ? "text-2xl lg:text-[1.75rem]" : "text-lg",
+              )}
+            >
+              {priceLabel(course.price)}
+            </span>
+          </div>
+          <PrimaryCTA
+            to={`/curso/${course.slug}/oferta`}
             className={cn(
-              "font-display font-semibold text-accent",
-              isFlagship ? "text-xl lg:text-2xl" : "text-lg",
+              "h-11 px-6 text-sm",
+              isFlagship ? "w-full sm:w-auto lg:h-12 lg:px-7" : "",
             )}
           >
-            {priceLabel(course.price)}
-          </span>
-          <PrimaryCTA to={`/curso/${course.slug}/oferta`} className="h-11 px-6 text-sm">
             {isMasterclass ? "Ver Masterclass" : "Ver detalhes"}
           </PrimaryCTA>
         </div>
       </div>
     </article>
   );
+
 }
 
 
