@@ -18,6 +18,7 @@ import { SiteFooter } from "../components/site/SiteFooter";
 import { WhatsAppFloat } from "../components/site/WhatsAppFloat";
 import { StickyMobileCTA } from "../components/site/StickyMobileCTA";
 import { BackToTop } from "../components/site/BackToTop";
+import { InstallPWA } from "../components/site/InstallPWA";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeProvider, themeBootScript } from "@/lib/theme";
@@ -88,7 +89,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#0B1220" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "apple-mobile-web-app-title", content: "FCIA Academy" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { name: "application-name", content: "FCIA Academy" },
       { title: "FCIA Academy — Cursos e Treinamentos com Certificação" },
       { name: "description", content: "Plataforma FCIA Academy: cursos e treinamentos aplicados com certificação digital reconhecida." },
       { name: "author", content: "FCIA Academy" },
@@ -102,8 +109,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
-      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       {
         rel: "preload",
         as: "image",
@@ -211,6 +219,7 @@ function RootComponent() {
         </div>
         {!hideChrome && <WhatsAppFloat />}
         {!hideChrome && <BackToTop />}
+        <InstallPWA />
 
         <Toaster />
       </ThemeProvider>
