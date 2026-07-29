@@ -386,45 +386,42 @@ function Index() {
 
 
       {/* ============ EBOOK — DESCOBERTA DISCRETA ============ */}
-      <section className="py-10 sm:py-12 lg:py-14">
-        <div className="mx-auto max-w-4xl px-6">
+      <section className="py-12 sm:py-14 lg:py-16">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <Link
             to="/ebook-ia-sem-complicacao"
-            className="group grid items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/30 hover:bg-white/[0.05] sm:grid-cols-[120px_1fr_auto] sm:gap-6 sm:p-5 lg:grid-cols-[128px_1fr_auto] lg:gap-8"
+            className="group grid items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-all hover:-translate-y-0.5 hover:border-amber-400/25 hover:bg-white/[0.04] sm:grid-cols-[104px_1fr_auto] sm:gap-6 sm:p-6 lg:grid-cols-[112px_1fr_auto] lg:gap-8"
           >
-            <div className="relative mx-auto w-full max-w-[128px] shrink-0 sm:mx-0">
-
-              <div className="pointer-events-none absolute -inset-2 rounded-xl bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-xl" aria-hidden />
+            <div className="relative mx-auto w-full max-w-[104px] shrink-0 sm:mx-0 lg:max-w-[112px]">
+              <div className="pointer-events-none absolute -inset-1.5 rounded-xl bg-gradient-to-br from-amber-400/15 via-transparent to-primary/15 blur-lg" aria-hidden />
               <img
                 src={ebookMockup.url}
                 alt="Ebook IA Sem Complicação"
                 loading="lazy"
                 width={320}
                 height={400}
-                className="relative aspect-[4/5] w-full rounded-xl border border-white/10 object-cover shadow-lg"
+                className="relative aspect-[4/5] w-full rounded-lg border border-white/10 object-cover shadow-md"
               />
             </div>
 
             <div className="min-w-0 text-center sm:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-amber-400">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-400/[0.08] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-amber-400">
                 <BookOpen className="h-3 w-3" />
-                Material oficial · Ebook
+                Ebook oficial
               </div>
-              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight sm:text-2xl">
+              <h3 className="mt-2 font-display text-lg font-semibold tracking-tight sm:text-xl lg:text-[1.375rem]">
                 IA Sem Complicação
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Guia prático para aplicar IA no dia a dia — com bônus de 50 tarefas prontas para vender usando IA.
+              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
+                Guia prático + bônus de 50 tarefas prontas para vender usando IA.
               </p>
             </div>
 
-            <div className="flex flex-col items-center gap-2 sm:items-end">
-              <span className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition group-hover:-translate-y-0.5">
-                Conhecer o ebook
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
-              <span className="text-[11px] uppercase tracking-widest text-muted-foreground">
-                R$ 37,90 · acesso imediato
+            <div className="flex flex-col items-center gap-1.5 sm:items-end">
+              <span className="font-display text-lg font-semibold text-amber-400 sm:text-xl">R$ 37,90</span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground">
+                Conhecer
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </div>
           </Link>
@@ -432,37 +429,43 @@ function Index() {
       </section>
 
       {/* ============ COMO FUNCIONA ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-24">
-
-        <div className="mx-auto max-w-5xl px-6">
+      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-28">
+        <div className="mx-auto max-w-5xl px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
               Como funciona
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
               Aprenda no <span className="text-gradient">seu ritmo</span>.
             </h2>
           </div>
 
-          <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s) => (
+          <ol className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-6">
+            <div
+              className="pointer-events-none absolute inset-x-6 top-[38px] hidden h-px bg-gradient-to-r from-transparent via-white/15 to-transparent lg:block"
+              aria-hidden
+            />
+            {steps.map((s, i) => (
               <li
                 key={s.n}
-                className="rounded-xl border border-white/10 bg-white/[0.03] p-5"
+                className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/30 lg:p-6"
               >
-                <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent font-mono text-sm font-bold text-primary-foreground">
+                <div className="relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent font-mono text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20">
                   {s.n}
                 </div>
-                <div className="mt-4 text-sm font-semibold text-foreground">{s.title}</div>
+                <div className="mt-4 text-sm font-semibold text-foreground lg:text-[15px]">{s.title}</div>
+                {i === steps.length - 1 ? (
+                  <div className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-accent">
+                    <Award className="h-3 w-3" />
+                    70% aprovação
+                  </div>
+                ) : null}
               </li>
             ))}
           </ol>
-
-          <p className="mt-8 max-w-2xl text-sm text-muted-foreground">
-            Você avança no seu tempo e recebe certificado ao alcançar 70% de aproveitamento.
-          </p>
         </div>
       </section>
+
 
       {/* ============ SOBRE O PROFESSOR ============ */}
       <section className="border-t border-white/5 py-14 sm:py-16 lg:py-20">
