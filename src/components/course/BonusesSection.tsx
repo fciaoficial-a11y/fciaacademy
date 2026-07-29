@@ -111,12 +111,11 @@ function BonusCard({ bonus }: { bonus: CourseBonusPublic }) {
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <Sparkles className="h-4 w-4" />
         </div>
-        {bonus.value_label && (
-          <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary">
-            {bonus.value_label}
-          </span>
-        )}
+        <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-emerald-400">
+          Incluso
+        </span>
       </div>
+
 
       <div className="space-y-1.5">
         <h4 className="font-display text-base font-semibold leading-tight text-foreground">
