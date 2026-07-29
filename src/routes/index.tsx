@@ -16,7 +16,7 @@ import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 import { FAQ } from "@/components/site/FAQ";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
-import heroImage from "@/assets/hero-ai.webp.asset.json";
+import heroImage from "@/assets/home-hero-masterclass.jpeg.asset.json";
 import courseImage from "@/assets/course-ai.webp.asset.json";
 import professorImage from "@/assets/fernando-cabral.webp.asset.json";
 import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
