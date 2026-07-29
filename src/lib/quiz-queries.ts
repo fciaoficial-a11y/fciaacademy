@@ -43,15 +43,19 @@ export function quizQuery(moduleId: string) {
         .order("sort_order");
       if (qErr) throw qErr;
 
-      const course = Array.isArray(mod.courses) ? mod.courses[0] : (mod.courses as any);
+      type CourseRef = { id: string; slug: string; title: string };
+      const rawCourses = mod.courses as CourseRef | CourseRef[] | null;
+      const course = Array.isArray(rawCourses) ? rawCourses[0] : rawCourses;
+      if (!course) return null;
 
+      type RawQuestion = Omit<QuestionRow, "options"> & { options: unknown };
       return {
         module: { id: mod.id, slug: mod.slug, title: mod.title, course_id: mod.course_id },
         course: { id: course.id, slug: course.slug, title: course.title },
-        questions: (questions ?? []).map((q: any) => ({
+        questions: ((questions ?? []) as RawQuestion[]).map((q) => ({
           ...q,
-          options: Array.isArray(q.options) ? q.options : [],
-        })) as QuestionRow[],
+          options: Array.isArray(q.options) ? (q.options as string[]) : [],
+        })),
       };
     },
     staleTime: 30_000,
