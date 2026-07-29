@@ -212,34 +212,34 @@ function Index() {
           className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/25 blur-[160px] animate-pulse-glow"
           aria-hidden
         />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-14 pt-12 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20 lg:px-8 lg:pb-24 lg:pt-28">
+        <div className="relative mx-auto grid max-w-6xl gap-6 px-6 pb-10 pt-8 sm:gap-10 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20 lg:px-8 lg:pb-24 lg:pt-28">
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-primary backdrop-blur sm:text-[11px]">
               <Sparkles className="h-3 w-3" />
               Nova Masterclass · Método IA Criativa
             </div>
 
-            <h1 className="mx-auto mt-5 max-w-[16ch] font-display text-[2.25rem] font-semibold leading-[1.04] tracking-tight sm:text-5xl lg:mx-0 lg:mt-6 lg:max-w-[18ch] lg:text-[3.5rem]">
+            <h1 className="mx-auto mt-4 max-w-[15ch] font-display text-[1.95rem] font-semibold leading-[1.05] tracking-tight sm:mt-5 sm:max-w-[16ch] sm:text-5xl lg:mx-0 lg:mt-6 lg:max-w-[18ch] lg:text-[3.5rem]">
               Use <span className="text-gradient">IA</span> para fazer em minutos o que hoje leva horas.
             </h1>
 
-            <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-lg sm:text-lg lg:mx-0">
+            <p className="mx-auto mt-3 max-w-[38ch] text-[14px] leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-lg sm:text-lg lg:mx-0">
               Aprenda a usar IA em relatórios, propostas, atendimento e prospecção — mesmo começando do zero.
             </p>
 
-            <div className="mx-auto mt-7 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur sm:mt-8 lg:mx-0 lg:max-w-lg">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
-                <BadgeCheck className="h-5 w-5" />
+            <div className="mx-auto mt-5 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-left backdrop-blur sm:mt-8 sm:px-4 sm:py-3 lg:mx-0 lg:max-w-lg">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary sm:h-10 sm:w-10">
+                <BadgeCheck className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-foreground">Fernando Cabral</p>
-                <p className="text-xs leading-relaxed text-muted-foreground">
+                <p className="text-[11px] leading-snug text-muted-foreground sm:text-xs sm:leading-relaxed">
                   Especialista em IA aplicada a negócios · +15 anos formando profissionais no Brasil
                 </p>
               </div>
             </div>
 
-            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+            <div className="mt-5 flex flex-col items-stretch gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 lg:justify-start">
               <PrimaryCTA to={primaryHref} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
               <SecondaryCTA href="#curso-destaque" className="w-full sm:w-auto">Ver todos os cursos</SecondaryCTA>
             </div>
@@ -255,16 +255,17 @@ function Index() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative aspect-[5/4] w-full rounded-[1.25rem] border border-white/10 object-cover shadow-2xl sm:aspect-[4/3] sm:rounded-[1.5rem] lg:aspect-[5/4]"
+              className="relative aspect-[4/3] w-full rounded-[1.25rem] border border-white/10 object-cover shadow-2xl sm:aspect-[4/3] sm:rounded-[1.5rem] lg:aspect-[5/4]"
             />
           </div>
+
         </div>
       </section>
 
 
 
       {/* ============ PARA QUEM É ============ */}
-      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-24">
+      <section className="border-t border-white/5 py-12 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
@@ -299,7 +300,7 @@ function Index() {
 
 
       {/* ============ CURSO EM DESTAQUE ============ */}
-      <section id="curso-destaque" className="relative border-t border-white/5 bg-surface/30 py-16 sm:py-24 lg:py-32">
+      <section id="curso-destaque" className="relative border-t border-white/5 bg-surface/30 py-14 sm:py-24 lg:py-32">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
           aria-hidden
@@ -323,7 +324,7 @@ function Index() {
             </Link>
           </div>
 
-          <div className="mt-12 lg:mt-16">
+          <div className="mt-8 sm:mt-12 lg:mt-16">
             {featured.isLoading ? (
               <div className="space-y-6 lg:space-y-10">
                 <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03] lg:h-[460px]" />
@@ -386,13 +387,13 @@ function Index() {
 
 
       {/* ============ EBOOK — DESCOBERTA DISCRETA ============ */}
-      <section className="py-12 sm:py-14 lg:py-16">
+      <section className="py-8 sm:py-14 lg:py-16">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <Link
             to="/ebook-ia-sem-complicacao"
-            className="group grid items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-all hover:-translate-y-0.5 hover:border-amber-400/25 hover:bg-white/[0.04] sm:grid-cols-[104px_1fr_auto] sm:gap-6 sm:p-6 lg:grid-cols-[112px_1fr_auto] lg:gap-8"
+            className="group grid grid-cols-[80px_1fr] items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 transition-all hover:-translate-y-0.5 hover:border-amber-400/25 hover:bg-white/[0.04] sm:grid-cols-[104px_1fr_auto] sm:gap-6 sm:p-6 lg:grid-cols-[112px_1fr_auto] lg:gap-8"
           >
-            <div className="relative mx-auto w-full max-w-[104px] shrink-0 sm:mx-0 lg:max-w-[112px]">
+            <div className="relative w-full max-w-[80px] shrink-0 sm:mx-0 sm:max-w-[104px] lg:max-w-[112px]">
               <div className="pointer-events-none absolute -inset-1.5 rounded-xl bg-gradient-to-br from-amber-400/15 via-transparent to-primary/15 blur-lg" aria-hidden />
               <img
                 src={ebookMockup.url}
@@ -404,32 +405,41 @@ function Index() {
               />
             </div>
 
-            <div className="min-w-0 text-center sm:text-left">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-400/[0.08] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-amber-400">
+            <div className="min-w-0 sm:text-left">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-400/[0.08] px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-amber-400 sm:px-2.5 sm:text-[10px] sm:tracking-[0.22em]">
                 <BookOpen className="h-3 w-3" />
                 Ebook oficial
               </div>
-              <h3 className="mt-2 font-display text-lg font-semibold tracking-tight sm:text-xl lg:text-[1.375rem]">
+              <h3 className="mt-1.5 font-display text-base font-semibold tracking-tight sm:mt-2 sm:text-xl lg:text-[1.375rem]">
                 IA Sem Complicação
               </h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
+              <p className="mt-1 line-clamp-2 text-[12px] leading-snug text-muted-foreground sm:mt-1.5 sm:line-clamp-none sm:text-sm sm:leading-relaxed">
                 Guia prático + bônus de 50 tarefas prontas para vender usando IA.
               </p>
+              <div className="mt-2 flex items-center gap-2 sm:hidden">
+                <span className="font-display text-base font-semibold text-amber-400">R$ 37,90</span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+                  Conhecer
+                  <ArrowUpRight className="h-3 w-3" />
+                </span>
+              </div>
             </div>
 
-            <div className="flex flex-col items-center gap-1.5 sm:items-end">
+            <div className="hidden flex-col items-end gap-1.5 sm:flex">
               <span className="font-display text-lg font-semibold text-amber-400 sm:text-xl">R$ 37,90</span>
               <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground">
                 Conhecer
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </div>
+
           </Link>
         </div>
       </section>
 
       {/* ============ COMO FUNCIONA ============ */}
-      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-28">
+      <section className="border-t border-white/5 py-12 sm:py-20 lg:py-28">
+
         <div className="mx-auto max-w-5xl px-6 lg:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
@@ -468,7 +478,7 @@ function Index() {
 
 
       {/* ============ SOBRE O PROFESSOR ============ */}
-      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-28">
+      <section className="border-t border-white/5 py-12 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-5xl px-6 lg:px-8">
           <div className="grid gap-10 sm:gap-12 lg:grid-cols-[minmax(240px,320px)_1fr] lg:items-center lg:gap-16">
             <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px] lg:mx-0 lg:max-w-none">
@@ -594,7 +604,7 @@ function FeaturedCourseCard({
       <div
         className={cn(
           "flex flex-1 flex-col",
-          isFlagship ? "p-6 sm:p-8 lg:p-12" : "p-6",
+          isFlagship ? "p-5 sm:p-8 lg:p-12" : "p-5 sm:p-6",
         )}
       >
         {isFlagship ? (
