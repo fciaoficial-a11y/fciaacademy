@@ -17,11 +17,8 @@ import { OfferSection } from "@/components/ebook-ia-sem-complicacao/OfferSection
 import { StorytellingSection } from "@/components/ebook-ia-sem-complicacao/StorytellingSection";
 import { SupportSection } from "@/components/ebook-ia-sem-complicacao/SupportSection";
 import { TargetAudienceSection } from "@/components/ebook-ia-sem-complicacao/TargetAudienceSection";
-import { TargetAudienceSection as _keep } from "@/components/ebook-ia-sem-complicacao/TargetAudienceSection";
 import { WhatsAppButton } from "@/components/ebook-ia-sem-complicacao/WhatsAppButton";
 import { EBOOK_CONFIG } from "@/lib/ebook-ia-sem-complicacao/config";
-
-void _keep;
 
 const PAGE_URL = "https://fciaacademy.lovable.app/ebook-ia-sem-complicacao";
 const PAGE_TITLE = "IA Sem Complicação — Guia + Bônus | FCIA Academy";
