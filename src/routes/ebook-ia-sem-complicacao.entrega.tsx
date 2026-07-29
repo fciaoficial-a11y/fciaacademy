@@ -129,21 +129,22 @@ function EbookDeliveryPage() {
         />
 
         {driveUrl && (
-          <div className="rounded-2xl border border-border bg-card p-5">
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Acesso alternativo
-            </p>
-            <p className="mt-2 text-sm text-foreground/80">
-              Se preferir, também disponibilizamos o material via Google Drive.
+          <details className="rounded-2xl border border-border bg-card/60 p-5">
+            <summary className="cursor-pointer text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Problemas com o download? Acesso alternativo
+            </summary>
+            <p className="mt-3 text-sm text-foreground/80">
+              Se o download acima não funcionar, use nossa pasta reserva no Google Drive.
             </p>
             <Button asChild variant="outline" className="mt-3">
               <a href={driveUrl} target="_blank" rel="noreferrer">
                 <ExternalLink className="mr-2 h-4 w-4" />
-                Abrir no Google Drive
+                Abrir no Google Drive (fallback)
               </a>
             </Button>
-          </div>
+          </details>
         )}
+
       </div>
 
       <div className="mt-8 rounded-2xl border border-border bg-card/50 p-5 text-sm text-muted-foreground">
