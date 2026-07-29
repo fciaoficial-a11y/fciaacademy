@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
+import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-phone-rainbow.jpeg.asset.json";
 
 interface HeroSectionProps {
   onCtaClick: () => void;
