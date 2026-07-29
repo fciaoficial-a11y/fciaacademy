@@ -18,6 +18,7 @@ import { SiteFooter } from "../components/site/SiteFooter";
 import { WhatsAppFloat } from "../components/site/WhatsAppFloat";
 import { StickyMobileCTA } from "../components/site/StickyMobileCTA";
 import { BackToTop } from "../components/site/BackToTop";
+import { InstallPWA } from "../components/site/InstallPWA";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeProvider, themeBootScript } from "@/lib/theme";
