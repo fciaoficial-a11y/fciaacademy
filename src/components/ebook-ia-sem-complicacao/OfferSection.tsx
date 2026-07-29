@@ -66,8 +66,8 @@ export function OfferSection({ onCtaClick }: OfferSectionProps) {
               <p className="text-muted-foreground mb-2">Tudo isso por apenas</p>
               <div className="flex items-center justify-center gap-2">
                 <span className="text-2xl text-muted-foreground">R$</span>
-                <span className="font-display text-6xl md:text-7xl font-extrabold text-gradient">47</span>
-                <span className="text-2xl text-muted-foreground">,90</span>
+                <span className="font-display text-6xl md:text-7xl font-extrabold text-gradient">{PRICE_INT}</span>
+                <span className="text-2xl text-muted-foreground">,{PRICE_DEC}</span>
               </div>
               <p className="text-muted-foreground mt-2">Pagamento único • Acesso vitalício</p>
             </div>
