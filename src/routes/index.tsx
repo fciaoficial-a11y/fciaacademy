@@ -483,16 +483,26 @@ function Index() {
   );
 }
 
-function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
+function FeaturedCourseCard({
+  course,
+  variant = "supporting",
+}: {
+  course: FeaturedCourse;
+  variant?: "flagship" | "supporting";
+}) {
   const modulesLabel =
     course.modules_count > 0 ? `${course.modules_count} módulo${course.modules_count > 1 ? "s" : ""}` : null;
   const coverSrc = course.cover_url && course.cover_url.length > 0 ? course.cover_url : courseImage.url;
   const isMasterclass = course.slug === "metodo-ia-criativa";
+  const isFlagship = variant === "flagship";
 
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5",
+        "group relative overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5",
+        isFlagship
+          ? "flex flex-col lg:grid lg:grid-cols-[1.15fr_1fr] lg:items-stretch"
+          : "flex h-full flex-col",
         isMasterclass
           ? "border-primary/50 shadow-[0_0_60px_-15px_hsl(var(--primary)/0.45)] hover:border-primary/70"
           : "border-white/10 hover:border-primary/40",
@@ -500,11 +510,16 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
     >
       {isMasterclass ? (
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-primary to-transparent"
           aria-hidden
         />
       ) : null}
-      <div className="relative aspect-[16/10] w-full overflow-hidden">
+      <div
+        className={cn(
+          "relative w-full overflow-hidden",
+          isFlagship ? "aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[380px]" : "aspect-[16/10]",
+        )}
+      >
         <ImageWithFallback
           src={coverSrc}
           alt={`Capa do curso ${course.title}`}
@@ -528,18 +543,33 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
+      <div
+        className={cn(
+          "flex flex-1 flex-col",
+          isFlagship ? "p-6 sm:p-8 lg:p-10" : "p-6",
+        )}
+      >
+        <h3
+          className={cn(
+            "font-display font-semibold tracking-tight",
+            isFlagship ? "text-2xl sm:text-3xl lg:text-[2rem] lg:leading-tight" : "text-xl sm:text-2xl",
+          )}
+        >
           {course.title}
         </h3>
 
         {course.description ? (
-          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+          <p
+            className={cn(
+              "mt-2 text-sm leading-relaxed text-muted-foreground",
+              isFlagship ? "lg:mt-3 lg:text-base line-clamp-3" : "line-clamp-2",
+            )}
+          >
             {course.description}
           </p>
         ) : null}
 
-        <ul className="mt-5 flex flex-wrap gap-2 text-xs">
+        <ul className={cn("flex flex-wrap gap-2 text-xs", isFlagship ? "mt-6" : "mt-5")}>
           <Chip>{formatWorkload(course)}</Chip>
           {modulesLabel ? <Chip>{modulesLabel}</Chip> : null}
           {course.certificate_enabled ? (
@@ -549,8 +579,18 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
           ) : null}
         </ul>
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-6">
-          <span className="font-display text-lg font-semibold text-accent">
+        <div
+          className={cn(
+            "mt-auto flex items-center justify-between gap-3",
+            isFlagship ? "pt-8" : "pt-6",
+          )}
+        >
+          <span
+            className={cn(
+              "font-display font-semibold text-accent",
+              isFlagship ? "text-xl lg:text-2xl" : "text-lg",
+            )}
+          >
             {priceLabel(course.price)}
           </span>
           <PrimaryCTA to={`/curso/${course.slug}/oferta`} className="h-11 px-6 text-sm">
@@ -561,6 +601,7 @@ function FeaturedCourseCard({ course }: { course: FeaturedCourse }) {
     </article>
   );
 }
+
 
 
 
