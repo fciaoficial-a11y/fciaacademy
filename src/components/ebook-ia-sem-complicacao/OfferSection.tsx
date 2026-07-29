@@ -2,6 +2,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Gift, Package } from "lucide-react";
 import ebookCover from "@/assets/ebook-ia-sem-complicacao/ebook-cover-official.png.asset.json";
 import bonusImage from "@/assets/ebook-ia-sem-complicacao/bonus-cover-official.png.asset.json";
+import { EBOOK_CONFIG } from "@/lib/ebook-ia-sem-complicacao/config";
+
+// Ex.: "R$ 37,90" → { integer: "37", decimals: "90" }
+const priceMatch = EBOOK_CONFIG.priceLabel.match(/(\d+)[.,](\d{2})/);
+const PRICE_INT = priceMatch?.[1] ?? "37";
+const PRICE_DEC = priceMatch?.[2] ?? "90";
 
 interface OfferSectionProps {
   onCtaClick: () => void;
