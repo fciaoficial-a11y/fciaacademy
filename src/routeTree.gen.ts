@@ -18,6 +18,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as InscricaoRouteImport } from './routes/inscricao'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as EmpresasRouteImport } from './routes/empresas'
+import { Route as EbookIaSemComplicacaoRouteImport } from './routes/ebook-ia-sem-complicacao'
 import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -90,6 +91,11 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
 const EmpresasRoute = EmpresasRouteImport.update({
   id: '/empresas',
   path: '/empresas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EbookIaSemComplicacaoRoute = EbookIaSemComplicacaoRouteImport.update({
+  id: '/ebook-ia-sem-complicacao',
+  path: '/ebook-ia-sem-complicacao',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CursosRoute = CursosRouteImport.update({
@@ -250,6 +256,7 @@ const ApiPublicWebhooksAsaasRoute = ApiPublicWebhooksAsaasRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cursos': typeof CursosRoute
+  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRoute
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -288,6 +295,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cursos': typeof CursosRoute
+  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRoute
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -326,6 +334,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/cursos': typeof CursosRoute
+  '/ebook-ia-sem-complicacao': typeof EbookIaSemComplicacaoRoute
   '/empresas': typeof EmpresasRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/inscricao': typeof InscricaoRoute
@@ -366,6 +375,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cursos'
+    | '/ebook-ia-sem-complicacao'
     | '/empresas'
     | '/forgot-password'
     | '/inscricao'
@@ -404,6 +414,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/cursos'
+    | '/ebook-ia-sem-complicacao'
     | '/empresas'
     | '/forgot-password'
     | '/inscricao'
@@ -441,6 +452,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/cursos'
+    | '/ebook-ia-sem-complicacao'
     | '/empresas'
     | '/forgot-password'
     | '/inscricao'
@@ -481,6 +493,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   CursosRoute: typeof CursosRoute
+  EbookIaSemComplicacaoRoute: typeof EbookIaSemComplicacaoRoute
   EmpresasRoute: typeof EmpresasRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   InscricaoRoute: typeof InscricaoRoute
@@ -558,6 +571,13 @@ declare module '@tanstack/react-router' {
       path: '/empresas'
       fullPath: '/empresas'
       preLoaderRoute: typeof EmpresasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ebook-ia-sem-complicacao': {
+      id: '/ebook-ia-sem-complicacao'
+      path: '/ebook-ia-sem-complicacao'
+      fullPath: '/ebook-ia-sem-complicacao'
+      preLoaderRoute: typeof EbookIaSemComplicacaoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cursos': {
@@ -849,6 +869,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   CursosRoute: CursosRoute,
+  EbookIaSemComplicacaoRoute: EbookIaSemComplicacaoRoute,
   EmpresasRoute: EmpresasRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   InscricaoRoute: InscricaoRoute,

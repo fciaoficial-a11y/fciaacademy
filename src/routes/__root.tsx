@@ -152,8 +152,9 @@ const HIDE_CHROME_PREFIXES = [
   "/quiz",
   "/curso/",
   "/certificados",
+  "/ebook-ia-sem-complicacao",
 ];
-const HIDE_STICKY_PREFIXES = ["/login", "/register", "/forgot-password", "/reset-password", "/dashboard", "/profile", "/admin", "/settings", "/quiz", "/certificados"];
+const HIDE_STICKY_PREFIXES = ["/login", "/register", "/forgot-password", "/reset-password", "/dashboard", "/profile", "/admin", "/settings", "/quiz", "/certificados", "/ebook-ia-sem-complicacao"];
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -179,7 +180,7 @@ function RootComponent() {
       <ThemeProvider>
         <div className="flex min-h-screen flex-col bg-background text-foreground">
           {!hideChrome && <SiteHeader />}
-          {canGoBack && (
+          {!hideChrome && canGoBack && (
             <div className="sticky top-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
               <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2">
                 <button
@@ -207,7 +208,7 @@ function RootComponent() {
           {!hideChrome && <SiteFooter />}
           {!hideStickyCTA && <StickyMobileCTA />}
         </div>
-        <WhatsAppFloat />
+        {!hideChrome && <WhatsAppFloat />}
 
         <Toaster />
       </ThemeProvider>
