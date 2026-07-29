@@ -391,7 +391,7 @@ function Index() {
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <Link
             to="/ebook-ia-sem-complicacao"
-            className="group grid items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-all hover:-translate-y-0.5 hover:border-amber-400/25 hover:bg-white/[0.04] sm:grid-cols-[104px_1fr_auto] sm:gap-6 sm:p-6 lg:grid-cols-[112px_1fr_auto] lg:gap-8"
+            className="group grid grid-cols-[80px_1fr] items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-4 transition-all hover:-translate-y-0.5 hover:border-amber-400/25 hover:bg-white/[0.04] sm:grid-cols-[104px_1fr_auto] sm:gap-6 sm:p-6 lg:grid-cols-[112px_1fr_auto] lg:gap-8"
           >
             <div className="relative mx-auto w-full max-w-[104px] shrink-0 sm:mx-0 lg:max-w-[112px]">
               <div className="pointer-events-none absolute -inset-1.5 rounded-xl bg-gradient-to-br from-amber-400/15 via-transparent to-primary/15 blur-lg" aria-hidden />
