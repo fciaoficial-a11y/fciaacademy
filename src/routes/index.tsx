@@ -324,7 +324,7 @@ function Index() {
             </Link>
           </div>
 
-          <div className="mt-12 lg:mt-16">
+          <div className="mt-8 sm:mt-12 lg:mt-16">
             {featured.isLoading ? (
               <div className="space-y-6 lg:space-y-10">
                 <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03] lg:h-[460px]" />
