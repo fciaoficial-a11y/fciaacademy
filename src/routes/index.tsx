@@ -212,42 +212,40 @@ function Index() {
           className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/25 blur-[160px] animate-pulse-glow"
           aria-hidden
         />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:pb-20 lg:pt-24">
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-14 pt-12 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20 lg:px-8 lg:pb-24 lg:pt-28">
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-primary backdrop-blur sm:text-[11px]">
               <Sparkles className="h-3 w-3" />
               Nova Masterclass · Método IA Criativa
             </div>
 
-            <h1 className="mt-5 max-w-[18ch] font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.5rem] lg:mx-0 mx-auto">
+            <h1 className="mx-auto mt-5 max-w-[16ch] font-display text-[2.25rem] font-semibold leading-[1.04] tracking-tight sm:text-5xl lg:mx-0 lg:mt-6 lg:max-w-[18ch] lg:text-[3.5rem]">
               Use <span className="text-gradient">IA</span> para fazer em minutos o que hoje leva horas.
             </h1>
 
-            <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+            <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-lg sm:text-lg lg:mx-0">
               Aprenda a usar IA em relatórios, propostas, atendimento e prospecção — mesmo começando do zero.
             </p>
 
-
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur lg:justify-start">
+            <div className="mx-auto mt-7 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur sm:mt-8 lg:mx-0 lg:max-w-lg">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
                 <BadgeCheck className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-foreground">Fernando Cabral</p>
-                <p className="text-xs text-muted-foreground">
+                <p className="truncate text-sm font-semibold text-foreground">Fernando Cabral</p>
+                <p className="text-xs leading-relaxed text-muted-foreground">
                   Especialista em IA aplicada a negócios · +15 anos formando profissionais no Brasil
                 </p>
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-              <PrimaryCTA to={primaryHref}>Conhecer a Masterclass</PrimaryCTA>
-              <SecondaryCTA href="#curso-destaque">Ver todos os cursos</SecondaryCTA>
+            <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+              <PrimaryCTA to={primaryHref} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
+              <SecondaryCTA href="#curso-destaque" className="w-full sm:w-auto">Ver todos os cursos</SecondaryCTA>
             </div>
-
           </div>
 
-          <div className="relative order-last lg:order-none">
+          <div className="relative order-first lg:order-none">
             <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-2xl" aria-hidden />
             <ImageWithFallback
               src={heroImage.url}
@@ -257,40 +255,40 @@ function Index() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative aspect-[4/3] w-full rounded-[1.5rem] border border-white/10 object-cover shadow-2xl lg:aspect-[5/4]"
+              className="relative aspect-[5/4] w-full rounded-[1.25rem] border border-white/10 object-cover shadow-2xl sm:aspect-[4/3] sm:rounded-[1.5rem] lg:aspect-[5/4]"
             />
           </div>
         </div>
       </section>
 
 
-      {/* ============ PARA QUEM É ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-20">
 
-        <div className="mx-auto max-w-6xl px-6">
+      {/* ============ PARA QUEM É ============ */}
+      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
               Para quem é
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
               IA para a <span className="text-gradient">vida real</span>.
             </h2>
           </div>
 
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-6">
             {audience.map((a) => {
               const Icon = a.icon;
               return (
                 <li
                   key={a.title}
-                  className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-colors hover:border-primary/30 hover:bg-white/[0.05]"
+                  className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:bg-white/[0.05] lg:flex-col lg:gap-4 lg:p-6"
                 >
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary">
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/25 bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
                     <Icon className="h-4 w-4" />
                   </span>
-                  <div>
-                    <div className="text-sm font-semibold text-foreground">{a.title}</div>
-                    <div className="mt-0.5 text-sm text-muted-foreground">{a.text}</div>
+                  <div className="min-w-0">
+                    <div className="text-sm font-semibold text-foreground lg:text-[15px]">{a.title}</div>
+                    <div className="mt-0.5 text-sm leading-relaxed text-muted-foreground">{a.text}</div>
                   </div>
                 </li>
               );
@@ -299,55 +297,79 @@ function Index() {
         </div>
       </section>
 
+
       {/* ============ CURSO EM DESTAQUE ============ */}
-      <section id="curso-destaque" className="border-t border-white/5 bg-surface/30 py-16 sm:py-20 lg:py-28">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
-              Comece por aqui
+      <section id="curso-destaque" className="relative border-t border-white/5 bg-surface/30 py-16 sm:py-24 lg:py-32">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
+          aria-hidden
+        />
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-primary sm:text-[11px]">
+                Comece por aqui
+              </div>
+              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
+                Seu primeiro passo em <span className="text-gradient">IA</span>.
+              </h2>
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-              Seu primeiro passo em <span className="text-gradient">IA</span>.
-            </h2>
+            <Link
+              to="/cursos"
+              className="hidden shrink-0 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex sm:items-center sm:gap-1.5"
+            >
+              Ver catálogo completo
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          <div className="mt-10">
+          <div className="mt-12 lg:mt-16">
             {featured.isLoading ? (
-              <div className="space-y-6 lg:space-y-8">
-                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03] lg:h-[440px]" />
+              <div className="space-y-6 lg:space-y-10">
+                <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03] lg:h-[460px]" />
                 <div className="grid gap-6 sm:grid-cols-2">
                   <div className="h-[380px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
                   <div className="h-[380px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
                 </div>
               </div>
-
             ) : courses.length > 0 ? (
               (() => {
                 const flagship = courses.find((c) => c.slug === MASTERCLASS_SLUG);
                 const supporting = courses.filter((c) => c.slug !== MASTERCLASS_SLUG);
                 return (
-                  <div className="space-y-6 lg:space-y-8">
+                  <div className="space-y-8 lg:space-y-12">
                     {flagship ? <FeaturedCourseCard course={flagship} variant="flagship" /> : null}
                     {supporting.length > 0 ? (
-                      <div
-                        className={cn(
-                          "grid gap-6",
-                          supporting.length === 1
-                            ? "sm:grid-cols-1 lg:mx-auto lg:max-w-xl"
-                            : supporting.length === 2
-                              ? "sm:grid-cols-2"
-                              : "sm:grid-cols-2 lg:grid-cols-3",
-                        )}
-                      >
-                        {supporting.map((c) => (
-                          <FeaturedCourseCard key={c.id} course={c} variant="supporting" />
-                        ))}
-                      </div>
+                      <>
+                        {flagship ? (
+                          <div className="flex items-center gap-4 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-[11px]">
+                            <span className="h-px flex-1 bg-white/10" aria-hidden />
+                            <span>Cursos complementares</span>
+                            <span className="h-px flex-1 bg-white/10" aria-hidden />
+                          </div>
+                        ) : null}
+                        <div
+                          className={cn(
+                            "grid gap-6 lg:gap-8",
+                            supporting.length === 1
+                              ? "sm:grid-cols-1 lg:mx-auto lg:max-w-xl"
+                              : supporting.length === 2
+                                ? "sm:grid-cols-2"
+                                : "sm:grid-cols-2 lg:grid-cols-3",
+                          )}
+                        >
+                          {supporting.map((c) => (
+                            <FeaturedCourseCard key={c.id} course={c} variant="supporting" />
+                          ))}
+                        </div>
+                      </>
                     ) : null}
+                    <div className="flex justify-center sm:hidden">
+                      <SecondaryCTA to="/cursos" className="w-full">Ver catálogo completo</SecondaryCTA>
+                    </div>
                   </div>
                 );
               })()
-
             ) : (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
                 <p className="text-sm text-muted-foreground">
@@ -362,46 +384,44 @@ function Index() {
         </div>
       </section>
 
+
       {/* ============ EBOOK — DESCOBERTA DISCRETA ============ */}
-      <section className="py-10 sm:py-12 lg:py-14">
-        <div className="mx-auto max-w-4xl px-6">
+      <section className="py-12 sm:py-14 lg:py-16">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <Link
             to="/ebook-ia-sem-complicacao"
-            className="group grid items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/30 hover:bg-white/[0.05] sm:grid-cols-[120px_1fr_auto] sm:gap-6 sm:p-5 lg:grid-cols-[128px_1fr_auto] lg:gap-8"
+            className="group grid items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-all hover:-translate-y-0.5 hover:border-amber-400/25 hover:bg-white/[0.04] sm:grid-cols-[104px_1fr_auto] sm:gap-6 sm:p-6 lg:grid-cols-[112px_1fr_auto] lg:gap-8"
           >
-            <div className="relative mx-auto w-full max-w-[128px] shrink-0 sm:mx-0">
-
-              <div className="pointer-events-none absolute -inset-2 rounded-xl bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-xl" aria-hidden />
+            <div className="relative mx-auto w-full max-w-[104px] shrink-0 sm:mx-0 lg:max-w-[112px]">
+              <div className="pointer-events-none absolute -inset-1.5 rounded-xl bg-gradient-to-br from-amber-400/15 via-transparent to-primary/15 blur-lg" aria-hidden />
               <img
                 src={ebookMockup.url}
                 alt="Ebook IA Sem Complicação"
                 loading="lazy"
                 width={320}
                 height={400}
-                className="relative aspect-[4/5] w-full rounded-xl border border-white/10 object-cover shadow-lg"
+                className="relative aspect-[4/5] w-full rounded-lg border border-white/10 object-cover shadow-md"
               />
             </div>
 
             <div className="min-w-0 text-center sm:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-amber-400">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/25 bg-amber-400/[0.08] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-amber-400">
                 <BookOpen className="h-3 w-3" />
-                Material oficial · Ebook
+                Ebook oficial
               </div>
-              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight sm:text-2xl">
+              <h3 className="mt-2 font-display text-lg font-semibold tracking-tight sm:text-xl lg:text-[1.375rem]">
                 IA Sem Complicação
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Guia prático para aplicar IA no dia a dia — com bônus de 50 tarefas prontas para vender usando IA.
+              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
+                Guia prático + bônus de 50 tarefas prontas para vender usando IA.
               </p>
             </div>
 
-            <div className="flex flex-col items-center gap-2 sm:items-end">
-              <span className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition group-hover:-translate-y-0.5">
-                Conhecer o ebook
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
-              <span className="text-[11px] uppercase tracking-widest text-muted-foreground">
-                R$ 37,90 · acesso imediato
+            <div className="flex flex-col items-center gap-1.5 sm:items-end">
+              <span className="font-display text-lg font-semibold text-amber-400 sm:text-xl">R$ 37,90</span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground">
+                Conhecer
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </div>
           </Link>
@@ -409,43 +429,49 @@ function Index() {
       </section>
 
       {/* ============ COMO FUNCIONA ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-24">
-
-        <div className="mx-auto max-w-5xl px-6">
+      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-28">
+        <div className="mx-auto max-w-5xl px-6 lg:px-8">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
               Como funciona
             </div>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
               Aprenda no <span className="text-gradient">seu ritmo</span>.
             </h2>
           </div>
 
-          <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s) => (
+          <ol className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-6">
+            <div
+              className="pointer-events-none absolute inset-x-6 top-[38px] hidden h-px bg-gradient-to-r from-transparent via-white/15 to-transparent lg:block"
+              aria-hidden
+            />
+            {steps.map((s, i) => (
               <li
                 key={s.n}
-                className="rounded-xl border border-white/10 bg-white/[0.03] p-5"
+                className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/30 lg:p-6"
               >
-                <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent font-mono text-sm font-bold text-primary-foreground">
+                <div className="relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent font-mono text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20">
                   {s.n}
                 </div>
-                <div className="mt-4 text-sm font-semibold text-foreground">{s.title}</div>
+                <div className="mt-4 text-sm font-semibold text-foreground lg:text-[15px]">{s.title}</div>
+                {i === steps.length - 1 ? (
+                  <div className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-accent">
+                    <Award className="h-3 w-3" />
+                    70% aprovação
+                  </div>
+                ) : null}
               </li>
             ))}
           </ol>
-
-          <p className="mt-8 max-w-2xl text-sm text-muted-foreground">
-            Você avança no seu tempo e recebe certificado ao alcançar 70% de aproveitamento.
-          </p>
         </div>
       </section>
 
+
       {/* ============ SOBRE O PROFESSOR ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-20">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="grid gap-8 sm:gap-10 lg:grid-cols-[minmax(220px,300px)_1fr] lg:items-center lg:gap-14">
-            <div className="relative mx-auto w-full max-w-[280px] lg:mx-0">
+      <section className="border-t border-white/5 py-16 sm:py-20 lg:py-28">
+        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+          <div className="grid gap-10 sm:gap-12 lg:grid-cols-[minmax(240px,320px)_1fr] lg:items-center lg:gap-16">
+            <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px] lg:mx-0 lg:max-w-none">
               <div className="pointer-events-none absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/30 via-transparent to-accent/30 blur-2xl" aria-hidden />
               <ImageWithFallback
                 src={professorImage.url}
@@ -458,15 +484,22 @@ function Index() {
               />
             </div>
 
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
                 Sobre o Professor
               </div>
-              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+              <blockquote className="mt-5 font-display text-2xl font-semibold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.25rem]">
+                <span className="text-muted-foreground/60">“</span>
                 Tecnologia só faz sentido quando <span className="text-gradient">melhora a vida real</span>.
-              </h2>
-              <p className="mt-4 text-base font-semibold text-foreground">Prof. Fernando Cabral</p>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                <span className="text-muted-foreground/60">”</span>
+              </blockquote>
+              <div className="mt-6 flex flex-col items-center gap-1 lg:items-start">
+                <p className="text-base font-semibold text-foreground">Prof. Fernando Cabral</p>
+                <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                  Fundador · FCIA Academy
+                </p>
+              </div>
+              <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:mx-0">
                 Professor, estrategista e fundador da FCIA. Fernando Cabral une inteligência artificial,
                 criatividade e estratégia para ajudar pessoas e pequenos negócios a entenderem a tecnologia
                 e aplicarem ferramentas atuais com clareza.
@@ -475,6 +508,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 
 
       {/* ============ FAQ ============ */}
@@ -503,12 +537,12 @@ function FeaturedCourseCard({
   return (
     <article
       className={cn(
-        "group relative overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-xl transition-all hover:-translate-y-0.5",
+        "group relative overflow-hidden rounded-2xl border bg-card/70 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5",
         isFlagship
-          ? "flex flex-col lg:grid lg:grid-cols-[1.15fr_1fr] lg:items-stretch"
+          ? "flex flex-col lg:grid lg:grid-cols-[1.1fr_1fr] lg:items-stretch"
           : "flex h-full flex-col",
         isMasterclass
-          ? "border-primary/50 shadow-[0_0_60px_-15px_hsl(var(--primary)/0.45)] hover:border-primary/70"
+          ? "border-primary/50 shadow-[0_0_60px_-15px_hsl(var(--primary)/0.45)] hover:border-primary/70 hover:shadow-[0_0_80px_-15px_hsl(var(--primary)/0.6)]"
           : "border-white/10 hover:border-primary/40",
       )}
     >
@@ -521,7 +555,9 @@ function FeaturedCourseCard({
       <div
         className={cn(
           "relative w-full overflow-hidden",
-          isFlagship ? "aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[380px]" : "aspect-[16/10]",
+          isFlagship
+            ? "aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[420px]"
+            : "aspect-[16/10]",
         )}
       >
         <ImageWithFallback
@@ -531,12 +567,20 @@ function FeaturedCourseCard({
           height={750}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" aria-hidden />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-0",
+            isFlagship
+              ? "bg-gradient-to-t from-background/80 via-background/10 to-transparent lg:bg-gradient-to-r lg:from-background/60 lg:via-transparent lg:to-transparent"
+              : "bg-gradient-to-t from-background/70 via-transparent to-transparent",
+          )}
+          aria-hidden
+        />
         <span
           className={cn(
-            "absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] backdrop-blur",
+            "absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.22em] backdrop-blur",
             isMasterclass
               ? "border-primary/50 bg-primary/20 text-primary-foreground"
               : "border-white/20 bg-background/60 text-foreground",
@@ -550,13 +594,20 @@ function FeaturedCourseCard({
       <div
         className={cn(
           "flex flex-1 flex-col",
-          isFlagship ? "p-6 sm:p-8 lg:p-10" : "p-6",
+          isFlagship ? "p-6 sm:p-8 lg:p-12" : "p-6",
         )}
       >
+        {isFlagship ? (
+          <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground lg:text-[11px]">
+            Curso principal · 10 aulas
+          </div>
+        ) : null}
         <h3
           className={cn(
             "font-display font-semibold tracking-tight",
-            isFlagship ? "text-2xl sm:text-3xl lg:text-[2rem] lg:leading-tight" : "text-xl sm:text-2xl",
+            isFlagship
+              ? "text-[1.625rem] leading-[1.1] sm:text-3xl lg:text-[2.25rem]"
+              : "text-xl sm:text-2xl",
           )}
         >
           {course.title}
@@ -565,15 +616,15 @@ function FeaturedCourseCard({
         {course.description ? (
           <p
             className={cn(
-              "mt-2 text-sm leading-relaxed text-muted-foreground",
-              isFlagship ? "lg:mt-3 lg:text-base line-clamp-3" : "line-clamp-2",
+              "mt-3 text-sm leading-relaxed text-muted-foreground",
+              isFlagship ? "lg:text-[15px] lg:leading-relaxed line-clamp-3" : "line-clamp-2",
             )}
           >
             {course.description}
           </p>
         ) : null}
 
-        <ul className={cn("flex flex-wrap gap-2 text-xs", isFlagship ? "mt-6" : "mt-5")}>
+        <ul className={cn("flex flex-wrap gap-2 text-xs", isFlagship ? "mt-6 lg:mt-7" : "mt-5")}>
           <Chip>{formatWorkload(course)}</Chip>
           {modulesLabel ? <Chip>{modulesLabel}</Chip> : null}
           {course.certificate_enabled ? (
@@ -585,25 +636,41 @@ function FeaturedCourseCard({
 
         <div
           className={cn(
-            "mt-auto flex items-center justify-between gap-3",
-            isFlagship ? "pt-8" : "pt-6",
+            "mt-auto",
+            isFlagship
+              ? "flex flex-col gap-4 pt-8 sm:flex-row sm:items-center sm:justify-between lg:pt-10"
+              : "flex items-center justify-between gap-3 pt-6",
           )}
         >
-          <span
+          <div className="flex flex-col">
+            {isFlagship ? (
+              <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+                Acesso vitalício
+              </span>
+            ) : null}
+            <span
+              className={cn(
+                "font-display font-semibold text-accent",
+                isFlagship ? "text-2xl lg:text-[1.75rem]" : "text-lg",
+              )}
+            >
+              {priceLabel(course.price)}
+            </span>
+          </div>
+          <PrimaryCTA
+            to={`/curso/${course.slug}/oferta`}
             className={cn(
-              "font-display font-semibold text-accent",
-              isFlagship ? "text-xl lg:text-2xl" : "text-lg",
+              "h-11 px-6 text-sm",
+              isFlagship ? "w-full sm:w-auto lg:h-12 lg:px-7" : "",
             )}
           >
-            {priceLabel(course.price)}
-          </span>
-          <PrimaryCTA to={`/curso/${course.slug}/oferta`} className="h-11 px-6 text-sm">
             {isMasterclass ? "Ver Masterclass" : "Ver detalhes"}
           </PrimaryCTA>
         </div>
       </div>
     </article>
   );
+
 }
 
 
