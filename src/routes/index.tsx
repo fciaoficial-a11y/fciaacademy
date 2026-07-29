@@ -212,20 +212,21 @@ function Index() {
           className="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/25 blur-[160px] animate-pulse-glow"
           aria-hidden
         />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:pb-24 lg:pt-28">
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 sm:pb-20 sm:pt-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:pb-20 lg:pt-24">
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
               <Sparkles className="h-3 w-3" />
               Nova Masterclass · Método IA Criativa
             </div>
 
-            <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 max-w-[18ch] font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.5rem] lg:mx-0 mx-auto">
               Use <span className="text-gradient">IA</span> para fazer em minutos o que hoje leva horas.
             </h1>
 
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+            <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
               Aprenda a usar IA em relatórios, propostas, atendimento e prospecção — mesmo começando do zero.
             </p>
+
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left backdrop-blur lg:justify-start">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
@@ -256,7 +257,7 @@ function Index() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="relative aspect-[4/3] w-full rounded-[1.5rem] border border-white/10 object-cover shadow-2xl"
+              className="relative aspect-[4/3] w-full rounded-[1.5rem] border border-white/10 object-cover shadow-2xl lg:aspect-[5/4]"
             />
           </div>
         </div>
@@ -264,7 +265,8 @@ function Index() {
 
 
       {/* ============ PARA QUEM É ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-20">
+      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-20">
+
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
@@ -298,7 +300,7 @@ function Index() {
       </section>
 
       {/* ============ CURSO EM DESTAQUE ============ */}
-      <section id="curso-destaque" className="border-t border-white/5 bg-surface/30 py-14 sm:py-20">
+      <section id="curso-destaque" className="border-t border-white/5 bg-surface/30 py-16 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-6xl px-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
@@ -316,11 +318,32 @@ function Index() {
                 <div className="h-[420px] animate-pulse rounded-2xl border border-white/10 bg-white/[0.03]" />
               </div>
             ) : courses.length > 0 ? (
-              <div className="grid gap-6 sm:grid-cols-2">
-                {courses.map((c) => (
-                  <FeaturedCourseCard key={c.id} course={c} />
-                ))}
-              </div>
+              (() => {
+                const flagship = courses.find((c) => c.slug === MASTERCLASS_SLUG);
+                const supporting = courses.filter((c) => c.slug !== MASTERCLASS_SLUG);
+                return (
+                  <div className="space-y-6 lg:space-y-8">
+                    {flagship ? <FeaturedCourseCard course={flagship} variant="flagship" /> : null}
+                    {supporting.length > 0 ? (
+                      <div
+                        className={cn(
+                          "grid gap-6",
+                          supporting.length === 1
+                            ? "sm:grid-cols-1 lg:mx-auto lg:max-w-xl"
+                            : supporting.length === 2
+                              ? "sm:grid-cols-2"
+                              : "sm:grid-cols-2 lg:grid-cols-3",
+                        )}
+                      >
+                        {supporting.map((c) => (
+                          <FeaturedCourseCard key={c.id} course={c} variant="supporting" />
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })()
+
             ) : (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
                 <p className="text-sm text-muted-foreground">
@@ -336,13 +359,14 @@ function Index() {
       </section>
 
       {/* ============ EBOOK — DESCOBERTA DISCRETA ============ */}
-      <section className="border-t border-white/5 py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl px-6">
+      <section className="py-10 sm:py-12 lg:py-14">
+        <div className="mx-auto max-w-4xl px-6">
           <Link
             to="/ebook-ia-sem-complicacao"
-            className="group grid items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/30 hover:bg-white/[0.05] sm:grid-cols-[160px_1fr_auto] sm:gap-8 sm:p-6"
+            className="group grid items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-primary/30 hover:bg-white/[0.05] sm:grid-cols-[120px_1fr_auto] sm:gap-6 sm:p-5 lg:grid-cols-[128px_1fr_auto] lg:gap-8"
           >
-            <div className="relative mx-auto w-full max-w-[160px] shrink-0 sm:mx-0">
+            <div className="relative mx-auto w-full max-w-[128px] shrink-0 sm:mx-0">
+
               <div className="pointer-events-none absolute -inset-2 rounded-xl bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-xl" aria-hidden />
               <img
                 src={ebookMockup.url}
@@ -381,7 +405,8 @@ function Index() {
       </section>
 
       {/* ============ COMO FUNCIONA ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-20">
+      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-24">
+
         <div className="mx-auto max-w-5xl px-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
@@ -413,7 +438,7 @@ function Index() {
       </section>
 
       {/* ============ SOBRE O PROFESSOR ============ */}
-      <section className="border-t border-white/5 py-14 sm:py-20">
+      <section className="border-t border-white/5 py-14 sm:py-16 lg:py-20">
         <div className="mx-auto max-w-5xl px-6">
           <div className="grid gap-8 sm:gap-10 lg:grid-cols-[minmax(220px,300px)_1fr] lg:items-center lg:gap-14">
             <div className="relative mx-auto w-full max-w-[280px] lg:mx-0">
