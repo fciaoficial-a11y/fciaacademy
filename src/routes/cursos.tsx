@@ -342,7 +342,6 @@ function CursosPage() {
 
                 {(rest.length > 0 || !hero) && (
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    <EbookProductCard />
                     {rest.map(({ c }) => (
                       <ProductCourseCard
                         key={c.id}
@@ -357,6 +356,25 @@ function CursosPage() {
           })()
         )}
       </Section>
+
+      {/* Bloco secundário — material oficial (ebook), separado da vitrine de cursos */}
+      {!loading && !hasActive && (
+        <Section className="border-t border-border">
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                Material oficial
+              </p>
+              <h2 className="mt-1 font-display text-xl font-semibold tracking-tight sm:text-2xl">
+                Ebook complementar da FCIA
+              </h2>
+            </div>
+          </div>
+          <div className="max-w-md">
+            <EbookProductCard />
+          </div>
+        </Section>
+      )}
     </>
   );
 }
