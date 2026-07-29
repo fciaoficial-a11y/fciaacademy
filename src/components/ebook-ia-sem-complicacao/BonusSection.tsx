@@ -1,5 +1,5 @@
 import { Gift, Sparkles } from "lucide-react";
-import bonusImage from "@/assets/ebook-ia-sem-complicacao/bonus-50-tarefas.png.asset.json";
+import bonusImage from "@/assets/ebook-ia-sem-complicacao/bonus-cover-official.png.asset.json";
 
 export function BonusSection() {
   return (
