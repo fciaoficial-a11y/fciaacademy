@@ -60,7 +60,9 @@ export const Route = createFileRoute("/cursos")({
       { property: "og:description", content: "Explore o catálogo da FCIA Academy." },
     ],
   }),
-  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
+  // Partial: todos os filtros são opcionais na URL, então links internos para
+  // /cursos não precisam informar `search`. O componente aplica os defaults.
+  validateSearch: (search: Record<string, unknown>): Partial<CatalogSearch> => ({
     q: asString(search.q, DEFAULTS.q),
     track: asString(search.track, DEFAULTS.track),
     level: asString(search.level, DEFAULTS.level),
