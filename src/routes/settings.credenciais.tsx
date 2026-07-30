@@ -27,7 +27,7 @@ export const Route = createFileRoute("/settings/credenciais")({
       { name: "description", content: "Área interna de configuração." },
     ],
   }),
-  component: CredentialsPlaceholder;
+  component: CredentialsPlaceholder,
 });
 
 function readConfigured(): ConfigState {
