@@ -307,17 +307,17 @@ Todos os itens abaixo são **[RECOMENDAÇÃO]**.
 
 | Dimensão | Situação | Classificação |
 | --- | --- | --- |
-| Produto comercializável | Catálogo com 4 produtos publicados e preços definidos | ✅ Operacional |
-| Funil de venda | Home → catálogo → oferta → PIX → acesso, funcionando ponta a ponta | ✅ Operacional |
-| Pagamento | PIX Asaas com webhook idempotente; pagamentos de teste validados | ✅ Operacional |
-| Controle de acesso | RLS em todas as tabelas, gate por matrícula, papéis segregados | ✅ Operacional |
-| Experiência de aprendizado | Vídeo, PDF seguro, quiz 70%, progresso, XP e conquistas | ✅ Operacional |
-| Certificação | Emissão automática, PDF, QR e validação pública | ✅ Operacional |
-| Entrega pós-compra por e-mail | Não implementada | ⚠️ Pendente |
-| Versionamento externo (GitHub) | Não conectado | ⚠️ Pendente |
-| Testes automatizados | Inexistentes | ⛔ Crítico |
-| Independência de infraestrutura | Planejada, não executada | ⚠️ Pendente |
-| **Situação global** | **Plataforma apta a vender e entregar; pendências concentradas em governança técnica (versionamento, testes) e comunicação pós-compra.** | ✅ com ressalvas |
+| Produto comercializável | Catálogo com 4 produtos publicados e preços definidos | OPERACIONAL |
+| Funil de venda | Home → catálogo → oferta → PIX → acesso, funcionando ponta a ponta | OPERACIONAL |
+| Pagamento | PIX Asaas com webhook idempotente; pagamentos de teste validados | OPERACIONAL |
+| Controle de acesso | RLS em todas as tabelas, gate por matrícula, papéis segregados | OPERACIONAL |
+| Experiência de aprendizado | Vídeo, PDF seguro, quiz 70%, progresso, XP e conquistas | OPERACIONAL |
+| Certificação | Emissão automática, PDF, QR e validação pública | OPERACIONAL |
+| Entrega pós-compra por e-mail | Não implementada | PENDENTE |
+| Versionamento externo (GitHub) | Não conectado | PENDENTE |
+| Testes automatizados | Inexistentes | CRÍTICO |
+| Independência de infraestrutura | Planejada, não executada | PENDENTE |
+| **Situação global** | **Plataforma apta a vender e entregar; pendências concentradas em governança técnica (versionamento, testes) e comunicação pós-compra.** | OPERACIONAL COM RESSALVAS |
 
 ---
 
