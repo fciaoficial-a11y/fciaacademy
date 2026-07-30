@@ -85,7 +85,8 @@ export const Route = createFileRoute("/cursos")({
 function CursosPage() {
   const tracksQ = useQuery(tracksQuery);
   const coursesQ = useQuery(coursesQuery);
-  const search = Route.useSearch();
+  const rawSearch = Route.useSearch();
+  const search: CatalogSearch = { ...DEFAULTS, ...rawSearch };
   const navigate = useNavigate({ from: "/cursos" });
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -94,14 +95,15 @@ function CursosPage() {
 
   const update = (patch: Partial<CatalogSearch>) => {
     navigate({
-      search: (prev: CatalogSearch) => ({ ...prev, ...patch }),
+      to: ".",
+      search: (prev) => ({ ...DEFAULTS, ...prev, ...patch }),
       replace: true,
       resetScroll: false,
     });
   };
 
   const clearAll = () => {
-    navigate({ search: DEFAULTS, replace: true, resetScroll: false });
+    navigate({ to: ".", search: DEFAULTS, replace: true, resetScroll: false });
   };
 
   const levels = useMemo(
