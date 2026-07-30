@@ -25,6 +25,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ValidarCertificadoCodigoRouteImport } from './routes/validar-certificado.$codigo'
 import { Route as TrilhasSlugRouteImport } from './routes/trilhas.$slug'
+import { Route as SettingsCredenciaisRouteImport } from './routes/settings.credenciais'
 import { Route as EbookIaSemComplicacaoEntregaRouteImport } from './routes/ebook-ia-sem-complicacao.entrega'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedEvolucaoRouteImport } from './routes/_authenticated/evolucao'
@@ -129,6 +130,11 @@ const TrilhasSlugRoute = TrilhasSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => TrilhasRoute,
+} as any)
+const SettingsCredenciaisRoute = SettingsCredenciaisRouteImport.update({
+  id: '/credenciais',
+  path: '/credenciais',
+  getParentRoute: () => SettingsRoute,
 } as any)
 const EbookIaSemComplicacaoEntregaRoute =
   EbookIaSemComplicacaoEntregaRouteImport.update({
@@ -276,7 +282,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/settings': typeof SettingsRoute
+  '/settings': typeof SettingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trilhas': typeof TrilhasRouteWithChildren
   '/turmas': typeof TurmasRoute
@@ -286,6 +292,7 @@ export interface FileRoutesByFullPath {
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
+  '/settings/credenciais': typeof SettingsCredenciaisRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
@@ -317,7 +324,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/settings': typeof SettingsRoute
+  '/settings': typeof SettingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trilhas': typeof TrilhasRouteWithChildren
   '/turmas': typeof TurmasRoute
@@ -325,6 +332,7 @@ export interface FileRoutesByTo {
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
+  '/settings/credenciais': typeof SettingsCredenciaisRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
@@ -358,7 +366,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/settings': typeof SettingsRoute
+  '/settings': typeof SettingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trilhas': typeof TrilhasRouteWithChildren
   '/turmas': typeof TurmasRoute
@@ -368,6 +376,7 @@ export interface FileRoutesById {
   '/_authenticated/evolucao': typeof AuthenticatedEvolucaoRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
+  '/settings/credenciais': typeof SettingsCredenciaisRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
   '/_authenticated/admin/ai-studio': typeof AuthenticatedAdminAiStudioRoute
@@ -411,6 +420,7 @@ export interface FileRouteTypes {
     | '/evolucao'
     | '/profile'
     | '/ebook-ia-sem-complicacao/entrega'
+    | '/settings/credenciais'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/admin/ai-studio'
@@ -450,6 +460,7 @@ export interface FileRouteTypes {
     | '/evolucao'
     | '/profile'
     | '/ebook-ia-sem-complicacao/entrega'
+    | '/settings/credenciais'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/admin/ai-studio'
@@ -492,6 +503,7 @@ export interface FileRouteTypes {
     | '/_authenticated/evolucao'
     | '/_authenticated/profile'
     | '/ebook-ia-sem-complicacao/entrega'
+    | '/settings/credenciais'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
     | '/_authenticated/admin/ai-studio'
@@ -525,7 +537,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
-  SettingsRoute: typeof SettingsRoute
+  SettingsRoute: typeof SettingsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TrilhasRoute: typeof TrilhasRouteWithChildren
   TurmasRoute: typeof TurmasRoute
@@ -647,6 +659,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/trilhas/$slug'
       preLoaderRoute: typeof TrilhasSlugRouteImport
       parentRoute: typeof TrilhasRoute
+    }
+    '/settings/credenciais': {
+      id: '/settings/credenciais'
+      path: '/credenciais'
+      fullPath: '/settings/credenciais'
+      preLoaderRoute: typeof SettingsCredenciaisRouteImport
+      parentRoute: typeof SettingsRoute
     }
     '/ebook-ia-sem-complicacao/entrega': {
       id: '/ebook-ia-sem-complicacao/entrega'
@@ -907,6 +926,18 @@ const EbookIaSemComplicacaoRouteWithChildren =
     EbookIaSemComplicacaoRouteChildren,
   )
 
+interface SettingsRouteChildren {
+  SettingsCredenciaisRoute: typeof SettingsCredenciaisRoute
+}
+
+const SettingsRouteChildren: SettingsRouteChildren = {
+  SettingsCredenciaisRoute: SettingsCredenciaisRoute,
+}
+
+const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
+  SettingsRouteChildren,
+)
+
 interface TrilhasRouteChildren {
   TrilhasSlugRoute: typeof TrilhasSlugRoute
 }
@@ -929,7 +960,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
-  SettingsRoute: SettingsRoute,
+  SettingsRoute: SettingsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TrilhasRoute: TrilhasRouteWithChildren,
   TurmasRoute: TurmasRoute,
