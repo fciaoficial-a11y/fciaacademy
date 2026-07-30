@@ -8,12 +8,6 @@
 
 \set ON_ERROR_STOP on
 
-DO $$
-DECLARE
-  v_mode text := current_setting('fcia.mode', true);
-BEGIN
-  NULL; -- placeholder: o modo real vem via :mode abaixo
-END $$;
 
 -- Tabelas cujos triggers geram XP, certificados ou profiles.
 ALTER TABLE public.module_progress :mode TRIGGER ALL;
