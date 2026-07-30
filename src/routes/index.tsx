@@ -677,7 +677,8 @@ function FeaturedCourseCard({
             </span>
           </div>
           <PrimaryCTA
-            to={`/curso/${course.slug}/oferta`}
+            to="/curso/$slug/oferta"
+            params={{ slug: course.slug }}
             className={cn(
               "h-11 px-6 text-sm",
               isFlagship ? "w-full sm:w-auto lg:h-12 lg:px-7" : "",
