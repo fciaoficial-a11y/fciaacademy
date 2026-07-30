@@ -60,7 +60,9 @@ export const Route = createFileRoute("/cursos")({
       { property: "og:description", content: "Explore o catálogo da FCIA Academy." },
     ],
   }),
-  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
+  // Partial: todos os filtros são opcionais na URL, então links internos para
+  // /cursos não precisam informar `search`. O componente aplica os defaults.
+  validateSearch: (search: Record<string, unknown>): Partial<CatalogSearch> => ({
     q: asString(search.q, DEFAULTS.q),
     track: asString(search.track, DEFAULTS.track),
     level: asString(search.level, DEFAULTS.level),
@@ -83,7 +85,8 @@ export const Route = createFileRoute("/cursos")({
 function CursosPage() {
   const tracksQ = useQuery(tracksQuery);
   const coursesQ = useQuery(coursesQuery);
-  const search = Route.useSearch();
+  const rawSearch = Route.useSearch();
+  const search: CatalogSearch = { ...DEFAULTS, ...rawSearch };
   const navigate = useNavigate({ from: "/cursos" });
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -92,14 +95,15 @@ function CursosPage() {
 
   const update = (patch: Partial<CatalogSearch>) => {
     navigate({
-      search: (prev: CatalogSearch) => ({ ...prev, ...patch }),
+      to: ".",
+      search: (prev: Partial<CatalogSearch>) => ({ ...DEFAULTS, ...prev, ...patch }),
       replace: true,
       resetScroll: false,
     });
   };
 
   const clearAll = () => {
-    navigate({ search: DEFAULTS, replace: true, resetScroll: false });
+    navigate({ to: ".", search: DEFAULTS, replace: true, resetScroll: false });
   };
 
   const levels = useMemo(

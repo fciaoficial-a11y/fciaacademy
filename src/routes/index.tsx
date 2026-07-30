@@ -107,17 +107,13 @@ const ctaBase =
   "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
 
 function PrimaryCTA({
-  to,
   children,
   className,
-}: {
-  to: LinkProps["to"];
-  children: ReactNode;
-  className?: string;
-}) {
+  ...link
+}: LinkProps & { children: ReactNode; className?: string }) {
   return (
     <Link
-      to={to}
+      {...link}
       className={cn(
         ctaBase,
         "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
@@ -209,11 +205,12 @@ function Index() {
   const courses = featured.data ?? [];
   const MASTERCLASS_SLUG = "metodo-ia-criativa";
   const hasMasterclass = courses.some((c) => c.slug === MASTERCLASS_SLUG);
-  const primaryHref = hasMasterclass
-    ? `/curso/${MASTERCLASS_SLUG}/oferta`
-    : courses[0]
-      ? `/curso/${courses[0].slug}/oferta`
-      : "/cursos";
+  const primarySlug = hasMasterclass
+    ? MASTERCLASS_SLUG
+    : (courses[0]?.slug ?? null);
+  const primaryLink = primarySlug
+    ? ({ to: "/curso/$slug/oferta", params: { slug: primarySlug } } as const)
+    : ({ to: "/cursos" } as const);
 
   return (
     <>
@@ -252,7 +249,7 @@ function Index() {
             </div>
 
             <div className="mt-5 flex flex-col items-stretch gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 lg:justify-start">
-              <PrimaryCTA to={primaryHref} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
+              <PrimaryCTA {...primaryLink} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
               <SecondaryCTA href="#curso-destaque" className="w-full sm:w-auto">Ver todos os cursos</SecondaryCTA>
             </div>
           </div>
@@ -680,7 +677,8 @@ function FeaturedCourseCard({
             </span>
           </div>
           <PrimaryCTA
-            to={`/curso/${course.slug}/oferta`}
+            to="/curso/$slug/oferta"
+            params={{ slug: course.slug }}
             className={cn(
               "h-11 px-6 text-sm",
               isFlagship ? "w-full sm:w-auto lg:h-12 lg:px-7" : "",
