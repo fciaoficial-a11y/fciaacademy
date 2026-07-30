@@ -107,17 +107,13 @@ const ctaBase =
   "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
 
 function PrimaryCTA({
-  to,
   children,
   className,
-}: {
-  to: LinkProps["to"];
-  children: ReactNode;
-  className?: string;
-}) {
+  ...link
+}: LinkProps & { children: ReactNode; className?: string }) {
   return (
     <Link
-      to={to}
+      {...link}
       className={cn(
         ctaBase,
         "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
