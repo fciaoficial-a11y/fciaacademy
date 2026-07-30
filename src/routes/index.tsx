@@ -249,7 +249,7 @@ function Index() {
             </div>
 
             <div className="mt-5 flex flex-col items-stretch gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 lg:justify-start">
-              <PrimaryCTA to={primaryHref} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
+              <PrimaryCTA {...primaryLink} className="w-full sm:w-auto">Conhecer a Masterclass</PrimaryCTA>
               <SecondaryCTA href="#curso-destaque" className="w-full sm:w-auto">Ver todos os cursos</SecondaryCTA>
             </div>
           </div>
