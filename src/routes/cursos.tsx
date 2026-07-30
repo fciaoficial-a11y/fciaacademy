@@ -96,7 +96,7 @@ function CursosPage() {
   const update = (patch: Partial<CatalogSearch>) => {
     navigate({
       to: ".",
-      search: (prev) => ({ ...DEFAULTS, ...prev, ...patch }),
+      search: (prev: Partial<CatalogSearch>) => ({ ...DEFAULTS, ...prev, ...patch }),
       replace: true,
       resetScroll: false,
     });
