@@ -240,13 +240,16 @@ GROUP BY 1,2
 ORDER BY 1,2;
 
 -- 7.2 CREATE TYPE pronto para o destino
-SELECT format('CREATE TYPE %I.%I AS ENUM (%s);', n.nspname, t.typname,
-              string_agg(quote_literal(e.enumlabel), ', ' ORDER BY e.enumsortorder)) AS ddl
-FROM pg_type t
-JOIN pg_enum e ON e.enumtypid = t.oid
-JOIN pg_namespace n ON n.oid = t.typnamespace
-WHERE n.nspname = 'public'
-GROUP BY 1,2;
+SELECT format('CREATE TYPE %I.%I AS ENUM (%s);', schema_name, enum_name, vals) AS ddl
+FROM (
+  SELECT n.nspname AS schema_name, t.typname AS enum_name,
+         string_agg(quote_literal(e.enumlabel), ', ' ORDER BY e.enumsortorder) AS vals
+  FROM pg_type t
+  JOIN pg_enum e ON e.enumtypid = t.oid
+  JOIN pg_namespace n ON n.oid = t.typnamespace
+  WHERE n.nspname = 'public'
+  GROUP BY 1, 2
+) s;
 
 -- 7.3 domains e composite types (se houver)
 SELECT n.nspname, t.typname, t.typtype
