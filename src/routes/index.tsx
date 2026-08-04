@@ -1,4 +1,40 @@
-import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router"; // ETAPA 1 — PEDIR O INVENTÁRIO COMPLETO: Pedir para o Lovable listar tudo que existe no projeto atual: schemas; tabelas; colunas; row counts; chaves primárias e estrangeiras; enums; funções e triggers; policies RLS; grants; buckets de storage; callbacks e redirects; tabelas legadas, órfãs ou de auditoria. ETAPA 2 — PEDIR O MAPEAMENTO DO BANCO: Depois pedir os SQLs e a documentação estrutural para reconstrução no Supabase novo. ETAPA 3 — PEDIR O PLANO DE MIGRAÇÃO: Depois pedir a ordem correta de: criação do schema; exportação/importação de dados; auth; storage; validação final. ETAPA 4 — PEDIR O MARKDOWN CONSOLIDADO: No fim, pedir para ele gerar um único documento Markdown com: inventário; dependências; ordem de execução; riscos; checklist de validação; critérios para cortar o ambiente antigo.
+/**
+ * ETAPA 1 — PEDIR O INVENTÁRIO COMPLETO
+ * Pedir para o Lovable listar tudo que existe no projeto atual:
+ * - schemas;
+ * - tabelas;
+ * - colunas;
+ * - row counts;
+ * - chaves primárias e estrangeiras;
+ * - enums;
+ * - funções e triggers;
+ * - policies RLS;
+ * - grants;
+ * - buckets de storage;
+ * - callbacks e redirects;
+ * - tabelas legadas, órfãs ou de auditoria.
+ *
+ * ETAPA 2 — PEDIR O MAPEAMENTO DO BANCO
+ * Depois pedir os SQLs e a documentação estrutural para reconstrução no Supabase novo.
+ *
+ * ETAPA 3 — PEDIR O PLANO DE MIGRAÇÃO
+ * Depois pedir a ordem correta de:
+ * - criação do schema;
+ * - exportação/importação de dados;
+ * - auth;
+ * - storage;
+ * - validação final.
+ *
+ * ETAPA 4 — PEDIR O MARKDOWN CONSOLIDADO
+ * No fim, pedir para ele gerar um único documento Markdown com:
+ * - inventário;
+ * - dependências;
+ * - ordem de execução;
+ * - riscos;
+ * - checklist de validação;
+ * - critérios para cortar o ambiente antigo.
+ */
+import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { queryOptions } from "@tanstack/react-query";
 import {
