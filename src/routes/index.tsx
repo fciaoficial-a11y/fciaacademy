@@ -1,4 +1,4 @@
-import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
+import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router"; // "como transferir o projeto para outro workspace sem perder estrutura e banco"
 import { useQuery } from "@tanstack/react-query";
 import { queryOptions } from "@tanstack/react-query";
 import {
