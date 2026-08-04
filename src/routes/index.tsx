@@ -1,3 +1,4 @@
+// otimize o site
 /**
  * ETAPA 1 — PEDIR O INVENTÁRIO COMPLETO
  * Pedir para o Lovable listar tudo que existe no projeto atual:
