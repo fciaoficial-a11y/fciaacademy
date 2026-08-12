@@ -214,3 +214,6 @@ reescrever no banco.
 5. `gateway_events` UNIQUE — idempotência do webhook Asaas.
 6. Paths de storage nas 5 colunas listadas.
 7. Triggers de `auth.users` — sem eles, novo cadastro não gera `profiles`/role.
+---
+## Atualização de Auditoria (Wed Aug 12 02:49:37 UTC 2026)
+Auditoria estrutural completa executada e salva em docs/MIGRACAO_ESTADO_ATUAL.sql
