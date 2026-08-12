@@ -35,6 +35,7 @@ import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedCertificadosIndexRouteImport } from './routes/_authenticated/certificados.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as CursoSlugOfertaRouteImport } from './routes/curso.$slug.oferta'
+import { Route as ApiPublicDownloadMigrationReportRouteImport } from './routes/api/public/download-migration-report'
 import { Route as AuthenticatedQuizModuleIdRouteImport } from './routes/_authenticated/quiz.$moduleId'
 import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authenticated/curso.$slug'
 import { Route as AuthenticatedCertificadosIdRouteImport } from './routes/_authenticated/certificados.$id'
@@ -184,6 +185,12 @@ const CursoSlugOfertaRoute = CursoSlugOfertaRouteImport.update({
   path: '/curso/$slug/oferta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicDownloadMigrationReportRoute =
+  ApiPublicDownloadMigrationReportRouteImport.update({
+    id: '/api/public/download-migration-report',
+    path: '/api/public/download-migration-report',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedQuizModuleIdRoute =
   AuthenticatedQuizModuleIdRouteImport.update({
     id: '/quiz/$moduleId',
@@ -309,6 +316,7 @@ export interface FileRoutesByFullPath {
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
+  '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/certificados/': typeof AuthenticatedCertificadosIndexRoute
@@ -349,6 +357,7 @@ export interface FileRoutesByTo {
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
+  '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/certificados': typeof AuthenticatedCertificadosIndexRoute
@@ -393,6 +402,7 @@ export interface FileRoutesById {
   '/_authenticated/certificados/$id': typeof AuthenticatedCertificadosIdRoute
   '/_authenticated/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/_authenticated/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
+  '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/certificados/': typeof AuthenticatedCertificadosIndexRoute
@@ -437,6 +447,7 @@ export interface FileRouteTypes {
     | '/certificados/$id'
     | '/curso/$slug'
     | '/quiz/$moduleId'
+    | '/api/public/download-migration-report'
     | '/curso/$slug/oferta'
     | '/admin/'
     | '/certificados/'
@@ -477,6 +488,7 @@ export interface FileRouteTypes {
     | '/certificados/$id'
     | '/curso/$slug'
     | '/quiz/$moduleId'
+    | '/api/public/download-migration-report'
     | '/curso/$slug/oferta'
     | '/admin'
     | '/certificados'
@@ -520,6 +532,7 @@ export interface FileRouteTypes {
     | '/_authenticated/certificados/$id'
     | '/_authenticated/curso/$slug'
     | '/_authenticated/quiz/$moduleId'
+    | '/api/public/download-migration-report'
     | '/curso/$slug/oferta'
     | '/_authenticated/admin/'
     | '/_authenticated/certificados/'
@@ -542,6 +555,7 @@ export interface RootRouteChildren {
   TrilhasRoute: typeof TrilhasRouteWithChildren
   TurmasRoute: typeof TurmasRoute
   ValidarCertificadoCodigoRoute: typeof ValidarCertificadoCodigoRoute
+  ApiPublicDownloadMigrationReportRoute: typeof ApiPublicDownloadMigrationReportRoute
   CursoSlugOfertaRoute: typeof CursoSlugOfertaRoute
   ApiPublicWebhooksAsaasRoute: typeof ApiPublicWebhooksAsaasRoute
 }
@@ -728,6 +742,13 @@ declare module '@tanstack/react-router' {
       path: '/curso/$slug/oferta'
       fullPath: '/curso/$slug/oferta'
       preLoaderRoute: typeof CursoSlugOfertaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/download-migration-report': {
+      id: '/api/public/download-migration-report'
+      path: '/api/public/download-migration-report'
+      fullPath: '/api/public/download-migration-report'
+      preLoaderRoute: typeof ApiPublicDownloadMigrationReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/quiz/$moduleId': {
@@ -965,6 +986,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrilhasRoute: TrilhasRouteWithChildren,
   TurmasRoute: TurmasRoute,
   ValidarCertificadoCodigoRoute: ValidarCertificadoCodigoRoute,
+  ApiPublicDownloadMigrationReportRoute: ApiPublicDownloadMigrationReportRoute,
   CursoSlugOfertaRoute: CursoSlugOfertaRoute,
   ApiPublicWebhooksAsaasRoute: ApiPublicWebhooksAsaasRoute,
 }
