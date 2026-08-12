@@ -12,6 +12,18 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 function AdminHome() {
   const m = useQuery(adminMetricsQuery);
   const d = m.data;
+  const [reportContent, setReportContent] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/public/migration-report")
+      .then((res) => res.text())
+      .then((text) => {
+        if (!text.startsWith("Relatório não encontrado")) {
+          setReportContent(text);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const cards = [
     { icon: Users, label: "Total de alunos", value: d?.total_students ?? 0 },
