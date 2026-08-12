@@ -1,9 +1,11 @@
 
 import { createServerFn } from "@tanstack/react-start";
-import { supabase } from "@/integrations/supabase/client.server";
 
 export const forceRebuildMod4 = createServerFn({ method: "POST" })
   .handler(async () => {
+    // Import protection blocks top-level import, so we import inside the handler
+    const { supabaseAdmin: supabase } = await import("@/integrations/supabase/client.server");
+
     const { data: course } = await supabase
       .from('courses')
       .select('id')
@@ -18,7 +20,7 @@ export const forceRebuildMod4 = createServerFn({ method: "POST" })
       .eq('course_id', course.id)
       .order('sort_order');
 
-    const mod4 = modules?.find(m => m.sort_order === 4);
+    const mod4 = modules?.find((m: any) => m.sort_order === 4);
     if (!mod4) throw new Error('Module 4 not found');
 
     const contentText = `
