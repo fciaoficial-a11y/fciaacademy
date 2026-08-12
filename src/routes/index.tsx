@@ -2,7 +2,7 @@
 /**
  * FCIA ACADEMY — DIRETRIZ MESTRA DE PRODUÇÃO DO CURSO
  * Curso: Influenciador de IA para TikTok Shop
- * Preço: R$ 137,00 | Status: Standby
+ * Preço: R$ 137,00 | Status: Módulo 1 Produzido
  */
 import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
