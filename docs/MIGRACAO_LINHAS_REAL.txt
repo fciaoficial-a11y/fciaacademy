@@ -1,0 +1,49 @@
+       relname        | n_live_tup 
+----------------------+------------
+ questions            |        122
+ xp_log               |         48
+ modules              |         35
+ gateway_events       |         10
+ subscriptions        |          9
+ user_roles           |          9
+ profiles             |          9
+ tracks               |          6
+ courses              |          6
+ plans                |          6
+ user_achievements    |          6
+ achievements         |          5
+ module_progress      |          5
+ course_bonuses       |          4
+ enrollments          |          4
+ payments             |          3
+ bonus_downloads      |          2
+ quiz_attempts        |          2
+ certificates         |          1
+ certificate_settings |          1
+(20 rows)
+
+     name      | public | file_size_limit | allowed_mime_types 
+---------------+--------+-----------------+--------------------
+ avatars       | f      |                 | 
+ course-assets | f      |                 | 
+ course-videos | f      |                 | 
+ certificates  | f      |                 | 
+(4 rows)
+
+   bucket_id   |                                     name                                      |  size   |      type       
+---------------+-------------------------------------------------------------------------------+---------+-----------------
+ certificates  | 8b49a338-2001-4bfb-9ad0-6b000d27cbe5/ac91ee05-da4e-447f-8302-22c24908e4c8.pdf | 8150    | application/pdf
+ course-assets | pilot/fundamentos-ia/modulo-1.pdf                                             | 47750   | application/pdf
+ course-assets | full-pdfs/ia-sem-misterio.pdf                                                 | 2326335 | application/pdf
+ course-assets | metodo-ia-criativa/metodo-ia-criativa-ebook.pdf                               | 100868  | application/pdf
+(4 rows)
+
+             tgname             |     relname     
+--------------------------------+-----------------
+ set_module_progress_updated_at | module_progress
+ set_modules_updated_at         | modules
+ trg_xp_on_module_complete      | module_progress
+ trg_xp_on_certificate          | certificates
+ trg_xp_on_quiz_attempt         | quiz_attempts
+(5 rows)
+
