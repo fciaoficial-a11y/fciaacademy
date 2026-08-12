@@ -4,11 +4,12 @@
 - **Preço:** R$ 137,00
 - **Modo:** Standby (is_published: false)
 - **Trilha:** Renda com IA
-- **Última Atualização:** Módulo 1 Revisado (100% denso, sem vídeo).
+- **Última Atualização:** Módulo 2 Revisado (100% denso, sem vídeo).
 
 ## Cronograma de Revisão Mandatória
-- [x] **Módulo 1: Mentalidade e Nichos** - REVISADO (Sem vídeo, prompts AI-to-AI incluídos).
-- [ ] **Módulo 2: Estratégia e Posicionamento** - PRÓXIMO PASSO.
+- [x] **Módulo 1: Mentalidade e Nichos** - REVISADO.
+- [x] **Módulo 2: Estratégia e Posicionamento** - REVISADO.
+- [ ] **Módulo 3: Identidade Visual** - PRÓXIMO PASSO.
 - [ ] **Módulo 3: Identidade Visual**
 - [ ] **Módulo 4: Ficha Técnica**
 - [ ] [M5-M12] - Pendentes.
