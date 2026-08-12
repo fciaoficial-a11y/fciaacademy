@@ -577,7 +577,6 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
   },
 
   "influenciador-ia-tiktok-shop": {
-    cover_url: "https://images.lexica.art/full_webp/043e62f4-718e-4b46-9d33-4f934277c185",
     hero: {
       eyebrow: "Curso Premium · Social Commerce",
       professorQuote:
