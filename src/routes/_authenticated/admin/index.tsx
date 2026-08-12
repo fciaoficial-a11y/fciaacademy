@@ -59,6 +59,49 @@ function AdminHome() {
         <Activity className="h-3.5 w-3.5" />
         Dados consultados via função segura (RBAC admin).
       </div>
+
+      {reportContent && (
+        <div className="mt-10 rounded-2xl border border-white/10 bg-card/40 p-6 backdrop-blur-xl">
+          <div className="flex items-center justify-between gap-4 border-b border-white/5 pb-4">
+            <div className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-primary" />
+              <h2 className="font-display text-lg font-semibold text-foreground">
+                Relatório de Migração (Etapa 1)
+              </h2>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 gap-2 text-xs"
+                onClick={() => {
+                  navigator.clipboard.writeText(reportContent);
+                  import("sonner").then((m) => m.toast.success("Conteúdo copiado!"));
+                }}
+              >
+                Copiar
+              </Button>
+              <Button
+                asChild
+                variant="primary"
+                size="sm"
+                className="h-8 gap-2 text-xs"
+              >
+                <a
+                  href="/api/public/download-migration-report"
+                  download="MIGRACAO_ESTADO_ATUAL.md"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  Download .md
+                </a>
+              </Button>
+            </div>
+          </div>
+          <div className="mt-4 max-h-[400px] overflow-y-auto rounded-lg bg-black/20 p-4 font-mono text-xs leading-relaxed text-muted-foreground">
+            <pre className="whitespace-pre-wrap">{reportContent}</pre>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
