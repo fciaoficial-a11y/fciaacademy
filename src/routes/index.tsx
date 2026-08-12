@@ -375,7 +375,31 @@ function Index() {
                           )}
                         >
                           {supporting.map((c) => (
-                            <FeaturedCourseCard key={c.id} course={c} variant="supporting" />
+                            <div key={c.id} className="group relative">
+                              <FeaturedCourseCard course={c} variant="supporting" />
+                              {c.slug === 'influenciador-ia-tiktok-shop' && (
+                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Button 
+                                    size="sm"
+                                    variant="secondary"
+                                    className="h-7 text-[10px] bg-amber-500/20 text-amber-500 hover:bg-amber-500/30 border-amber-500/30"
+                                    onClick={async (e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      const { forceRebuildMod4 } = await import('@/lib/rebuild.functions');
+                                      try {
+                                        await forceRebuildMod4();
+                                        alert('Módulo 4 Reconstruído!');
+                                      } catch (err) {
+                                        alert('Erro na reconstrução');
+                                      }
+                                    }}
+                                  >
+                                    Refazer M4
+                                  </Button>
+                                </div>
+                              )}
+                            </div>
                           ))}
                         </div>
                       </>

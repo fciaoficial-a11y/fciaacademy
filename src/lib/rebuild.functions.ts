@@ -3,7 +3,6 @@ import { createServerFn } from "@tanstack/react-start";
 
 export const forceRebuildMod4 = createServerFn({ method: "POST" })
   .handler(async () => {
-    // Import protection blocks top-level import, so we import inside the handler
     const { supabaseAdmin: supabase } = await import("@/integrations/supabase/client.server");
 
     const { data: course } = await supabase
@@ -88,29 +87,32 @@ Crie o documento PDF (ou texto) com a "Ficha Técnica" do seu influenciador, con
       {
         module_id: mod4.id,
         course_id: course.id,
-        question_text: 'Qual o principal risco de não manter a consistência visual do influenciador de IA?',
+        question: 'Qual o principal risco de não manter a consistência visual do influenciador de IA?',
         options: ['Perder seguidores por tédio', 'Destruição da confiança (Trust) e quebra da venda', 'Aumento do custo de processamento da imagem', 'Problemas com direitos autorais'],
-        correct_option_index: 1,
-        points: 10,
-        status: 'approved'
+        correct_answer: 'Destruição da confiança (Trust) e quebra da venda',
+        difficulty: 'medium',
+        status: 'approved',
+        type: 'multiple_choice'
       },
       {
         module_id: mod4.id,
         course_id: course.id,
-        question_text: 'O que é a técnica de "Character Reference" (--cref)?',
+        question: 'O que é a técnica de "Character Reference" (--cref)?',
         options: ['Uma forma de citar outros influenciadores no post', 'Uma técnica para usar imagens de referência e manter o rosto estável', 'Um comando para gerar fundos realistas', 'Uma ferramenta de edição de vídeo'],
-        correct_option_index: 1,
-        points: 10,
-        status: 'approved'
+        correct_answer: 'Uma técnica para usar imagens de referência e manter o rosto estável',
+        difficulty: 'medium',
+        status: 'approved',
+        type: 'multiple_choice'
       },
       {
         module_id: mod4.id,
         course_id: course.id,
-        question_text: 'Por que ter um "Cenário Padrão" ajuda na consistência?',
+        question: 'Por que ter um "Cenário Padrão" ajuda na consistência?',
         options: ['Porque economiza tempo de renderização', 'Porque mantém a iluminação e a atmosfera visual previsíveis', 'Porque o TikTok exige cenários fixos', 'Porque atrai patrocinadores de decoração'],
-        correct_option_index: 1,
-        points: 10,
-        status: 'approved'
+        correct_answer: 'Porque mantém a iluminação e a atmosfera visual previsíveis',
+        difficulty: 'medium',
+        status: 'approved',
+        type: 'multiple_choice'
       }
     ]);
 
