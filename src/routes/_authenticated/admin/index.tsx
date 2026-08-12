@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Activity, Award, BookOpen, CheckCircle2, GraduationCap, Users } from "lucide-react";
+import { Activity, Award, BookOpen, CheckCircle2, Download, FileText, GraduationCap, Users } from "lucide-react";
 import { adminMetricsQuery } from "@/lib/admin-api";
+import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   component: AdminHome,
