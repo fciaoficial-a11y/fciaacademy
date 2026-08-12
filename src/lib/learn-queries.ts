@@ -59,7 +59,7 @@ export function courseLearnQuery(slug: string) {
           "id, slug, title, description, level, duration_minutes, workload_hours, track_id, price, is_free, allow_pdf_download, full_pdf_path, tracks:track_id ( title, slug )"
         )
         .eq("slug", slug)
-        .eq("is_published", true)
+        // .eq("is_published", true) // Permite que admins visualizem cursos em standby via slug direto
         .maybeSingle();
       if (error) throw error;
       if (!course) return null;
@@ -90,7 +90,7 @@ export function courseLearnQuery(slug: string) {
         )
 
         .eq("course_id", course.id)
-        .eq("is_published", true)
+        // .eq("is_published", true)
         .order("sort_order");
       if (mErr) throw mErr;
       return {
