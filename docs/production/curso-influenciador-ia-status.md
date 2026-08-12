@@ -5,6 +5,7 @@
 - [X] Módulo 1: TikTok Shop — Mentalidade e Nichos Lucrativos (Conteúdo Denso OK, 0 Vídeo)
 - [X] Módulo 2: Estratégia, Nicho, Público e Posicionamento (Conteúdo Denso OK, 0 Vídeo)
 - [X] Módulo 3: Criação da Identidade do Influenciador Virtual (Conteúdo Denso OK, 0 Vídeo)
+- [X] Módulo 4: Consistência Visual, Ficha Técnica e Biblioteca de Identidade (Conteúdo Denso OK, 0 Vídeo)
 
 ## Próximos Passos
-- [ ] Módulo 4: Consistência Visual, Ficha Técnica e Biblioteca de Identidade
+- [ ] Módulo 5: Fotografia Virtual e Still de Produto
