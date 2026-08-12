@@ -575,6 +575,55 @@ export const COURSE_TEMPLATE_OVERRIDES: Record<string, CourseTemplateOverride> =
     ],
 
   },
+
+  "influenciador-ia-tiktok-shop": {
+    hero: {
+      eyebrow: "Curso Premium · Social Commerce",
+      professorQuote:
+        "O futuro do varejo no TikTok não tem rosto humano, tem estratégia de IA. Aqui você aprende a criar a máquina de vender.",
+    },
+    audience: {
+      forWhom: [
+        "Afiliados e criadores que querem vender no TikTok sem aparecer",
+        "Empreendedores que buscam criar uma marca própria com influenciadores virtuais",
+        "Agências que desejam oferecer criação de avatares realistas para clientes",
+        "Marketers que buscam dominar a consistência visual em vídeos de alta conversão",
+      ],
+      notForWhom: [
+        "Quem busca apenas entretenimento ou vídeos de 'dancinha' sem foco em venda",
+        "Quem espera resultados sem dominar a engenharia de prompts de imagem e vídeo",
+        "Quem não tem conta no TikTok ou não pretende operar no modelo de social commerce",
+        "Quem procura apenas teoria sobre o futuro da IA, sem aplicação prática imediata",
+      ],
+    },
+    faqReplace: true,
+    faq: [
+      {
+        q: "Preciso de um computador potente para gerar os vídeos?",
+        a: "Não. Ensinamos a usar ferramentas baseadas em nuvem que rodam direto no navegador. Você só precisa de uma conexão estável com a internet.",
+      },
+      {
+        q: "O TikTok aceita influenciadores de IA?",
+        a: "Sim, desde que o conteúdo seja original e siga as diretrizes da plataforma. O TikTok Shop é um ecossistema focado em conversão, onde o que importa é a qualidade do vídeo e a clareza da oferta.",
+      },
+      {
+        q: "Consigo manter o mesmo rosto em todos os vídeos?",
+        a: "Sim. Este é o coração do curso: ensinamos técnicas avançadas de 'Seed' e 'Reference' para garantir que seu influenciador tenha a mesma identidade em qualquer cenário ou ângulo.",
+      },
+      {
+        q: "Como recebo o acesso?",
+        a: "Imediato após a confirmação do PIX. Você recebe um e-mail com seus dados de login para a FCIA Academy.",
+      },
+      {
+        q: "Preciso pagar por outras ferramentas?",
+        a: "Mostramos opções gratuitas e pagas. Para escala profissional, recomendamos um pequeno investimento mensal em créditos de geração, que se paga com as primeiras vendas.",
+      },
+      {
+        q: "Tem certificado?",
+        a: "Sim. Certificado oficial da FCIA Academy com 40 horas de carga horária e código de autenticidade.",
+      },
+    ],
+  },
 };
 
 // ==================================================================
