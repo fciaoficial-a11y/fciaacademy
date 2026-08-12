@@ -18,6 +18,8 @@ import {
   Store,
   type LucideIcon,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 import { FAQ } from "@/components/site/FAQ";
 import { supabase } from "@/integrations/supabase/client";
