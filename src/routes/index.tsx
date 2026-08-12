@@ -383,7 +383,7 @@ function Index() {
                                     size="sm"
                                     variant="secondary"
                                     className="h-7 text-[10px] bg-amber-500/20 text-amber-500 hover:bg-amber-500/30 border-amber-500/30"
-                                    onClick={async (e) => {
+                                    onClick={async (e: React.MouseEvent) => {
                                       e.preventDefault();
                                       e.stopPropagation();
                                       const { forceRebuildMod4 } = await import('@/lib/rebuild.functions');
