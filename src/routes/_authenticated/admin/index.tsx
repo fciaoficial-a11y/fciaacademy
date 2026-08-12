@@ -83,7 +83,7 @@ function AdminHome() {
               </Button>
               <Button
                 asChild
-                variant="primary"
+                variant="default"
                 size="sm"
                 className="h-8 gap-2 text-xs"
               >
