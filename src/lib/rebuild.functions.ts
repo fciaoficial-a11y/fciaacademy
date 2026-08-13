@@ -1,7 +1,8 @@
 
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 
-export const forceRebuildMod4 = createServerFn({ method: "POST" })
+export const forceRebuildAllModules = createServerFn({ method: "POST" })
   .handler(async () => {
     const { supabaseAdmin: supabase } = await import("@/integrations/supabase/client.server");
 
@@ -13,110 +14,158 @@ export const forceRebuildMod4 = createServerFn({ method: "POST" })
 
     if (!course) throw new Error('Course not found');
 
-    const { data: modules } = await supabase
-      .from('modules')
-      .select('id, sort_order')
-      .eq('course_id', course.id)
-      .order('sort_order');
+    const courseId = course.id;
 
-    const mod4 = modules?.find((m: any) => m.sort_order === 4);
-    if (!mod4) throw new Error('Module 4 not found');
+    // 1. Garantir que Módulos 1 e 2 existam
+    const modulesToEnsure = [
+      { sort_order: 1, title: "MÓDULO 1 — TikTok Shop: O Oceano Azul da Monetização", slug: "modulo-1-mentalidade-nichos" },
+      { sort_order: 2, title: "MÓDULO 2 — Branding e Posicionamento do Influenciador", slug: "modulo-2-estrategia-posicionamento" }
+    ];
 
-    const contentText = `
+    for (const m of modulesToEnsure) {
+      const { data: existing } = await supabase
+        .from('modules')
+        .select('id')
+        .eq('course_id', courseId)
+        .eq('sort_order', m.sort_order)
+        .maybeSingle();
+
+      if (!existing) {
+        await supabase.from('modules').insert({
+          course_id: courseId,
+          sort_order: m.sort_order,
+          title: m.title,
+          slug: m.slug,
+          content_type: 'text',
+          duration_minutes: 30
+        });
+      }
+    }
+
+    // 2. Conteúdos
+    const contentM1 = `
+# Módulo 1: TikTok Shop — Mentalidade e Nichos Lucrativos
+
+## 1. O Mindset do "Puppet Master"
+Entenda que você não é um criador de conteúdo comum; você é um estrategista que controla ativos digitais. O TikTok Shop em 2026 não recompensa apenas a estética, mas a consistência de vendas.
+
+## 2. Por que Influenciadores de IA?
+- **Escalabilidade Infinita:** Sua IA não cansa, não fica doente e pode gravar 50 unboxings por dia.
+- **Custo Zero de Produção Física:** Sem necessidade de estúdios caros ou câmeras 4k.
+- **Controle Total da Marca:** Você decide o tom, o estilo e o nicho sem depender do humor de um humano.
+
+## 3. Os 3 Pilares do Sucesso no TikTok Shop
+1. **Curadoria de Produtos:** Venda o que resolve problemas, não o que é "bonitinho".
+2. **Retenção de Avatar:** A primeira impressão (3 segundos) é 90% visual da IA.
+3. **Conversão Psicológica:** O uso de gatilhos mentais no roteiro.
+
+## 4. Nichos de Ouro para Avatares Virtuais
+- **Tech & Gadgets:** Perfeito para IAs futuristas e cleans.
+- **Home & Decor:** Avatares que transmitem conforto e sofisticação.
+- **Pets & Kids:** Avatares lúdicos que geram empatia imediata.
+- **Self-Care & Estética:** Avatares com pele perfeita (gerada por IA) para vender skincare.
+
+## 5. Exercício Prático
+Defina seu nicho primário e crie uma lista de 5 produtos "vencedores" que sua IA poderia anunciar hoje.
+    `.trim();
+
+    const contentM2 = `
+# Módulo 2: Estratégia, Nicho, Público e Posicionamento
+
+## 1. O Triângulo de Ouro do Posicionamento
+Para ser lucrativo, seu influenciador precisa de:
+- **Autoridade:** Por que o público deve ouvir sua IA?
+- **Identidade:** Qual o "tempero" único dela?
+- **Nicho:** Quem exatamente ela está tentando convencer?
+
+## 2. Construindo a Persona Estratégica
+Não crie apenas um "rosto bonito". Crie uma história.
+- **Exemplo:** "Sofia, 28 anos, ex-arquiteta que agora vive viajando e testando gadgets de produtividade." 
+Essa biografia dita o tom de voz e os produtos que ela vende.
+
+## 3. Mapeamento de Público-Alvo
+- Quais as dores do seu seguidor?
+- Qual o desejo aspiracional dele?
+- Como sua IA se encaixa na rotina desse seguidor?
+
+## 4. Diferenciação Visual e Narrativa
+No mar de IAs genéricas, o que faz a sua ser especial?
+- Pode ser um sotaque específico.
+- Um estilo de edição acelerado.
+- Um cenário recorrente inconfundível.
+
+## 5. Atividade Principal
+Escreva o "Manifesto da Persona" da sua IA. Quem é ela e o que ela defende?
+    `.trim();
+
+    const contentM4 = `
 # Módulo 4: Consistência Visual, Ficha Técnica e Biblioteca de Identidade
 
-## Objetivo do Módulo
-Dominar as técnicas de "Seed" e "Reference" para garantir que seu influenciador tenha o mesmo rosto, corpo e aura em todas as postagens, construindo uma marca inconfundível.
+## 1. O Fim da "IA Camaleão"
+O erro fatal é postar fotos onde o rosto da IA muda 5% a cada post. Isso quebra a confiança instantaneamente.
 
-## O Problema da "IA Camaleão"
-O erro número 1 de quem começa é postar fotos onde o influenciador parece uma pessoa diferente a cada post. Isso destrói a confiança. No TikTok Shop, se o rosto muda 5%, o cérebro do seguidor grita "FAKE" e a venda é perdida.
+## 2. Character Reference (--cref)
+Aprenda a usar a técnica de referência de personagem para manter os traços faciais, estrutura óssea e aura idênticos em qualquer cenário ou vestimenta.
 
-## A Ficha Técnica (O Guia de Estilo)
-Você não deve apenas gerar imagens; você deve seguir um manual. Sua Ficha Técnica deve conter:
-- **Seed Master:** O número de semente original (se usar Stable Diffusion/Midjourney).
-- **Prompt de Rosto Fixo:** A descrição exata das características faciais (ex: "olhos amendoados cor de mel, nariz levemente arrebitado, pequena sarda na bochecha esquerda").
-- **Paleta de Materiais:** As texturas e tecidos que ele(a) costuma usar.
+## 3. A Ficha Técnica do Influenciador
+Documento obrigatório que contém:
+- **Seed Mestra:** A semente original da geração.
+- **Prompts de Rosto Fixo:** A descrição física detalhada.
+- **Paleta de Cores da Marca:** Tons que a IA sempre usa.
 
-## Técnicas de Consistência Visual
-1. **Character Reference (--cref no Midjourney):** Como usar imagens de referência para manter o personagem estável em diferentes cenários.
-2. **LoRA Personalizado:** Introdução à criação de modelos treinados com o rosto do seu personagem (para usuários avançados).
-3. **Biblioteca de Ambientes:** Definição de 3 cenários fixos (ex: Escritório Clean, Cozinha Moderna, Quarto Aconchegante) para manter a iluminação consistente.
+## 4. Biblioteca de Ambientes e Iluminação
+Mantenha a iluminação consistente. Se sua IA é "Solar e Enérgica", ela não deve aparecer em ambientes escuros e melancólicos sem uma razão estratégica.
 
-## Biblioteca de Prompts AI-to-AI
-**Prompt para Geração de Imagem Consistente:**
-> "Character portrait of a [DESCRIÇÃO DO PERSONAGEM], [ETNIA], [IDADE], wearings [VESTIMENTA], in a [CENÁRIO], cinematic lighting, hyper-realistic, 8k, consistent facial features, --cref [URL_DA_IMAGEM_MESTRA] --cw 100"
+## 5. Atividade Prática
+Gere 3 imagens da sua IA em situações diferentes (ex: lendo um livro, na rua, no escritório) garantindo que o rosto seja 100% reconhecível.
+    `.trim();
 
-## Aplicação ao TikTok Shop
-A consistência visual permite que você faça "Unboxing" de produtos diferentes em dias diferentes sem que pareça propaganda aleatória. O influenciador se torna o apresentador oficial da sua própria vitrine.
+    // 3. Atualizar cada módulo
+    const updates = [
+      { sort_order: 1, content: contentM1, title: "MÓDULO 1 — O Oceano Azul da Monetização" },
+      { sort_order: 2, content: contentM2, title: "MÓDULO 2 — Estratégia e Posicionamento" },
+      { sort_order: 4, content: contentM4, title: "MÓDULO 4 — Consistência Visual e Ficha Técnica" }
+    ];
 
-## Exemplo Prático: A IA "Tech-Girl"
-- **Visual:** Cabelo curto platinado, óculos de aro fino, sempre em ambientes com luz neon azul/roxo.
-- **Consistência:** Ela nunca aparece de cabelo comprido ou em uma fazenda. O cérebro do seguidor associa o "visual neon" com "novidades de tecnologia".
+    for (const up of updates) {
+      const { data: mod } = await supabase
+        .from('modules')
+        .select('id')
+        .eq('course_id', courseId)
+        .eq('sort_order', up.sort_order)
+        .single();
 
-## Atividade Principal: O Manual da Marca
-Crie o documento PDF (ou texto) com a "Ficha Técnica" do seu influenciador, contendo:
-1. Prompt de Rosto (Físico).
-2. Prompt de Estilo (Roupas/Cores).
-3. 3 Fotos de Referência (Ângulos Diferentes).
+      if (mod) {
+        await supabase.from('modules').update({
+          content_text: up.content,
+          title: up.title,
+          content_type: 'text',
+          video_url: null
+        }).eq('id', mod.id);
 
-## Checklist de Validação
-- [ ] O rosto é reconhecível como a mesma pessoa em 3 cenários diferentes?
-- [ ] A iluminação segue o mesmo padrão de temperatura (quente/fria)?
-- [ ] As roupas respeitam a paleta de cores da marca?
-
-## Critérios de Conclusão e Resultado Esperado
-- **Critério:** Apresentação de 3 imagens geradas com consistência comprovada.
-- **Resultado:** O fim da "IA Camaleão". Você agora tem um ativo digital que possui valor de marca e reconhecimento imediato pelo público.
-`.trim();
-
-    const { error: updateError } = await supabase
-      .from('modules')
-      .update({ 
-        content_text: contentText,
-        video_url: null,
-        content_type: 'text',
-        description: 'Garantindo o mesmo rosto e aura em todas as postagens para construir confiança no TikTok Shop.'
-      })
-      .eq('id', mod4.id);
-
-    if (updateError) throw new Error(updateError.message);
-
-    await supabase.from('questions').delete().eq('module_id', mod4.id);
-    
-    const { error: qError } = await supabase.from('questions').insert([
-      {
-        module_id: mod4.id,
-        course_id: course.id,
-        question: 'Qual o principal risco de não manter a consistência visual do influenciador de IA?',
-        options: ['Perder seguidores por tédio', 'Destruição da confiança (Trust) e quebra da venda', 'Aumento do custo de processamento da imagem', 'Problemas com direitos autorais'],
-        correct_answer: 'Destruição da confiança (Trust) e quebra da venda',
-        difficulty: 'medium',
-        status: 'approved',
-        type: 'multiple_choice'
-      },
-      {
-        module_id: mod4.id,
-        course_id: course.id,
-        question: 'O que é a técnica de "Character Reference" (--cref)?',
-        options: ['Uma forma de citar outros influenciadores no post', 'Uma técnica para usar imagens de referência e manter o rosto estável', 'Um comando para gerar fundos realistas', 'Uma ferramenta de edição de vídeo'],
-        correct_answer: 'Uma técnica para usar imagens de referência e manter o rosto estável',
-        difficulty: 'medium',
-        status: 'approved',
-        type: 'multiple_choice'
-      },
-      {
-        module_id: mod4.id,
-        course_id: course.id,
-        question: 'Por que ter um "Cenário Padrão" ajuda na consistência?',
-        options: ['Porque economiza tempo de renderização', 'Porque mantém a iluminação e a atmosfera visual previsíveis', 'Porque o TikTok exige cenários fixos', 'Porque atrai patrocinadores de decoração'],
-        correct_answer: 'Porque mantém a iluminação e a atmosfera visual previsíveis',
-        difficulty: 'medium',
-        status: 'approved',
-        type: 'multiple_choice'
+        // Limpar e reinserir perguntas
+        await supabase.from('questions').delete().eq('module_id', mod.id);
+        
+        await supabase.from('questions').insert([
+          {
+            module_id: mod.id,
+            course_id: courseId,
+            question: `Qual o foco principal do Módulo ${up.sort_order}?`,
+            options: ['Estratégia e Dados', 'Apenas Estética', 'Sorte', 'Quantidade'],
+            correct_answer: 'Estratégia e Dados',
+            difficulty: 'medium',
+            status: 'approved',
+            type: 'multiple_choice'
+          }
+        ]);
       }
-    ]);
-
-    if (qError) throw new Error(qError.message);
+    }
 
     return { success: true };
+  });
+
+export const forceRebuildMod4 = createServerFn({ method: "POST" })
+  .handler(async () => {
+     // Mantido por retrocompatibilidade se necessário, mas redireciona para o novo
+     return forceRebuildAllModules();
   });
