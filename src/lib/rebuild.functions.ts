@@ -56,25 +56,86 @@ Você construiu a base estratégica. Sem um nicho claro, você é apenas um amad
 `.trim();
 
     const contentM2 = `
-# Estratégia, Nicho, Público e Posicionamento
+# Módulo 2 — Estratégia, Nicho, Público e Posicionamento
 
 ## Objetivo do Módulo
-A Inteligência Artificial é apenas o pincel; você é o artista e o estrategista. No TikTok Shop, a diferença entre um vídeo que flopa e um que vende 10 mil unidades em 24h não é a qualidade do render, mas a precisão do posicionamento.
+O Módulo 1 definiu a mentalidade e o mapa de oportunidade. Agora, você transformará essas decisões em uma **estratégia concreta de posicionamento**. Ao final desta aula, você terá em mãos o seu **Dossiê Estratégico**, a base obrigatória para construir a identidade visual no Módulo 3. Você deixará de ser um "criador de avatares" para se tornar um **Operador de Ativos de Conversão**.
 
-## O Triângulo de Ouro do Posicionamento
-Para um influenciador de IA ser lucrativo, ele deve habitar a intersecção de três pilares:
-1. **Nicho de Alta Frequência:** Produtos que as pessoas compram repetidamente.
-2. **Autoridade Visual:** A aparência do influenciador deve validar o produto.
-3. **Público de Impulso:** Usuários que buscam solução imediata.
+---
 
-## Na Prática: A Regra do Problema Visível
-Evite nichos abstratos. Escolha produtos onde o benefício é visível na tela:
-- **Limpeza:** O antes e depois é instantâneo.
-- **Beleza:** O efeito do produto no rosto é imediato.
-- **Organização:** A transformação do caos em ordem é viciante de assistir.
+## BLOCO 1 — ESTRATÉGIA ANTES DA IDENTIDADE
+A maior armadilha de quem começa com IA é correr para o gerador de imagens para criar um "rosto bonito". **Pare agora.** 
+Imagens, roupas e vídeos são apenas a embalagem. Se você não decidir para quem o influenciador existe e qual problema ele resolve, você terá um personagem visual, mas não um influenciador virtual lucrativo.
 
-## Fechamento: A Mente por Trás da Máquina
-O seu posicionamento estratégico é o que define a "alma comercial" do seu influenciador virtual. Sem isso, você é apenas mais um no feed.
+### A Diferença entre Personagem e Ativo de Conversão
+- **Personagem Visual:** Tem estética, mas não tem propósito comercial.
+- **Influenciador Virtual:** É uma marca de conteúdo desenhada para ocupar um lugar específico na mente da audiência e gerar aquisição.
+
+---
+
+## BLOCO 2 — DO MAPA DE NICHO À DECISÃO FINAL: MÉTODO P.R.O.V.A.
+Agora vamos filtrar as opções do Módulo 1 para a sua escolha definitiva. Use o **Método P.R.O.V.A.** para validar seu nicho final:
+
+- **P — Problema Demonstrável:** O benefício do produto aparece claramente no vídeo?
+- **R — Recorrência:** O público precisa comprar esse tipo de produto mais de uma vez por ano?
+- **O — Oportunidade Visual:** O nicho permite cenários e demonstrações magnéticas?
+- **V — Viabilidade:** Você consegue gerar os prompts e encontrar produtos para este nicho?
+- **A — Aderência:** O personagem, o produto e o público falam a mesma língua?
+
+---
+
+## BLOCO 3 — DEFINIÇÃO DE PÚBLICO PRIORITÁRIO
+Esqueça definições genéricas como "mulheres de 30 anos". No TikTok Shop, focamos no **Público Prioritário** e no **Decisor**.
+
+---
+
+## BLOCO 4 — MAPA DE CONTEXTO DE COMPRA
+Onde o problema aparece? O que o público sente antes de clicar?
+Use o fluxo: **CENA → TENSÃO → BUSCA → PROVA → DECISÃO → AÇÃO**.
+
+---
+
+## BLOCO 5 — DORES, DESEJOS, OBJEÇÕES E GATILHOS
+A venda é uma ponte. De um lado, a **Dor (Funcional e Emocional)**. Do outro, o **Desejo**. A ponte é sustentada pela quebra de **Objeções**.
+
+---
+
+## BLOCO 6 — PROPOSTA DE VALOR E POSICIONAMENTO
+Chegou a hora de definir sua **Frase de Posicionamento**.
+Fórmula: *“Este influenciador ajuda [PÚBLICO] a resolver [PROBLEMA] através de [MECANISMO/PRODUTO] com um tom de [PERSONALIDADE/ARQUÉTIPO].”*
+
+---
+
+## BLOCO 7 — CATEGORIA DE PRODUTOS E FUNÇÃO COMERCIAL
+Seu influenciador será um Apresentador Técnico, Lifestyle ou Curador de Ofertas.
+
+---
+
+## BLOCO 8 — ARQUÉTIPO E PERSONALIDADE ESTRATÉGICA
+Escolha o arquétipo que guiará a criação visual: O Sábio, O Amigo ou O Criador.
+
+---
+
+## BLOCO 9 — PILARES E FORMATOS DE CONTEÚDO
+Defina sua matriz editorial inicial: Autoridade, Desejo e Conversão.
+
+---
+
+## BLOCO 10 — BIBLIOTECA DE 20 PROMPTS AI-TO-AI
+Use prompts avançados para mapear dores, desejos e objeções específicas do seu nicho.
+
+---
+
+## BLOCO 11 — PROJETO PRÁTICO: DOSSIÊ ESTRATÉGICO
+Preencha o seu Dossiê com o nicho final, arquétipo, proposta de valor e pilares.
+
+---
+
+## BLOCO 12 — CHECKLIST DE APROVAÇÃO E TRANSIÇÃO
+- [ ] O nicho é visualmente demonstrável?
+- [ ] A proposta de valor é clara?
+
+**Fechamento:** Agora você tem um cérebro estratégico. No próximo módulo, vamos dar um corpo para esse cérebro.
 `.trim();
 
     const contentM3 = `
