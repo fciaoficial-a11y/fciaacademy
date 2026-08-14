@@ -73,8 +73,8 @@ Imagens, roupas e vídeos são apenas a embalagem. Se você não decidir para qu
 
 ---
 
-## BLOCO 2 — DO MAPA DE NICHO À DECISÃO FINAL: MÉTODO PROVA
-Agora vamos filtrar as opções do Módulo 1 para a sua escolha definitiva. Use o **Método PROVA** para validar seu nicho final:
+## BLOCO 2 — DO MAPA DE NICHO À DECISÃO FINAL: MODO PROVA
+Agora vamos filtrar as opções do Módulo 1 para a sua escolha definitiva. Use o **Modo PROVA** para validar seu nicho final:
 
 - **P — Problema Demonstrável:** O benefício do produto aparece claramente no vídeo?
 - **R — Recorrência:** O público precisa comprar esse tipo de produto mais de uma vez por ano?
