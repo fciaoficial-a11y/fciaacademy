@@ -19,43 +19,40 @@ export const forceRebuildAllModules = createServerFn({ method: "POST" })
 # Módulo 1 — Mentalidade e Nichos Lucrativos
 
 ## BLOCO 1 — A NOVA LÓGICA DO INFLUENCIADOR VIRTUAL
-O mercado de influência tradicional está saturado e limitado pela fisiologia humana. O Influenciador Virtual (IV) é um ativo de software programável. A aparência sem estratégia não gera negócio. No TikTok Shop, o IV atua como Mídia, Personagem, Apresentador e Vendedor.
-
-### Ativo Comercial vs. Personagem Visual
-Um personagem bonito sem função é apenas "arte". Um IV com função estratégica é "negócio". O IV deve ser visto como um apresentador de televendas 2.0 nativo do TikTok.
+O Influenciador Virtual (IV) é um Ativo de Software Programável. Diferente de um humano, ele oferece escalabilidade infinita, controle total da narrativa e eficiência de custo. No TikTok Shop, ele atua como Mídia, Personagem, Apresentador e Vendedor. A aparência sem estratégia é inútil; o IV deve ser uma embalagem estratégica para conversão.
 
 ## BLOCO 2 — COMO FUNCIONA O TIKTOK SHOP
-O TikTok Shop é um sistema de descoberta impulsiva. A jornada inclui: Descoberta, Interesse, Consideração, Confiança e Ação. Vídeos devem parecer conselhos de quem já usou, inseridos em um contexto real.
+O TikTok Shop é um sistema de descoberta impulsiva. A jornada inclui Descoberta, Interesse, Consideração, Confiança e Ação. O conteúdo deve ser nativo e orgânico, agindo como um "conselho de quem já usou" em um contexto real.
 
 ## BLOCO 3 — MENTALIDADE DO OPERADOR DE AVATARES
 Você é um Diretor de Operações de Conteúdo. 
 ### MÉTODO DOS 5 ATIVOS
-1. Identidade (DNA do IV)
-2. Conteúdo (scripts e cenários)
-3. Produto (curadoria e margem)
-4. Distribuição (estratégia de postagem)
-5. Análise (métricas de conversão)
+1. Identidade (DNA visual e psicológico)
+2. Conteúdo (esteira de scripts e cenários)
+3. Produto (curadoria baseada em margem e demonstração)
+4. Distribuição (estratégia de algoritmo)
+5. Análise (estudo frio de métricas)
 
 ## BLOCO 4 — NICHO, SUBNICHO E MICRONIC
-A riqueza está no nicho. Exemplo: Casa > Organização > Cozinha > Organização de geladeiras para marmitas semanais.
+A riqueza está no nicho. Exemplo: Mercado Amplo (Casa) > Nicho (Organização) > Subnicho (Cozinha) > Micronic (Geladeiras para marmitas semanais). Escolha um micronic onde o problema seja visualmente demonstrável.
 
 ## BLOCO 5 — CRITÉRIOS DE UM NICHO COM POTENCIAL
-Avalie via MATRIZ DE PONTUAÇÃO DO NICHO (15 mandamentos). Se o nicho não for demonstrável visualmente, ele não serve para o TikTok Shop.
+Use a MATRIZ DE PONTUAÇÃO DO NICHO (15 mandamentos). Avalie volume de problemas, variedade de SKUs, interesse visual e recorrência. Se a pontuação for baixa, o nicho é rejeitado.
 
 ## BLOCO 6 — PÚBLICO, PERSONA E CONTEXTO DE COMPRA
-Foque em Contextos de Necessidade, não apenas em dados demográficos. Mapeie a dor antes e o desejo depois da compra.
+Foque em Contextos de Necessidade, não em demografia vazia. Mapeie a situação de uso, o problema antes da compra e o desejo após a resolução.
 
 ## BLOCO 7 — DORES, DESEJOS E OBJEÇÕES
-MÉTODO: DOR → CENA → PRODUTO → DEMONSTRAÇÃO → BENEFÍCIO → AÇÃO. Este é o roteiro mestre para converter visualização em venda.
+MÉTODO MESTRE: DOR → CENA → PRODUTO → DEMONSTRAÇÃO → BENEFÍCIO → AÇÃO. Este roteiro é a base de todo vídeo que converte visualização em venda imediata.
 
 ## BLOCO 8 — BIBLIOTECA DE 15 PROMPTS AI-TO-AI
-Use a IA para planejar sua IA. Prompts para Análise de Nicho, Psicologia do IV, Mapeamento de Dores, Gerador de Ganchos e Roteiros DOR-CENA.
+Use a IA para planejar sua IA. Prompts de Análise de Nicho, Psicologia Profunda, Mapeamento de Dores, Gerador de Ganchos e Engenharia de Objeções.
 
 ## BLOCO 9 — CHECKLIST E MATERIAIS COMPLEMENTARES
-Checklist de aprovação obrigatória e materiais de apoio (Matriz de Pontuação, Glossário e Template de Ficha de Identidade).
+Checklist de início e materiais de apoio: Matriz de Pontuação, Tabela de Comissões e Moodboards de referências visuais.
 
 ## FECHAMENTO E TRANSIÇÃO
-Você construiu a base estratégica. No próximo módulo, daremos um rosto e uma alma para sua operação: Engenharia de Identidade e Consistência Visual.
+Você construiu a base estratégica. Sem um nicho claro, você é apenas um amador. No próximo módulo, daremos um rosto e uma alma para sua operação: Engenharia de Identidade e Consistência Visual.
 `.trim();
 
     const contentM2 = `
