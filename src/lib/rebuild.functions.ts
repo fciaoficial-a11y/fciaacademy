@@ -133,7 +133,7 @@ Gere 3 imagens da sua IA em situações diferentes (ex: lendo um livro, na rua, 
         .select('id')
         .eq('course_id', courseId)
         .eq('sort_order', up.sort_order)
-        .single();
+        .maybeSingle();
 
       if (mod) {
         await supabase.from('modules').update({
