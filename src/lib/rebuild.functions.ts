@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { contentM3Premium, questionsM3 } from "./rebuild-m3.functions.ts";
+import { contentM4Premium, questionsM4 } from "./rebuild-m4.functions.ts";
 
 export const forceRebuildAllModules = createServerFn({ method: "POST" })
   .handler(async () => {
@@ -160,24 +161,7 @@ A consistência visual gera confiança.
 No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identidade sólida é a sua âncora para toda a geração de conteúdo futuro.
 `.trim();
 
-    const contentM4 = `
-# Consistência Visual e Ficha Técnica
-
-## Objetivo do Módulo
-Dominar as técnicas de "Seed" e "Reference" para garantir que seu influenciador tenha o mesmo rosto, corpo e aura em todas as postagens.
-
-## O Problema da IA Camaleão
-O erro número 1 é postar fotos onde o influenciador parece uma pessoa diferente a cada post. Se o rosto muda, a confiança morre.
-
-## A Ficha Técnica (O Guia de Estilo)
-Você deve seguir um manual contendo:
-- **Seed Master:** O número de semente original.
-- **Prompt de Rosto Fixo:** A descrição exata das características faciais.
-- **Character Reference (--cref):** O uso de imagens de referência para estabilidade.
-
-## Fechamento: O Fim da IA Camaleão
-A consistência visual permite que você faça "Unboxing" de produtos diferentes sem que pareça propaganda aleatória.
-`.trim();
+    const contentM4 = contentM4Premium;
 
     // 2. Mapeamento e Execução
     const updates = [
@@ -238,6 +222,22 @@ A consistência visual permite que você faça "Unboxing" de produtos diferentes
         // Se for M3, injetar questões premium
         if (up.slug === 'influenciador-ia-m3') {
           questionsM3.forEach(q => {
+            newQuestions.push({
+              module_id: mod.id,
+              course_id: courseId,
+              question: q.question,
+              options: q.options,
+              correct_answer: q.correct_answer,
+              difficulty: q.difficulty as any,
+              status: 'approved',
+              type: 'multiple_choice'
+            });
+          });
+        }
+
+        // Se for M4, injetar questões premium
+        if (up.slug === 'influenciador-ia-m4') {
+          questionsM4.forEach(q => {
             newQuestions.push({
               module_id: mod.id,
               course_id: courseId,
