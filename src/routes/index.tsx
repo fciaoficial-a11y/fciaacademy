@@ -384,23 +384,24 @@ function Index() {
                                   <Button 
                                     size="sm"
                                     variant="secondary"
-                                    className="h-7 text-[10px] bg-amber-500/20 text-amber-500 hover:bg-amber-500/30 border-amber-500/30"
+                                    className="h-7 text-[10px] bg-emerald-500/20 text-emerald-500 hover:bg-emerald-500/30 border-emerald-500/30"
                                     onClick={async (e: React.MouseEvent) => {
                                       e.preventDefault();
                                       e.stopPropagation();
                                       const { forceRebuildAllModules } = await import('@/lib/rebuild.functions');
                                       try {
                                         await forceRebuildAllModules();
-                                        alert('Módulos 1, 2 e 4 Restaurados!');
+                                        alert('Conteúdo Restaurado! Módulos 1, 2, 3 e 4 estão com dados densos.');
                                       } catch (err) {
                                         alert('Erro na reconstrução');
                                       }
                                     }}
                                   >
-                                    Restaurar M1, M2, M4
+                                    Restaurar M1-M4
                                   </Button>
                                 </div>
                               )}
+
                             </div>
                           ))}
                         </div>
