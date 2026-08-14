@@ -14,15 +14,14 @@ async def main():
         page = await context.new_page()
 
         # Login manual via página de login
-        # Nota: O formulário do Supabase Auth UI costuma ter labels previsíveis
         await page.goto("http://localhost:8080/login")
         await page.wait_for_load_state("networkidle")
         
-        # Preencher email
-        await page.get_by_label("Email").fill("blindadoemotivado@gmail.com")
-        # Preencher senha
-        await page.get_by_label("Senha").fill("estrada26")
-        # Clicar no botão de entrar (geralmente o botão primário do formulário)
+        # Preencher email e senha
+        await page.locator("#email").fill("blindadoemotivado@gmail.com")
+        await page.locator("#password").fill("estrada26")
+        
+        # Clicar no botão de entrar
         await page.get_by_role("button", name="Entrar").click()
         
         # Aguardar redirecionamento para o dashboard ou página inicial logada
