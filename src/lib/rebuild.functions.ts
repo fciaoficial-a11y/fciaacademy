@@ -1,8 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
+import { contentM3Premium, questionsM3 } from "./rebuild-m3.functions.ts";
 
 export const forceRebuildAllModules = createServerFn({ method: "POST" })
   .handler(async () => {
     const { supabaseAdmin: supabase } = await import("@/integrations/supabase/client.server");
+
 
     const { data: course } = await supabase
       .from('courses')
@@ -181,7 +183,7 @@ A consistência visual permite que você faça "Unboxing" de produtos diferentes
     const updates = [
       { slug: 'influenciador-ia-m1', content: contentM1, title: 'Módulo 1: Mentalidade e Nichos Lucrativos' },
       { slug: 'modulo-2-estrategia-posicionamento', content: contentM2, title: 'Módulo 2: Estratégia e Posicionamento' },
-      { slug: 'influenciador-ia-m3', content: contentM3, title: 'Módulo 3: Identidade do Influenciador' },
+      { slug: 'influenciador-ia-m3', content: contentM3Premium, title: 'Módulo 3: Criação da Identidade do Influenciador' },
       { slug: 'influenciador-ia-m4', content: contentM4, title: 'Módulo 4: Consistência Visual' }
     ];
 
@@ -232,6 +234,23 @@ A consistência visual permite que você faça "Unboxing" de produtos diferentes
             type: 'multiple_choice'
           });
         }
+
+        // Se for M3, injetar questões premium
+        if (up.slug === 'influenciador-ia-m3') {
+          questionsM3.forEach(q => {
+            newQuestions.push({
+              module_id: mod.id,
+              course_id: courseId,
+              question: q.question,
+              options: q.options,
+              correct_answer: q.correct_answer,
+              difficulty: q.difficulty as any,
+              status: 'approved',
+              type: 'multiple_choice'
+            });
+          });
+        }
+
 
         await supabase.from('questions').insert(newQuestions);
       }
