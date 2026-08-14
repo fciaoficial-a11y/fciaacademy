@@ -1,4 +1,4 @@
-import { forceRebuildModule2Premium } from './rebuild-m2.functions';
+import { forceRebuildModule2Premium } from '../lib/rebuild-m2.functions';
 
 async function run() {
   console.log('Iniciando reconstrução premium do Módulo 2...');
