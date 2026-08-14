@@ -161,23 +161,25 @@ Este é o seu roteiro mestre.
 
 ## BLOCO 8 — BIBLIOTECA DE 15 PROMPTS AI-TO-AI
 
-Copie e cole estes prompts para acelerar seu planejamento estratégico:
+Copie e cole estes prompts para acelerar seu planejamento estratégico. Use ferramentas como ChatGPT Plus (GPT-4), Claude 3.5 Sonnet ou Gemini 1.5 Pro para melhores resultados.
 
-1. **Análise de Nicho:** "Atue como um analista de tendências do TikTok Shop. Identifique 5 micronics no setor de [CATEGORIA] que estão crescendo, mas têm poucos criadores de conteúdo de qualidade."
-2. **Psicologia do IV:** "Crie um perfil psicológico detalhado para um influenciador virtual que vende produtos de [NICHO]. Defina seu tom de voz, seus medos e sua missão secreta."
-3. **Mapeamento de Dores:** "Liste 15 dores funcionais e 15 dores emocionais de uma pessoa que sofre com [PROBLEMA]."
-4. **Gerador de Ganchos:** "Crie 10 variações de ganchos de 3 segundos para um vídeo que mostra a solução para [PROBLEMA]."
-5. **Roteiro DOR-CENA:** "Escreva um roteiro de 45 segundos para o TikTok usando o método DOR-CENA-PRODUTO para o produto [NOME]."
-6. **Quebra de Objeções:** "Quais são as 10 principais razões pelas quais alguém NÃO compraria [PRODUTO]? Crie uma resposta lógica para cada uma."
-7. **Persona Detalhada:** "Descreva o 'Contexto de Compra' de um cliente que está procurando por [PRODUTO] às 2 da manhã."
-8. **Diferenciação:** "Como posso tornar um influenciador de IA único no nicho de [NICHO] para que ele não pareça um clone dos outros?"
-9. **Mix de Produtos:** "Sugira 5 produtos complementares que meu IV pode vender em um ecossistema de [NICHO]."
-10. **Prompt de Cenário:** "Descreva o cenário ideal (quarto, iluminação, objetos) para um IV que fala sobre [ASSUNTO]."
-11. **Checklist de Vídeo:** "Crie um checklist de 10 pontos que devo verificar antes de postar um vídeo de venda no TikTok Shop."
-12. **Ideias de Storytelling:** "Crie uma pequena história de 3 atos sobre como o produto [NOME] mudou a vida da persona [PERSONA]."
-13. **Prompt de Narração:** "Converta este script técnico em uma narração natural, cheia de pausas e gírias leves, para ser usada em uma ferramenta de voz de IA."
-14. **Análise de Concorrência:** "Quais são os pontos fracos dos grandes influenciadores do nicho de [NICHO]? Como um IV pode superar esses pontos?"
-15. **Planejamento de Transição:** "O que meu aluno deve saber sobre o Módulo 2 (Identidade Visual) para já começar a preparar o terreno agora?"
+1. **Análise de Nicho Oculto:** "Atue como um analista de tendências do TikTok Shop especializado em e-commerce cross-border. Identifique 5 micronics no setor de [CATEGORIA] que estão crescendo no mercado asiático e europeu, mas que ainda têm poucos criadores de conteúdo de qualidade no Brasil. Analise o volume de buscas e a dificuldade de entrada."
+2. **Psicologia Profunda do IV:** "Crie um perfil psicológico detalhado (Arquétipo de Jung) para um influenciador virtual que vende produtos de [NICHO]. Defina seu tom de voz, seus valores inegociáveis, seus medos inconscientes e uma 'missão secreta' que guie sua narrativa para gerar confiança imediata."
+3. **Mapeamento Exaustivo de Dores:** "Liste 20 dores funcionais (problemas práticos) e 20 dores emocionais (sentimentos e medos) de uma pessoa que sofre com [PROBLEMA]. Para cada dor, sugira uma cena visual impactante de 3 segundos."
+4. **Gerador de Ganchos Magnéticos (Hooks):** "Crie 15 variações de ganchos de 3 segundos para um vídeo que mostra a solução para [PROBLEMA]. Use as técnicas: Curiosidade Negativa, Benefício Inacreditável e Quebra de Padrão Visual."
+5. **Roteiro Estratégico DOR-CENA-PRODUTO:** "Escreva um roteiro de 60 segundos para o TikTok usando o método DOR-CENA-PRODUTO para o produto [NOME]. Inclua indicações de cortes de câmera, expressões faciais do avatar e momentos de inserção de texto na tela."
+6. **Engenharia de Objeções:** "Quais são as 15 principais razões pelas quais alguém NÃO compraria [PRODUTO] de um perfil de IA? Crie uma resposta lógica e uma demonstração visual para anular cada uma dessas objeções."
+7. **Persona e Contexto de Madrugada:** "Descreva o 'Contexto de Compra' de um cliente que está procurando por [PRODUTO] às 3 da manhã devido a uma crise de insônia ou ansiedade. O que ele está sentindo? O que ele quer ouvir?"
+8. **Diferenciação Competitiva:** "Como posso tornar um influenciador de IA único no nicho de [NICHO] para que ele não pareça um clone dos outros 500 perfis genéricos? Sugira 3 'ângulos de autoridade' inusitados."
+9. **Ecossistema de Upsell:** "Sugira um ecossistema de 7 produtos complementares que meu IV pode vender em uma trilha de conteúdo de 30 dias para o nicho de [NICHO], começando por um 'front-end' de baixo valor."
+10. **Design de Cenário Psicológico:** "Descreva o cenário ideal (quarto, escritório, ambiente externo) para um IV que fala sobre [ASSUNTO]. A decoração deve reforçar a autoridade técnica e o lifestyle desejado pelo público."
+11. **Checklist de Qualidade Pré-Postagem:** "Crie um checklist de 15 pontos de auditoria que devo verificar antes de publicar um vídeo de venda. Inclua aspectos de áudio, iluminação virtual, legibilidade de legendas e CTA."
+12. **Storytelling de Transformação:** "Escreva uma jornada do herói de 3 atos sobre como o produto [NOME] resolveu um problema catastrófico na vida da persona [PERSONA]. Foque nos detalhes sensoriais."
+13. **Adaptação de Tom (Naturalidade):** "Converta este script técnico e robótico em uma narração fluida, com gírias leves, pausas dramáticas e entonação de 'amigo dando dica', ideal para ElevenLabs ou ferramentas similares."
+14. **Espionagem Ética de Concorrência:** "Analise os 5 maiores perfis do nicho [NICHO]. Quais são os comentários mais comuns nos posts deles? Quais dúvidas não estão sendo respondidas? Use isso para criar meu conteúdo."
+15. **Planejamento de Transição de Funil:** "Crie uma estratégia para levar o seguidor do vídeo orgânico do TikTok Shop para uma newsletter ou grupo de WhatsApp, garantindo a retenção do cliente para futuras vendas."
+
+(Teste cada um destes prompts e documente os resultados no seu 'Documento de Fundamentação da Operação').
 
 ---
 
