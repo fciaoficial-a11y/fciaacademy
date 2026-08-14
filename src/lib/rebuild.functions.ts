@@ -1,6 +1,4 @@
-
 import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
 
 export const forceRebuildAllModules = createServerFn({ method: "POST" })
   .handler(async () => {
@@ -13,118 +11,127 @@ export const forceRebuildAllModules = createServerFn({ method: "POST" })
       .single();
 
     if (!course) throw new Error('Course not found');
-
     const courseId = course.id;
 
-    // 1. Garantir que Módulos 1 e 2 existam
-    const modulesToEnsure = [
-      { sort_order: 1, title: "MÓDULO 1 — TikTok Shop: O Oceano Azul da Monetização", slug: "modulo-1-mentalidade-nichos" },
-      { sort_order: 2, title: "MÓDULO 2 — Branding e Posicionamento do Influenciador", slug: "modulo-2-estrategia-posicionamento" }
-    ];
-
-    for (const m of modulesToEnsure) {
-      const { data: existing } = await supabase
-        .from('modules')
-        .select('id')
-        .eq('course_id', courseId)
-        .eq('sort_order', m.sort_order)
-        .maybeSingle();
-
-      if (!existing) {
-        await supabase.from('modules').insert({
-          course_id: courseId,
-          sort_order: m.sort_order,
-          title: m.title,
-          slug: m.slug,
-          content_type: 'text',
-          duration_minutes: 30
-        });
-      }
-    }
-
-    // 2. Conteúdos
+    // 1. Definição de Conteúdos Premium (Markdown Purista para ModuleArticle)
+    
     const contentM1 = `
-# Módulo 1: TikTok Shop — Mentalidade e Nichos Lucrativos
+# TikTok Shop: Mentalidade e Nichos Lucrativos
 
-## 1. O Mindset do "Puppet Master"
-Entenda que você não é um criador de conteúdo comum; você é um estrategista que controla ativos digitais. O TikTok Shop em 2026 não recompensa apenas a estética, mas a consistência de vendas.
+## Objetivo do Módulo
+Dominar a psicologia do consumo no TikTok Shop e selecionar um nicho de alta conversão para o seu Influenciador de IA, garantindo um posicionamento inabalável desde o dia zero.
 
-## 2. Por que Influenciadores de IA?
-- **Escalabilidade Infinita:** Sua IA não cansa, não fica doente e pode gravar 50 unboxings por dia.
-- **Custo Zero de Produção Física:** Sem necessidade de estúdios caros ou câmeras 4k.
-- **Controle Total da Marca:** Você decide o tom, o estilo e o nicho sem depender do humor de um humano.
+## O "Mindset" do Proprietário de Avatares
+Diferente de um influenciador tradicional que vende sua própria imagem, você está construindo um **Ativo de Software**. Sua mentalidade deve migrar do "Criador de Conteúdo" para o "Gestor de Portfólio de Influência". 
+- **Escalabilidade:** Um avatar não se cansa.
+- **Desapego:** O avatar é uma ferramenta de vendas, não uma extensão do seu ego.
+- **Dados sobre Estética:** No TikTok Shop, um vídeo "feio" que segue a estrutura de retenção vende mais que um "bonito" sem estratégia.
 
-## 3. Os 3 Pilares do Sucesso no TikTok Shop
-1. **Curadoria de Produtos:** Venda o que resolve problemas, não o que é "bonitinho".
-2. **Retenção de Avatar:** A primeira impressão (3 segundos) é 90% visual da IA.
-3. **Conversão Psicológica:** O uso de gatilhos mentais no roteiro.
+## Por que o TikTok Shop é o Oceano Azul?
+O TikTok Shop remove a "fricção de saída". 
+1. **Checkout Nativo:** O usuário compra sem sair do app.
+2. **Algoritmo de Interesse:** O vídeo é entregue para quem quer comprar, não apenas para seguidores.
+3. **Sinergia com IA:** A IA permite produzir 10 variações de um mesmo anúncio em minutos, testando qual gancho (hook) converte mais.
 
-## 4. Nichos de Ouro para Avatares Virtuais
-- **Tech & Gadgets:** Perfeito para IAs futuristas e cleans.
-- **Home & Decor:** Avatares que transmitem conforto e sofisticação.
-- **Pets & Kids:** Avatares lúdicos que geram empatia imediata.
-- **Self-Care & Estética:** Avatares com pele perfeita (gerada por IA) para vender skincare.
+## Nichos de Ouro para Avatares Virtuais
+Não tente vender tudo. Foque em nichos onde a IA brilha:
+- **Tecnologia & Gadgets:** Onde o visual futurista da IA valida a modernidade do produto.
+- **Bem-estar & Biohacking:** Onde a IA pode representar um "ideal" de saúde inalcançável por humanos.
+- **Casa Inteligente (Smart Home):** Onde a demonstração funcional é o foco principal.
 
-## 5. Exercício Prático
-Defina seu nicho primário e crie uma lista de 5 produtos "vencedores" que sua IA poderia anunciar hoje.
+## Exemplo Prático: A Regra dos 3S
+Seu nicho deve ser:
+1. **Específico (Specific):** Não venda "coisas de cozinha", venda "soluções para quem mora sozinho".
+2. **Escalável (Scalable):** Existem milhares de produtos similares para você nunca ficar sem estoque de conteúdo.
+3. **Resolvível (Solvable):** O produto resolve uma dor que pode ser mostrada visualmente em 15 segundos.
+
+## Fechamento e Próximo Passo
+Com o nicho definido, o próximo passo é a **Engenharia de Identidade**. Não adianta ter o melhor produto se o seu influenciador não transmite a autoridade necessária para o nicho escolhido.
     `.trim();
 
     const contentM2 = `
-# Módulo 2: Estratégia, Nicho, Público e Posicionamento
+# Estratégia, Nicho, Público e Posicionamento
 
-## 1. O Triângulo de Ouro do Posicionamento
-Para ser lucrativo, seu influenciador precisa de:
-- **Autoridade:** Por que o público deve ouvir sua IA?
-- **Identidade:** Qual o "tempero" único dela?
-- **Nicho:** Quem exatamente ela está tentando convencer?
+## Objetivo do Módulo
+A Inteligência Artificial é apenas o pincel; você é o artista e o estrategista. No TikTok Shop, a diferença entre um vídeo que flopa e um que vende 10 mil unidades em 24h não é a qualidade do render, mas a precisão do posicionamento.
 
-## 2. Construindo a Persona Estratégica
-Não crie apenas um "rosto bonito". Crie uma história.
-- **Exemplo:** "Sofia, 28 anos, ex-arquiteta que agora vive viajando e testando gadgets de produtividade." 
-Essa biografia dita o tom de voz e os produtos que ela vende.
+## O Triângulo de Ouro do Posicionamento
+Para um influenciador de IA ser lucrativo, ele deve habitar a intersecção de três pilares:
+1. **Nicho de Alta Frequência:** Produtos que as pessoas compram repetidamente (skincare, gadgets, suplementos).
+2. **Autoridade Visual:** A aparência do influenciador deve validar o produto (ex: uma IA "cientista" para vender suplementos técnicos).
+3. **Público de Impulso:** Usuários que buscam solução imediata para dores cotidianas.
 
-## 3. Mapeamento de Público-Alvo
-- Quais as dores do seu seguidor?
-- Qual o desejo aspiracional dele?
-- Como sua IA se encaixa na rotina desse seguidor?
+## Na Prática: A Regra do Problema Visível
+Evite nichos abstratos. Escolha produtos onde o benefício é visível na tela:
+- **Limpeza:** O antes e depois é instantâneo.
+- **Beleza:** O efeito do produto no rosto é imediato.
+- **Organização:** A transformação do caos em ordem é viciante de assistir.
 
-## 4. Diferenciação Visual e Narrativa
-No mar de IAs genéricas, o que faz a sua ser especial?
-- Pode ser um sotaque específico.
-- Um estilo de edição acelerado.
-- Um cenário recorrente inconfundível.
+## Erros Comuns no Posicionamento
+- **Ser Genérico:** Tentar agradar todo mundo e acabar não sendo lembrado por ninguém.
+- **IA Camaleão:** Mudar a personalidade ou o tom de voz dependendo do post.
+- **Focar no Ego:** Criar um influenciador para "ser famoso" em vez de criar um para "resolver problemas".
 
-## 5. Atividade Principal
-Escreva o "Manifesto da Persona" da sua IA. Quem é ela e o que ela defende?
+## Fechamento: A Mente por Trás da Máquina
+O seu posicionamento estratégico é o que define a "alma comercial" do seu influenciador virtual. Sem isso, você é apenas mais um no feed.
+    `.trim();
+
+    const contentM3 = `
+# Criação da Identidade do Influenciador Virtual
+
+## Objetivo do Módulo
+Saia do "boneco de IA" e crie uma persona magnética que as pessoas realmente queiram seguir, definindo o DNA psicológico e visual do seu influenciador.
+
+## O DNA do Influenciador (The Soul)
+A maioria dos iniciantes comete o erro de focar 100% no visual e 0% na personalidade. Antes de abrir o gerador de imagens, definimos:
+- **Origem:** Onde ele(a) mora? Qual sua história?
+- **Valores:** O que ele(a) defende? (Ex: Sustentabilidade, Luxo Acessível).
+- **Hobbies:** O que ele faz quando não está "vendendo"? Isso humaniza o perfil.
+
+## Exemplo Prático: A Estética Identitária
+A consistência visual gera confiança.
+- **Traços Marcantes:** Uma cicatriz, um estilo de óculos, uma cor de cabelo específica. Algo que o cérebro do seguidor identifique em 0.5 segundos.
+- **O Cenário Padrão:** Onde esse influenciador vive? Seu "estúdio" ou "casa" deve ter uma paleta de cores consistente.
+
+## Na Prática: Tone of Voice
+Como seu influenciador escreve?
+- **Formalidade:** Ele usa gírias? É sarcástico?
+- **Emojis:** Defina um conjunto de 3-5 emojis que ele usa sempre para criar padrão visual.
+
+## Fechamento: O Curador de Confiança
+No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identidade sólida é a sua âncora para toda a geração de conteúdo futuro.
     `.trim();
 
     const contentM4 = `
-# Módulo 4: Consistência Visual, Ficha Técnica e Biblioteca de Identidade
+# Consistência Visual e Ficha Técnica
 
-## 1. O Fim da "IA Camaleão"
-O erro fatal é postar fotos onde o rosto da IA muda 5% a cada post. Isso quebra a confiança instantaneamente.
+## Objetivo do Módulo
+Dominar as técnicas de "Seed" e "Reference" para garantir que seu influenciador tenha o mesmo rosto, corpo e aura em todas as postagens.
 
-## 2. Character Reference (--cref)
-Aprenda a usar a técnica de referência de personagem para manter os traços faciais, estrutura óssea e aura idênticos em qualquer cenário ou vestimenta.
+## O Problema da IA Camaleão
+O erro número 1 é postar fotos onde o influenciador parece uma pessoa diferente a cada post. Se o rosto muda 5%, o cérebro do seguidor grita "FAKE" e a venda é perdida.
 
-## 3. A Ficha Técnica do Influenciador
-Documento obrigatório que contém:
-- **Seed Mestra:** A semente original da geração.
-- **Prompts de Rosto Fixo:** A descrição física detalhada.
-- **Paleta de Cores da Marca:** Tons que a IA sempre usa.
+## A Ficha Técnica (O Guia de Estilo)
+Você deve seguir um manual contendo:
+- **Seed Master:** O número de semente original.
+- **Prompt de Rosto Fixo:** A descrição exata das características faciais.
+- **Paleta de Materiais:** As texturas e tecidos recorrentes.
 
-## 4. Biblioteca de Ambientes e Iluminação
-Mantenha a iluminação consistente. Se sua IA é "Solar e Enérgica", ela não deve aparecer em ambientes escuros e melancólicos sem uma razão estratégica.
+## Na Prática: Character Reference (--cref)
+Use imagens de referência para manter o personagem estável em diferentes cenários.
+- **Biblioteca de Ambientes:** Defina cenários fixos para manter a iluminação consistente.
+- **Prompt de Exemplo:** "Character portrait of a [PERSONAGEM], wearings [VESTIMENTA], --cref [URL] --cw 100".
 
-## 5. Atividade Prática
-Gere 3 imagens da sua IA em situações diferentes (ex: lendo um livro, na rua, no escritório) garantindo que o rosto seja 100% reconhecível.
+## Fechamento: O Fim da IA Camaleão
+A consistência visual permite que você faça "Unboxing" de produtos diferentes sem que pareça propaganda aleatória. O influenciador se torna o apresentador oficial da sua vitrine.
     `.trim();
 
-    // 3. Atualizar cada módulo
+    // 2. Mapeamento e Execução
     const updates = [
-      { sort_order: 1, content: contentM1, title: "MÓDULO 1 — O Oceano Azul da Monetização" },
-      { sort_order: 2, content: contentM2, title: "MÓDULO 2 — Estratégia e Posicionamento" },
-      { sort_order: 4, content: contentM4, title: "MÓDULO 4 — Consistência Visual e Ficha Técnica" }
+      { slug: 'influenciador-ia-m1', content: contentM1, title: 'Módulo 1: Mentalidade e Nichos Lucrativos' },
+      { slug: 'modulo-2-estrategia-posicionamento', content: contentM2, title: 'Módulo 2: Estratégia e Posicionamento' },
+      { slug: 'influenciador-ia-m3', content: contentM3, title: 'Módulo 3: Identidade do Influenciador' },
+      { slug: 'influenciador-ia-m4', content: contentM4, title: 'Módulo 4: Consistência Visual' }
     ];
 
     for (const up of updates) {
@@ -132,7 +139,7 @@ Gere 3 imagens da sua IA em situações diferentes (ex: lendo um livro, na rua, 
         .from('modules')
         .select('id')
         .eq('course_id', courseId)
-        .eq('sort_order', up.sort_order)
+        .eq('slug', up.slug)
         .maybeSingle();
 
       if (mod) {
@@ -143,15 +150,14 @@ Gere 3 imagens da sua IA em situações diferentes (ex: lendo um livro, na rua, 
           video_url: null
         }).eq('id', mod.id);
 
-        // Limpar e reinserir perguntas
+        // Atualizar Questões para o novo conteúdo
         await supabase.from('questions').delete().eq('module_id', mod.id);
-        
         await supabase.from('questions').insert([
           {
             module_id: mod.id,
             course_id: courseId,
-            question: `Qual o foco principal do Módulo ${up.sort_order}?`,
-            options: ['Estratégia e Dados', 'Apenas Estética', 'Sorte', 'Quantidade'],
+            question: `Qual o pilar fundamental do Módulo: ${up.title}?`,
+            options: ['Estratégia e Dados', 'Apenas Estética', 'Sorte', 'Volume sem foco'],
             correct_answer: 'Estratégia e Dados',
             difficulty: 'medium',
             status: 'approved',
@@ -162,10 +168,4 @@ Gere 3 imagens da sua IA em situações diferentes (ex: lendo um livro, na rua, 
     }
 
     return { success: true };
-  });
-
-export const forceRebuildMod4 = createServerFn({ method: "POST" })
-  .handler(async () => {
-     // Mantido por retrocompatibilidade se necessário, mas redireciona para o novo
-     return forceRebuildAllModules();
   });
