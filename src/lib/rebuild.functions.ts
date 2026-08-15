@@ -5,6 +5,8 @@ import { contentM3Premium, questionsM3 } from "./rebuild-m3.functions.ts";
 import { contentM4Premium, questionsM4 } from "./rebuild-m4.functions.ts";
 import { contentM5Premium, questionsM5 } from "./rebuild-m5.functions.ts";
 import { contentM6Premium, questionsM6 } from "./rebuild-m6.functions.ts";
+import { contentM9Premium, questionsM9 } from "./rebuild-m9.functions.ts";
+
 
 async function getSupabase() {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -40,8 +42,15 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
     if (!content.includes('DOSSIÊ ESTRATÉGICO')) return { valid: false, error: `Módulo 2: Dossiê Estratégico ausente.` };
   }
 
+  if (slug === 'vitrine-criativos-tiktok-shop') {
+    if (charCount < 10000) return { valid: false, error: `Módulo 9: Conteúdo muito curto (${charCount} chars).` };
+    if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 9: Estrutura incompleta.` };
+    if (!content.includes('FICHA COMERCIAL')) return { valid: false, error: `Módulo 9: Ficha comercial ausente.` };
+  }
+
   return { valid: true };
 }
+
 
 export const forceRebuildModule6 = createServerFn({ method: "POST" })
   .handler(async () => {
@@ -238,3 +247,58 @@ export const forceRebuildAllModules = createServerFn({ method: "POST" })
     return { success: true };
   });
 
+
+export const forceRebuildModule9 = createServerFn({ method: "POST" })
+  .handler(async () => {
+    const supabase = await getSupabase();
+
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', 'influenciador-ia-tiktok-shop')
+      .single();
+
+    if (!course) return { success: false, error: 'Course not found' };
+    const courseId = course.id;
+
+    const v = validatePremiumContent('vitrine-criativos-tiktok-shop', contentM9Premium);
+    if (!v.valid) return { success: false, error: v.error };
+
+    const { data: mod } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', courseId)
+      .eq('sort_order', 9)
+      .maybeSingle();
+
+    if (mod) {
+      const { error: updateError } = await supabase.from('modules').update({
+        content_text: contentM9Premium,
+        title: 'Módulo 9: Vitrine, Criativos e Apresentação de Produtos',
+        content_type: 'text',
+        video_url: null,
+        is_published: false
+      }).eq('id', mod.id);
+
+      if (updateError) return { success: false, error: updateError.message };
+
+      await supabase.from('questions').delete().eq('module_id', mod.id);
+      
+      const newQuestions = questionsM9.map(q => ({
+        module_id: mod.id,
+        course_id: courseId,
+        question: q.question,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        difficulty: q.difficulty as any,
+        status: 'approved',
+        type: 'multiple_choice'
+      }));
+
+      const { error: insertError } = await supabase.from('questions').insert(newQuestions);
+      if (insertError) return { success: false, error: insertError.message };
+
+      return { success: true };
+    }
+    return { success: false, error: 'Module not found' };
+  });
