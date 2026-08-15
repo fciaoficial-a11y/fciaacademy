@@ -48,9 +48,12 @@ async def main():
         text_content = await page.evaluate("document.body.innerText")
         keywords = ["BIBLIOTECA COMERCIAL", "METODO PROVA", "BRIEFING VISUAL", "AREA SEGURA"]
         
+        print(f"DEBUG: Text content length: {len(text_content)}")
+        # print(f"DEBUG: First 2000 chars: {text_content[:2000]}")
         for kw in keywords:
-            found = kw in text_content or kw.lower() in text_content.lower()
+            found = kw in text_content or kw.upper() in text_content or kw.lower() in text_content
             print(f"Keyword '{kw}' found: {found}")
+
 
 
         # Check for video player (should be absent)
