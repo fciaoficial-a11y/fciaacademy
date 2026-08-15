@@ -51,6 +51,12 @@ async def main():
         for kw in keywords:
             found = kw in text_content or kw.upper() in text_content or kw.lower() in text_content
             print(f"Keyword '{kw}' found: {found}")
+        
+        # Test exact strings for confirmation
+        print(f"DEBUG: 'METODO PROVA' in text: {'METODO PROVA' in text_content}")
+        print(f"DEBUG: 'AREA SEGURA' in text: {'AREA SEGURA' in text_content}")
+        print(f"DEBUG: 'MÉTODO P.R.O.V.A.' in text: {'MÉTODO P.R.O.V.A.' in text_content}")
+
 
 
 
