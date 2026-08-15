@@ -12,7 +12,7 @@ async function run() {
       console.error("FALHA:", result.error);
       process.exit(1);
     }
-  } catch (e) {
+  } catch (e: any) {
     console.error("ERRO FATAL:", e.message);
     process.exit(1);
   }
