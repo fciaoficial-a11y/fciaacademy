@@ -77,7 +77,7 @@ O público do TikTok Shop compra a **Plausibilidade**. O IV precisa parecer que 
 ---
 
 ## BLOCO 6 — PRODUTO, MÃOS E INTEGRIDADE VISUAL
-Aqui reside o maior desafio técnico da IA: a interação mão-produto. É aqui que aplicamos o **Modo PROVA** (Problema, Recorrência, Oportunidade, Viabilidade, Aderência) para garantir que o ativo gerado é viável.
+Aqui reside o maior desafio técnico da IA: a interação mão-produto. É aqui que aplicamos o **METODO PROVA** (Problema, Recorrência, Oportunidade, Viabilidade, Aderência) para garantir que o ativo gerado é viável.
 
 ### Regras de Ouro para Produtos:
 - **Escala e Proporção:** O produto não pode parecer um gigante na mão do IV.
@@ -100,7 +100,7 @@ A sequência visual que converte segue um roteiro lógico de imagens.
 ---
 
 ## BLOCO 8 — COMPOSIÇÃO PARA CONTEÚDO VERTICAL
-O TikTok tem áreas "sujas" (onde ficam legendas, perfil e botões). Suas imagens devem respeitar a **Área Segura** de conteúdo.
+O TikTok tem áreas "sujas" (onde ficam legendas, perfil e botões). Suas imagens devem respeitar a **AREA SEGURA** de conteúdo.
 
 - **Regra dos Terços:** Coloque o rosto do IV nos pontos de interseção superiores.
 - **Espaço Negativo:** Deixe 20% da imagem (topo ou base) livre para inserção de títulos dinâmicos.

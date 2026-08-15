@@ -46,7 +46,7 @@ async def main():
 
         # Check for key commercial terms
         content = await page.content()
-        keywords = ["BIBLIOTECA COMERCIAL", "MÉTODO P.R.O.V.A.", "BRIEFING VISUAL", "ÁREA SEGURA"]
+        keywords = ["BIBLIOTECA COMERCIAL", "METODO PROVA", "BRIEFING VISUAL", "AREA SEGURA"]
         for kw in keywords:
             found = kw in content
             print(f"Keyword '{kw}' found: {found}")
