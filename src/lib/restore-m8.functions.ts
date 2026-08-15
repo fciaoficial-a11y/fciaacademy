@@ -34,7 +34,7 @@ export const injectModule8 = createServerFn({ method: "POST" })
         .from('modules')
         .select('id, slug, title')
         .eq('course_id', courseId)
-        .eq('order', 8)
+        .filter('order_index', 'eq', 8) // Assumindo order_index ou similar conforme schema Supabase padrao
         .maybeSingle();
         
        if (!modByOrder) throw new Error('Module 8 record not found in database. Create it via admin first or seed script.');
