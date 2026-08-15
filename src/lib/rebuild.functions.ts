@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { contentM3Premium, questionsM3 } from "./rebuild-m3.functions.ts";
 import { contentM4Premium, questionsM4 } from "./rebuild-m4.functions.ts";
 import { contentM5Premium, questionsM5 } from "./rebuild-m5.functions.ts";
+import { contentM6Premium, questionsM6 } from "./rebuild-m6.functions.ts";
 
 
 export const forceRebuildAllModules = createServerFn({ method: "POST" })
@@ -173,7 +174,8 @@ No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identida
       { slug: 'modulo-2-estrategia-posicionamento', content: contentM2, title: 'Módulo 2: Estratégia e Posicionamento' },
       { slug: 'influenciador-ia-m3', content: contentM3Premium, title: 'Módulo 3: Criação da Identidade do Influenciador' },
       { slug: 'influenciador-ia-m4', content: contentM4, title: 'Módulo 4: Consistência Visual' },
-      { slug: 'influenciador-ia-m5', content: contentM5, title: 'Módulo 5: Produção de Imagens e Curadoria' }
+      { slug: 'influenciador-ia-m5', content: contentM5, title: 'Módulo 5: Produção de Imagens e Curadoria' },
+      { slug: 'influenciador-ia-m6', content: contentM6Premium, title: 'Módulo 6: Criação de Vídeos com Influenciador' }
     ];
 
 
@@ -260,6 +262,22 @@ No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identida
         // Se for M5, injetar questões premium
         if (up.slug === 'influenciador-ia-m5') {
           questionsM5.forEach(q => {
+            newQuestions.push({
+              module_id: mod.id,
+              course_id: courseId,
+              question: q.question,
+              options: q.options,
+              correct_answer: q.correct_answer,
+              difficulty: q.difficulty as any,
+              status: 'approved',
+              type: 'multiple_choice'
+            });
+          });
+        }
+
+        // Se for M6, injetar questões premium
+        if (up.slug === 'influenciador-ia-m6') {
+          questionsM6.forEach(q => {
             newQuestions.push({
               module_id: mod.id,
               course_id: courseId,
