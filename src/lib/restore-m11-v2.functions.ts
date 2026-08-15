@@ -33,15 +33,24 @@ export const restoreM11PremiumV2 = createServerFn({ method: "POST" })
       .single();
 
     if (module) {
-      await supabase.from("quizzes").delete().eq("module_id", module.id);
-      const quizzes = questionsM11.map(q => ({
+      await supabase.from("questions").delete().eq("module_id", module.id);
+      
+      const newQuestions = questionsM11.map((q, idx) => ({
         module_id: module.id,
+        course_id: course.id,
         question: q.question,
         options: q.options,
         correct_answer: q.correct_answer,
-        difficulty: q.difficulty
+        difficulty: q.difficulty,
+        sort_order: idx,
+        type: "multiple_choice",
+        source_type: "manual",
+        status: "approved",
+        times_used: 0
       }));
-      await supabase.from("quizzes").insert(quizzes);
+
+      const { error: quizError } = await supabase.from("questions").insert(newQuestions);
+      if (quizError) throw quizError;
     }
 
     return { success: true, message: "Módulo 11 restaurado para versão Premium (16k+ chars)" };
