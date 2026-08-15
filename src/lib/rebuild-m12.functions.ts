@@ -273,17 +273,74 @@ O que acontece depois que as luzes se apagam? A constância vence o talento.
 
 ## PROMPTS COMPLETOS (AI-TO-AI)
 
-Aqui estão os 27 prompts mestre para operar sua campanha. Use-os em sequência.
+Aqui estão os 27 prompts mestre para operar sua campanha. Use-os em sequência para garantir a integridade do sistema.
 
 ### 1. Escolher Campanha
 - **Objetivo:** Definir o tema central com base em tendências.
-- **Prompt:** "Atue como Diretor de Marketing. Analise os produtos [LISTA] e o nicho [NICHO]. Qual tem maior potencial de viralização no TikTok Shop agora? Considere sazonalidade e dores latentes. Saída: Tabela com 3 opções de campanha e justificativa."
+- **Prompt:** "Atue como Diretor de Marketing Digital especialista em tendências do TikTok Shop. Analise os produtos [LISTA DE PRODUTOS] e o nicho [NICHO]. Qual deles apresenta a melhor combinação de 'uau visual', facilidade de demonstração e dor latente do público agora? Considere a sazonalidade atual. Saída esperada: Tabela comparativa com 3 opções de campanha, justificativa de ROI e ângulo de ataque sugerido."
 
 ### 2. Definir Objetivo e KPI
-- **Prompt:** "Atue como Analista de Performance. Para a campanha [NOME], defina metas SMART (Específicas, Mensuráveis, Atingíveis, Relevantes e com Prazo). Saída: Painel de metas diárias."
+- **Prompt:** "Atue como Analista de Performance. Para a campanha [NOME DA CAMPANHA], defina metas SMART claras. Se o orçamento é de [X], qual o ROAS mínimo aceitável? Quais as metas de visualização e taxa de conversão para cada vídeo do funil? Saída: Painel de monitoramento com métricas de sucesso para cada fase (Descoberta, Consideração, Conversão)."
 
-### [REPETIR PARA OS 27 PROMPTS COM ESTRUTURA COMPLETA...]
-*(Nota: O desenvolvedor deve incluir todos os 27 prompts com os campos: Papel, Contexto, Objetivo, Entradas, Método, Critérios, Formato de Saída e Exemplo Preenchido conforme solicitado pelo usuário)*
+### 3. Criar Briefing Mestre
+- **Prompt:** "Atue como Produtor Executivo de Vídeo. Com base na campanha [NOME], crie um briefing técnico para os departamentos de Imagem e Áudio. Detalhe a iluminação, o estilo de cenário e a persona do influenciador virtual Aurora. Saída: Documento de Briefing Mestre preenchido com referências visuais descritivas."
+
+### 4. Escolher Produto Vencedor
+- **Prompt:** "Atue como Especialista em Merchandising. Dado o público [PÚBLICO], qual dos atributos do produto [PRODUTO] gera mais desejo imediato? Foque no 'Mecanismo Único'. Saída: Ficha técnica comercial do produto com foco em conversão."
+
+### 5. Mapear Público e Persona
+- **Prompt:** "Atue como Psicólogo do Consumidor. Entre na mente do público [PÚBLICO]. O que eles dizem para si mesmos às 3 da manhã sobre o problema [PROBLEMA]? Quais seus medos e aspirações? Saída: Mapa de Empatia detalhado com frases reais de impacto."
+
+### 6. Mapear Dores e Objeções
+- **Prompt:** "Atue como Especialista em Quebra de Objeções. Liste as 10 principais razões pelas quais alguém veria o vídeo do produto [PRODUTO] e não compraria. Para cada uma, crie uma resposta baseada em prova social ou demonstração técnica. Saída: Tabela Objeção vs. Solução."
+
+### 7. Criar Proposta Única de Valor (PUV)
+- **Prompt:** "Atue como Copywriter Sênior. Crie uma frase de 15 palavras que defina por que o produto [PRODUTO] é a única solução lógica para [PÚBLICO]. Saída: 5 variações de PUV de alto impacto."
+
+### 8. Criar Vitrine Irresistível
+- **Prompt:** "Atue como Designer de UX/UI para E-commerce. Descreva como as imagens da vitrine devem ser organizadas para maximizar o clique no 'Comprar'. Quais gatilhos mentais devem estar presentes em cada foto? Saída: Storyboard da vitrine do TikTok Shop."
+
+### 9. Criar Matriz de Conteúdo Completa
+- **Prompt:** "Atue como Estrategista de Conteúdo. Gere uma matriz de 20 ideias de vídeos para a campanha [NOME], cobrindo topo, meio e fundo de funil. Garanta que haja variedade de ganchos e CTAs. Saída: Planilha de Matrix de Conteúdo."
+
+### 10-14. Criar Roteiros (10s a 60s)
+- **Prompt:** "Atue como Roteirista de Alta Conversão. Escreva o script para um vídeo de [X] segundos para o produto [PRODUTO]. Inclua indicação de cena, fala do influenciador, movimento de câmera e texto na tela. O tom deve ser [TOM]. Saída: Roteiro técnico estruturado segundo o método Hook-Story-Offer."
+
+### 15. Criar Cenas e Storyboard
+- **Prompt:** "Atue como Diretor de Arte. Para o roteiro [ROTEIRO], descreva 5 cenas cinematográficas que a IA deve gerar. Use termos técnicos de fotografia e iluminação. Saída: Lista de descrições de prompts visuais."
+
+### 16. Criar Imagem Hero (Capa)
+- **Prompt:** "Atue como Fotógrafo Publicitário. Crie o prompt para a imagem de capa do produto. Deve ser hiper-realista, com foco no detalhe e iluminação dramática. Saída: Prompt completo para Midjourney/Leonardo.ai."
+
+### 17-19. Produção de Vídeo, Voz e Lip-Sync
+- **Prompt:** "Atue como Técnico de Produção IA. Como garantir que a transição entre as cenas do influenciador [NOME] seja fluida? Quais parâmetros de movimento usar na Runway/Luma? Saída: Guia de configurações técnicas para os ativos da campanha."
+
+### 20. Criar CTAs de Alta Conversão
+- **Prompt:** "Atue como Especialista em CRO. Gere 10 variações de CTA (Call to Action) para o TikTok Shop que não pareçam 'venda chata'. Saída: Lista de frases de ação imediata."
+
+### 21. Criar Calendário de Postagem
+- **Prompt:** "Atue como Social Media Manager. Com base no funil de 7 dias, organize a ordem de postagem dos vídeos produzidos para maximizar o aquecimento do pixel. Saída: Calendário diário com horários e objetivos."
+
+### 22. Revisar Publicação (Pre-Flight)
+- **Prompt:** "Atue como Analista de QA. Revise este criativo [DESCRIÇÃO]. Verifique se as legendas estão na zona segura e se o link no carrinho condiz com a promessa. Saída: Checklist de aprovação ou lista de ajustes."
+
+### 23. Criar Teste A/B de Hipótese
+- **Prompt:** "Atue como Cientista de Dados. Quero testar se um gancho de curiosidade vence um gancho de dor para o produto [PRODUTO]. Desenhe o experimento. Saída: Ficha de teste A/B."
+
+### 24. Analisar Métricas e Decidir
+- **Prompt:** "Atue como CMO. Meus dados mostram [MÉTRICAS]. O que devo fazer? Parar a campanha, escalar o orçamento ou mudar o criativo? Justifique. Saída: Relatório de decisão executiva."
+
+### 25. Criar Relatório de Campanha
+- **Prompt:** "Atue como Analista de Negócios. Consolide os aprendizados da campanha [NOME]. O que funcionou e o que deve ser descartado? Saída: Relatório final de performance."
+
+### 26. Criar Plano de Continuidade (30 Dias)
+- **Prompt:** "Atue como Gerente de Operações. Crie a rotina de trabalho para os próximos 30 dias focada em escala horizontal e vertical da campanha atual. Saída: Cronograma mensal operacional."
+
+### 27. Revisar Campanha Final (Dossiê)
+- **Prompt:** "Atue como Mentor FCIA Academy. Analise meu Dossiê Final Completo [COLE AQUI]. Minha estratégia está robusta o suficiente para faturar R$ [VALOR]? Saída: Auditoria final com nota e sugestões de ajuste fino."
+
+*(Nota: Cada prompt acima deve ser copiado integralmente pelo aluno para uso direto em suas ferramentas de IA, substituindo os campos em [ ] pelos dados de seu projeto real).*
+
 
 ---
 
