@@ -247,3 +247,58 @@ export const forceRebuildAllModules = createServerFn({ method: "POST" })
     return { success: true };
   });
 
+
+export const forceRebuildModule9 = createServerFn({ method: "POST" })
+  .handler(async () => {
+    const supabase = await getSupabase();
+
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', 'influenciador-ia-tiktok-shop')
+      .single();
+
+    if (!course) return { success: false, error: 'Course not found' };
+    const courseId = course.id;
+
+    const v = validatePremiumContent('vitrine-criativos-tiktok-shop', contentM9Premium);
+    if (!v.valid) return { success: false, error: v.error };
+
+    const { data: mod } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', courseId)
+      .eq('sort_order', 9)
+      .maybeSingle();
+
+    if (mod) {
+      const { error: updateError } = await supabase.from('modules').update({
+        content_text: contentM9Premium,
+        title: 'Módulo 9: Vitrine, Criativos e Apresentação de Produtos',
+        content_type: 'text',
+        video_url: null,
+        is_published: false
+      }).eq('id', mod.id);
+
+      if (updateError) return { success: false, error: updateError.message };
+
+      await supabase.from('questions').delete().eq('module_id', mod.id);
+      
+      const newQuestions = questionsM9.map(q => ({
+        module_id: mod.id,
+        course_id: courseId,
+        question: q.question,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        difficulty: q.difficulty as any,
+        status: 'approved',
+        type: 'multiple_choice'
+      }));
+
+      const { error: insertError } = await supabase.from('questions').insert(newQuestions);
+      if (insertError) return { success: false, error: insertError.message };
+
+      return { success: true };
+    }
+    return { success: false, error: 'Module not found' };
+  });
