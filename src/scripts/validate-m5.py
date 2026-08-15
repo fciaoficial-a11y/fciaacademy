@@ -45,13 +45,13 @@ async def main():
             print(f"- {t}")
 
         # Check for key commercial terms
-        content = await page.content()
+        text_content = await page.evaluate("document.body.innerText")
         keywords = ["BIBLIOTECA COMERCIAL", "METODO PROVA", "BRIEFING VISUAL", "AREA SEGURA"]
-        print(f"Content snippet: {content[2000:2500]}")
-
+        
         for kw in keywords:
-            found = kw in content
+            found = kw in text_content or kw.lower() in text_content.lower()
             print(f"Keyword '{kw}' found: {found}")
+
 
         # Check for video player (should be absent)
         video_exists = await page.query_selector("iframe") or await page.query_selector("video")
