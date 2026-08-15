@@ -4,11 +4,11 @@ async function main() {
   console.log("Iniciando injeção do Módulo 6 Premium...");
   try {
     const result = await forceRebuildModule6();
-    console.log("Resultado da injeção:", result);
+    console.log("Resultado da injeção:", JSON.stringify(result));
     if (result && result.success) {
       console.log("Módulo 6 injetado com sucesso no banco de dados.");
     } else {
-      console.error("Erro na injeção:", result?.error || "Desconhecido");
+      console.error("Erro na injeção:", (result && result.error) || "Desconhecido");
       process.exit(1);
     }
   } catch (error) {
