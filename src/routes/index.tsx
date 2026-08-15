@@ -381,24 +381,11 @@ function Index() {
                               <FeaturedCourseCard course={c} variant="supporting" />
                               {c.slug === 'influenciador-ia-tiktok-shop' && (
                                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <Button 
-                                    size="sm"
-                                    variant="secondary"
-                                    className="h-7 text-[10px] bg-emerald-500/20 text-emerald-500 hover:bg-emerald-500/30 border-emerald-500/30"
-                                    onClick={async (e: React.MouseEvent) => {
-                                      e.preventDefault();
-                                      e.stopPropagation();
-                                      const { forceRebuildAllModules } = await import('@/lib/rebuild.functions');
-                                      try {
-                                        await forceRebuildAllModules();
-                                        alert('Conteúdo Restaurado! Módulos 1, 2, 3 e 4 estão com dados densos.');
-                                      } catch (err) {
-                                        alert('Erro na reconstrução');
-                                      }
-                                    }}
-                                  >
-                                    Restaurar M1-M4
-                                  </Button>
+                                  <div className="flex flex-col gap-1">
+                                    <div className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 rounded text-[9px] text-amber-500 font-medium uppercase tracking-wider">
+                                      Standby Mode
+                                    </div>
+                                  </div>
                                 </div>
                               )}
 
