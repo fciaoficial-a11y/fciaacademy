@@ -7,6 +7,7 @@ import { contentM5Premium, questionsM5 } from "./rebuild-m5.functions.ts";
 import { contentM6Premium, questionsM6 } from "./rebuild-m6.functions.ts";
 import { contentM9Premium, questionsM9 } from "./rebuild-m9.functions.ts";
 import { contentM10Premium, questionsM10 } from "./rebuild-m10.functions.ts";
+import { contentM11Premium, questionsM11 } from "./rebuild-m11.functions.ts";
 
 
 async function getSupabase() {
@@ -53,6 +54,12 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
     if (charCount < 10000) return { valid: false, error: `Módulo 10: Conteúdo muito curto (${charCount} chars).` };
     if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 10: Estrutura incompleta.` };
     if (!content.includes('PAINEL DE PUBLICAÇÃO')) return { valid: false, error: `Módulo 10: Painel de publicação ausente.` };
+  }
+
+  if (slug === 'influenciador-ia-m11') {
+    if (charCount < 10000) return { valid: false, error: `Módulo 11: Conteúdo muito curto (${charCount} chars).` };
+    if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 11: Estrutura incompleta.` };
+    if (!content.includes('SISTEMA OPERACIONAL DE CONTEÚDO')) return { valid: false, error: `Módulo 11: SOC ausente.` };
   }
 
   return { valid: true };
