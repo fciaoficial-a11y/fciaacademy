@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { contentM3Premium, questionsM3 } from "./rebuild-m3.functions.ts";
 import { contentM4Premium, questionsM4 } from "./rebuild-m4.functions.ts";
+import { contentM5Premium, questionsM5 } from "./rebuild-m5.functions.ts";
+
 
 export const forceRebuildAllModules = createServerFn({ method: "POST" })
   .handler(async () => {
@@ -162,14 +164,18 @@ No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identida
 `.trim();
 
     const contentM4 = contentM4Premium;
+    const contentM5 = contentM5Premium;
+
 
     // 2. Mapeamento e Execução
     const updates = [
       { slug: 'influenciador-ia-m1', content: contentM1, title: 'Módulo 1: Mentalidade e Nichos Lucrativos' },
       { slug: 'modulo-2-estrategia-posicionamento', content: contentM2, title: 'Módulo 2: Estratégia e Posicionamento' },
       { slug: 'influenciador-ia-m3', content: contentM3Premium, title: 'Módulo 3: Criação da Identidade do Influenciador' },
-      { slug: 'influenciador-ia-m4', content: contentM4, title: 'Módulo 4: Consistência Visual' }
+      { slug: 'influenciador-ia-m4', content: contentM4, title: 'Módulo 4: Consistência Visual' },
+      { slug: 'influenciador-ia-m5', content: contentM5, title: 'Módulo 5: Produção de Imagens e Curadoria' }
     ];
+
 
     for (const up of updates) {
       const { data: mod } = await supabase
@@ -250,6 +256,23 @@ No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identida
             });
           });
         }
+
+        // Se for M5, injetar questões premium
+        if (up.slug === 'influenciador-ia-m5') {
+          questionsM5.forEach(q => {
+            newQuestions.push({
+              module_id: mod.id,
+              course_id: courseId,
+              question: q.question,
+              options: q.options,
+              correct_answer: q.correct_answer,
+              difficulty: q.difficulty as any,
+              status: 'approved',
+              type: 'multiple_choice'
+            });
+          });
+        }
+
 
 
         await supabase.from('questions').insert(newQuestions);
