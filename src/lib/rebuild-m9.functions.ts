@@ -275,31 +275,32 @@ export const questionsM9 = [
   {
     question: "Qual a principal diferença entre um Criativo de Descoberta e um de Conversão?",
     options: ["O de descoberta foca em interrupção e curiosidade, o de conversão na quebra de objeções e ação imediata", "Não há diferença, ambos devem vender o tempo todo", "O de descoberta é longo e o de conversão é curto", "O de descoberta é apenas imagem e o de conversão apenas vídeo"],
-    correct_answer: 0,
+    correct_answer: "0",
     difficulty: "medium"
   },
   {
     question: "No método RB-DC, o que significa a 'Consequência'?",
     options: ["O resultado prático e emocional na vida do usuário após usar o benefício do produto", "O preço que o cliente paga pelo produto", "O defeito que o produto pode apresentar", "A embalagem do produto"],
-    correct_answer: 0,
+    correct_answer: "0",
     difficulty: "hard"
   },
   {
     question: "Por que o 'Ângulo da Comparação' é eficaz no TikTok Shop?",
     options: ["Porque mostra visualmente a superioridade do seu produto frente a métodos antigos ou concorrentes", "Porque é o vídeo mais barato de produzir", "Porque o TikTok obriga a comparar produtos", "Porque gera menos comentários"],
-    correct_answer: 0,
+    correct_answer: "0",
     difficulty: "medium"
   },
   {
     question: "Qual o erro mais comum ao apresentar um recurso técnico de um produto?",
     options: ["Focar apenas no dado técnico sem explicar o benefício prático para o usuário", "Falar o nome correto da peça", "Mostrar o produto funcionando", "Usar luz natural"],
-    correct_answer: 0,
+    correct_answer: "0",
     difficulty: "easy"
   },
   {
     question: "O que deve ser evitado ao criar vitrines para produtos de saúde?",
     options: ["Fazer promessas médicas de cura sem base legal ou científica", "Mostrar o produto", "Explicar como usa", "Ter link na bio"],
-    correct_answer: 0,
+    correct_answer: "0",
     difficulty: "medium"
   }
 ];
+
