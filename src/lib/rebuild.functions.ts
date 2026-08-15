@@ -6,6 +6,7 @@ import { contentM4Premium, questionsM4 } from "./rebuild-m4.functions.ts";
 import { contentM5Premium, questionsM5 } from "./rebuild-m5.functions.ts";
 import { contentM6Premium, questionsM6 } from "./rebuild-m6.functions.ts";
 import { contentM9Premium, questionsM9 } from "./rebuild-m9.functions.ts";
+import { contentM10Premium, questionsM10 } from "./rebuild-m10.functions.ts";
 
 
 async function getSupabase() {
@@ -46,6 +47,12 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
     if (charCount < 10000) return { valid: false, error: `Módulo 9: Conteúdo muito curto (${charCount} chars).` };
     if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 9: Estrutura incompleta.` };
     if (!content.includes('FICHA COMERCIAL')) return { valid: false, error: `Módulo 9: Ficha comercial ausente.` };
+  }
+  
+  if (slug === 'influenciador-ia-m10') {
+    if (charCount < 10000) return { valid: false, error: `Módulo 10: Conteúdo muito curto (${charCount} chars).` };
+    if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 10: Estrutura incompleta.` };
+    if (!content.includes('PAINEL DE PUBLICAÇÃO')) return { valid: false, error: `Módulo 10: Painel de publicação ausente.` };
   }
 
   return { valid: true };
@@ -285,6 +292,64 @@ export const forceRebuildModule9 = createServerFn({ method: "POST" })
       await supabase.from('questions').delete().eq('module_id', mod.id);
       
       const newQuestions = questionsM9.map(q => ({
+        module_id: mod.id,
+        course_id: courseId,
+        question: q.question,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        difficulty: q.difficulty as any,
+        status: 'approved',
+        type: 'multiple_choice'
+      }));
+
+      const { error: insertError } = await supabase.from('questions').insert(newQuestions);
+      if (insertError) return { success: false, error: insertError.message };
+
+      return { success: true };
+    }
+    return { success: false, error: 'Module not found' };
+  });
+
+export const forceRebuildModule10 = createServerFn({ method: "POST" })
+  .handler(async () => {
+    const supabase = await getSupabase();
+
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', 'influenciador-ia-tiktok-shop')
+      .single();
+
+    if (!course) return { success: false, error: 'Course not found' };
+    const courseId = course.id;
+
+    // Slug exato do Módulo 10 identificado na auditoria
+    const targetSlug = 'influenciador-ia-m10';
+
+    const v = validatePremiumContent(targetSlug, contentM10Premium);
+    if (!v.valid) return { success: false, error: v.error };
+
+    const { data: mod } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', courseId)
+      .eq('slug', targetSlug)
+      .maybeSingle();
+
+    if (mod) {
+      const { error: updateError } = await supabase.from('modules').update({
+        content_text: contentM10Premium,
+        title: 'MÓDULO 10 — Estratégia de Publicação e Escala',
+        content_type: 'text',
+        video_url: null,
+        is_published: false
+      }).eq('id', mod.id);
+
+      if (updateError) return { success: false, error: updateError.message };
+
+      await supabase.from('questions').delete().eq('module_id', mod.id);
+      
+      const newQuestions = questionsM10.map(q => ({
         module_id: mod.id,
         course_id: courseId,
         question: q.question,
