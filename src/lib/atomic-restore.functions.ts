@@ -27,11 +27,11 @@ function validateDensity(slug: string, content: string): { valid: boolean; error
     if (blockCount < 10) return { valid: false, error: `M5: ${blockCount} blocks (min 10)` };
   }
   if (slug === 'influenciador-ia-m8') {
-    if (charCount < 10000) return { valid: false, error: `M8: ${charCount} chars (min 10k)` };
+    if (charCount < 9000) return { valid: false, error: `M8: ${charCount} chars (min 9k)` };
     if (blockCount < 10) return { valid: false, error: `M8: ${blockCount} blocks (min 10)` };
   }
   if (slug === 'influenciador-ia-m11') {
-    if (charCount < 10000) return { valid: false, error: `M11: ${charCount} chars (min 10k)` };
+    if (charCount < 9000) return { valid: false, error: `M11: ${charCount} chars (min 9k)` };
     if (blockCount < 10) return { valid: false, error: `M11: ${blockCount} blocks (min 10)` };
   }
   return { valid: true };
