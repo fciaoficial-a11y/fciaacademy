@@ -64,10 +64,13 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
   }
 
   if (slug === 'influenciador-ia-m12') {
-    if (charCount < 10000) return { valid: false, error: `Módulo 12: Conteúdo muito curto (${charCount} chars).` };
+    if (charCount < 15000) return { valid: false, error: `Módulo 12: Conteúdo insuficiente (${charCount} chars). Mínimo 15.000.` };
     if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 12: Estrutura incompleta.` };
     if (!content.includes('DOSSIÊ FINAL DE CAMPANHA')) return { valid: false, error: `Módulo 12: Dossiê ausente.` };
+    if (!content.includes('PROMPTS COMPLETOS (AI-TO-AI)')) return { valid: false, error: `Módulo 12: Biblioteca de prompts ausente.` };
+    if (!content.includes('ATIVIDADES PRÁTICAS OBRIGATÓRIAS')) return { valid: false, error: `Módulo 12: Atividades ausentes.` };
   }
+
 
   return { valid: true };
 }

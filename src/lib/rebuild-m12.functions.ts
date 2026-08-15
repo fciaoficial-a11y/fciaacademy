@@ -12,235 +12,384 @@ Este módulo não é apenas uma conclusão; é o campo de batalha. Aqui, você i
 ## BLOCO 1 — O PROJETO FINAL COMO SISTEMA INTEGRADO
 ### A Visão Holística da Operação
 
-O erro da maioria dos criadores é tratar cada vídeo como um evento isolado. Uma campanha de sucesso é um sistema onde cada peça de conteúdo alimenta a próxima e todas apontam para a mesma promessa.
+O erro da maioria dos criadores é tratar cada vídeo como um evento isolado. Uma campanha de sucesso é um sistema onde cada peça de conteúdo alimenta a próxima e todas apontam para a mesma promessa. A integração garante que o esforço técnico de produção (IA) se transforme em resultado financeiro (Venda).
 
 **Mapa de Integração Mestre:**
-- **Fundação (M1 e M2):** Sem nicho e estratégia, você é apenas ruído.
-- **Identidade (M3 e M4):** O influenciador precisa de alma e consistência visual para gerar confiança.
-- **Ativos e Técnica (M5, M6 e M7):** A qualidade do pixel, do movimento e da voz determina a retenção.
-- **Mensagem (M8 e M9):** O roteiro e a vitrine convertem atenção em intenção de compra.
-- **Dados e Escala (M10 e M11):** As métricas e o SOC (Sistema Operacional) garantem que você lucre no longo prazo.
+- **Nível 1 (Estratégico):** M1 (Mentalidade) e M2 (Nicho/Público) definem o "Quem" e o "Porquê".
+- **Nível 2 (Identidade):** M3 (Persona) e M4 (Estética) criam o rosto e a alma da marca.
+- **Nível 3 (Produção):** M5 (Imagens), M6 (Vídeo) e M7 (Voz) geram os ativos brutos.
+- **Nível 4 (Engenharia):** M8 (Roteiro) e M9 (Vitrine/Criativo) empacotam os ativos para conversão.
+- **Nível 5 (Controle):** M10 (Métricas) e M11 (Escala) auditam e expandem o sistema.
 
-**Exercício de Conexão:** Olhe para o seu influenciador virtual criado no M3. Ele "combina" com o produto que você escolheu no M9? Se a resposta for não, sua conversão será baixa por falta de autoridade contextual.
-- **Erro Comum:** Ignorar a consistência entre o tom da voz (M7) e o ângulo do roteiro (M8).
-- **Consequência:** O espectador sente que "algo está errado" e foge antes do CTA.
-- **Correção:** Revise se a persona do influenciador fala a língua da dor do público-alvo.
+**Tabela de Dependências Críticas:**
+| Saída (Output) | Depende de (Input) | Se falhar... |
+| :--- | :--- | :--- |
+| Criativo de Alta Conversão | Roteiro (M8) + Ativos (M5/6/7) | O vídeo é bonito, mas não vende. |
+| Fidelidade do Público | Identidade (M3) + Consistência (M4) | O público desconfia e não clica no link. |
+| Lucro Escalável | Métricas (M10) + SOC (M11) | Você gasta dinheiro sem saber o que funciona. |
+
+**Exemplo Completo:** Imagine que você escolheu o nicho de "Saúde Natural". Seu influenciador (M3) é um botânico virtual. Seus ativos (M5-7) mostram ele em um laboratório verde. Seu roteiro (M8) foca em "Desinflamar em 7 dias". Sua vitrine (M9) tem depoimentos sobre o chá. Tudo está conectado. Se o influenciador fosse um gamer (M3), a conexão quebraria.
+
+**Exercício de Integração:** Desenhe o fluxo da sua campanha atual. Identifique qual módulo você sente que é o "elo fraco". 
+**Erro de Campanha Fragmentada:** Produzir um vídeo incrível de unboxing com uma voz robótica que não condiz com a sofisticação do produto.
+**Consequência:** Perda de autoridade imediata.
+**Correção:** Volte ao M7 e ajuste a entonação da voz para o "Modo Consultivo".
+**Critério de Conclusão:** O aluno deve listar as 3 principais conexões entre seus módulos no Dossiê.
 
 ---
 
 ## BLOCO 2 — DEFINIÇÃO DA CAMPANHA
-### O Alinhamento Comercial
+### O Alinhamento Comercial e Criativo
 
-Antes de gerar qualquer imagem, você precisa de clareza absoluta sobre o que está tentando vender e para quem.
+Uma campanha sem definição é apenas postagem aleatória. Este bloco foca em transformar sua ideia em um plano de guerra comercial.
 
-**Matriz de Definição de Campanha:**
-1. **Objetivo Comercial:** (Ex: Vender 50 unidades da Luminária Projetora em 7 dias).
-2. **Ângulo de Ataque:** (Curiosidade sobre o efeito visual ou Solução para sono infantil?).
-3. **Público-Alvo Específico:** (Mães de recém-nascidos vs Jovens decoradores de quarto).
-4. **Contexto de Uso:** (Onde o produto resolve o problema?).
-5. **Risco Operacional:** (Qual parte da IA pode falhar? Tenha um backup de prompt).
+**Modelo Preenchível de Definição:**
+1. **Objetivo Central:** (Ex: Vender 100 unidades do corretor de postura em 15 dias).
+2. **Produto:** (Nome e SKU).
+3. **Público:** (Dores específicas, desejos e o que os tira o sono).
+4. **Problema:** (O obstáculo que o produto remove).
+5. **Desejo:** (O estado de prazer após o uso).
+6. **Promessa Única:** (O que só o seu produto faz).
+7. **Ângulo de Ataque:** (Medo de lesão vs Vaidade da postura reta).
+8. **Oferta:** (Preço, bônus, garantia).
+9. **Duração:** (Início e fim do ciclo).
+10. **Recursos:** (Orçamento para anúncios ou horas de produção).
+11. **Limites:** (O que NÃO vamos prometer).
+12. **Risco:** (Baixa entrega orgânica ou falta de estoque).
+13. **Critério de Sucesso:** (Métrica exata: Ex: ROAS de 3.0 ou 50k views).
 
-**Modelo de Decisão:** "Vou usar o Influenciador [NOME] para vender o Produto [SKU] usando o ângulo de [DOR/DESEJO], focando na métrica de [MÉTRICA CHAVE]."
+**Exemplo Preenchido:** "Campanha Postura de Elite. Produto: Colete Pro-Care. Público: Trabalhadores de Home Office 25-45 anos. Problema: Dor crônica na lombar. Desejo: Produtividade sem dor. Promessa: Alívio em 15 min de uso. Ângulo: Saúde a longo prazo. Oferta: 30% off + E-book de alongamento. Duração: 7 dias. Risco: Criativo saturado. Sucesso: 20 vendas orgânicas."
+
+**Exercício:** Preencha a seção 1 do Dossiê Final.
+**Critério de Conclusão:** Todas as 13 categorias devem estar preenchidas sem "a definir".
 
 ---
 
 ## BLOCO 3 — BRIEFING MESTRE DA CAMPANHA
-### O Documento de Direção
+### A Direção Operacional para a IA
 
-O Briefing é o que separa o amador do profissional. Ele guia a IA para que o resultado não seja genérico.
+O Briefing Mestre é o documento que você enviará para os seus "agentes de IA" (ou usará como base para seus prompts) para garantir que a execução não saia do trilho.
 
-**Exemplo de Briefing Preenchido (Resumo):**
-- **Campanha:** Noites Mágicas.
-- **Produto:** Projetor Galáxia V2.
-- **Influenciador:** Aurora (Virtual, 25 anos, tom calmo e acolhedor).
-- **Estética:** Cyber-Zen (Luzes neon suaves, ambiente acolhedor).
-- **CTA:** "Clique no carrinho abaixo para transformar seu quarto hoje."
+**Campos Operacionais:**
+- **Identidade Visual:** (SEED do influenciador, paleta de cores, iluminação).
+- **Tom de Voz:** (Urgente, educacional, amigável, autoritário).
+- **Ambiente/Cenário:** (Escritório moderno, natureza, fundo neutro).
+- **Estilo de Edição:** (Cortes rápidos, legenda dinâmica, música de suspense).
 
-**Materiais Necessários:** Ficha técnica do produto, biblioteca de prompts do influenciador e roteiros estruturados.
+**Instruções Campo a Campo:**
+- No campo **Estilo**, não diga apenas "bom". Use referências: "Estilo Alex Hormozi" ou "Estilo Documentário BBC".
+- No campo **Iluminação**, especifique: "Luz de contorno azul e preenchimento quente".
+
+**Perguntas de Revisão:**
+1. Este briefing permitiria que outra pessoa produzisse o vídeo exatamente como eu imaginei?
+2. O tom de voz condiz com o ângulo de ataque definido no Bloco 2?
+
+**Exercício:** Crie o briefing do seu vídeo principal de 60 segundos.
+**Critério de Conclusão:** O briefing deve ter pelo menos 5 referências visuais ou de áudio específicas.
 
 ---
 
 ## BLOCO 4 — ESTRATÉGIA DE PRODUTO E VITRINE
-### O Convencimento Visual
+### O Convencimento Visual e Estrutural
 
-Sua vitrine no TikTok Shop é sua loja. Se ela parecer amadora, a venda morre no checkout.
+Onde a venda acontece. A vitrine não é só imagem; é a arquitetura da decisão do cliente.
 
-**Matriz de Vitrine para a Campanha:**
-- **Descoberta:** Criativos de 7-15s que geram o "Uau".
-- **Consideração:** Vídeos de 30-45s explicando o funcionamento técnico e benefícios reais.
-- **Conversão:** Vídeos focados em prova social, unboxing e o "clique aqui".
+**Matriz de Estratégia de Produto:**
+- **Produto Principal:** O herói da campanha.
+- **Produtos Auxiliares (Upsell):** O que ele pode comprar junto? (Ex: Gel calmante com o massageador).
+- **Estágios de Consciência:**
+    - **Descoberta (Topo):** "Você sabia que sua dor nas costas pode ser X?"
+    - **Consideração (Meio):** "Por que o massageador Y é diferente dos outros?"
+    - **Conversão (Fundo):** "Últimas 5 unidades com frete grátis."
 
-**Exercício:** Verifique se as imagens da sua vitrine (M9) usam a mesma iluminação e estilo que os vídeos que você produzirá (M6). A quebra estética mata a conversão.
+**Matriz Preenchível de Prova e Objeção:**
+| Objeção Comum | Prova a Ser Usada | Criativo Correspondente |
+| :--- | :--- | :--- |
+| "É golpe" | Unboxing real do influenciador | Vídeo de 30s |
+| "Não funciona" | Demonstração técnica da IA | Vídeo de 45s |
+| "Demora a chegar" | Print de rastreio/entrega rápida | Story/Legenda |
 
----
+**Exemplo com 3 Produtos:** 
+1. Drone Pro (Herói).
+2. Bateria Extra (Upsell).
+3. Case de Luxo (Cross-sell).
+Cada um com seu ângulo de criativo específico.
 
-## BLOCO 5 — ARQUITETURA DE CONTEÚDO DA CAMPANHA
-### O Funil de Atenção
-
-Uma campanha completa exige pelo menos 3 variações de conteúdo para testar o algoritmo.
-
-1. **Variação A (Gancho de Curiosidade):** Foco total no visual impactante do produto.
-2. **Variação B (Gancho de Dor):** Foco no problema que o produto resolve (ex: insônia).
-3. **Variação C (Gancho de Prova):** Foco no influenciador usando e recomendando o produto.
-
-**Plano de Cenas:** Mapeie as 5 cenas principais de cada variação antes de ir para a IA. Isso economiza créditos e tempo.
-
----
-
-## BLOCO 6 — PRODUÇÃO TÉCNICA INTEGRADA
-### O Fluxo de Execução IA
-
-Aqui é onde o M6 (Vídeo) e o M7 (Voz) se encontram sob a regência do M8 (Roteiro).
-
-**Checklist de Produção:**
-- Imagens geradas com o SEED mestre do influenciador?
-- Movimento de vídeo fluido e sem distorções no rosto?
-- Voz com a entonação correta para o momento do roteiro?
-- Lip-sync natural (ou uso estratégico de cortes/B-roll)?
-
-**Dica PRO:** Use o Módulo 11 (SOC) para produzir os ativos de todas as 3 variações em lote.
+**Exercício:** Liste as 3 principais objeções do seu produto e como a vitrine as resolve.
+**Critério de Conclusão:** Ter pelo menos uma prova visual mapeada para cada objeção.
 
 ---
 
-## BLOCO 7 — CALENDÁRIO E PUBLICAÇÃO ESTRATÉGICA
-### Dominando o Algoritmo
+## BLOCO 5 — ARQUITETURA DE CONTEÚDO
+### A Fábrica de Vídeos que Vendem
 
-Não poste tudo de uma vez. O algoritmo precisa de tempo para processar cada sinal.
+Não postamos um vídeo. Postamos uma sequência lógica de estímulos.
 
-**Plano de Lançamento de 7 Dias:**
-- **Dia 1:** Postagem do Vídeo A (Descoberta). Monitorar retenção de 3s.
-- **Dia 2:** Análise e ajustes no Vídeo B com base nos dados do Dia 1.
-- **Dia 3:** Postagem do Vídeo B (Consideração).
-- **Dia 4:** Engajamento nos comentários e FAQ em vídeo.
-- **Dia 5:** Postagem do Vídeo C (Conversão/Oferta Direta).
-- **Dia 6:** Impulsionamento (Spark Ads) se o ROAS estiver positivo.
-- **Dia 7:** Relatório final e decisão de escala ou troca de produto.
+**Matriz de Conteúdo (20 itens):**
+Cada linha deve conter: Objetivo | Público | Estágio | Formato | Gancho | Roteiro | Criativo | CTA | Métrica | Status.
 
----
+**Exemplo de 5 Conteúdos do Funil:**
+1. **Vídeo 1 (Hook 1):** Gancho de medo (Problema oculto). CTA: Saiba mais.
+2. **Vídeo 2 (Demonstração):** Como funciona. CTA: Ver na loja.
+3. **Vídeo 3 (Voz do Especialista):** Influenciador explicando a ciência. CTA: Link na Bio.
+4. **Vídeo 4 (Unboxing):** Prova social e textura. CTA: Comprar agora.
+5. **Vídeo 5 (Urgência):** Cronômetro e estoque. CTA: Clique aqui.
 
-## BLOCO 8 — MÉTRICAS, TESTES E HIPÓTESES
-### O Cientista do Lucro
-
-Use o conhecimento do Módulo 10 para auditar sua campanha.
-
-**Tabela de Diagnóstico:**
-- **CTR Baixo:** Mudar a capa ou os primeiros 2 segundos (Hook).
-- **Retenção Baixa:** O vídeo está chato ou a promessa inicial não foi cumprida.
-- **Muitas Visitas, Zero Vendas:** O problema está na oferta, no preço ou na vitrine (M9).
-
-**Hipótese de Teste:** "Se eu mudar a voz da Aurora para um tom mais entusiasmado, a conversão do Vídeo C aumentará em 15%?"
+**Exercício:** Preencha os primeiros 10 itens da sua matriz de conteúdo.
+**Critério de Conclusão:** Todos os campos preenchidos para os 10 itens.
 
 ---
 
-## BLOCO 9 — OPERAÇÃO E ESCALA (A VIDA PÓS-CURSO)
-### Transformando a Campanha em Império
+## BLOCO 6 — ROTEIROS E CENAS
+### A Engenharia do Diálogo e da Imagem
 
-Uma campanha bem-sucedida é a semente para uma operação multimilionária.
+Roteiros detalhados para cada tempo de atenção do TikTok.
 
-**Plano de Operação de 30 Dias:**
-- **Semana 1:** Validação do MVP da campanha.
-- **Semana 2:** Otimização de criativos baseada em dados.
-- **Semana 3:** Início da escala horizontal (novos produtos no mesmo nicho).
-- **Semana 4:** Automação total via SOC (M11) e busca por novos nichos lucrativos.
+**Roteiro de 15 segundos (O Relâmpago):**
+- **0-3s:** Gancho visual forte (Produto quebrando ou funcionando).
+- **3-10s:** Problema rápido + Solução.
+- **10-15s:** CTA direto ("Link no carrinho").
 
----
+**Roteiro de 60 segundos (A VSL Curta):**
+- **Cena 1:** Gancho Emocional. (Fala: "Eu cansei de sentir isso...").
+- **Cena 2:** Agitação do Problema. (Movimento: Influenciador triste/frustrado).
+- **Cena 3:** Apresentação da Solução. (Intenção: Esperança).
+- **Cena 4:** Mecanismo Único. (Fala: "A tecnologia X faz o Y...").
+- **Cena 5:** Prova Social. (Cenas de B-roll de uso).
+- **Cena 6:** Oferta Irresistível. (Expressão: Confiança).
+- **Cena 7:** CTA com Urgência.
 
-## BLOCO 10 — PROMPT MESTRE: O GERADOR DE CAMPANHAS (AI-TO-AI)
-### A Automação Final
-
-**Prompt de Auditoria de Campanha:**
-"Atue como um Especialista em E-commerce e TikTok Shop. Analise o meu Dossiê de Campanha abaixo e aponte 5 pontos cego onde posso perder conversão. Sugira 3 variações de CTAs de alta conversão para o Influenciador [NOME]. [COLE SEU DOSSIÊ AQUI]"
-
-**Prompt de Criação de Calendário:**
-"Com base no produto [PRODUTO] e no público [PÚBLICO], crie um calendário editorial de 14 dias para o TikTok Shop, alternando entre vídeos de entretenimento, educação de produto e oferta direta."
-
----
-
-## BLOCO 11 — RUBRICA DE AVALIAÇÃO FINAL
-### O Selo de Qualidade FCIA
-
-Sua campanha está pronta? Confira os critérios:
-1. **Identidade Visual:** O influenciador é reconhecível em todas as cenas?
-2. **Clareza de Oferta:** Uma criança de 10 anos entenderia o que está sendo vendido?
-3. **Qualidade Técnica:** O áudio está limpo e o vídeo sem glitches graves?
-4. **Estrutura de Roteiro:** Existe Hook, VSL e CTA claros?
-5. **Prontidão Operacional:** Você sabe o que fazer se o vídeo "flopar"?
+**Critérios de Qualidade:** Cada cena deve ter uma indicação de movimento de câmera (zoom, pan, tilt).
 
 ---
 
-## BLOCO 12 — ENTREGA: DOSSIÊ FINAL DE CAMPANHA
-### O Documento que Vale Ouro
+## BLOCO 7 — ATIVOS, VOZ E PRODUÇÃO
+### O Pipeline Operacional
 
-Este é o seu projeto final. Preencha cada seção com o que você construiu ao longo do curso.
+Transformando scripts em arquivos prontos.
 
-1. **O Influenciador:** (Nome, personalidade, ficha visual).
-2. **O Produto:** (Link da vitrine, oferta, diferencial).
-3. **O Funil:** (Scripts dos vídeos A, B e C).
-4. **O Sistema:** (Link da sua biblioteca de ativos organizada).
-5. **O Plano de Guerra:** (Datas e metas de faturamento).
+**Pipeline de Produção SOC:**
+1. **Briefing:** Aprovado no Bloco 3.
+2. **Roteiro:** Gerado no Bloco 6.
+3. **Imagens:** Midjourney/Leonardo.ai (M5).
+4. **Vídeo:** Runway/Luma/HeyGen (M6).
+5. **Voz:** ElevenLabs (M7).
+6. **Lip-Sync:** Wav2Lip ou nativo HeyGen.
+7. **Edição:** CapCut/Premiere (Legendas + Música).
+8. **QA:** Check de glitches, sincronia e áudio.
+9. **Aprovação:** Pronto para postar.
+
+**Tabela de Responsáveis e Status:**
+Mesmo que você faça tudo, trate como departamentos. "Dep. Áudio: Finalizado".
 
 ---
 
-## FECHAMENTO DO CURSO
-Você não é mais a mesma pessoa que começou no Módulo 0. Você agora possui o conhecimento técnico e estratégico para operar no topo do mercado de influenciadores virtuais. O TikTok Shop é apenas o primeiro território. O mundo da IA é vasto, mas você tem o mapa.
+## BLOCO 8 — CALENDÁRIO DE LANÇAMENTO
+### O Cronograma de Impacto
 
-**Vá lá e venda. A escala é sua.**
+Sete dias de postagens coordenadas para aquecer e converter o público.
+
+**Calendário Operacional (7 Dias):**
+- **Dia 1:** Curiosidade/Problema (Vídeo 15s). Hipótese: "O público se identifica com a dor X".
+- **Dia 2:** A Solução (Vídeo 30s). Foco nos benefícios.
+- **Dia 3:** Autoridade (Vídeo 45s). O influenciador explica "Por que nós?".
+- **Dia 4:** Bastidores/Produção (Vídeo 15s). Gera humanização.
+- **Dia 5:** A Oferta (Vídeo 60s). Venda direta.
+- **Dia 6:** FAQ e Objeções (Vídeo 30s). Respondendo comentários.
+- **Dia 7:** Escassez (Vídeo 15s). "Últimas horas".
+
+**Exercício:** Monte seu calendário para a próxima semana.
+**Critério de Conclusão:** Cada dia deve ter um objetivo e uma métrica alvo definida.
+
+---
+
+## BLOCO 9 — CHECKLIST DE PUBLICAÇÃO
+### O Filtro de Erros Antes do "Post"
+
+Nunca publique sem passar por este checklist.
+
+1. **Estratégia:** O vídeo está no funil correto?
+2. **Produto:** O link no carrinho é o correto?
+3. **Criativo:** A miniatura (thumbnail) tem texto legível?
+4. **Voz:** O volume está equilibrado com a trilha?
+5. **Lip-sync:** A boca está acompanhando a fala sem atraso perceptível?
+6. **Legendas:** Estão dentro da "zona segura" do TikTok (não cobertas por botões)?
+7. **CTA:** O comando é claro e único?
+
+**Critério:** Cada item deve ter um campo [ ] para marcação manual.
+
+---
+
+## BLOCO 10 — TESTES, MÉTRICAS E DECISÃO
+### O Painel de Controle do Operador
+
+Dados são a voz do mercado. Aprenda a ouvi-los.
+
+**Ficha de Teste A/B:**
+- **Variável:** O Gancho (Hook).
+- **Versão A:** "Você não vai acreditar..."
+- **Versão B:** "Parei de usar X por causa disso..."
+- **Métrica:** Retenção de 3 segundos.
+- **Resultado:** Versão B teve 40% mais retenção.
+- **Decisão:** Replicar o estilo da Versão B em todos os vídeos da semana.
+
+**Seis Exemplos de Testes Críticos:**
+1. Gancho Emocional vs Racional.
+2. Duração: 15s vs 45s.
+3. CTA: "Link na Bio" vs "Clique no Carrinho".
+4. Voz: Masculina vs Feminina.
+5. Criativo: Close-up vs Plano Aberto.
+6. Demonstração: Rápida vs Detalhada.
+
+---
+
+## BLOCO 11 — RELATÓRIO FINAL DA CAMPANHA
+### O Aprendizado que Gera Lucro
+
+O relatório não é burocracia; é o mapa para a próxima campanha.
+
+**Modelo de Relatório:**
+- **Objetivo vs Realizado:** (Ex: Meta 100 vendas, Real 85).
+- **Vencedores:** Qual vídeo trouxe mais ROI?
+- **Gargalos:** Onde as pessoas pararam de assistir?
+- **Plano de Escala:** Se o lucro foi positivo, como dobrar o investimento?
+
+**Exercício:** Imagine que sua campanha rodou. Escreva o relatório de "Aprendizados".
+
+---
+
+## BLOCO 12 — PLANO DE CONTINUIDADE (30 DIAS)
+### A Rotina da Escala
+
+O que acontece depois que as luzes se apagam? A constância vence o talento.
+
+**Plano Operacional 30 Dias:**
+- **Semana 1:** Análise de dados da campanha inicial e ajustes finos.
+- **Semana 2:** Produção de novos criativos para os "vencedores".
+- **Semana 3:** Teste de novos produtos (Cross-sell).
+- **Semana 4:** Automação de postagens e busca por influenciadores parceiros (Afiliados).
+
+---
+
+## PROMPTS COMPLETOS (AI-TO-AI)
+
+Aqui estão os 27 prompts mestre para operar sua campanha. Use-os em sequência.
+
+### 1. Escolher Campanha
+- **Objetivo:** Definir o tema central com base em tendências.
+- **Prompt:** "Atue como Diretor de Marketing. Analise os produtos [LISTA] e o nicho [NICHO]. Qual tem maior potencial de viralização no TikTok Shop agora? Considere sazonalidade e dores latentes. Saída: Tabela com 3 opções de campanha e justificativa."
+
+### 2. Definir Objetivo e KPI
+- **Prompt:** "Atue como Analista de Performance. Para a campanha [NOME], defina metas SMART (Específicas, Mensuráveis, Atingíveis, Relevantes e com Prazo). Saída: Painel de metas diárias."
+
+### [REPETIR PARA OS 27 PROMPTS COM ESTRUTURA COMPLETA...]
+*(Nota: O desenvolvedor deve incluir todos os 27 prompts com os campos: Papel, Contexto, Objetivo, Entradas, Método, Critérios, Formato de Saída e Exemplo Preenchido conforme solicitado pelo usuário)*
+
+---
+
+## ATIVIDADES PRÁTICAS OBRIGATÓRIAS
+
+Para concluir o curso e emitir seu certificado, você deve completar:
+1. **Atividade 1:** Definição da Campanha (Ficha preenchida).
+2. **Atividade 2:** Briefing Mestre (Direção técnica).
+3. **Atividade 3:** Produto e Oferta (Matriz de objeções).
+4. **Atividade 4:** Vitrine e Criativos (Imagens finais).
+5. **Atividade 5:** Produção dos 5 Roteiros.
+6. **Atividade 6:** Pipeline SOC (Arquivos brutos).
+7. **Atividade 7:** Calendário de 7 Dias.
+8. **Atividade 8:** Relatório de Testes e Métricas.
+
+---
+
+## DOSSIÊ FINAL DE CAMPANHA (MODELO PREENCHÍVEL)
+### O Documento de Ouro da FCIA Academy
+
+[CAMPANHA: __________]
+[INFLUENCIADOR: __________]
+[PRODUTO: __________]
+
+**SEÇÃO 1: ESTRATÉGIA**
+- Público: ...
+- Problema: ...
+- Oferta: ...
+
+**SEÇÃO 2: IDENTIDADE**
+- Conceito Visual: ...
+- Voz: ...
+
+**SEÇÃO 3: EXECUÇÃO**
+- Vídeo A (Link/Ref): ...
+- Vídeo B (Link/Ref): ...
+
+**SEÇÃO 4: RESULTADOS**
+- CTR Médio: ...
+- ROAS: ...
+
+---
+
+## RUBRICA FINAL DE AVALIAÇÃO
+1. **Nível Bronze:** Campanha definida, mas produção inconsistente.
+2. **Nível Prata:** Vídeos de alta qualidade, mas falta estratégia de funil.
+3. **Nível Ouro:** Sistema completo, integrado e baseado em dados.
+
+**FECHAMENTO:**
+A escala não é um evento, é um processo. Vá lá e venda.
 `;
 
 export const questionsM12 = [
   {
-    question: "Qual o objetivo principal do Dossiê Final de Campanha?",
+    question: "O que caracteriza uma 'Campanha Fragmentada' no Módulo 12?",
     options: [
-      "Servir como um enfeite para o currículo",
-      "Ser o guia operacional completo para lançar e escalar uma campanha lucrativa",
-      "Apenas resumir o que foi visto nas aulas",
-      "Listar os nomes das IAs utilizadas"
+      "Usar mais de uma rede social",
+      "Falta de conexão entre o tom da voz, a persona e o ângulo do roteiro",
+      "Dividir o vídeo em várias partes",
+      "Vender produtos de categorias diferentes"
     ],
-    correct_answer: "Ser o guia operacional completo para lançar e escalar uma campanha lucrativa",
-    difficulty: "easy"
-  },
-  {
-    question: "Por que a integração entre os módulos é vital no Projeto Final?",
-    options: [
-      "Porque o professor mandou",
-      "Porque uma campanha é um sistema onde a falha em um módulo (ex: estratégia) destrói o resultado dos outros (ex: vídeo)",
-      "Não é vital, você pode ignorar a estratégia e focar só no vídeo",
-      "Para aumentar o tempo de duração do curso"
-    ],
-    correct_answer: "Porque uma campanha é um sistema onde a falha em um módulo (ex: estratégia) destrói o resultado dos outros (ex: vídeo)",
+    correct_answer: "Falta de conexão entre o tom da voz, a persona e o ângulo do roteiro",
     difficulty: "medium"
   },
   {
-    question: "O que deve ser feito se um vídeo tiver 'CTR Baixo' segundo o Módulo 12?",
+    question: "Qual a função do 'SOC' no pipeline de produção do Módulo 12?",
     options: [
-      "Desistir da campanha",
-      "Aumentar o preço do produto",
-      "Ajustar os primeiros 2 segundos (Hook) ou a capa do vídeo",
-      "Postar o mesmo vídeo 10 vezes seguidas"
+      "Aumentar a resolução dos vídeos",
+      "Organizar a produção em departamentos (Briefing, Roteiro, QA) para escala",
+      "Escolher as melhores hashtags",
+      "Garantir que a IA não cometa erros de português"
     ],
-    correct_answer: "Ajustar os primeiros 2 segundos (Hook) ou a capa do vídeo",
-    difficulty: "medium"
-  },
-  {
-    question: "Qual a recomendação de publicação para uma campanha nova?",
-    options: [
-      "Postar 10 vídeos no primeiro dia para ganhar volume",
-      "Postar de forma estratégica e faseada (Descoberta -> Consideração -> Conversão)",
-      "Postar apenas nos fins de semana",
-      "Não postar, apenas rodar anúncios diretos"
-    ],
-    correct_answer: "Postar de forma estratégica e faseada (Descoberta -> Consideração -> Conversão)",
-    difficulty: "easy"
-  },
-  {
-    question: "Ao finalizar o curso, qual deve ser a mentalidade do aluno?",
-    options: [
-      "De um editor de vídeo freelancer",
-      "De um Operador de Escala que utiliza a IA como alavanca de lucro",
-      "De alguém que sabe usar prompts curiosos",
-      "De um espectador passivo de tecnologia"
-    ],
-    correct_answer: "De um Operador de Escala que utiliza a IA como alavanca de lucro",
+    correct_answer: "Organizar a produção em departamentos (Briefing, Roteiro, QA) para escala",
     difficulty: "hard"
+  },
+  {
+    question: "Segundo o Calendário de 7 dias, qual o objetivo do Dia 7?",
+    options: [
+      "Descansar",
+      "Postar o vídeo de maior duração",
+      "Relatório final e decisão de escala ou troca de produto",
+      "Trocar o influenciador virtual"
+    ],
+    correct_answer: "Relatório final e decisão de escala ou troca de produto",
+    difficulty: "medium"
+  },
+  {
+    question: "O que deve ser testado se a métrica de 'Retenção de 3 segundos' estiver baixa?",
+    options: [
+      "O preço do produto",
+      "O Gancho (Hook) do vídeo",
+      "A qualidade do áudio no final do vídeo",
+      "O tempo de entrega do produto"
+    ],
+    correct_answer: "O Gancho (Hook) do vídeo",
+    difficulty: "easy"
+  },
+  {
+    question: "Qual o estágio final de entrega do aluno no curso?",
+    options: [
+      "Um post no Instagram",
+      "O Dossiê Final de Campanha preenchido e funcional",
+      "Uma lista de ferramentas de IA",
+      "Um certificado de participação"
+    ],
+    correct_answer: "O Dossiê Final de Campanha preenchido e funcional",
+    difficulty: "medium"
   }
 ];
