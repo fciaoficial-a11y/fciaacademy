@@ -49,6 +49,9 @@ async def main():
         keywords = ["BIBLIOTECA COMERCIAL", "METODO PROVA", "BRIEFING VISUAL", "AREA SEGURA"]
         
         print(f"DEBUG: Text content length: {len(text_content)}")
+        with open("/tmp/browser/check_m5_final/text_content.txt", "w") as f:
+            f.write(text_content)
+
         # print(f"DEBUG: First 2000 chars: {text_content[:2000]}")
         for kw in keywords:
             found = kw in text_content or kw.upper() in text_content or kw.lower() in text_content
