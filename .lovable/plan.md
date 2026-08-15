@@ -1,38 +1,40 @@
-# Plano de Produção Premium: Módulo 7 — Engenharia de Voz e Lip-Sync
+# Plano de Finalização da Fonte Premium — Módulo 3
 
-Este plano detalha a reconstrução do Módulo 7 do curso "Influenciador de IA para TikTok Shop", focando na profundidade técnica e pedagógica exigida pelo padrão premium da FCIA Academy.
+Este plano detalha a substituição integral do conteúdo do arquivo `src/lib/rebuild-m3.functions.ts` para atender aos requisitos rigorosos de densidade e estrutura pedagógica (15k+ caracteres, 25+ prompts, 20+ materiais, etc.).
 
-## Objetivos
-- Implementar a Ficha-Mestra de Identidade Vocal.
-- Detalhar processos de clonagem de voz e lip-sync de alta fidelidade.
-- Garantir a remoção total de elementos de vídeo na página do aluno.
-
-## Ações Técnicas
-
-### 1. Produção de Conteúdo (src/lib/rebuild-m7.functions.ts)
-Criar arquivo com 12 blocos densos cobrindo:
-- **Bloco 1:** O DNA da Voz (Frequência, Timbre, Cadência).
-- **Bloco 2:** Psicologia da Voz para Vendas (O tom da autoridade vs. o tom da amizade).
-- **Bloco 3:** Engenharia de Script para Voz (Pontuação estratégica e pausas dramáticas).
-- **Bloco 4:** Clonagem de Voz (ElevenLabs, HeyGen e ferramentas open-source).
-- **Bloco 5:** O Método P.O.N.T.E. aplicado ao Áudio.
-- **Bloco 6:** Limpeza e Pós-produção de Áudio (IA para remoção de ruídos).
-- **Bloco 7:** Engenharia de Lip-Sync (Wav2Lip, SyncLabs, SadTalker).
-- **Bloco 8:** Sincronia de Emoção (Micro-expressões e congruência áudio-visual).
-- **Bloco 9:** Tradução e Localização (Como escalar o IV para múltiplos idiomas).
-- **Bloco 10:** 20 Prompts Mestre para Direção de Voz.
-- **Bloco 11:** Guia de Erros Comuns (O efeito "robótico" e como evitá-lo).
-- **Bloco 12:** Projeto Prático: A Primeira Locução Perfeita.
-
-### 2. Integração e Injeção (src/lib/rebuild.functions.ts)
-- Mapear o slug `influenciador-ia-m7`.
-- Configurar 6 questões de quiz de alta complexidade.
-- Garantir `video_url: null` no banco de dados.
-
-### 3. Validação E2E
-- Executar script Playwright para confirmar 12+ blocos H2 e palavras-chave técnicas.
+## Escopo e Restrições
+- **Arquivo Alvo:** `src/lib/rebuild-m3.functions.ts`.
+- **Nenhuma alteração no banco de dados.**
+- **Nenhum script de restauração ou função global será chamado.**
+- **Entrega atômica e completa em uma única execução.**
 
 ## Detalhes Técnicos
-- **Course Slug:** `influenciador-ia-tiktok-shop`
-- **Module Slug:** `influenciador-ia-m7`
-- **Role:** Admin (`blindadoemotivado@gmail.com`)
+O arquivo será estruturado com a variável `contentM3Premium` contendo o Markdown pedagógico e `questionsM3` contendo os quizzes.
+
+### Estrutura do Conteúdo (Markdown)
+1. **Identidade não é aparência:** Foco em alma vs. casca.
+2. **Posicionamento em Conceito:** Método PONTE e arquétipos.
+3. **Função Narrativa e Comercial:** O papel do influenciador no funil.
+4. **Nome, Biografia e Identificação:** Semântica e branding.
+5. **Personalidade, Valores e Comportamento:** A psicologia do personagem.
+6. **Identidade Verbal e Tom de Voz:** Glossário e padrões de fala.
+7. **Repertório e Universo de Conteúdo:** O que ele sabe e o que ele consome.
+8. **História de Origem:** Narrativa de fundação.
+9. **Relação com Audiência e Produtos:** Protocolos de interação e venda.
+10. **Identidade Visual Conceitual:** Briefing para geração de imagem.
+11. **Elementos Fixos e Variáveis:** Regras de consistência.
+12. **Integração e Briefing M4:** Transição técnica.
+
+### Inventário de Ativos
+- **Caracteres:** > 15.000.
+- **Prompts AI-to-AI:** 25 unidades (Estrutura: Papel, Contexto, Objetivo, Entradas, Método, Restrições, Saída).
+- **Materiais Complementares:** 20 unidades (Instruções, Campos, Exemplos).
+- **Atividades Práticas:** 6 unidades (Objetivo, Tempo, Critérios).
+- **Ficha-Mestra Completa:** > 30 campos detalhados.
+- **Rubrica de Avaliação:** 0 a 5.
+- **Checklists e Plano de 7 dias.**
+
+## Validação
+- Verificação manual de densidade de caracteres.
+- Contagem de blocos H2 e H3.
+- Verificação da presença de todos os itens obrigatórios da Ficha-Mestra.
