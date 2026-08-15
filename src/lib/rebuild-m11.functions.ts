@@ -112,15 +112,15 @@ Gravar um vídeo por vez é o caminho para a falência operacional. A IA permite
 Se você não encontra um arquivo em 10 segundos, você está perdendo dinheiro.
 
 **Estrutura de Pastas Sugerida:**
-- \`01_IDENTIDADE\` (Loras, prompts mestre, vozes base).
-- \`02_PRODUTOS\` (FCPs, criativos brutos por SKU).
-- \`03_ROTEIROS\` (Aprovados, Teste, Reprovados).
-- \`04_PROMPTS\` (Biblioteca de ganchos e descrições).
-- \`05_ENTREGAS\` (Vídeos finais prontos para postar).
+- '01_IDENTIDADE' (Loras, prompts mestre, vozes base).
+- '02_PRODUTOS' (FCPs, criativos brutos por SKU).
+- '03_ROTEIROS' (Aprovados, Teste, Reprovados).
+- '04_PROMPTS' (Biblioteca de ganchos e descrições).
+- '05_ENTREGAS' (Vídeos finais prontos para postar).
 
 **Padrão de Nomenclatura Mestre:**
-\`CATEGORIA_OBJETIVO_PRODUTO_VERSAO_STATUS\`
-*Exemplo:* \`VID_VENDA_LUMINARIA_V02_APROVADO.mp4\`
+'CATEGORIA_OBJETIVO_PRODUTO_VERSAO_STATUS'
+*Exemplo:* 'VID_VENDA_LUMINARIA_V02_APROVADO.mp4'
 
 ---
 
