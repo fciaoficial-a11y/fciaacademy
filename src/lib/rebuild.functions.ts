@@ -5,6 +5,8 @@ import { contentM3Premium, questionsM3 } from "./rebuild-m3.functions.ts";
 import { contentM4Premium, questionsM4 } from "./rebuild-m4.functions.ts";
 import { contentM5Premium, questionsM5 } from "./rebuild-m5.functions.ts";
 import { contentM6Premium, questionsM6 } from "./rebuild-m6.functions.ts";
+import { contentM9Premium, questionsM9 } from "./rebuild-m9.functions.ts";
+
 
 async function getSupabase() {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -40,8 +42,15 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
     if (!content.includes('DOSSIÊ ESTRATÉGICO')) return { valid: false, error: `Módulo 2: Dossiê Estratégico ausente.` };
   }
 
+  if (slug === 'vitrine-criativos-tiktok-shop') {
+    if (charCount < 10000) return { valid: false, error: `Módulo 9: Conteúdo muito curto (${charCount} chars).` };
+    if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 9: Estrutura incompleta.` };
+    if (!content.includes('FICHA COMERCIAL')) return { valid: false, error: `Módulo 9: Ficha comercial ausente.` };
+  }
+
   return { valid: true };
 }
+
 
 export const forceRebuildModule6 = createServerFn({ method: "POST" })
   .handler(async () => {
