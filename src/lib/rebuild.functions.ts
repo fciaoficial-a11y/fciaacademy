@@ -49,7 +49,7 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
     if (!content.includes('FICHA COMERCIAL')) return { valid: false, error: `Módulo 9: Ficha comercial ausente.` };
   }
   
-  if (slug === 'estratégia-publicação-escala') {
+  if (slug === 'influenciador-ia-m10') {
     if (charCount < 10000) return { valid: false, error: `Módulo 10: Conteúdo muito curto (${charCount} chars).` };
     if (!content.includes('## BLOCO 12')) return { valid: false, error: `Módulo 10: Estrutura incompleta.` };
     if (!content.includes('PAINEL DE PUBLICAÇÃO')) return { valid: false, error: `Módulo 10: Painel de publicação ausente.` };
@@ -324,7 +324,7 @@ export const forceRebuildModule10 = createServerFn({ method: "POST" })
     const courseId = course.id;
 
     // Slug exato do Módulo 10 identificado na auditoria
-    const targetSlug = 'estratégia-publicação-escala';
+    const targetSlug = 'influenciador-ia-m10';
 
     const v = validatePremiumContent(targetSlug, contentM10Premium);
     if (!v.valid) return { success: false, error: v.error };
