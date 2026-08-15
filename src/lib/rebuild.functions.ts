@@ -144,37 +144,14 @@ Preencha o seu Dossiê com o nicho final, arquétipo, proposta de valor e pilare
 **Fechamento:** Agora você tem um cérebro estratégico. No próximo módulo, vamos dar um corpo para esse cérebro.
 `.trim();
 
-    const contentM3 = `
-# Criação da Identidade do Influenciador Virtual
-
-## Objetivo do Módulo
-Saia do "boneco de IA" e crie uma persona magnética que as pessoas realmente queiram seguir, definindo o DNA psicológico e visual do seu influenciador.
-
-## O DNA do Influenciador (The Soul)
-A maioria dos iniciantes comete o erro de focar 100% no visual e 0% na personalidade. Antes de abrir o gerador de imagens, definimos:
-- **Origem e Valores:** O que ele defende? Qual sua história?
-- **Hobbies e Tom de Voz:** O que ele faz quando não está vendendo? Como ele fala?
-
-## Exemplo Prático: A Estética Identitária
-A consistência visual gera confiança.
-- **Traços Marcantes:** Cicatrizes, óculos, cores específicas.
-- **O Cenário Padrão:** Onde esse influenciador vive?
-
-## Fechamento: O Curador de Confiança
-No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identidade sólida é a sua âncora para toda a geração de conteúdo futuro.
-`.trim();
-
-    const contentM4 = contentM4Premium;
-    const contentM5 = contentM5Premium;
-
 
     // 2. Mapeamento e Execução
     const updates = [
       { slug: 'influenciador-ia-m1', content: contentM1, title: 'Módulo 1: Mentalidade e Nichos Lucrativos' },
       { slug: 'modulo-2-estrategia-posicionamento', content: contentM2, title: 'Módulo 2: Estratégia e Posicionamento' },
       { slug: 'influenciador-ia-m3', content: contentM3Premium, title: 'Módulo 3: Criação da Identidade do Influenciador' },
-      { slug: 'influenciador-ia-m4', content: contentM4, title: 'Módulo 4: Consistência Visual' },
-      { slug: 'influenciador-ia-m5', content: contentM5, title: 'Módulo 5: Produção de Imagens e Curadoria' },
+      { slug: 'influenciador-ia-m4', content: contentM4Premium, title: 'Módulo 4: Consistência Visual' },
+      { slug: 'influenciador-ia-m5', content: contentM5Premium, title: 'Módulo 5: Produção de Imagens e Curadoria' },
       { slug: 'influenciador-ia-m6', content: contentM6Premium, title: 'Módulo 6: Criação de Vídeos com Influenciador' }
     ];
 
@@ -290,8 +267,6 @@ No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identida
             });
           });
         }
-
-
 
         await supabase.from('questions').insert(newQuestions);
       }
