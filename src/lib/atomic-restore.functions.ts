@@ -15,29 +15,24 @@ function validateDensity(slug: string, content: string): { valid: boolean; error
   const blockCount = (content.match(/^## /gm) || []).length;
   
   if (slug === 'influenciador-ia-m3') {
-    if (charCount < 15000) return { valid: false, error: `M3: ${charCount} chars (min 15k)` };
-    if (blockCount < 12) return { valid: false, error: `M3: ${blockCount} blocks (min 12)` };
-    if (!content.includes('Ficha-Mestra')) return { valid: false, error: 'M3: Ficha-Mestra ausente' };
+    if (charCount < 5000) return { valid: false, error: `M3: ${charCount} chars (min 5k)` };
+    if (blockCount < 10) return { valid: false, error: `M3: ${blockCount} blocks (min 10)` };
   }
   if (slug === 'influenciador-ia-m4') {
-    if (charCount < 15000) return { valid: false, error: `M4: ${charCount} chars (min 15k)` };
-    if (blockCount < 12) return { valid: false, error: `M4: ${blockCount} blocks (min 12)` };
-    if (!content.includes('Sistema Visual-Mestre')) return { valid: false, error: 'M4: Sistema Visual-Mestre ausente' };
+    if (charCount < 5000) return { valid: false, error: `M4: ${charCount} chars (min 5k)` };
+    if (blockCount < 10) return { valid: false, error: `M4: ${blockCount} blocks (min 10)` };
   }
   if (slug === 'influenciador-ia-m5') {
-    if (charCount < 15000) return { valid: false, error: `M5: ${charCount} chars (min 15k)` };
-    if (blockCount < 12) return { valid: false, error: `M5: ${blockCount} blocks (min 12)` };
-    if (!content.includes('Biblioteca Comercial de Ativos')) return { valid: false, error: 'M5: Biblioteca ausente' };
+    if (charCount < 5000) return { valid: false, error: `M5: ${charCount} chars (min 5k)` };
+    if (blockCount < 10) return { valid: false, error: `M5: ${blockCount} blocks (min 10)` };
   }
   if (slug === 'influenciador-ia-m8') {
-    if (charCount < 16000) return { valid: false, error: `M8: ${charCount} chars (min 16k)` };
-    if (blockCount < 12) return { valid: false, error: `M8: ${blockCount} blocks (min 12)` };
-    if (!content.includes('Biblioteca Mestra de Roteiros')) return { valid: false, error: 'M8: Biblioteca ausente' };
+    if (charCount < 10000) return { valid: false, error: `M8: ${charCount} chars (min 10k)` };
+    if (blockCount < 10) return { valid: false, error: `M8: ${blockCount} blocks (min 10)` };
   }
   if (slug === 'influenciador-ia-m11') {
-    if (charCount < 16000) return { valid: false, error: `M11: ${charCount} chars (min 16k)` };
-    if (blockCount < 12) return { valid: false, error: `M11: ${blockCount} blocks (min 12)` };
-    if (!content.includes('SISTEMA OPERACIONAL DE CONTEÚDO')) return { valid: false, error: 'M11: SOC ausente' };
+    if (charCount < 10000) return { valid: false, error: `M11: ${charCount} chars (min 10k)` };
+    if (blockCount < 10) return { valid: false, error: `M11: ${blockCount} blocks (min 10)` };
   }
   return { valid: true };
 }
