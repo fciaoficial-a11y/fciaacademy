@@ -6,13 +6,7 @@ export const restoreM11PremiumV2 = createServerFn({ method: "POST" })
   .handler(async () => {
     const { contentM11Premium, questionsM11 } = await import("./rebuild-m11.functions");
     
-    const { data: course } = await supabase
-      .from("courses")
-      .select("id")
-      .eq("slug", "influenciador-ia-tiktok-shop")
-      .single();
-
-    if (!course) throw new Error("Course not found");
+    const courseId = "e23cf598-23be-4dbe-b8f0-4c3a420d9b62";
 
     const { error: modError } = await supabase
       .from("modules")
@@ -20,7 +14,7 @@ export const restoreM11PremiumV2 = createServerFn({ method: "POST" })
         content_text: contentM11Premium,
         video_url: null 
       })
-      .eq("course_id", course.id)
+      .eq("course_id", courseId)
       .eq("slug", "influenciador-ia-m11");
 
     if (modError) throw modError;
@@ -28,7 +22,7 @@ export const restoreM11PremiumV2 = createServerFn({ method: "POST" })
     const { data: module } = await supabase
       .from("modules")
       .select("id")
-      .eq("course_id", course.id)
+      .eq("course_id", courseId)
       .eq("slug", "influenciador-ia-m11")
       .single();
 
@@ -37,7 +31,7 @@ export const restoreM11PremiumV2 = createServerFn({ method: "POST" })
       
       const newQuestions = questionsM11.map((q, idx) => ({
         module_id: module.id,
-        course_id: course.id,
+        course_id: courseId,
         question: q.question,
         options: q.options,
         correct_answer: q.correct_answer,
