@@ -46,7 +46,7 @@ async def main():
 
         # Check for key commercial terms
         text_content = await page.evaluate("document.body.innerText")
-        keywords = ["BIBLIOTECA COMERCIAL", "PROVA", "BRIEFING VISUAL", "AREA SEGURA"]
+        keywords = ["BIBLIOTECA COMERCIAL", "PROVA", "BRIEFING VISUAL", "AREA_SEGURA"]
         
         for kw in keywords:
             found = kw in text_content or kw.upper() in text_content or kw.lower() in text_content
