@@ -274,3 +274,50 @@ Preencha o seu Dossiê com o nicho final, arquétipo, proposta de valor e pilare
 
     return { success: true };
   });
+
+export const forceRebuildModule6 = createServerFn({ method: "POST" })
+  .handler(async () => {
+    const { supabaseAdmin: supabase } = await import("@/integrations/supabase/client.server");
+
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', 'influenciador-ia-tiktok-shop')
+      .single();
+
+    if (!course) throw new Error('Course not found');
+    const courseId = course.id;
+
+    const { data: mod } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', courseId)
+      .eq('slug', 'influenciador-ia-m6')
+      .maybeSingle();
+
+    if (mod) {
+      await supabase.from('modules').update({
+        content_text: contentM6Premium,
+        title: 'Módulo 6: Criação de Vídeos com Influenciador',
+        content_type: 'text',
+        video_url: null
+      }).eq('id', mod.id);
+
+      await supabase.from('questions').delete().eq('module_id', mod.id);
+      
+      const newQuestions = questionsM6.map(q => ({
+        module_id: mod.id,
+        course_id: courseId,
+        question: q.question,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        difficulty: q.difficulty as any,
+        status: 'approved',
+        type: 'multiple_choice'
+      }));
+
+      await supabase.from('questions').insert(newQuestions);
+      return { success: true };
+    }
+    return { success: false, error: 'Module not found' };
+  });

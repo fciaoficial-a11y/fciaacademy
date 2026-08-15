@@ -1,14 +1,14 @@
-import { forceRebuildAllModules } from "../lib/rebuild.functions.ts";
+import { forceRebuildModule6 } from "../lib/rebuild.functions.ts";
 
 async function main() {
   console.log("Iniciando injeção do Módulo 6 Premium...");
   try {
-    const result = await forceRebuildAllModules();
+    const result = await forceRebuildModule6();
     console.log("Resultado da injeção:", result);
-    if (result.success) {
+    if (result && result.success) {
       console.log("Módulo 6 injetado com sucesso no banco de dados.");
     } else {
-      console.error("Erro na injeção.");
+      console.error("Erro na injeção:", result?.error || "Desconhecido");
       process.exit(1);
     }
   } catch (error) {
