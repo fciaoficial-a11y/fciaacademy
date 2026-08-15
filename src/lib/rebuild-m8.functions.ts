@@ -22,7 +22,7 @@ Para cada vídeo, você deve definir a **Função Comercial**: Este vídeo serve
 - **Roteiro Estratégico:** (Gancho) "Você está jogando comida fora por causa disso." (Solução) "Esse selador a vácuo de IA mantém tudo fresco por 10x mais tempo." (CTA) "Desconto de 30% no link abaixo." (Resultado: Conversão).
 
 ### 4. Erros e Correções
-- **Erro Comum:** Focar na "poesia" da fala e esquecer da "cena".
+- **Erro Comum:** Focar na "poesia" da fala e esquecer da "scene".
 - **Consequência:** O vídeo fica estático, o usuário se entedia e pula.
 - **Correção:** Para cada frase de impacto, defina uma mudança de ângulo ou ação visual.
 - **Exercício:** Pegue um produto da sua lista e escreva 3 ganchos diferentes: um focado em medo, um em curiosidade e um em benefício direto.
@@ -234,7 +234,7 @@ Nunca mude o vídeo inteiro. Mude apenas o **Gancho**.
 - **04_LOG_DE_ERROS:** O que falhou e por quê.
 
 ### 2. Nomenclatura Padrão
-Exemplo: `[NICHO]_[PRODUTO]_[FORMATO]_[VERSAO].txt` -> `COZINHA_MIXER_TUTORIAL_V1.txt`.
+Exemplo: [NICHO]\_[PRODUTO]\_[FORMATO]\_[VERSAO].txt -> COZINHA\_MIXER\_TUTORIAL\_V1.txt.
 
 ---
 
