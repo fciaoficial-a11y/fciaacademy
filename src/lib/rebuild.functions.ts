@@ -4,11 +4,14 @@ import { contentM4Premium, questionsM4 } from "./rebuild-m4.functions.ts";
 import { contentM5Premium, questionsM5 } from "./rebuild-m5.functions.ts";
 import { contentM6Premium, questionsM6 } from "./rebuild-m6.functions.ts";
 
+async function getSupabase() {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  return supabaseAdmin;
+}
 
-export const forceRebuildAllModules = createServerFn({ method: "POST" })
+export const forceRebuildModule6 = createServerFn({ method: "POST" })
   .handler(async () => {
-    const { supabaseAdmin: supabase } = await import("@/integrations/supabase/client.server");
-
+    const supabase = await getSupabase();
 
     const { data: course } = await supabase
       .from('courses')
@@ -16,11 +19,60 @@ export const forceRebuildAllModules = createServerFn({ method: "POST" })
       .eq('slug', 'influenciador-ia-tiktok-shop')
       .single();
 
-    if (!course) throw new Error('Course not found');
+    if (!course) return { success: false, error: 'Course not found' };
     const courseId = course.id;
 
-    // 1. Definição de Conteúdos Premium (Markdown Purista para ModuleArticle)
-    
+    const { data: mod } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', courseId)
+      .eq('slug', 'influenciador-ia-m6')
+      .maybeSingle();
+
+    if (mod) {
+      const { error: updateError } = await supabase.from('modules').update({
+        content_text: contentM6Premium,
+        title: 'Módulo 6: Criação de Vídeos com Influenciador',
+        content_type: 'text',
+        video_url: null
+      }).eq('id', mod.id);
+
+      if (updateError) return { success: false, error: updateError.message };
+
+      await supabase.from('questions').delete().eq('module_id', mod.id);
+      
+      const newQuestions = questionsM6.map(q => ({
+        module_id: mod.id,
+        course_id: courseId,
+        question: q.question,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        difficulty: q.difficulty as any,
+        status: 'approved',
+        type: 'multiple_choice'
+      }));
+
+      const { error: insertError } = await supabase.from('questions').insert(newQuestions);
+      if (insertError) return { success: false, error: insertError.message };
+
+      return { success: true };
+    }
+    return { success: false, error: 'Module not found' };
+  });
+
+export const forceRebuildAllModules = createServerFn({ method: "POST" })
+  .handler(async () => {
+    const supabase = await getSupabase();
+
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', 'influenciador-ia-tiktok-shop')
+      .single();
+
+    if (!course) return { success: false, error: 'Course not found' };
+    const courseId = course.id;
+
     const contentM1 = `
 # Módulo 1 — Mentalidade e Nichos Lucrativos
 
@@ -144,40 +196,14 @@ Preencha o seu Dossiê com o nicho final, arquétipo, proposta de valor e pilare
 **Fechamento:** Agora você tem um cérebro estratégico. No próximo módulo, vamos dar um corpo para esse cérebro.
 `.trim();
 
-    const contentM3 = `
-# Criação da Identidade do Influenciador Virtual
-
-## Objetivo do Módulo
-Saia do "boneco de IA" e crie uma persona magnética que as pessoas realmente queiram seguir, definindo o DNA psicológico e visual do seu influenciador.
-
-## O DNA do Influenciador (The Soul)
-A maioria dos iniciantes comete o erro de focar 100% no visual e 0% na personalidade. Antes de abrir o gerador de imagens, definimos:
-- **Origem e Valores:** O que ele defende? Qual sua história?
-- **Hobbies e Tom de Voz:** O que ele faz quando não está vendendo? Como ele fala?
-
-## Exemplo Prático: A Estética Identitária
-A consistência visual gera confiança.
-- **Traços Marcantes:** Cicatrizes, óculos, cores específicas.
-- **O Cenário Padrão:** Onde esse influenciador vive?
-
-## Fechamento: O Curador de Confiança
-No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identidade sólida é a sua âncora para toda a geração de conteúdo futuro.
-`.trim();
-
-    const contentM4 = contentM4Premium;
-    const contentM5 = contentM5Premium;
-
-
-    // 2. Mapeamento e Execução
     const updates = [
       { slug: 'influenciador-ia-m1', content: contentM1, title: 'Módulo 1: Mentalidade e Nichos Lucrativos' },
       { slug: 'modulo-2-estrategia-posicionamento', content: contentM2, title: 'Módulo 2: Estratégia e Posicionamento' },
       { slug: 'influenciador-ia-m3', content: contentM3Premium, title: 'Módulo 3: Criação da Identidade do Influenciador' },
-      { slug: 'influenciador-ia-m4', content: contentM4, title: 'Módulo 4: Consistência Visual' },
-      { slug: 'influenciador-ia-m5', content: contentM5, title: 'Módulo 5: Produção de Imagens e Curadoria' },
+      { slug: 'influenciador-ia-m4', content: contentM4Premium, title: 'Módulo 4: Consistência Visual' },
+      { slug: 'influenciador-ia-m5', content: contentM5Premium, title: 'Módulo 5: Produção de Imagens e Curadoria' },
       { slug: 'influenciador-ia-m6', content: contentM6Premium, title: 'Módulo 6: Criação de Vídeos com Influenciador' }
     ];
-
 
     for (const up of updates) {
       const { data: mod } = await supabase
@@ -195,105 +221,34 @@ No TikTok Shop, o influenciador atua como um "Curador de Confiança". A identida
           video_url: null
         }).eq('id', mod.id);
 
-        // Atualizar Questões para o novo conteúdo
         await supabase.from('questions').delete().eq('module_id', mod.id);
         
-        const newQuestions = [
-          {
-            module_id: mod.id,
-            course_id: courseId,
+        let newQuestions: any[] = [];
+        if (up.slug === 'influenciador-ia-m3') newQuestions = questionsM3;
+        else if (up.slug === 'influenciador-ia-m4') newQuestions = questionsM4;
+        else if (up.slug === 'influenciador-ia-m5') newQuestions = questionsM5;
+        else if (up.slug === 'influenciador-ia-m6') newQuestions = questionsM6;
+        else {
+          newQuestions = [{
             question: up.slug === 'influenciador-ia-m1' ? 'Qual a principal diferença entre um influenciador real e um virtual?' : `Qual o foco principal do Módulo: ${up.title}?`,
-            options: up.slug === 'influenciador-ia-m1' 
-              ? ['O virtual é um ativo de software escalável', 'O virtual não precisa de estratégia', 'O real é sempre mais barato', 'Não há diferença']
-              : ['Estratégia e Dados', 'Apenas Estética', 'Sorte', 'Volume sem foco'],
-            correct_answer: up.slug === 'influenciador-ia-m1' ? 'O virtual é um ativo de software escalável' : 'Estratégia e Dados',
-            difficulty: 'medium',
-            status: 'approved',
-            type: 'multiple_choice'
-          }
-        ];
-
-        // Se for M1, adicionar mais questões para densidade
-        if (up.slug === 'influenciador-ia-m1') {
-          newQuestions.push({
-            module_id: mod.id,
-            course_id: courseId,
-            question: 'O que caracteriza a Regra dos 3S para escolha de nicho?',
-            options: ['Specific, Scalable, Solvable', 'Simple, Sweet, Short', 'Search, Select, Send', 'Social, Small, Smart'],
-            correct_answer: 'Specific, Scalable, Solvable',
-            difficulty: 'hard',
-            status: 'approved',
-            type: 'multiple_choice'
-          });
+            options: ['O virtual é um ativo de software escalável', 'O virtual não precisa de estratégia', 'O real é sempre mais barato', 'Não há diferença'],
+            correct_answer: 'O virtual é um ativo de software escalável',
+            difficulty: 'medium'
+          }];
         }
 
-        // Se for M3, injetar questões premium
-        if (up.slug === 'influenciador-ia-m3') {
-          questionsM3.forEach(q => {
-            newQuestions.push({
-              module_id: mod.id,
-              course_id: courseId,
-              question: q.question,
-              options: q.options,
-              correct_answer: q.correct_answer,
-              difficulty: q.difficulty as any,
-              status: 'approved',
-              type: 'multiple_choice'
-            });
-          });
-        }
+        const inserts = newQuestions.map(q => ({
+          module_id: mod.id,
+          course_id: courseId,
+          question: q.question,
+          options: q.options,
+          correct_answer: q.correct_answer,
+          difficulty: q.difficulty as any,
+          status: 'approved',
+          type: 'multiple_choice'
+        }));
 
-        // Se for M4, injetar questões premium
-        if (up.slug === 'influenciador-ia-m4') {
-          questionsM4.forEach(q => {
-            newQuestions.push({
-              module_id: mod.id,
-              course_id: courseId,
-              question: q.question,
-              options: q.options,
-              correct_answer: q.correct_answer,
-              difficulty: q.difficulty as any,
-              status: 'approved',
-              type: 'multiple_choice'
-            });
-          });
-        }
-
-        // Se for M5, injetar questões premium
-        if (up.slug === 'influenciador-ia-m5') {
-          questionsM5.forEach(q => {
-            newQuestions.push({
-              module_id: mod.id,
-              course_id: courseId,
-              question: q.question,
-              options: q.options,
-              correct_answer: q.correct_answer,
-              difficulty: q.difficulty as any,
-              status: 'approved',
-              type: 'multiple_choice'
-            });
-          });
-        }
-
-        // Se for M6, injetar questões premium
-        if (up.slug === 'influenciador-ia-m6') {
-          questionsM6.forEach(q => {
-            newQuestions.push({
-              module_id: mod.id,
-              course_id: courseId,
-              question: q.question,
-              options: q.options,
-              correct_answer: q.correct_answer,
-              difficulty: q.difficulty as any,
-              status: 'approved',
-              type: 'multiple_choice'
-            });
-          });
-        }
-
-
-
-        await supabase.from('questions').insert(newQuestions);
+        await supabase.from('questions').insert(inserts);
       }
     }
 
