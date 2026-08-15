@@ -1,4 +1,4 @@
-import { forceRebuildAllModules } from "./src/lib/rebuild.functions.ts";
+import { forceRebuildAllModules } from "../lib/rebuild.functions";
 
 async function main() {
   console.log("Iniciando injeção do Módulo 6 Premium...");
