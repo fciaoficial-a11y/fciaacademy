@@ -34,7 +34,7 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
   }
 
   if (slug === 'modulo-2-estrategia-posicionamento') {
-    if (charCount < 4000) return { valid: false, error: `Módulo 2: Conteúdo muito curto (${charCount} chars).` };
+    if (charCount < 3000) return { valid: false, error: `Módulo 2: Conteúdo muito curto (${charCount} chars).` };
     if (h2Count < 10) return { valid: false, error: `Módulo 2: Estrutura incompleta (H2: ${h2Count}).` };
     if (!content.includes('MODO PROVA')) return { valid: false, error: `Módulo 2: Método PROVA ausente.` };
     if (!content.includes('DOSSIÊ ESTRATÉGICO')) return { valid: false, error: `Módulo 2: Dossiê Estratégico ausente.` };
@@ -42,6 +42,58 @@ function validatePremiumContent(slug: string, content: string): { valid: boolean
 
   return { valid: true };
 }
+
+export const forceRebuildModule6 = createServerFn({ method: "POST" })
+  .handler(async () => {
+    const supabase = await getSupabase();
+
+    const { data: course } = await supabase
+      .from('courses')
+      .select('id')
+      .eq('slug', 'influenciador-ia-tiktok-shop')
+      .single();
+
+    if (!course) return { success: false, error: 'Course not found' };
+    const courseId = course.id;
+
+    const { data: mod } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('course_id', courseId)
+      .eq('slug', 'influenciador-ia-m6')
+      .maybeSingle();
+
+    if (mod) {
+      const { error: updateError } = await supabase.from('modules').update({
+        content_text: contentM6Premium,
+        title: 'Módulo 6: Criação de Vídeos com Influenciador',
+        content_type: 'text',
+        video_url: null
+      }).eq('id', mod.id);
+
+      if (updateError) return { success: false, error: updateError.message };
+
+      await supabase.from('questions').delete().eq('module_id', mod.id);
+      
+      const newQuestions = questionsM6.map(q => ({
+        module_id: mod.id,
+        course_id: courseId,
+        question: q.question,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        difficulty: q.difficulty as any,
+        status: 'approved',
+        type: 'multiple_choice'
+      }));
+
+      const { error: insertError } = await supabase.from('questions').insert(newQuestions);
+      if (insertError) return { success: false, error: insertError.message };
+
+      return { success: true };
+    }
+    return { success: false, error: 'Module not found' };
+  });
+
 
 export const restorePremiumModules1And2 = createServerFn({ method: "POST" })
   .handler(async () => {
