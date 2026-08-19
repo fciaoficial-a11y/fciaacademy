@@ -351,7 +351,7 @@ Aqui estão os 25 prompts estratégicos para construir seu influenciador. Cada u
 ## FECHAMENTO E TRANSIÇÃO
 Você acaba de dar um cérebro, uma alma e uma voz ao seu ativo digital. Você não é mais um "gerador de imagens", mas um **Diretor de Talentos Virtuais**. Você superou o amadorismo e agora possui um documento de governo que garante a longevidade da sua marca.
 
-**Próximo Passo:** No Módulo 4, pegaremos toda essa descrição teórica e a transformaremos em **Consistência Visual Absoluta**, garantindo que seu influenciador tenha sempre o mesmo rosto em todos os vídeos e fotos, o segredo número 1 para a escala profissional no TikTok Shop.
+**Próximo Passo:** Módulo 4 — Consistência Visual, Ficha Técnica e Biblioteca de Identidade.
 `.trim();
 
 export const questionsM3 = [
