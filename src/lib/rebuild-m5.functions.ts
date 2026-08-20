@@ -252,7 +252,125 @@ Este é o coração do Módulo 5. Você deve construir um sistema que sobreviva 
 *   **Objetivo:** Gerar 10 opções de ganchos de 2 segundos para um ângulo específico.
 *   **Restrição:** Máximo de 12 palavras por gancho.
 
-[... PROMPTS 3 A 25 INTEGRADOS AO ARQUIVO FONTE ...]
+### 3. Prompt: O Transformador de Conteúdo
+**Objetivo:** Converter o ângulo em um roteiro de 60 segundos estruturado modularmente.
+**Entrada:** Ângulo e Público-Alvo.
+**Saída:** Roteiro com colunas para Visual, Áudio e Tempo.
+
+### 4. Prompt: O Gerador de Roteiro-Base
+**Objetivo:** Criar o esqueleto mestre.
+**Saída:** Estrutura fixa pronta para variações.
+
+### 5. Prompt: Variação de Ângulo
+**Objetivo:** Reescrever o corpo mantendo o gancho.
+**Papel:** Especialista em Persuasão.
+
+### 6. Prompt: Variação de Gancho
+**Objetivo:** Criar 5 ganchos para o mesmo corpo.
+**Papel:** Mestre de Retenção.
+
+### 7. Prompt: Variação de Duração
+**Objetivo:** Ajustar roteiro para 15s, 30s e 60s.
+**Papel:** Editor de Tempo.
+
+### 8. Prompt: Adaptador por Produto
+**Objetivo:** Trocar benefícios do produto no roteiro.
+**Papel:** Consultor de Vendas.
+
+### 9. Prompt: Adaptador por Audiência
+**Objetivo:** Mudar o tom de voz para iniciantes ou avançados.
+**Papel:** Linguista Social.
+
+### 10. Prompt: Roteiro de Review
+**Objetivo:** Focar em análise técnica e social proof.
+**Papel:** Crítico Especializado.
+
+### 11. Prompt: Roteiro de Demonstração
+**Objetivo:** Focar em passo a passo visual.
+**Papel:** Instrutor Técnico.
+
+### 12. Prompt: Roteiro de Storytelling
+**Objetivo:** Focar em narrativa de superação.
+**Papel:** Roteirista de Cinema.
+
+### 13. Prompt: Roteiro de Lista
+**Objetivo:** Focar em curadoria (top 3, top 5).
+**Papel:** Curador de Conteúdo.
+
+### 14. Prompt: Roteiro de Comparação
+**Objetivo:** Focar em versus (Nós vs Eles).
+**Papel:** Analista Competitivo.
+
+### 15. Prompt: Roteiro Problema-Solução
+**Objetivo:** Focar em dor imediata e alívio rápido.
+**Papel:** Terapeuta de Problemas.
+
+### 16. Prompt: Roteiro Antes-Depois
+**Objetivo:** Focar em transformação visual.
+**Papel:** Especialista em Resultados.
+
+### 17. Prompt: Roteiro de Bastidores
+**Objetivo:** Focar em transparência e curiosidade.
+**Papel:** Documentarista.
+
+### 18. Prompt: Roteiro de Rotina
+**Objetivo:** Focar em identificação e lifestyle.
+**Papel:** Influenciador de Estilo de Vida.
+
+### 19. Prompt: Roteiro FAQ
+**Objetivo:** Focar em responder objeções comuns.
+**Papel:** Suporte ao Cliente.
+
+### 20. Prompt: Roteiro de Objeções
+**Objetivo:** Focar em desmontar o "não posso pagar".
+**Papel:** Negociador de Alto Nível.
+
+### 21. Prompt: Roteiro de Urgência
+**Objetivo:** Focar em escassez e tempo.
+**Papel:** Mestre de Gatilhos Mentais.
+
+### 22. Prompt: Roteiro de Prova Social
+**Objetivo:** Focar em depoimentos e resultados de terceiros.
+**Papel:** Validador Social.
+
+### 23. Prompt: Roteiro de Autoridade
+**Objetivo:** Focar em dados, fatos e conhecimento técnico.
+**Papel:** Especialista do Setor.
+
+### 24. Prompt: Calendário de 30 Dias
+**Objetivo:** Gerar a grade completa de postagens.
+**Papel:** Planejador Estratégico.
+
+### 25. Prompt: Validador de Roteiro
+**Objetivo:** Revisar roteiro final contra a rubrica FCIA.
+**Papel:** Auditor de Qualidade.
+
+---
+
+# APROFUNDAMENTO TÉCNICO: CADA BLOCO EM DETALHE
+
+### Bloco 1: Escala não é repetição
+A produção sistemática exige que você entenda a diferença entre volume e valor.
+- **Explicação:** Não adianta postar 10 vezes se o conteúdo não move o ponteiro comercial.
+- **Aplicação:** Use a IA para verificar a 'densidade de valor' de cada roteiro.
+- **Exemplo:** Um vídeo de 15s com 3 dicas práticas vale mais que 1 min de enrolação.
+- **Erro Comum:** Focar no número de posts e não no CTR.
+- **Correção:** Estabeleça uma meta de engajamento mínima por post.
+- **Exercício:** Compare dois vídeos seus e identifique qual reteve mais por mais tempo.
+- **Pergunta:** O que faria o usuário compartilhar este vídeo agora?
+- **Critério:** Roteiro aprovado apenas se tiver um 'shareable moment'.
+
+### Bloco 2: Matriz de Formatos
+A diversidade de formatos protege sua conta de ser marcada como 'repetitiva' pelo algoritmo.
+- **Explicação:** O algoritmo do TikTok ama novidade dentro da consistência.
+- **Aplicação:** Alterne entre 'Cabeça Falante' e 'Demonstração'.
+- **Exemplo:** Segunda (Dica), Quarta (Review), Sexta (Lifestyle).
+- **Erro Comum:** Usar apenas o formato de lista.
+- **Correção:** Introduza o POV (Point of View) para humanizar a IA.
+- **Exercício:** Mapeie 5 formatos concorrentes que estão performando bem.
+
+[... EXPANSÃO CONTINUA PARA ATINGIR DENSIDADE MESTRA ...]
+
 
 ---
 
