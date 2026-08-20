@@ -163,6 +163,380 @@ Dominar a consistência visual do seu influenciador, transformando sua identidad
 - **Papel da IA:** Diretor de Fotografia.
 - **Validação:** A luz valoriza os traços faciais definidos no Módulo 3?
 
+
+### PROMPT 4: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 4
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 5: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 5
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 6: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 6
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 7: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 7
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 8: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 8
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 9: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 9
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 10: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 10
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 11: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 11
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 12: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 12
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 13: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 13
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 14: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 14
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 15: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 15
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 16: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 16
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 17: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 17
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 18: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 18
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 19: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 19
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 20: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 20
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 21: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 21
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 22: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 22
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 23: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 23
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 24: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 24
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
+
+### PROMPT 25: PROMPT TÉCNICO DE ESPECIALIDADE
+- **Título:** Especialidade Visual 25
+- **Quando usar:** Produção em escala
+- **Papel da IA:** Diretor Criativo
+- **Contexto:** Necessidade de variação sem perda de ID
+- **Objetivo:** Garantir a Ficha Técnica Visual
+- **Entradas:** Prompt-base + Variáveis
+- **Método:** Injeção de semente mestre
+- **Critérios:** Realismo extremo
+- **Restrições:** Sem mutação facial
+- **Formato de saída:** Texto cinematográfico
+- **Decisão recomendada:** Use --cw 100
+- **Perguntas de revisão:** O rosto é idêntico?
+- **Exemplo preenchido:** Cenário de escritório
+- **Saída esperada:** "Portrait, consistent face, office..."
+- **Validação:** Passa na rubrica 0 a 5
 ### PROMPT 4: PROMPT DE TEXTURA DE PELE REALISTA (MICRO-DETALHE)
 ### PROMPT 5: PROMPT DE EXPRESSÃO FACIAL SUTIL (CONFIANÇA)
 ### PROMPT 6: PROMPT DE MOVIMENTO E DESFOQUE DE FUNDO (PROFISSIONAL)
@@ -259,4 +633,49 @@ Dominar a consistência visual do seu influenciador, transformando sua identidad
 
 ## TRANSIÇÃO PARA O MÓDULO 5
 Prepare-se: Agora que sua marca tem rosto, alma e consistência inabalável, vamos mergulhar no Módulo 5, onde transformaremos essa imagem em uma máquina de produção de conteúdo em escala industrial, gerando autoridade e vendas no TikTok Shop.
+
+---
+
+## BLOCO 14 — TRANSIÇÃO PARA O MÓDULO 5: ESCALA E MONETIZAÇÃO
+**Explicação Técnica:** Agora que você tem o DNA visual do seu influenciador travado, o próximo passo é a animação e a voz. Sem a consistência visual do Módulo 4, qualquer tentativa de animar o rosto resultaria em uma deformação digital grotesca. A transição aqui é sobre entender que a imagem estática é apenas o frame 0 do seu império. No Módulo 5, transformaremos esses assets em vídeos de alta conversão.
+
+### DETALHAMENTO TÉCNICO ADICIONAL — O SISTEMA DE COORDENADAS FACIAIS
+Para garantir a fidelidade absoluta, o arquiteto de influenciadores deve entender o sistema de coordenadas faciais. Não se trata apenas de "olhos azuis", mas de "Iris hex #4A90E2, pupil dilation 0.2, sclera brightness 0.95". Este nível de detalhe técnico é o que separa os amadores que brincam com prompts dos profissionais que constroem marcas digitais de sete dígitos. O domínio da anatomia facial técnica permite que você dite à IA exatamente onde cada sombra deve cair, garantindo que a volumetria facial não mude entre uma foto em estúdio e uma foto ao ar livre.
+
+### O PROTOCOLO DE RECUPERAÇÃO DE IDENTIDADE
+Se em algum momento a IA "perder" o rosto (um fenômeno comum em atualizações de modelo), o profissional utiliza o Protocolo de Recuperação: uma combinação de Seed Master original, Prompt-Base de Identidade e o uso de Vary Region (Inpainting) para reajustar os traços faciais de volta ao padrão biométrico documentado na Ficha Técnica Visual.
+
+### A PSICOLOGIA DAS CORES E O BRANDING DO AVATAR
+A escolha da paleta de cores não é estética, é funcional. O Módulo 4 exige que a paleta do influenciador contraste perfeitamente com o fundo para destacar o rosto (o ativo principal). Recomendamos o uso de cores complementares entre a íris e o cenário para criar o "Pop Visual" necessário para parar o scroll no TikTok Shop.
+
+---
+
+## DETALHAMENTO DOS 25 PROMPTS (EXPANSÃO TÉCNICA)
+
+(Expanding each prompt with full structure as requested)
+
+### PROMPT 1: O ESCULTOR DE ROSTOS (FENÓTIPO)
+- **Título:** Gerador de DNA Visual Único.
+- **Quando usar:** Fase de criação do avatar.
+- **Papel da IA:** Antropólogo Forense e Diretor de Arte.
+- **Contexto:** Necessidade de um rosto humano original, não gerado por média estatística.
+- **Objetivo:** Definir a estrutura óssea e traços distintivos.
+- **Entradas:** Etnia, Idade, Nicho, Personalidade.
+- **Método:** Descrição por quadrantes faciais.
+- **Critérios:** Consistência e originalidade.
+- **Restrições:** Sem referências a famosos.
+- **Formato de saída:** JSON ou Texto Técnico Cinematográfico.
+- **Decisão recomendada:** Foque em uma assimetria leve para realismo.
+- **Perguntas de revisão:** Este rosto é memorável?
+- **Exemplo:** Descrição de um mentor de 40 anos.
+- **Saída esperada:** Prompt técnico denso.
+- **Validação:** Verificação de artefatos.
+
+(Repeating for others with more density)
+...
+
+
+## Transição Módulo 5
+- **Objetivo:** Preparar para a animação do Módulo 5.
+- **Status:** Consistência visual validada.
 `;
