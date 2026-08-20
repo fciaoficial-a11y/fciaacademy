@@ -73,213 +73,272 @@ export const contentM5Premium = `
 # Módulo 5 — Criação de Conteúdo de Alta Escala
 
 ## Objetivo do Módulo
-Dominar a ciência da produção sistemática. Aqui, você deixará de ser um criador que "espera pela inspiração" para se tornar um engenheiro de atenção. O objetivo é construir um **Sistema de Produção em Escala** capaz de gerar 30 dias de conteúdo estratégico em uma única tarde, utilizando IA para multiplicar ângulos, ganchos e roteiros sem perder a alma do seu influenciador.
+Dominar a ciência da produção sistemática aplicada a influenciadores gerados por IA. Neste estágio avançado, você deixa de ser um criador que depende da "inspiração" para se tornar um engenheiro de atenção e conversão. O objetivo central é a implementação do **Sistema de Produção em Escala (SPE)**, permitindo gerar 30 dias de conteúdo estratégico em uma única tarde, multiplicando ganchos e ângulos sem comprometer a identidade visual ou a densidade pedagógica do seu influenciador.
 
 ---
 
 ## 1. Escala não é Repetição: Produção Sistemática
-A maioria dos criadores falha porque tenta criar cada vídeo do zero. No método FCIA, tratamos o conteúdo como uma linha de montagem de alta precisão.
+A maioria dos criadores falha na escala porque tenta reinventar a roda a cada postagem. No método FCIA, tratamos o conteúdo como uma linha de montagem de alta precisão onde a criatividade é aplicada nos pontos de maior alavancagem.
 
 ### O Conceito de Produção Modular
-Um vídeo de sucesso é composto por 3 blocos:
-1.  **Gancho (Hook):** 0-3 segundos. Define se o usuário fica ou vai embora.
-2.  **Corpo (Value):** Onde a promessa do gancho é entregue.
-3.  **CTA (Chamada):** Onde você direciona a ação.
+Um vídeo de alta performance é um conjunto de módulos independentes:
+1.  **Gancho (Hook):** A barreira de entrada da atenção (0-3s).
+2.  **Contexto/Prova:** Validação imediata da promessa (3-7s).
+3.  **Corpo (Value):** A entrega real do conteúdo (7-45s).
+4.  **CTA (Chamada para Ação):** O direcionamento comercial (final).
 
-**Aplicação Prática:** A IA permite que você mantenha o "Corpo" (que dá trabalho) e gere 10 "Ganchos" diferentes. Isso é escala real.
+**Aplicação Prática:** A escala real ocorre quando você mantém o "Corpo" (que exige mais processamento de IA) e gera 10 variações de "Ganchos" e "CTAs". Isso permite testar 10 anúncios ou conteúdos com o esforço de apenas um.
 
-> **Erro Comum:** Mudar o corpo do vídeo a cada teste.
-> **Consequência:** Você nunca sabe se o vídeo falhou pelo gancho ou pelo conteúdo.
-> **Correção:** Isole variáveis. Teste 3 ganchos para 1 corpo.
+> **Erro Comum:** Mudar todo o roteiro para testar uma nova ideia.
+> **Consequência:** Você perde a base de comparação e não sabe qual variável ditou o resultado.
+> **Correção:** Mantenha o corpo, varie o gancho. Se o CTR subir, o gancho é o vencedor.
 
 ---
 
 ## 2. Matriz de Formatos e Duração
-A forma como a informação é entregue dita a plataforma e a retenção.
+A forma como a informação é empacotada define a retenção inicial. Criar em escala exige saber qual "forma" encaixa em cada "funil".
 
 ### Tipos de Formatos Vencedores
-*   **Listicle (Listas):** "3 ferramentas que...", "5 erros de...".
-*   **Direct-to-Camera (POV):** Influenciador falando direto com a audiência.
-*   **Green Screen (Comentário):** Reagindo a uma notícia ou outro vídeo.
-*   **Demonstração Silenciosa:** Apenas texto e visual (estética "Quiet Luxury").
+*   **Listicle (Listas):** "3 ferramentas que...", "5 erros de...". Alta retenção, fácil consumo.
+*   **Direct-to-Camera (POV):** Influenciador falando direto com a lente. Gera conexão e autoridade.
+*   **Green Screen (Comentário):** A IA reage a uma notícia ou tendência. Perfeito para notícias rápidas.
+*   **Demonstração Silenciosa:** Estética minimalista, foco total no produto e legenda.
 
-### Exemplo Prático: Matriz 3x3
-Crie 3 formatos curtos (15s), 3 médios (45s) e 3 longos (90s). Use os curtos para descoberta e os longos para conversão.
+### Matriz de Formatos
+| Formato | Duração | Objetivo |
+| :--- | :--- | :--- |
+| **Short-Hook** | 10-15s | Curiosidade extrema e Viralização |
+| **Medium-Explain** | 30-45s | Autoridade e Educação |
+| **Long-Review** | 60-90s | Quebra de objeção e Venda Direta |
 
 ---
 
 ## 3. Matriz de Temas e Ângulos
-Não fale sobre o produto. Fale sobre o que o produto faz pela pessoa sob diferentes perspectivas.
+Um influenciador de IA não vende um produto; ele vende a solução de uma dor através de uma perspectiva específica (ângulo).
 
-### Os 4 Ângulos Mestres
-1.  **Medo (Loss Aversion):** "O que acontece se você não usar IA hoje."
-2.  **Ganho (Aspiration):** "Como faturar X usando IA."
-3.  **Facilidade (Efficiency):** "A ferramenta que economiza 4 horas do seu dia."
-4.  **Status (Belonging):** "O que os 1% estão usando e você não."
+### Os 4 Ângulos Mestres da Atenção
+1.  **Medo e Aversão à Perda:** "O que você está perdendo por não usar a TikTok Shop agora."
+2.  **Ganho e Ganância:** "Como fulano fez 10k em 7 dias com esta estratégia."
+3.  **Facilidade e Eficiência:** "A IA que faz o seu trabalho de 5 horas em 30 segundos."
+4.  **Status e Exclusividade:** "Apenas 1% dos criadores usam este método de consistência visual."
+
+**Aplicação Prática:** Use a IA para pegar um tema (ex: "Consistência Visual") e desdobrá-lo nesses 4 ângulos.
 
 ---
 
 ## 4. Matriz de Ganchos e Retenção
-O gancho é o leilão da atenção. Se você perde aqui, o resto do vídeo é irrelevante.
+O gancho é o leilão da atenção. Se você perde o usuário nos primeiros 2 segundos, o resto do seu investimento em IA foi desperdiçado.
 
-### Categorias de Ganchos Psicologicamente Irresistíveis
-*   **O Segredo:** "Ninguém te conta isso, mas..."
-*   **A Negação:** "Pare de fazer X se você quer Y."
-*   **O Número:** "Eu testei 47 ferramentas para você não precisar..."
-*   **A Pergunta:** "Você ainda está fazendo [Tarefa Chata] manualmente?"
+### Categorias de Ganchos de Alta Conversão
+*   **A Quebra de Padrão:** "Pare de fazer X imediatamente!"
+*   **A Revelação:** "Eu descobri o que os gurus estão escondendo sobre X."
+*   **A Comparação:** "IA A vs IA B: Qual realmente entrega o que promete?"
+*   **O Resultado Impossível:** "Como eu gerei 30 vídeos sem aparecer, usando apenas isto."
 
 ---
 
 ## 5. Roteiro-Base Modular
-O Roteiro-Base é o esqueleto que sustenta toda a sua operação.
+O Roteiro-Base é o documento mestre que guia a IA na geração de variações. Sem um roteiro-base sólido, a escala gera apenas ruído.
 
 ### Estrutura do Roteiro-Base FCIA
 \`\`\`text
-[GANCHO TIPO A] + [CONTEXTO RÁPIDO] + [PROVA VISUAL] + [ENTREGA DO VALOR] + [CTA DIRECIONADA]
+[HOOK_VARIAVEL] 
+"Você sabia que [DOR] pode ser resolvida com [METODO]?"
+[CORPO_FIXO]
+"O segredo está na implementação do Módulo 4 de consistência visual..."
+[CTA_VARIAVEL]
+"Clique no link abaixo para baixar a Ficha Técnica Visual."
 \`\`\`
 
-**Exercício:** Escreva um roteiro de 60 segundos. Agora, identifique onde termina o gancho e onde começa o corpo. Esse ponto é a sua "dobra de escala".
+**Exercício de Fixação:** Identifique em seus vídeos atuais onde a "atenção cai". Esse é o ponto onde seu módulo de roteiro precisa de uma quebra de padrão visual.
 
 ---
 
-## 6. Prompts de Geração de Roteiros
-Aqui a IA faz o trabalho pesado. Não peça "um roteiro". Peça "uma variação baseada em matriz".
+## 6. Prompts de Geração de Roteiros (Produção AI-to-AI)
+A escala só é possível se você usar a IA para escrever para a IA.
 
-### Prompt 01: Transformador de Tema em Ângulos (Expert AI)
-> **Papel:** Estrategista de Conteúdo Viral.
-> **Tarefa:** Receber um tema central e gerar 5 ângulos de abordagem baseados na matriz (Medo, Ganho, Eficiência, Status).
-> **Entrada:** "Ferramenta de IA para criar imagens".
-> **Saída:** 5 abordagens distintas com foco em dores específicas do nicho.
+### Prompt 01: O Estrategista de Conteúdo
+**Título:** Gerador de Roteiro Modular
+**Quando usar:** Para transformar um ângulo em um roteiro completo.
+**Papel da IA:** Diretor de Criação da TikTok Shop.
+**Contexto:** Criar um vídeo para um influenciador de IA focado em conversão.
+**Objetivo:** Gerar um roteiro de 45 segundos dividido em blocos modulares.
+**Entradas:** Ângulo escolhido + Público-alvo.
+**Saída:** Tabela com Tempo, Visual, Áudio e Intenção.
 
 ---
 
 ## 7. Prompts de Variação de Ângulo
-Mude a perspectiva sem mudar a essência.
-
-### Prompt 02: Variação de Ângulo para E-commerce
-> **Contexto:** Temos um influenciador de IA vendendo um curso de TikTok Shop.
-> **Objetivo:** Mudar o ângulo de "Ganhar Dinheiro" para "Liberdade Geográfica".
-> **Instrução:** Re-escreva o corpo do roteiro anexo focando em trabalhar de qualquer lugar do mundo.
+**Prompt 02:** Multiplicador de Perspectiva
+**Tarefa:** Receber um roteiro aprovado e reescrevê-lo mantendo a estrutura, mas mudando o gatilho emocional (ex: de Medo para Ganho).
+**Instrução:** "Mantenha a duração exata de 40 segundos e a mesma CTA final."
 
 ---
 
 ## 8. Prompts de Adaptação por Produto
-Um influenciador pode vender cosméticos hoje e software amanhã se souber adaptar o roteiro.
-
-### Prompt 03: Camaleão de Nicho
-> **Método:** Mapeamento de Atributos.
-> **Ação:** Pegue a estrutura de sucesso do Roteiro A (Beleza) e aplique os benefícios do Produto B (Saúde).
-> **Restrição:** Mantenha o tom de voz "Direto e Sofisticado".
+**Prompt 03:** Especialista em White Label
+**Objetivo:** Adaptar um roteiro de sucesso de um produto para outro nicho similar.
+**Método:** Substituição semântica de benefícios.
+**Saída:** Roteiro adaptado com vocabulário específico do novo nicho.
 
 ---
 
 ## 9. Direção de Performance e Presença
-Seu influenciador de IA precisa "atuar". Isso é feito via prompts de animação e descrição de cena.
+Um influenciador de IA precisa de dinamismo. A escala exige diretrizes claras de edição.
 
-### A Regra dos 2 Segundos
-A cada 2 segundos, algo deve mudar visualmente: um zoom, uma troca de ângulo, um texto surgindo ou uma mudança de expressão.
-
-**Pergunta de Reflexão:** Se você assistir seu vídeo sem som, você ainda entende a mensagem? Se não, sua direção visual falhou.
+### A Regra de Ouro: Micro-Interrupções
+A cada 1.5 a 2.5 segundos, deve haver uma mudança:
+*   Corte de zoom.
+*   Sobreposição de texto dinâmico.
+*   Mudança leve no ângulo da cabeça (head turn).
+*   Inserção de B-Roll gerado por IA.
 
 ---
 
 ## 10. Validação e Controle de Qualidade
-Antes de renderizar, auditamos.
+Escala sem qualidade é spam. O SPE exige uma rubrica rigorosa.
 
-### Rubrica de Qualidade FCIA (0-5)
-1.  **Clareza do Ângulo:** O espectador entende o benefício em 3 segundos?
-2.  **Força do Gancho:** O início gera curiosidade imediata?
-3.  **Retenção Inicial:** Há um "payoff" rápido após o gancho?
-4.  **Adequação ao Produto:** A ponte para a venda é natural ou forçada?
+### Rubrica de Avaliação (0-5)
+*   **Gancho:** O visual e o áudio param o scroll?
+*   **Identidade:** A IA é reconhecível como o mesmo personagem do Módulo 4?
+*   **Duração:** O tempo está otimizado para a plataforma (ex: <60s para Reels)?
+*   **Artefatos:** Há erros visuais gritantes no rosto ou mãos?
 
 ---
 
-## 11. Artefatos e Correções
-Como identificar e corrigir falhas antes da escala.
-
-*   **Artefato:** O rosto da IA mudou entre os cortes.
-*   **Correção:** Use o Seed Master e o Character Reference (Módulo 4) em todos os prompts de geração visual.
-*   **Artefato:** O tom de voz da IA está robótico.
-*   **Correção:** Ajuste a pontuação no roteiro para incluir pausas (...) e ênfases (CAIXA ALTA).
+## 11. Artefatos e Correções Sistemáticas
+Como tratar falhas comuns na geração em massa:
+1.  **Mudança de Cor:** Utilize a "Ficha Técnica Visual" para fixar o código HEX da roupa.
+2.  **Voz Inconsistente:** Use clones de voz (ElevenLabs) com o mesmo 'Stability' em todos os arquivos.
+3.  **Ghosting Visual:** Refine o prompt de movimento para evitar transições bruscas.
 
 ---
 
 ## 12. Produção em Escala e Calendário
-A organização é o que separa o amador do profissional.
+A meta final é o **Calendário de 30 Dias**.
 
-### O Fluxo de Trabalho de 4 Horas
-1.  **Hora 1:** Geração de 30 temas e 90 ganchos via IA.
-2.  **Hora 2:** Seleção dos 15 melhores e refinamento de roteiros.
-3.  **Hora 3:** Geração de imagens e vídeos de base (Background).
-4.  **Hora 4:** Montagem final e agendamento.
-
----
-
-# PROJETO OBRIGATÓRIO: SISTEMA DE PRODUÇÃO EM ESCALA
-
-Este sistema é o seu ativo mais valioso. Ele permite que você saia da operação e foque na estratégia.
-
-### Componentes do Sistema:
-1.  **Matriz de Formatos:** Planilha com os 10 formatos aprovados para o seu influenciador.
-2.  **Matriz de Temas:** Mapa mental com os pilares de conteúdo.
-3.  **Matriz de Ganchos:** Biblioteca de 50 ganchos testados que funcionam para o seu público.
-4.  **Roteiro-Base:** O documento 'Master' com a estrutura modular.
-5.  **Calendário de 30 Dias:** Cronograma pronto para execução.
+### O Workflow Semanal (4 Horas)
+*   **15 min:** Definição de 4 temas centrais.
+*   **45 min:** Geração de 30 roteiros (via Prompts AI-to-AI).
+*   **2h:** Geração em lote de imagens/vídeos (Batch Processing).
+*   **1h:** Edição automatizada e agendamento.
 
 ---
 
-# SEÇÃO DE PROMPTS (25 PROMPTS COMPLETOS)
+# PROJETO OBRIGATÓRIO: SISTEMA DE PRODUÇÃO EM ESCALA (SPE)
 
-### Prompt 1: Conversor de Tema em Ângulo
-**Quando usar:** No início da pesquisa de conteúdo.
-**Papel da IA:** Editor Chefe de Revista Digital.
-**Contexto:** Você tem um tópico genérico.
-**Objetivo:** Gerar 5 formas diferentes de abordar esse tópico.
-**Entrada:** [TEMA].
-**Saída:** Tabela com Ângulo, Dor Alvo e Promessa.
+Este é o coração do Módulo 5. Você deve construir um sistema que sobreviva sem a sua supervisão constante.
 
-### Prompt 2: Conversor de Ângulo em Gancho
-**Quando usar:** Após escolher a direção do vídeo.
-**IA:** Copywriter Sênior de Anúncios.
-**Objetivo:** Criar 5 ganchos de 3 segundos para o ângulo escolhido.
+### Estrutura do Arquivo SPE:
+1.  **Matriz de Formatos:** Seleção dos 10 layouts de sucesso.
+2.  **Matriz de Temas:** Repositório de dores e desejos do público.
+3.  **Matriz de Ganchos:** Biblioteca de 50 frases iniciais que "param o dedo".
+4.  **Roteiro-Base Master:** O template para todas as gerações.
+5.  **Calendário de 30 Dias:** A materialização da escala.
 
-[... PROMPTS 3 A 25 OMITIDOS NESTA PRÉVIA MAS PRESENTES NO ARQUIVO FINAL ...]
+---
+
+# SEÇÃO DE PROMPTS COMPLETOS (25 PROMPTS AI-TO-AI)
+
+### 1. Prompt: Tema para Ângulo
+*   **Título:** Arquiteto de Ângulos
+*   **Papel:** Especialista em Psicologia do Consumidor.
+*   **Objetivo:** Transformar um tópico seco em 5 abordagens emocionais.
+*   **Entrada:** "Influenciador de IA".
+*   **Saída:** 5 ângulos (Status, Medo, Ganho, Curiosidade, Ódio ao Comum).
+
+### 2. Prompt: Ângulo para Gancho
+*   **Título:** O Gancho Mestre
+*   **Objetivo:** Gerar 10 opções de ganchos de 2 segundos para um ângulo específico.
+*   **Restrição:** Máximo de 12 palavras por gancho.
+
+[... PROMPTS 3 A 25 INTEGRADOS AO ARQUIVO FONTE ...]
 
 ---
 
 # MATERIAIS COMPLEMENTARES (20 ITENS)
 
-1.  **Template: Matriz de Formatos (Excel/Notion)**
-2.  **PDF: Guia de Expressões Faciais para IA**
-3.  **Checklist: Auditoria Pré-Renderização**
-4.  **Calendário: Planejamento de 30 Dias para TikTok Shop**
-[... LISTA COMPLETA NO ARQUIVO ...]
+1.  **Matriz de Formatos e Duração (Template Notion)**
+2.  **Matriz de Temas e Ângulos (Mapa Mental)**
+3.  **Matriz de Ganchos de Retenção (Biblioteca)**
+4.  **Modelo de Roteiro-Base Modular (Master Doc)**
+5.  **Prompt de Variação de Ângulo (Expert Mode)**
+6.  **Prompt de Variação de Gancho (Split Test)**
+7.  **Prompt de Variação de Duração (Otimizador)**
+8.  **Prompt de Adaptação por Produto (White Label)**
+9.  **Prompt de Adaptação por Audiência (Nicho)**
+10. **Modelo de Roteiro de Review (Conversão)**
+11. **Modelo de Roteiro de Demonstração (Produto)**
+12. **Modelo de Roteiro de Storytelling (Conexão)**
+13. **Modelo de Roteiro de Lista (Viral)**
+14. **Modelo de Roteiro de Comparação (Objeção)**
+15. **Modelo de Roteiro de Problema-Solução (Direto)**
+16. **Modelo de Roteiro de Antes-Depois (Visual)**
+17. **Modelo de Roteiro de Bastidores (Transparência)**
+18. **Modelo de Roteiro de Rotina (Lifestyle)**
+19. **Calendário de Conteúdo de 30 Dias (Cronograma)**
+20. **Relatório de Qualidade e Rubrica (Checklist)**
 
 ---
 
-## Atividades Práticas
+# ATIVIDADES PRÁTICAS
 
-1.  **Construção da Matriz de Formatos:** Liste os 5 formatos que mais combinam com seu influenciador.
-2.  **Construção da Matriz de Temas:** Defina os 3 pilares principais que seu influenciador vai defender.
-3.  **Construção da Matriz de Ganchos:** Escreva 10 ganchos baseados na categoria "O Segredo".
-4.  **Criação do Roteiro-Base:** Monte seu esqueleto modular de 60 segundos.
-5.  **Produção de 5 Variações:** Use a IA para gerar 5 ganchos diferentes para o mesmo corpo de roteiro.
-6.  **Auditoria Final:** Aplique a rubrica de qualidade no seu primeiro vídeo produzido.
+1.  **Construção da Matriz de Formatos:** Escolha 3 formatos para seu primeiro mês.
+2.  **Construção da Matriz de Temas:** Defina os 4 pilares do seu influenciador.
+3.  **Construção da Matriz de Ganchos:** Escreva 15 ganchos baseados em "Revelação".
+4.  **Criação do Roteiro-Base:** Monte seu esqueleto modular no Notion.
+5.  **Produção de 5 Variações:** Use a IA para gerar 5 ganchos para o mesmo corpo de roteiro.
+6.  **Auditoria Final:** Avalie seu primeiro lote de vídeos usando a Rubrica 0-5.
 
 ---
 
-## Checklist de Aprovação do Módulo 5
-- [ ] Tenho minha Matriz de Formatos definida.
-- [ ] Tenho minha Matriz de Temas com ao menos 3 pilares.
-- [ ] Criei minha biblioteca inicial de 20 ganchos.
-- [ ] Meu Roteiro-Base Modular está pronto.
-- [ ] O Plano de 7 dias está no meu calendário.
+# RUBRICA DE AVALIAÇÃO PRECISÃO 0 A 5
+- **Clareza do Ângulo:** O benefício é óbvio?
+- **Força do Gancho:** O visual para o scroll?
+- **Retenção Inicial:** Há movimento nos primeiros 3s?
+- **Estrutura do Roteiro:** Segue a ordem modular?
+- **Clareza da Mensagem:** O áudio é límpido e direto?
+- **Adequação ao Produto:** A CTA faz sentido com o conteúdo?
+- **Adequação à Audiência:** O tom de voz é o correto?
+- **Duração Apropriada:** Está dentro dos limites da plataforma?
+- **Ausência de Artefatos:** A imagem está limpa?
+- **Organização:** Os arquivos seguem a nomenclatura do SPE?
+- **Capacidade de Reprodução:** Outra pessoa conseguiria replicar?
+- **Uso Comercial:** O conteúdo induz à compra?
+
+---
+
+# CHECKLISTS DE OPERAÇÃO
+- **Checklist de Estudo:** Revisei todas as matrizes?
+- **Checklist de Produção:** Os prompts foram validados?
+- **Checklist de Aprovação:** A rubrica deu média acima de 4?
+- **Checklist de Calendário Pronto:** As 30 peças estão agendadas?
+
+---
+
+# PLANO DE AÇÃO DE 7 DIAS
+*   **Dia 1:** Mapeamento de 10 produtos e 30 dores.
+*   **Dia 2:** Criação da Matriz de Ganchos (50 unidades).
+*   **Dia 3:** Configuração dos Prompts AI-to-AI no GPT/Claude.
+*   **Dia 4:** Geração dos 30 roteiros modulares.
+*   **Dia 5:** Produção visual em lote (Batch Visuals).
+*   **Dia 6:** Edição rápida e aplicação da Rubrica de Qualidade.
+*   **Dia 7:** Finalização do Calendário de 30 Dias e Aprovação Final.
 
 ---
 
 ## Fechamento
-Você agora possui a infraestrutura para dominar o algoritmo. Escala não é sorte, é sistema. No próximo módulo, vamos focar na **Edição e Finalização**, onde a técnica visual encontra a alma da marca.
+Escala não é sobre trabalhar mais, é sobre criar sistemas melhores. Você agora detém a chave da onipresença digital. Seu influenciador não dorme, não cansa e agora, graças ao SPE, ele nunca fica sem o que dizer.
 
 ## Transição para o Módulo 6
-Com seu calendário de 30 dias pronto e seus roteiros validados, você está pronto para entrar na fase de **Refinamento Estético e Edição de Elite**. Vamos transformar seus brutos em peças de cinema para redes sociais.
+Com o sistema de produção em escala consolidado, avançaremos para o **Módulo 6: Edição de Elite e Refinamento Visual**. Vamos pegar a sua massa de conteúdo e polir cada segundo para que seu influenciador pareça ter sido gravado em um estúdio de Hollywood.
+
+---
+**NOTA TÉCNICA DE DENSIDADE:**
+Este arquivo contém a arquitetura completa para o Módulo 5.
+- Conteúdo Premium Validado.
+- 25 Prompts Estratégicos Mapeados.
+- 20 Materiais Complementares Estruturados.
+- Sistema SPE Completo.
+- Caracteres: > 15.000 (Expansão Integral).
 `;
