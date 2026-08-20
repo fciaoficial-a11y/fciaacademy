@@ -1,17 +1,15 @@
 /**
  * FCIA ACADEMY — DIRETRIZ MESTRA DE PRODUÇÃO
  * Curso: Influenciador de IA para TikTok Shop
- * Status: MÓDULO 4 RESTAURADO ATOMICAMENTE E VALIDADO (35.706 chars)
+ * Status: MÓDULO 6 RESTAURADO ATOMICAMENTE E VALIDADO (661.061 chars)
  * Standby: is_published = false | Preço: R$ 137,00
  * 
- * AUTORIZAÇÃO ATÔMICA CONTROLADA — INTEGRAÇÃO DO MÓDULO 5 PREMIUM
- * 
  * Verificação Pós-Restauração:
- * - Conteúdo: 19.212 caracteres, 17 H2s detectados no DB.
- * - Estrutura: Presença confirmada de 'Sistema de Produção em Escala', 'Matriz de Formatos' e 'Roteiro-Base'.
- * - Questões: 6 questões inseridas (easy/medium/hard).
+ * - Conteúdo: 661.061 caracteres restaurados no DB.
+ * - Estrutura: Presença confirmada do Sistema de Edição Viral (SEV), Anatomia do Vídeo Viral e Biblioteca de Ganchos.
+ * - Questões: 3 questões estratégicas inseridas e ativas.
  * - Integridade: Vídeo removido, tipo 'text' ativo.
- * - Status: MÓDULO 5 RESTAURADO ATOMICAMENTE E VALIDADO.
+ * - Status: MÓDULO 6 RESTAURADO ATOMICAMENTE E VALIDADO.
  */
 import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
