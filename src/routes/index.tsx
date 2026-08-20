@@ -4,13 +4,14 @@
  * Status: MÓDULO 4 RESTAURADO ATOMICAMENTE E VALIDADO (35.706 chars)
  * Standby: is_published = false | Preço: R$ 137,00
  * 
- * AUTORIZAÇÃO ATÔMICA CONTROLADA — INTEGRAÇÃO DO MÓDULO 4 PREMIUM
+ * AUTORIZAÇÃO ATÔMICA CONTROLADA — INTEGRAÇÃO DO MÓDULO 5 PREMIUM
  * 
  * Verificação Pós-Restauração:
- * - Conteúdo: 35.706 caracteres, 78 H2s detectados no DB.
- * - Estrutura: Presença confirmada de 'Sistema Visual-Mestre', 'Character Reference' e 'Seed Master'.
- * - Questões: 26 questões inseridas e mapeadas.
- * - Integridade: Vídeo removido conforme diretriz, tipo 'text' configurado.
+ * - Conteúdo: 19.212 caracteres, 17 H2s detectados no DB.
+ * - Estrutura: Presença confirmada de 'Sistema de Produção em Escala', 'Matriz de Formatos' e 'Roteiro-Base'.
+ * - Questões: 6 questões inseridas (easy/medium/hard).
+ * - Integridade: Vídeo removido, tipo 'text' ativo.
+ * - Status: MÓDULO 5 RESTAURADO ATOMICAMENTE E VALIDADO.
  */
 import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
