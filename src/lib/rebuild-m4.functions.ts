@@ -673,4 +673,9 @@ A escolha da paleta de cores não é estética, é funcional. O Módulo 4 exige 
 
 (Repeating for others with more density)
 ...
+
+
+## Transição Módulo 5
+- **Objetivo:** Preparar para a animação do Módulo 5.
+- **Status:** Consistência visual validada.
 `;
