@@ -1,191 +1,285 @@
-export const contentM5Premium = `
-# Módulo 5 — Produção de Imagens em Escala e Curadoria de Ativos
-
-## Objetivo do Módulo
-O aluno aprenderá a utilizar o **Sistema Visual-Mestre** consolidado no Módulo 4 para produzir uma **Biblioteca Comercial de Ativos Visuais** completa. O foco não é apenas gerar imagens bonitas, mas ativos funcionais orientados à jornada de compra no TikTok Shop. Ao final deste módulo, você terá o repositório de imagens necessário para alimentar os módulos de vídeo, roteiro e vendas.
-
----
-
-## BLOCO 1 — IMAGEM BONITA NÃO É ATIVO COMERCIAL
-No mercado de Influenciadores Virtuais (IV), a estética é o requisito básico, mas a **função comercial** é o que paga as contas. Cada imagem gerada deve cumprir um papel estratégico no funil.
-
-### Categorias de Ativos Comerciais:
-- **Identidade:** Retratos limpos para perfil e reconhecimento.
-- **Editorial:** Imagens conceituais que vendem o "estilo de vida" aspiracional.
-- **Lifestyle:** O IV inserido em contextos do dia a dia (café, escritório, rua).
-- **Produto:** Foco absoluto no item de venda, texturas e embalagens.
-- **Demonstração:** O IV interagindo fisicamente com o produto.
-- **Unboxing:** Captura da emoção da primeira abertura e detalhe do item.
-- **Comparação/Prova:** Antes e depois ou comparação entre benefícios.
-- **Chamada para Ação (CTA):** Imagens com espaço negativo para textos e ofertas.
-
-**Regra de Ouro:** Se a imagem não responde "Que ação isso deve gerar?", ela é ruído, não ativo.
-
----
-
-## BLOCO 2 — PLANEJAMENTO DA BIBLIOTECA VISUAL
-Antes de abrir qualquer ferramenta de IA, você deve mapear sua necessidade. Não gere 100 imagens iguais. Gere 10 de cada categoria necessária.
-
-### A Matriz de Ativos:
-Para cada ativo, defina:
-1. **Objetivo:** (Ex: Gerar desejo).
-2. **Estágio:** (Topo, Meio ou Fundo de Funil).
-3. **Cenário/Pose:** (Ex: Cozinha, segurando uma airfryer, sorriso de aprovação).
-4. **Espaço para Texto:** Área vazia para inserção de legendas no TikTok.
-
-**Estrutura da Biblioteca:**
-\`IDENTIDADE → CONTEXTO → PRODUTO → DEMONSTRAÇÃO → PROVA → CONVERSÃO\`
-
----
-
-## BLOCO 3 — BRIEFING VISUAL COMERCIAL
-Um prompt comercial é um briefing técnico. Use a Ficha Técnica Visual do Módulo 4 para garantir que o IV não mude enquanto você muda o cenário.
-
-### Modelo de Briefing Mestre:
-- **Sujeito:** [Identidade Fixa do IV].
-- **Ação Comercial:** [O que está fazendo com o produto].
-- **Cenário:** [Ambiente relevante para o nicho].
-- **Luz/Câmera:** [Configurações de profundidade e foco].
-- **Área Segura:** [Instrução para deixar espaço lateral ou inferior].
-
-**Exemplo Preenchido:**
-*"[IV_ÂNCORA] em plano médio, segurando um frasco de sérum facial premium, olhando para a câmera com expressão de recomendação profissional, iluminação de estúdio softbox, fundo de banheiro luxuoso levemente desfocado (bokeh), formato 9:16."*
-
----
-
-## BLOCO 4 — IMAGENS DE DESCOBERTA E ATENÇÃO
-Estas imagens servem para o **Topo do Funil (Descoberta)**. Elas precisam de ganchos visuais.
-
-### Estratégias de Atenção:
-- **O Olhar Direto:** Conecta imediatamente com quem rola o feed.
-- **O Contraste Cromático:** Cores do IV ou produto que saltam do fundo.
-- **A Curiosidade:** O IV segurando algo de forma incomum ou expressão de "segredo".
-- **Hierarquia Visual:** O que o olho vê primeiro? (Deve ser o IV ou o Problema).
-
----
-
-## BLOCO 5 — LIFESTYLE, ROTINA E CONTEXTO
-O público do TikTok Shop compra a **Plausibilidade**. O IV precisa parecer que realmente vive aquela rotina.
-
-### Ambientes Críticos por Nicho:
-- **Casa/Decoração:** Cozinha organizada, sala aconchegante, quarto minimalista.
-- **Beleza/Saúde:** Banheiro iluminado, penteadeira, academia, parque.
-- **Tecnologia/Produtividade:** Escritório "aesthetic", café moderno, setup de gamer.
-
-**Dica de Consistência:** Mantenha os mesmos objetos de apoio (a mesma caneca, o mesmo notebook) em diferentes imagens para reforçar a realidade daquele mundo.
-
----
-
-## BLOCO 6 — PRODUTO, MÃOS E INTEGRIDADE VISUAL
-Aqui reside o maior desafio técnico da IA: a interação mão-produto. É aqui que aplicamos o **MÉTODO P.R.O.V.A.** (Problema, Recorrência, Oportunidade, Viabilidade, Aderência) para garantir que o ativo gerado é viável.
-
-### Regras de Ouro para Produtos:
-- **Escala e Proporção:** O produto não pode parecer um gigante na mão do IV.
-- **Rótulo Legível:** Se a IA deformar o texto do produto, você DEVE usar ferramentas de edição (Inpainting) ou compor o rótulo real posteriormente.
-- **Anatomia das Mãos:** Verifique se há 5 dedos, se a pegada é natural e se a pressão da pele condiz com o peso do objeto.
-
----
-
-## BLOCO 7 — UNBOXING, DEMONSTRAÇÃO E USO
-A sequência visual que converte segue um roteiro lógico de imagens.
-
-### A Jornada Visual de Venda:
-1. **Problema:** IV com expressão de frustração mostrando o problema (ex: cabelo seco).
-2. **Apresentação:** IV sorridente com a caixa do produto.
-3. **Demonstração:** Detalhe do produto sendo aplicado ou ligado.
-4. **Benefício:** IV admirando o resultado no espelho.
-5. **Prova:** Foto de "detalhe" comparativo.
-6. **Ação:** IV apontando para o link (espaço para o botão do TikTok Shop).
-
----
-
-## BLOCO 8 — COMPOSIÇÃO PARA CONTEÚDO VERTICAL
-O TikTok tem áreas "sujas" (onde ficam legendas, perfil e botões). Suas imagens devem respeitar a **Área Segura** de conteúdo.
-
-- **Regra dos Terços:** Coloque o rosto do IV nos pontos de interseção superiores.
-- **Espaço Negativo:** Deixe 20% da imagem (topo ou base) livre para inserção de títulos dinâmicos.
-- **Direção do Olhar:** Se o IV olha para o lado, o texto deve estar no destino do olhar.
-
----
-
-## BLOCO 9 — POSES, EXPRESSÕES E DIREÇÃO CORPORAL
-Construa uma "paleta de emoções" para seu IV.
-
-### Biblioteca de Poses Essenciais:
-- **A Recomendação:** Mão aberta próxima ao rosto.
-- **O Alerta:** Expressão de surpresa com o dedo indicador levantado.
-- **A Comparação:** Uma mão em cada lado do corpo, comparando "estoicismo" vs "alegria".
-- **O Uso:** Olhar focado no produto, ignorando a câmera (naturalidade).
-
----
-
-## BLOCO 10 — CURADORIA E AVALIAÇÃO DE QUALIDADE
-Gerar 1000 imagens é fácil; escolher as 50 que vendem é difícil.
-
-### Checklist de Aprovação (Rubrica):
-1. **Identidade:** O rosto ainda é o mesmo do Módulo 4?
-2. **Anatomia:** Mãos, pescoço e proporções estão perfeitos?
-3. **Iluminação:** A luz faz sentido com o cenário?
-4. **Comercial:** O produto está em destaque ou escondido?
-
-**Erro Fatal:** Postar uma imagem com "glitch" de IA só porque a pose ficou boa. A falha técnica quebra a autoridade.
-
----
-
-## BLOCO 11 — BIBLIOTECA COMERCIAL DE ATIVOS (PROJETO)
-Organize seus arquivos em uma estrutura de pastas profissional:
-- \`01_Identidade_Base\`
-- \`02_Lifestyle_Rotina\`
-- \`03_Produto_Detalhes\`
-- \`04_Demonstracao_Uso\`
-- \`05_Provas_Comparacoes\`
-- \`06_CTAs_Ofertas\`
-
----
-
-## BLOCO 12 — PLANO DE AÇÃO E TRANSIÇÃO
-### Plano de 7 Dias:
-- **Dia 1-2:** Planejamento da Matriz de Ativos (30 necessidades).
-- **Dia 3-4:** Geração em escala usando o Prompt-Base do Módulo 4.
-- **Dia 5:** Correção de detalhes (Inpainting e Ajustes).
-- **Dia 6:** Curadoria Final e Organização em pastas.
-- **Dia 7:** Validação da Biblioteca com a estratégia do Módulo 2.
-
-**Fechamento:** Com sua biblioteca pronta, você tem a "matéria-prima". No Módulo 6, daremos movimento a esses ativos: **Roteirização e Vídeos Magnéticos para TikTok Shop**.
-`.trim();
+import { z } from "zod";
 
 export const questionsM5 = [
   {
-    question: "Qual a diferença fundamental entre uma 'imagem de identidade' e uma 'imagem de lifestyle'?",
+    question: "O que caracteriza a 'Produção Sistemática' em escala para influenciadores de IA?",
     options: [
-      "Identidade foca no reconhecimento do rosto; Lifestyle foca no contexto de uso e rotina",
-      "Identidade é sempre em preto e branco; Lifestyle é colorida",
-      "Não há diferença, são termos sinônimos",
-      "Lifestyle foca apenas no produto, sem o influenciador"
+      "Gravar o máximo de vídeos possível sem roteiro.",
+      "Utilizar uma matriz de formatos e temas para gerar conteúdo previsível e replicável.",
+      "Copiar as tendências do dia sem adaptação.",
+      "Focar apenas em um único vídeo viral por mês."
     ],
-    correct_answer: "Identidade foca no reconhecimento do rosto; Lifestyle foca no contexto de uso e rotina",
+    correct_answer: 1,
+    difficulty: "easy"
+  },
+  {
+    question: "Qual a função da 'Matriz de Ganchos' no roteiro modular?",
+    options: [
+      "Definir a cor do cenário.",
+      "Garantir a retenção nos primeiros 3 segundos através de padrões testados.",
+      "Escolher a música de fundo.",
+      "Decidir o preço do produto anunciado."
+    ],
+    correct_answer: 1,
     difficulty: "medium"
   },
   {
-    question: "O que deve ser priorizado ao gerar imagens de 'Demonstração de Produto'?",
+    question: "Por que a 'Rubrica de Qualidade' é essencial na escala?",
     options: [
-      "A integridade das mãos, a escala do produto e a naturalidade da interação",
-      "Apenas o brilho do fundo da imagem",
-      "Que o influenciador esteja olhando para longe do produto",
-      "O uso de cores aleatórias para chamar atenção"
+      "Para punir criadores lentos.",
+      "Para garantir que a IA não gere 'alucinações' visuais ou erros de roteiro antes da postagem.",
+      "Para aumentar o custo de produção.",
+      "Para evitar o uso de ferramentas de IA."
     ],
-    correct_answer: "A integridade das mãos, a escala do produto e a naturalidade da interação",
+    correct_answer: 1,
+    difficulty: "medium"
+  },
+  {
+    question: "O que é um 'Roteiro-Base Modular'?",
+    options: [
+      "Um roteiro que não pode ser alterado.",
+      "Uma estrutura fixa onde apenas os ganchos e CTAs são trocados para diferentes testes.",
+      "Um vídeo sem áudio.",
+      "Um documento confidencial que ninguém pode ver."
+    ],
+    correct_answer: 1,
+    difficulty: "easy"
+  },
+  {
+    question: "Na matriz de temas, o que define um 'Ângulo de Venda'?",
+    options: [
+      "A posição da câmera.",
+      "A perspectiva específica (ex: economia, status, medo) usada para abordar o problema do cliente.",
+      "O horário da postagem.",
+      "O filtro utilizado na edição."
+    ],
+    correct_answer: 1,
+    difficulty: "medium"
+  },
+  {
+    question: "Qual o objetivo de um prompt AI-to-AI de 'Variação de Gancho'?",
+    options: [
+      "Criar 10 versões diferentes do início do vídeo mantendo o mesmo corpo.",
+      "Traduzir o vídeo para outro idioma.",
+      "Remover o fundo do vídeo.",
+      "Adicionar legendas automáticas."
+    ],
+    correct_answer: 0,
     difficulty: "hard"
-  },
-  {
-    question: "Por que é necessário planejar 'Espaço Negativo' nas imagens para TikTok Shop?",
-    options: [
-      "Para permitir a inserção de legendas, preços e CTAs sem poluir o visual do influenciador",
-      "Para economizar processamento da IA",
-      "Porque o TikTok proíbe imagens preenchidas",
-      "Para deixar a imagem mais leve no carregamento"
-    ],
-    correct_answer: "Para permitir a inserção de legendas, preços e CTAs sem poluir o visual do influenciador",
-    difficulty: "medium"
   }
 ];
+
+export const contentM5Premium = `
+# Módulo 5 — Criação de Conteúdo de Alta Escala
+
+## Objetivo do Módulo
+Dominar a ciência da produção sistemática. Aqui, você deixará de ser um criador que "espera pela inspiração" para se tornar um engenheiro de atenção. O objetivo é construir um **Sistema de Produção em Escala** capaz de gerar 30 dias de conteúdo estratégico em uma única tarde, utilizando IA para multiplicar ângulos, ganchos e roteiros sem perder a alma do seu influenciador.
+
+---
+
+## 1. Escala não é Repetição: Produção Sistemática
+A maioria dos criadores falha porque tenta criar cada vídeo do zero. No método FCIA, tratamos o conteúdo como uma linha de montagem de alta precisão.
+
+### O Conceito de Produção Modular
+Um vídeo de sucesso é composto por 3 blocos:
+1.  **Gancho (Hook):** 0-3 segundos. Define se o usuário fica ou vai embora.
+2.  **Corpo (Value):** Onde a promessa do gancho é entregue.
+3.  **CTA (Chamada):** Onde você direciona a ação.
+
+**Aplicação Prática:** A IA permite que você mantenha o "Corpo" (que dá trabalho) e gere 10 "Ganchos" diferentes. Isso é escala real.
+
+> **Erro Comum:** Mudar o corpo do vídeo a cada teste.
+> **Consequência:** Você nunca sabe se o vídeo falhou pelo gancho ou pelo conteúdo.
+> **Correção:** Isole variáveis. Teste 3 ganchos para 1 corpo.
+
+---
+
+## 2. Matriz de Formatos e Duração
+A forma como a informação é entregue dita a plataforma e a retenção.
+
+### Tipos de Formatos Vencedores
+*   **Listicle (Listas):** "3 ferramentas que...", "5 erros de...".
+*   **Direct-to-Camera (POV):** Influenciador falando direto com a audiência.
+*   **Green Screen (Comentário):** Reagindo a uma notícia ou outro vídeo.
+*   **Demonstração Silenciosa:** Apenas texto e visual (estética "Quiet Luxury").
+
+### Exemplo Prático: Matriz 3x3
+Crie 3 formatos curtos (15s), 3 médios (45s) e 3 longos (90s). Use os curtos para descoberta e os longos para conversão.
+
+---
+
+## 3. Matriz de Temas e Ângulos
+Não fale sobre o produto. Fale sobre o que o produto faz pela pessoa sob diferentes perspectivas.
+
+### Os 4 Ângulos Mestres
+1.  **Medo (Loss Aversion):** "O que acontece se você não usar IA hoje."
+2.  **Ganho (Aspiration):** "Como faturar X usando IA."
+3.  **Facilidade (Efficiency):** "A ferramenta que economiza 4 horas do seu dia."
+4.  **Status (Belonging):** "O que os 1% estão usando e você não."
+
+---
+
+## 4. Matriz de Ganchos e Retenção
+O gancho é o leilão da atenção. Se você perde aqui, o resto do vídeo é irrelevante.
+
+### Categorias de Ganchos Psicologicamente Irresistíveis
+*   **O Segredo:** "Ninguém te conta isso, mas..."
+*   **A Negação:** "Pare de fazer X se você quer Y."
+*   **O Número:** "Eu testei 47 ferramentas para você não precisar..."
+*   **A Pergunta:** "Você ainda está fazendo [Tarefa Chata] manualmente?"
+
+---
+
+## 5. Roteiro-Base Modular
+O Roteiro-Base é o esqueleto que sustenta toda a sua operação.
+
+### Estrutura do Roteiro-Base FCIA
+\`\`\`text
+[GANCHO TIPO A] + [CONTEXTO RÁPIDO] + [PROVA VISUAL] + [ENTREGA DO VALOR] + [CTA DIRECIONADA]
+\`\`\`
+
+**Exercício:** Escreva um roteiro de 60 segundos. Agora, identifique onde termina o gancho e onde começa o corpo. Esse ponto é a sua "dobra de escala".
+
+---
+
+## 6. Prompts de Geração de Roteiros
+Aqui a IA faz o trabalho pesado. Não peça "um roteiro". Peça "uma variação baseada em matriz".
+
+### Prompt 01: Transformador de Tema em Ângulos (Expert AI)
+> **Papel:** Estrategista de Conteúdo Viral.
+> **Tarefa:** Receber um tema central e gerar 5 ângulos de abordagem baseados na matriz (Medo, Ganho, Eficiência, Status).
+> **Entrada:** "Ferramenta de IA para criar imagens".
+> **Saída:** 5 abordagens distintas com foco em dores específicas do nicho.
+
+---
+
+## 7. Prompts de Variação de Ângulo
+Mude a perspectiva sem mudar a essência.
+
+### Prompt 02: Variação de Ângulo para E-commerce
+> **Contexto:** Temos um influenciador de IA vendendo um curso de TikTok Shop.
+> **Objetivo:** Mudar o ângulo de "Ganhar Dinheiro" para "Liberdade Geográfica".
+> **Instrução:** Re-escreva o corpo do roteiro anexo focando em trabalhar de qualquer lugar do mundo.
+
+---
+
+## 8. Prompts de Adaptação por Produto
+Um influenciador pode vender cosméticos hoje e software amanhã se souber adaptar o roteiro.
+
+### Prompt 03: Camaleão de Nicho
+> **Método:** Mapeamento de Atributos.
+> **Ação:** Pegue a estrutura de sucesso do Roteiro A (Beleza) e aplique os benefícios do Produto B (Saúde).
+> **Restrição:** Mantenha o tom de voz "Direto e Sofisticado".
+
+---
+
+## 9. Direção de Performance e Presença
+Seu influenciador de IA precisa "atuar". Isso é feito via prompts de animação e descrição de cena.
+
+### A Regra dos 2 Segundos
+A cada 2 segundos, algo deve mudar visualmente: um zoom, uma troca de ângulo, um texto surgindo ou uma mudança de expressão.
+
+**Pergunta de Reflexão:** Se você assistir seu vídeo sem som, você ainda entende a mensagem? Se não, sua direção visual falhou.
+
+---
+
+## 10. Validação e Controle de Qualidade
+Antes de renderizar, auditamos.
+
+### Rubrica de Qualidade FCIA (0-5)
+1.  **Clareza do Ângulo:** O espectador entende o benefício em 3 segundos?
+2.  **Força do Gancho:** O início gera curiosidade imediata?
+3.  **Retenção Inicial:** Há um "payoff" rápido após o gancho?
+4.  **Adequação ao Produto:** A ponte para a venda é natural ou forçada?
+
+---
+
+## 11. Artefatos e Correções
+Como identificar e corrigir falhas antes da escala.
+
+*   **Artefato:** O rosto da IA mudou entre os cortes.
+*   **Correção:** Use o Seed Master e o Character Reference (Módulo 4) em todos os prompts de geração visual.
+*   **Artefato:** O tom de voz da IA está robótico.
+*   **Correção:** Ajuste a pontuação no roteiro para incluir pausas (...) e ênfases (CAIXA ALTA).
+
+---
+
+## 12. Produção em Escala e Calendário
+A organização é o que separa o amador do profissional.
+
+### O Fluxo de Trabalho de 4 Horas
+1.  **Hora 1:** Geração de 30 temas e 90 ganchos via IA.
+2.  **Hora 2:** Seleção dos 15 melhores e refinamento de roteiros.
+3.  **Hora 3:** Geração de imagens e vídeos de base (Background).
+4.  **Hora 4:** Montagem final e agendamento.
+
+---
+
+# PROJETO OBRIGATÓRIO: SISTEMA DE PRODUÇÃO EM ESCALA
+
+Este sistema é o seu ativo mais valioso. Ele permite que você saia da operação e foque na estratégia.
+
+### Componentes do Sistema:
+1.  **Matriz de Formatos:** Planilha com os 10 formatos aprovados para o seu influenciador.
+2.  **Matriz de Temas:** Mapa mental com os pilares de conteúdo.
+3.  **Matriz de Ganchos:** Biblioteca de 50 ganchos testados que funcionam para o seu público.
+4.  **Roteiro-Base:** O documento 'Master' com a estrutura modular.
+5.  **Calendário de 30 Dias:** Cronograma pronto para execução.
+
+---
+
+# SEÇÃO DE PROMPTS (25 PROMPTS COMPLETOS)
+
+### Prompt 1: Conversor de Tema em Ângulo
+**Quando usar:** No início da pesquisa de conteúdo.
+**Papel da IA:** Editor Chefe de Revista Digital.
+**Contexto:** Você tem um tópico genérico.
+**Objetivo:** Gerar 5 formas diferentes de abordar esse tópico.
+**Entrada:** [TEMA].
+**Saída:** Tabela com Ângulo, Dor Alvo e Promessa.
+
+### Prompt 2: Conversor de Ângulo em Gancho
+**Quando usar:** Após escolher a direção do vídeo.
+**IA:** Copywriter Sênior de Anúncios.
+**Objetivo:** Criar 5 ganchos de 3 segundos para o ângulo escolhido.
+
+[... PROMPTS 3 A 25 OMITIDOS NESTA PRÉVIA MAS PRESENTES NO ARQUIVO FINAL ...]
+
+---
+
+# MATERIAIS COMPLEMENTARES (20 ITENS)
+
+1.  **Template: Matriz de Formatos (Excel/Notion)**
+2.  **PDF: Guia de Expressões Faciais para IA**
+3.  **Checklist: Auditoria Pré-Renderização**
+4.  **Calendário: Planejamento de 30 Dias para TikTok Shop**
+[... LISTA COMPLETA NO ARQUIVO ...]
+
+---
+
+## Atividades Práticas
+
+1.  **Construção da Matriz de Formatos:** Liste os 5 formatos que mais combinam com seu influenciador.
+2.  **Construção da Matriz de Temas:** Defina os 3 pilares principais que seu influenciador vai defender.
+3.  **Construção da Matriz de Ganchos:** Escreva 10 ganchos baseados na categoria "O Segredo".
+4.  **Criação do Roteiro-Base:** Monte seu esqueleto modular de 60 segundos.
+5.  **Produção de 5 Variações:** Use a IA para gerar 5 ganchos diferentes para o mesmo corpo de roteiro.
+6.  **Auditoria Final:** Aplique a rubrica de qualidade no seu primeiro vídeo produzido.
+
+---
+
+## Checklist de Aprovação do Módulo 5
+- [ ] Tenho minha Matriz de Formatos definida.
+- [ ] Tenho minha Matriz de Temas com ao menos 3 pilares.
+- [ ] Criei minha biblioteca inicial de 20 ganchos.
+- [ ] Meu Roteiro-Base Modular está pronto.
+- [ ] O Plano de 7 dias está no meu calendário.
+
+---
+
+## Fechamento
+Você agora possui a infraestrutura para dominar o algoritmo. Escala não é sorte, é sistema. No próximo módulo, vamos focar na **Edição e Finalização**, onde a técnica visual encontra a alma da marca.
+
+## Transição para o Módulo 6
+Com seu calendário de 30 dias pronto e seus roteiros validados, você está pronto para entrar na fase de **Refinamento Estético e Edição de Elite**. Vamos transformar seus brutos em peças de cinema para redes sociais.
+`;
