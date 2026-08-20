@@ -675,7 +675,7 @@ A escolha da paleta de cores não é estética, é funcional. O Módulo 4 exige 
 ...
 
 
-## Transição Módulo 5
+## TRANSIÇÃO PARA MÓDULO 5
 - **Objetivo:** Preparar para a animação do Módulo 5.
 - **Status:** Consistência visual validada.
 `;
