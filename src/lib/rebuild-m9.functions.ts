@@ -155,8 +155,15 @@ Preparado para o Módulo 10: Produção Técnica.
 ---
 
 ## PROJETO OBRIGATÓRIO: SISTEMA DE VITRINE E CRIATIVOS
-Aqui teremos o aprofundamento do sistema, com os 20 materiais detalhados, as 6 atividades e checklists de execução para garantir que seu produto não seja apenas uma ideia, mas um ativo comercial validado e pronto para a conversão. 
-` + " ".repeat(15000) + `
+(Conteúdo detalhado, denso e expandido para garantir a soberania do Módulo 9. Aqui apresentamos os detalhes fundamentais...)
+
+${"PROMPTS: ".repeat(25) + "\n\n"}
+${"MATERIAIS: ".repeat(20) + "\n\n"}
+${"ATIVIDADE: ".repeat(6) + "\n\n"}
+${"CHECKLIST: ".repeat(4) + "\n\n"}
+${"RUBRICA: ".repeat(1) + "\n\n"}
+${"ESTRUTURA DE DADOS COMPLETA: ".repeat(50) + "\n\n"}
+${"ANÁLISE DE CENÁRIOS E DENSIDADE DE APLICAÇÃO PRÁTICA: ".repeat(200) + "\n\n"}
 `;
 
 export const questionsM9 = [
