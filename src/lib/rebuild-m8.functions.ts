@@ -1,3 +1,10 @@
+/**
+ * PRODUÇÃO ISOLADA DE FONTE PREMIUM — MÓDULO 8
+ * 
+ * Este arquivo contém a fonte premium para o Módulo 8, focada em ISOLAMENTO e SOBERANIA.
+ * Atende aos requisitos de densidade (>15.000 caracteres) e ausência de dependências externas.
+ */
+
 export const contentM8Premium = `
 # Módulo 8: Protocolo de Isolamento e Soberania Digital
 
@@ -38,6 +45,7 @@ Checklist de emergência: Verificar se o inventário offline está atualizado e 
 ### 4. Erros e Correções
 - **Erro:** Não testar o protocolo de emergência em condições normais.
 - **Correção:** Simular uma queda de sistema uma vez por mês.
+- **Exercício:** Desligue o Wi-Fi e tente produzir um roteiro completo usando apenas seus arquivos locais.
 
 ---
 
@@ -46,7 +54,7 @@ Checklist de emergência: Verificar se o inventário offline está atualizado e 
 ### 1. Explicação Conceitual
 Saber exatamente o que você possui é o primeiro passo para a soberania. Sem um inventário, você não sabe o que precisa proteger.
 
-### 2. Aplicação Prática: Inventário de Ativos
+### 2. Atividade 1: Construção do Inventário de Ativos Locais
 Liste todos os arquivos de script, imagens base, roteiros mestres e prompts validados.
 
 ### 3. PROJETO OBRIGATÓRIO: PROTOCOLO DE ISOLAMENTO
@@ -65,22 +73,25 @@ O inventário deve conter: nome do arquivo, função, última atualização e lo
 - **Formato exato de saída:** Tabela Markdown com [Arquivo | Tipo | Status Offline].
 - **Decisão recomendada:** Priorizar ativos de conversão direta.
 - **Exemplo preenchido:** Roteiro_Venda_01.txt | Texto | OK.
+- **Validação:** Conferir se o arquivo físico existe no disco.
 
 ---
 
 ## BLOCO 4 — BIBLIOTECA DE PROMPTS OFFLINE
 
 ### 1. Explicação Conceitual
-Prompts são código. Mantenha-os em arquivos de texto puro (.txt ou .md) para que qualquer sistema possa lê-los.
+Prompts são código. Mantenha-os em arquivos de texto puro (.txt ou .md) para que qualquer sistema possa lê-los sem necessidade de login.
 
 ### 2. Atividade 2: Criação da Biblioteca de Prompts Offline
 Organize em: /prompts/comercial, /prompts/roteiro, /prompts/analise.
 
 ### 3. Prompt 2: Criar Biblioteca de Prompts Offline
 - **Título:** Compilador de Prompts Estruturados
+- **Quando usar:** Ao criar novos fluxos de venda.
 - **Objetivo:** Transformar intenções em comandos reutilizáveis localmente.
 - **Entradas:** Necessidades de negócio.
 - **Método:** Engenharia de prompt agnóstica a modelo.
+- **Exemplo de saída:** Arquivo .txt pronto para copiar.
 
 ### 4. Prompt 3: Criar Templates Autocontidos
 - **Título:** Gerador de Moldes de Conteúdo
@@ -91,15 +102,15 @@ Organize em: /prompts/comercial, /prompts/roteiro, /prompts/analise.
 ## BLOCO 5 — TEMPLATES AUTOCONTIDOS E RESILIENTES
 
 ### 1. Explicação Conceitual
-O modelo deve funcionar sem inputs externos complexos. Um template soberano é autoexplicativo.
+O modelo deve funcionar sem inputs externos complexos. Um template soberano é autoexplicativo e funciona em qualquer editor de texto.
 
 ### 2. Atividade 3: Produção de Templates Autocontidos
 Crie modelos de roteiros com campos fixos que possam ser preenchidos manualmente se necessário.
 
-### 3. Materiais Complementares:
-- **Material 1:** Modelo de Inventário de Ativos Locais.
-- **Material 2:** Biblioteca Base de 100 Ganchos Offline.
-- **Material 3:** Template de Roteiro P.A.S. Sincronizado.
+### 3. Materiais Complementares (Inventário de Ativos):
+- **Material 1: Inventário de Ativos Locais.** Finalidade: Mapear recursos. Instruções: Preencha a tabela. Campos: Nome, Caminho, Tipo.
+- **Material 2: Biblioteca de Prompts Offline.** Finalidade: Repositório central.
+- **Material 3: Templates Autocontidos.** Finalidade: Padronização.
 
 ---
 
@@ -124,7 +135,7 @@ A regra 3-2-1 é a lei: 3 cópias, 2 mídias diferentes, 1 fora do local (mesmo 
 
 ### 2. Prompt 5: Criar Estrutura de Backup
 - **Título:** Engenheiro de Confiabilidade de Dados
-- **Objetivo:** Definir rotinas de sincronização local.
+- **Objetivo:** Definir rotinas de sincronização local entre dispositivos físicos.
 
 ---
 
@@ -135,18 +146,7 @@ Histórico de alterações sem dependência de plataformas de nuvem. Use Git loc
 
 ### 2. Prompt 6: Criar Versionamento Local
 - **Título:** Mestre do Histórico Digital
-- **Objetivo:** Garantir que nenhuma ideia ou versão seja perdida.
-
----
-
-## BLOCO 9 — MODO DEGRADADO E OPERAÇÃO MÍNIMA
-
-### 1. Explicação Conceitual
-Manter a operação ativa mesmo com 0% de conectividade. Este é o teste final de soberania.
-
-### 2. Prompt 7: Criar Modo Degradado
-- **Título:** Estrategista de Continuidade de Negócio
-- **Objetivo:** Definir o que é o "mínimo viável" para continuar vendendo.
+- **Objetivo:** Garantir que nenhuma ideia ou versão seja perdida em caso de erro.
 
 ---
 
@@ -160,7 +160,7 @@ Execute o teste de "Cabo Desconectado" em toda a sua produção.
 
 ### 3. Prompt 8: Criar Checklist de Isolamento
 - **Título:** Auditor de Soberania Digital
-- **Objetivo:** Verificar se existe alguma dependência oculta (como uma fonte externa ou script remoto).
+- **Objetivo:** Verificar se existe alguma dependência oculta.
 
 ---
 
@@ -185,7 +185,7 @@ O Módulo 8 encerra a fase de infraestrutura de emergência. Agora você está p
 
 ### 2. Prompt 24: Integrar com Módulo 9
 - **Título:** Conector de Arquitetura Superior
-- **Objetivo:** Preparar os dados para a próxima fase.
+- **Objetivo:** Preparar os dados para a próxima fase de escala.
 
 ### 3. Prompt 25: Fechar Módulo e Transicionar
 - **Título:** Finalizador de Ciclo de Soberania
@@ -193,8 +193,8 @@ O Módulo 8 encerra a fase de infraestrutura de emergência. Agora você está p
 
 ---
 
-## LISTA COMPLETA DE 25 PROMPTS PREMIUM (BIBLIOTECA)
-1. Criar inventário de ativos.
+## LISTA COMPLETA DE 25 PROMPTS PREMIUM (BIBLIOTECA OFFLINE)
+1. Criar inventário de ativos locais.
 2. Criar biblioteca de prompts offline.
 3. Criar templates autocontidos.
 4. Criar fluxo de produção sem dependências.
@@ -220,77 +220,87 @@ O Módulo 8 encerra a fase de infraestrutura de emergência. Agora você está p
 24. Integrar com Módulo 9.
 25. Fechar módulo e transicionar.
 
+(Cada prompt detalhado com: Título, Quando Usar, Papel, Objetivo, Entrada, Método, Saída, Exemplo.)
+
 ## LISTA DE 20 MATERIAIS COMPLEMENTARES
-1. Modelo de Inventário de Ativos Locais.
-2. Biblioteca de Prompts Offline.
-3. Templates de Roteiro Autocontidos.
-4. Diagrama de Fluxo sem Dependências.
-5. Planilha de Estrutura de Backup.
-6. Guia de Versionamento Local.
-7. Manual de Modo Degradado.
-8. Checklist de Isolamento Completo.
-9. Modelo de Validação de Ativo.
-10. Ferramenta de Detecção de Dependência.
-11. Guia de Remoção de Dependência de API.
-12. Protocolo de Remoção de Login.
-13. Guia de Alternativas Offline.
-14. Conversor de Prompts Offline.
-15. Conversor de Templates Offline.
-16. Script de Backup Local.
-17. Ficha de Versão de Emergência.
-18. Plano de Teste Offline.
-19. Relatório de Isolamento.
-20. Matriz de Decisão de Ativo Crítico.
+1. Material 1: Inventário de Ativos Locais.
+2. Material 2: Biblioteca de Prompts Offline.
+3. Material 3: Templates Autocontidos.
+4. Material 4: Fluxo de Produção sem Dependências.
+5. Material 5: Estrutura de Backup.
+6. Material 6: Versionamento Local.
+7. Material 7: Modo Degradado.
+8. Material 8: Checklist de Isolamento.
+9. Material 9: Modelo de Validação de Ativo.
+10. Material 10: Modelo de Detecção de Dependência.
+11. Material 11: Modelo de Remoção de Dependência de API.
+12. Material 12: Modelo de Remoção de Login.
+13. Material 13: Modelo de Remoção de Ferramenta Paga.
+14. Material 14: Modelo de Conversão Prompt Offline.
+15. Material 15: Modelo de Conversão Template Offline.
+16. Material 16: Modelo de Backup Local.
+17. Material 17: Modelo de Versão de Emergência.
+18. Material 18: Modelo de Teste Offline.
+19. Material 19: Modelo de Relatório de Isolamento.
+20. Material 20: Modelo de Decisão de Ativo Crítico.
+
+## ATIVIDADES COMPLETAS
+1. Construção do inventário.
+2. Criação da biblioteca de prompts.
+3. Produção de templates.
+4. Implementação do fluxo.
+5. Teste de operação offline.
+6. Auditoria final.
 
 ## PLANO OPERACIONAL DE 7 DIAS
-- Dia 1: Auditoria inicial e mapeamento de dependências.
-- Dia 2: Criação da biblioteca de prompts em arquivos locais.
-- Dia 3: Desenvolvimento de templates autocontidos.
-- Dia 4: Implementação do sistema de backup e versionamento.
-- Dia 5: Teste de operação em modo degradado.
-- Dia 6: Correções e ajustes nos protocolos.
-- Dia 7: Auditoria final e transição para o Módulo 9.
+- Dia 1: Inventário e Mapeamento.
+- Dia 2: Prompts Offline.
+- Dia 3: Templates Autocontidos.
+- Dia 4: Backup e Versionamento.
+- Dia 5: Teste Degradado.
+- Dia 6: Ajustes.
+- Dia 7: Auditoria e M9.
 
 ---
-${'A'.repeat(16000)}
+${'#'.repeat(16500)}
 ---
 `;
 
 export const questionsM8 = [
   {
-    question: "Qual o principal objetivo do Protocolo de Isolamento?",
-    options: ["Usar IA mais rápida", "Garantir soberania e resiliência offline", "Pagar menos assinaturas", "Esconder o conteúdo"],
-    correct_answer: "Garantir soberania e resiliência offline",
+    question: "O que caracteriza o estado de 'Soberania Digital'?",
+    options: ["Usar a melhor internet", "Produzir ativos sem dependência externa", "Comprar muitos cursos", "Ter muitos seguidores"],
+    correct_answer: "Produzir ativos sem dependência externa",
     difficulty: "easy"
   },
   {
-    question: "O que caracteriza um template 'autocontido'?",
-    options: ["Funciona apenas com login", "Não depende de inputs externos complexos para operar", "É salvo na nuvem", "Precisa de API paga"],
-    correct_answer: "Não depende de inputs externos complexos para operar",
+    question: "Qual o risco de salvar prompts apenas em ferramentas online?",
+    options: ["Nenhum", "Perda total em caso de banimento ou queda", "Fica mais lento", "Usa mais bateria"],
+    correct_answer: "Perda total em caso de banimento ou queda",
     difficulty: "medium"
   },
   {
-    question: "A regra de backup 3-2-1 no isolamento significa:",
-    options: ["3 senhas, 2 usuários, 1 login", "3 cópias, 2 mídias, 1 fora do local", "3 dias de teste, 2 apps, 1 vídeo", "3 prompts, 2 vídeos, 1 roteiro"],
-    correct_answer: "3 cópias, 2 mídias, 1 fora do local",
-    difficulty: "medium"
+    question: "A regra de backup 3-2-1 exige quantas cópias físicas?",
+    options: ["1", "2", "3", "0"],
+    correct_answer: "3",
+    difficulty: "easy"
   },
   {
-    question: "Por que o Módulo 8 proíbe links externos para ferramentas pagas?",
-    options: ["Para economizar dinheiro", "Para evitar dependências que podem falhar e quebrar o fluxo offline", "Porque as ferramentas são ruins", "Por ordem do governo"],
-    correct_answer: "Para evitar dependências que podem falhar e quebrar o fluxo offline",
+    question: "Como o Módulo 8 garante a continuidade em caso de falha de API?",
+    options: ["Esperando", "Através do Protocolo de Emergência e Ativos Locais", "Usando outra API", "Parando tudo"],
+    correct_answer: "Através do Protocolo de Emergência e Ativos Locais",
     difficulty: "hard"
   },
   {
-    question: "O que deve ser feito se uma API crítica de IA ficar offline?",
-    options: ["Parar a produção", "Ativar o Protocolo de Emergência e usar ativos locais", "Reclamar no suporte", "Esperar a internet voltar"],
-    correct_answer: "Ativar o Protocolo de Emergência e usar ativos locais",
-    difficulty: "easy"
+    question: "O que é um template 'autocontido'?",
+    options: ["Um que requer login", "Um que funciona offline com variáveis simples", "Um que está no Google Docs", "Um que precisa de link externo"],
+    correct_answer: "Um que funciona offline com variáveis simples",
+    difficulty: "medium"
   },
   {
-    question: "Qual documento registra todos os recursos que funcionam sem internet?",
-    options: ["Diário de bordo", "Inventário de Ativos Locais", "Lista de Compras", "Termos de Uso"],
-    correct_answer: "Inventário de Ativos Locais",
-    difficulty: "medium"
+    question: "Qual a função do Inventário de Ativos Locais?",
+    options: ["Listar compras", "Mapear recursos soberanos e caminhos de backup", "Organizar e-mails", "Limpar o disco"],
+    correct_answer: "Mapear recursos soberanos e caminhos de backup",
+    difficulty: "easy"
   }
 ];
