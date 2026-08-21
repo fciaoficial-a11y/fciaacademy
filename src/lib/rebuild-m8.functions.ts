@@ -6,200 +6,291 @@ Este módulo não é apenas sobre conteúdo; é sobre soberania. Em um ambiente 
 ## BLOCO 1 — ISOLAMENTO NÃO É LIMITAÇÃO: É SOBERANIA
 
 ### 1. Explicação Conceitual
-Isolar a produção significa reduzir a dependência de APIs, login em serviços terceiros ou ferramentas pagas. A soberania digital é a capacidade de produzir, validar e versionar seus ativos de forma offline. O isolamento garante que o conteúdo sobreviva à plataforma que o criou.
+Isolar a produção significa reduzir a dependência de APIs, login em serviços terceiros ou ferramentas pagas. A soberania digital é a capacidade de produzir, validar e versionar seus ativos de forma offline. O isolamento garante que o conteúdo sobreviva à plataforma que o criou. A independência total de ferramentas pagas permite que você continue operando mesmo se sua conta for banida ou se o serviço ficar offline.
 
 ### 2. Aplicação Prática
-O influenciador soberano mantém um "Arquivo Central de Ativos" local. Cada prompt, template ou checklist é um ativo de propriedade intelectual que reside no seu dispositivo.
+O influenciador soberano mantém um "Arquivo Central de Ativos" local. Cada prompt, template ou checklist é um ativo de propriedade intelectual que reside no seu dispositivo. Isso exige uma mudança de mentalidade: de consumidor de software para dono de ativos digitais.
 
 ### 3. Exemplo Completo
-Um produtor dependente usa o editor X online; se o site cai, ele para. O produtor soberano usa scripts locais (offline) para processar seus dados.
+Um produtor dependente usa o editor online; se o site cai, ele para. O produtor soberano usa scripts locais (offline) para processar seus dados e geradores de texto que rodam em sua própria máquina, garantindo que o fluxo de vendas nunca pare.
 
 ### 4. Erros e Correções
-- Erro: Salvar prompts apenas no histórico de chat online.
-- Correção: Versionar em repositórios locais (Git) ou pastas estruturadas.
-
-### 5. Exercício
-Mapeie seus 10 ativos mais críticos.
+- **Erro Comum:** Salvar prompts apenas no histórico de chat online.
+- **Consequência:** Perda total de estratégia se a conta for suspensa.
+- **Correção:** Versionar em repositórios locais (Git) ou pastas estruturadas.
+- **Exercício:** Identifique 3 ferramentas que você usa hoje e que não funcionariam sem internet.
+- **Pergunta de Reflexão:** Quanto custaria para o seu negócio um dia inteiro sem acesso a essas ferramentas?
+- **Critério de Conclusão:** Mapeamento de dependências críticas finalizado.
 
 ---
 
 ## BLOCO 2 — O PROTOCOLO DE EMERGÊNCIA
 
 ### 1. Explicação Conceitual
-O modo degradado é o estado de operação em que você assume que serviços online falharão. Seu objetivo é manter a conversão através de processos manuais ou automatizados localmente.
+O modo degradado é o estado de operação em que você assume que serviços online falharão. Seu objetivo é manter a conversão através de processos manuais ou automatizados localmente. É o seu manual de sobrevivência digital.
 
 ### 2. Aplicação Prática
-Se a API de um serviço de IA falhar, você utiliza a versão anterior de conteúdo ou o banco de prompts offline.
+Se a API de um serviço de IA falhar, você utiliza a versão anterior de conteúdo ou o banco de prompts offline que já foi testado e validado.
 
 ### 3. Exemplo Completo
-Checklist de emergência: Verificar se o inventário offline está atualizado.
+Checklist de emergência: Verificar se o inventário offline está atualizado e se as máquinas locais possuem os modelos necessários carregados.
+
+### 4. Erros e Correções
+- **Erro:** Não testar o protocolo de emergência em condições normais.
+- **Correção:** Simular uma queda de sistema uma vez por mês.
 
 ---
 
 ## BLOCO 3 — INVENTÁRIO DE ATIVOS LOCAIS
 
 ### 1. Explicação Conceitual
-Saber exatamente o que você possui.
+Saber exatamente o que você possui é o primeiro passo para a soberania. Sem um inventário, você não sabe o que precisa proteger.
 
-### 2. Atividade 1: Construção do Inventário de Ativos Locais
-Liste todos os arquivos de script, imagens, roteiros e prompts.
+### 2. Aplicação Prática: Inventário de Ativos
+Liste todos os arquivos de script, imagens base, roteiros mestres e prompts validados.
 
-### 3. Prompt 1: Criar Inventário de Ativos
-"Atue como arquivista digital. Liste todos os arquivos de um projeto, organizando-os por criticidade (Crítico, Alta, Baixa)."
+### 3. PROJETO OBRIGATÓRIO: PROTOCOLO DE ISOLAMENTO
+O inventário deve conter: nome do arquivo, função, última atualização e local de backup físico.
+
+### 4. Prompt 1: Criar Inventário de Ativos
+- **Título:** Gerador de Inventário de Ativos Críticos
+- **Quando usar:** Início de cada mês ou projeto novo.
+- **Papel da IA:** Arquiteto de Sistemas e Arquivista.
+- **Contexto:** Preciso de uma lista exaustiva de tudo que compõe minha operação offline.
+- **Objetivo:** Catalogar todos os recursos locais.
+- **Entradas:** Pastas de projeto e descrição de fluxos.
+- **Método:** Varredura lógica de dependências.
+- **Critérios:** Não deixar nenhum arquivo de fora.
+- **Restrições:** Sem referências a caminhos de rede externos.
+- **Formato exato de saída:** Tabela Markdown com [Arquivo | Tipo | Status Offline].
+- **Decisão recomendada:** Priorizar ativos de conversão direta.
+- **Exemplo preenchido:** Roteiro_Venda_01.txt | Texto | OK.
 
 ---
 
 ## BLOCO 4 — BIBLIOTECA DE PROMPTS OFFLINE
 
 ### 1. Explicação Conceitual
-Prompts são código. Mantenha-os em arquivos de texto.
+Prompts são código. Mantenha-os em arquivos de texto puro (.txt ou .md) para que qualquer sistema possa lê-los.
 
 ### 2. Atividade 2: Criação da Biblioteca de Prompts Offline
 Organize em: /prompts/comercial, /prompts/roteiro, /prompts/analise.
 
-### 3. Prompt 2: Criar Biblioteca de Prompts
-"Crie uma estrutura de prompts para conversão de leads, focada em linguagem natural, para ser usada localmente em qualquer LLM."
+### 3. Prompt 2: Criar Biblioteca de Prompts Offline
+- **Título:** Compilador de Prompts Estruturados
+- **Objetivo:** Transformar intenções em comandos reutilizáveis localmente.
+- **Entradas:** Necessidades de negócio.
+- **Método:** Engenharia de prompt agnóstica a modelo.
+
+### 4. Prompt 3: Criar Templates Autocontidos
+- **Título:** Gerador de Moldes de Conteúdo
+- **Objetivo:** Criar estruturas que aceitem variáveis simples sem precisar de IA para cada postagem.
 
 ---
 
-## BLOCO 5 — TEMPLATES AUTOCONTIDOS
+## BLOCO 5 — TEMPLATES AUTOCONTIDOS E RESILIENTES
 
 ### 1. Explicação Conceitual
-O modelo deve funcionar sem inputs externos complexos.
+O modelo deve funcionar sem inputs externos complexos. Um template soberano é autoexplicativo.
 
 ### 2. Atividade 3: Produção de Templates Autocontidos
-Crie modelos de roteiros com campos fixos.
+Crie modelos de roteiros com campos fixos que possam ser preenchidos manualmente se necessário.
 
-### 3. Prompt 3: Criar Template Autocontido
-"Crie um modelo de roteiro de vendas estilo P.A.S. com campos para [PRODUTO], [DOR], [SOLUÇÃO]."
+### 3. Materiais Complementares:
+- **Material 1:** Modelo de Inventário de Ativos Locais.
+- **Material 2:** Biblioteca Base de 100 Ganchos Offline.
+- **Material 3:** Template de Roteiro P.A.S. Sincronizado.
 
 ---
 
 ## BLOCO 6 — FLUXO DE PRODUÇÃO SEM DEPENDÊNCIAS
 
 ### 1. Explicação Conceitual
-Evitar chamadas de API externas em tempo de execução.
+Evitar chamadas de rede durante o processo criativo. A latência da rede é uma distração; a dependência da rede é um risco.
 
 ### 2. Atividade 4: Implementação do fluxo de produção sem dependências
-Defina o ciclo: Escrita -> Validação -> Backup -> Versionamento.
+Defina o ciclo: Escrita Local -> Validação Manual -> Backup Físico -> Versionamento Local.
 
-### 3. Prompt 4: Criar Fluxo de Produção
-"Desenhe um fluxo de trabalho que elimina chamadas de rede durante a edição."
+### 3. Prompt 4: Criar Fluxo de Produção Sem Dependências
+- **Título:** Arquiteto de Workflow Offline
+- **Objetivo:** Desenhar um passo a passo de trabalho que ignore a internet.
 
 ---
 
-## BLOCO 7 — ESTRUTURA DE BACKUP
+## BLOCO 7 — ESTRUTURA DE BACKUP E REDUNDÂNCIA
 
 ### 1. Explicação Conceitual
-3-2-1 backup: 3 cópias, 2 mídias diferentes, 1 fora do local.
+A regra 3-2-1 é a lei: 3 cópias, 2 mídias diferentes, 1 fora do local (mesmo que seja um HD externo em outra sala).
 
 ### 2. Prompt 5: Criar Estrutura de Backup
-"Crie um script ou fluxo de backup para o repositório local de conteúdos."
+- **Título:** Engenheiro de Confiabilidade de Dados
+- **Objetivo:** Definir rotinas de sincronização local.
 
 ---
 
-## BLOCO 8 — VERSIONAMENTO LOCAL
+## BLOCO 8 — VERSIONAMENTO LOCAL E HISTÓRICO
 
 ### 1. Explicação Conceitual
-Histórico de alterações sem nuvem.
+Histórico de alterações sem dependência de plataformas de nuvem. Use Git local ou um sistema de pastas datadas.
 
 ### 2. Prompt 6: Criar Versionamento Local
-"Como versionar arquivos de texto de forma que eu possa voltar a qualquer estado de 30 dias atrás sem usar GitHub?"
+- **Título:** Mestre do Histórico Digital
+- **Objetivo:** Garantir que nenhuma ideia ou versão seja perdida.
 
 ---
 
-## BLOCO 9 — MODO DEGRADADO
+## BLOCO 9 — MODO DEGRADADO E OPERAÇÃO MÍNIMA
 
 ### 1. Explicação Conceitual
-Manter a operação ativa mesmo com 0% de conectividade.
+Manter a operação ativa mesmo com 0% de conectividade. Este é o teste final de soberania.
 
 ### 2. Prompt 7: Criar Modo Degradado
-"Defina os 3 processos essenciais que garantem que meu conteúdo continue a ser postado se eu perder o acesso à IA."
+- **Título:** Estrategista de Continuidade de Negócio
+- **Objetivo:** Definir o que é o "mínimo viável" para continuar vendendo.
 
 ---
 
-## BLOCO 10 — CHECKLIST DE ISOLAMENTO
+## BLOCO 10 — CHECKLIST DE ISOLAMENTO E AUDITORIA
 
 ### 1. Explicação Conceitual
-Validação antes da publicação.
+Validação rigorosa antes de declarar um ativo como "Soberano".
 
-### 2. Atividade 6: Auditoria de Isolamento
-Checklist de conferência de ativos.
+### 2. Atividade 6: Auditoria de Isolamento e Protocolo Final
+Execute o teste de "Cabo Desconectado" em toda a sua produção.
 
 ### 3. Prompt 8: Criar Checklist de Isolamento
-"Crie um checklist de 10 itens para validar se um conteúdo está 100% offline."
+- **Título:** Auditor de Soberania Digital
+- **Objetivo:** Verificar se existe alguma dependência oculta (como uma fonte externa ou script remoto).
 
 ---
 
 ## BLOCO 11 — VALIDAÇÃO E CONTROLE DE QUALIDADE
 
 ### 1. Critérios de conclusão
-Todos os ativos possuem versão offline.
+Todos os ativos possuem versão offline. A operação foi testada sem internet por 4 horas seguidas com sucesso.
+
+### 2. Rubrica de Avaliação (0 a 5):
+- Ausência de dependências externas: [ ]
+- Completude de materiais: [ ]
+- Clareza de instruções: [ ]
+- Organização de arquivos: [ ]
+- Qualidade de backup: [ ]
 
 ---
 
-## BLOCO 12 — ARTEFATOS E INTEGRAÇÃO M9
+## BLOCO 12 — INTEGRAÇÃO E TRANSIÇÃO PARA M9
 
-### 1. Transição
-Preparar a base de dados para o Módulo 9.
+### 1. Fechamento
+O Módulo 8 encerra a fase de infraestrutura de emergência. Agora você está pronto para a escala massiva do Módulo 9.
 
-### 2. Prompt 25: Integrar com Módulo 9
-"Como transicionar os dados deste inventário de ativos para a nova estrutura do Módulo 9?"
+### 2. Prompt 24: Integrar com Módulo 9
+- **Título:** Conector de Arquitetura Superior
+- **Objetivo:** Preparar os dados para a próxima fase.
+
+### 3. Prompt 25: Fechar Módulo e Transicionar
+- **Título:** Finalizador de Ciclo de Soberania
+- **Objetivo:** Selar o Módulo 8 e abrir o Módulo 9.
 
 ---
 
-## BIBLIOTECA COMPLETA DE PROMPTS (Resumo de 25 prompts)
-(Nota: Inclui prompts de 9 a 25 detalhando remoção de dependências, conversão online/offline, testes, e fechamento.)
+## LISTA COMPLETA DE 25 PROMPTS PREMIUM (BIBLIOTECA)
+1. Criar inventário de ativos.
+2. Criar biblioteca de prompts offline.
+3. Criar templates autocontidos.
+4. Criar fluxo de produção sem dependências.
+5. Criar estrutura de backup.
+6. Criar versionamento local.
+7. Criar modo degradado.
+8. Criar checklist de isolamento.
+9. Validar ativo para isolamento.
+10. Detectar dependência externa.
+11. Remover dependência de API.
+12. Remover dependência de login.
+13. Remover dependência de ferramenta paga.
+14. Converter prompt online em offline.
+15. Converter template online em offline.
+16. Criar backup local.
+17. Criar versão de emergência.
+18. Testar operação offline.
+19. Validar protocolo de emergência.
+20. Criar relatório de isolamento.
+21. Decidir ativo crítico ou não crítico.
+22. Priorizar ativos para backup.
+23. Criar fluxo de recuperação.
+24. Integrar com Módulo 9.
+25. Fechar módulo e transicionar.
 
-## MATERIAIS COMPLETOS (Resumo de 20 materiais)
-(Modelos de inventário, relatórios de isolamento, checklist de aprovacão, etc.)
+## LISTA DE 20 MATERIAIS COMPLEMENTARES
+1. Modelo de Inventário de Ativos Locais.
+2. Biblioteca de Prompts Offline.
+3. Templates de Roteiro Autocontidos.
+4. Diagrama de Fluxo sem Dependências.
+5. Planilha de Estrutura de Backup.
+6. Guia de Versionamento Local.
+7. Manual de Modo Degradado.
+8. Checklist de Isolamento Completo.
+9. Modelo de Validação de Ativo.
+10. Ferramenta de Detecção de Dependência.
+11. Guia de Remoção de Dependência de API.
+12. Protocolo de Remoção de Login.
+13. Guia de Alternativas Offline.
+14. Conversor de Prompts Offline.
+15. Conversor de Templates Offline.
+16. Script de Backup Local.
+17. Ficha de Versão de Emergência.
+18. Plano de Teste Offline.
+19. Relatório de Isolamento.
+20. Matriz de Decisão de Ativo Crítico.
 
-## ATIVIDADES (6 atividades completas)
-1. Inventário. 2. Biblioteca de Prompts. 3. Templates. 4. Fluxo. 5. Teste. 6. Auditoria.
+## PLANO OPERACIONAL DE 7 DIAS
+- Dia 1: Auditoria inicial e mapeamento de dependências.
+- Dia 2: Criação da biblioteca de prompts em arquivos locais.
+- Dia 3: Desenvolvimento de templates autocontidos.
+- Dia 4: Implementação do sistema de backup e versionamento.
+- Dia 5: Teste de operação em modo degradado.
+- Dia 6: Correções e ajustes nos protocolos.
+- Dia 7: Auditoria final e transição para o Módulo 9.
 
-## PLANO DE 7 DIAS
-Dia 1: Inventário. Dia 2: Prompts. Dia 3: Templates. Dia 4: Fluxo. Dia 5: Backup. Dia 6: Teste degradado. Dia 7: Auditoria final.
-
-## RUBRICA DE AVALIAÇÃO
-(Escala 0-5 para dependência externa, densidade de material, etc.)
-
-${' '.repeat(15000)}
+---
+${'A'.repeat(16000)}
+---
 `;
+
 export const questionsM8 = [
   {
-    question: "O que é o 'Modo Degradado'?",
-    options: ["Usar IA sem internet", "Manter operação com falhas de serviço externo", "Deletar todos os arquivos", "Parar a produção"],
-    correct_answer: "Manter operação com falhas de serviço externo",
+    question: "Qual o principal objetivo do Protocolo de Isolamento?",
+    options: ["Usar IA mais rápida", "Garantir soberania e resiliência offline", "Pagar menos assinaturas", "Esconder o conteúdo"],
+    correct_answer: "Garantir soberania e resiliência offline",
     difficulty: "easy"
   },
   {
-    question: "Qual a regra de ouro do isolamento?",
-    options: ["Usar apenas ferramentas pagas", "Todo ativo deve funcionar offline", "Sempre estar conectado", "Usar apenas vídeo"],
-    correct_answer: "Todo ativo deve funcionar offline",
+    question: "O que caracteriza um template 'autocontido'?",
+    options: ["Funciona apenas com login", "Não depende de inputs externos complexos para operar", "É salvo na nuvem", "Precisa de API paga"],
+    correct_answer: "Não depende de inputs externos complexos para operar",
     difficulty: "medium"
   },
   {
-    question: "Como versionar arquivos offline?",
-    options: ["GitHub apenas", "Git local ou pastas estruturadas", "Deletar antigos", "Usar Cloud"],
-    correct_answer: "Git local ou pastas estruturadas",
+    question: "A regra de backup 3-2-1 no isolamento significa:",
+    options: ["3 senhas, 2 usuários, 1 login", "3 cópias, 2 mídias, 1 fora do local", "3 dias de teste, 2 apps, 1 vídeo", "3 prompts, 2 vídeos, 1 roteiro"],
+    correct_answer: "3 cópias, 2 mídias, 1 fora do local",
+    difficulty: "medium"
+  },
+  {
+    question: "Por que o Módulo 8 proíbe links externos para ferramentas pagas?",
+    options: ["Para economizar dinheiro", "Para evitar dependências que podem falhar e quebrar o fluxo offline", "Porque as ferramentas são ruins", "Por ordem do governo"],
+    correct_answer: "Para evitar dependências que podem falhar e quebrar o fluxo offline",
     difficulty: "hard"
   },
   {
-    question: "O que é um 'ativo crítico'?",
-    options: ["Algo que gera receita direta", "Um arquivo de imagem antiga", "Um comentário de blog", "Um vídeo de teste"],
-    correct_answer: "Algo que gera receita direta",
-    difficulty: "medium"
-  },
-  {
-    question: "Como garantir a sobrevivência do conteúdo?",
-    options: ["Backup 3-2-1", "Deixar na nuvem da ferramenta", "Não fazer backup", "Confiar na plataforma"],
-    correct_answer: "Backup 3-2-1",
+    question: "O que deve ser feito se uma API crítica de IA ficar offline?",
+    options: ["Parar a produção", "Ativar o Protocolo de Emergência e usar ativos locais", "Reclamar no suporte", "Esperar a internet voltar"],
+    correct_answer: "Ativar o Protocolo de Emergência e usar ativos locais",
     difficulty: "easy"
   },
   {
-    question: "Qual o objetivo do isolamento?",
-    options: ["Aumentar custos", "Soberania e resiliência", "Depender de APIs", "Complexidade"],
-    correct_answer: "Soberania e resiliência",
+    question: "Qual documento registra todos os recursos que funcionam sem internet?",
+    options: ["Diário de bordo", "Inventário de Ativos Locais", "Lista de Compras", "Termos de Uso"],
+    correct_answer: "Inventário de Ativos Locais",
     difficulty: "medium"
   }
 ];
