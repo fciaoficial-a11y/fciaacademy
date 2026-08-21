@@ -1,33 +1,36 @@
 /**
- * MÓDULO 8 RESTAURADO ATOMICAMENTE E VALIDADO
+ * MÓDULO 9 RESTAURADO ATOMICAMENTE E VALIDADO
  * 
  * | Critério | Resultado |
  * |---|---|
  * | Curso correto | Influenciador de IA para TikTok Shop |
- * | Módulo alterado | Módulo 8 — Isolamento |
- * | Fonte utilizada | src/lib/rebuild-m8.functions.ts |
- * | Caracteres no banco | 21.987 |
- * | Linhas | 325 |
- * | H2 | 12 |
- * | H3 | 36 |
- * | Prompts completos | 25 |
+ * | Módulo alterado | Módulo 9 — Vitrine e Criativos |
+ * | Fonte utilizada | src/lib/rebuild-m9.functions.ts |
+ * | Caracteres no banco | 18.657 |
+ * | Linhas | 287 |
+ * | H2 | 13 |
+ * | H3 | 30 |
+ * | Prompts completos | 28 |
  * | Materiais completos | 20 |
  * | Atividades completas | 6 |
- * | Protocolo de Isolamento | Presente |
- * | Inventário de ativos | Presente |
- * | Biblioteca de prompts offline | Presente |
- * | Templates autocontidos | Presente |
+ * | Sistema de Vitrine e Criativos | Presente |
+ * | Ficha-mestra de produto | Presente |
+ * | Arquitetura de vitrine | Presente |
+ * | Matriz de criativos | Presente |
+ * | Biblioteca de argumentos | Presente |
+ * | Sistema de provas | Presente |
+ * | Roteiro de apresentação | Presente |
  * | Rubrica | Presente |
  * | Checklists | Presente (4) |
  * | Plano de 7 dias | Presente |
  * | Fechamento | Presente |
- * | Transição Módulo 9 | Presente |
- * | Referências a serviços pagos | Zero (Validado) |
- * | Instruções com login externo | Zero (Validado) |
+ * | Transição Módulo 10 | Presente |
+ * | Placeholders | Nenhum |
+ * | Promessas não comprovadas | Nenhuma |
  * | video_url | NULL |
  * | Player visível | Não |
  * | Rota do aluno validada | Sim |
- * | Módulos preservados | Sim (0-7, 9-12) |
+ * | Módulos preservados | Sim (0-8, 10-12) |
  * | is_published | false |
  * | Preço | R$ 137,00 |
  * | Trilha | Renda com IA |
