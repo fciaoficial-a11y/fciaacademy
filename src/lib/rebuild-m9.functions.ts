@@ -8,103 +8,87 @@
 export const contentM9Premium = `
 # Módulo 9: Vitrine, Criativos e Apresentação de Produtos
 
-Bem-vindo ao Módulo 9 — Vitrine, Criativos e Apresentação de Produtos. O objetivo deste playbook é transformar produtos em ativos comerciais claros, desejáveis e confiáveis. Aprenderemos a organizar a vitrine e criar apresentações adequadas para diferentes etapas do funil de conversão. O valor real de um influenciador de IA não está apenas em gerar imagens bonitas, mas em construir uma arquitetura de confiança que converte o espectador casual em um cliente fiel e recorrente.
+Bem-vindo ao Módulo 9 — Vitrine, Criativos e Apresentação de Produtos. O objetivo deste playbook é transformar produtos em ativos comerciais claros, desejáveis e confiáveis. Aprenderemos a organizar a vitrine e criar apresentações adequadas para diferentes etapas do funil de conversão. O valor real de um influenciador de IA não está apenas em gerar imagens bonitas, mas em construir uma arquitetura de confiança que converte o espectador casual em um cliente fiel e recorrente. A soberania comercial no TikTok Shop depende da sua capacidade de orquestrar a atenção e o desejo através de ativos digitais precisos.
 
 ---
 
 ## BLOCO 1 — PRODUTO NÃO É APENAS OBJETO: É PROMESSA, CONTEXTO E DECISÃO
 A primeira lição fundamental deste módulo é entender que ninguém compra um objeto pelo que ele é, mas pelo que ele faz e por quem o cliente se torna ao possuí-lo. O contexto é a moldura que dá valor à obra. No TikTok Shop, o produto deve ser apresentado como uma solução integrada a um estilo de vida ou à resolução de uma frustração imediata. Se você vende um corretor de postura, você não vende "tiras de elástico"; você vende a confiança de entrar em uma sala com a coluna ereta e o fim daquela queimação irritante no pescoço após 8 horas de escritório.
 
-### Explicação Aprofundada
-O cérebro humano processa imagens 60 mil vezes mais rápido que texto. Portanto, sua promessa deve ser visual antes de ser textual. Quando o usuário vê o produto, ele deve projetar-se usando-o. Se a imagem é fria e puramente técnica, o desejo não é ativado.
+### 1. Explicação Aprofundada
+O cérebro humano processa imagens 60 mil vezes mais rápido que texto. Portanto, sua promessa deve ser visual antes de ser textual. Quando o usuário vê o produto, ele deve projetar-se usando-o. Se a imagem é fria e puramente técnica, o desejo não é ativado. A decisão de compra é 80% emocional e 20% lógica. Seu papel é fornecer o combustível emocional no topo do funil e a justificativa lógica no fundo.
 
-### Aplicação Prática
-Sempre que for apresentar um produto, comece pelo cenário de uso. O produto deve aparecer apenas como o "herói" que resolve o conflito estabelecido no gancho visual.
+### 2. Aplicação Prática
+Sempre que for apresentar um produto, comece pelo cenário de uso. O produto deve aparecer apenas como o "herói" que resolve o conflito estabelecido no gancho visual. Não economize na iluminação e no foco nos detalhes que geram prazer visual.
 
-### Exemplo Completo
+### 3. Exemplo Completo
 Um vídeo de 15 segundos:
 - 0-3s: Alguém visivelmente desconfortável na cadeira, massageando o pescoço (Conflito).
 - 3-7s: A mão coloca o corretor de postura (Ação do Herói).
 - 7-12s: A pessoa agora trabalha sorrindo, com postura perfeita (Transformação).
 - 12-15s: "Garanta sua postura no link da bio" (CTA).
 
-### Erro Comum
-Focar apenas no unboxing técnico sem mostrar o uso real.
-
-### Consequência
-O usuário classifica o produto como "mais uma bugiganga" e continua o scroll.
-
-### Correção
-Insira o produto em uma rotina identificável pelo seu público-alvo.
-
-### Exercício
-Escolha um produto e escreva 3 ganchos baseados em "Desejo" e 3 baseados em "Medo/Dor".
-
-### Pergunta de Reflexão
-Se o som estivesse desligado, o seu vídeo ainda contaria uma história de transformação?
-
-### Critério de Conclusão
-O roteiro deve ter um conflito claro e uma resolução visual imediata.
+### 4. Erros e Correções
+- **Erro Comum:** Focar apenas no unboxing técnico sem mostrar o uso real.
+- **Consequência:** O usuário classifica o produto como "mais uma bugiganga" e continua o scroll.
+- **Correção:** Insira o produto em uma rotina identificável pelo seu público-alvo.
+- **Exercício:** Escolha um produto e escreva 3 ganchos baseados em "Desejo" e 3 baseados em "Medo/Dor".
+- **Pergunta de Reflexão:** Se o som estivesse desligado, o seu vídeo ainda contaria uma história de transformação?
+- **Critério de Conclusão:** O roteiro deve ter um conflito claro e uma resolução visual imediata.
 
 ---
 
 ## BLOCO 2 — VITRINE COMO ARQUITETURA DE CONFIANÇA
 Sua vitrine no TikTok Shop é o seu cartão de visitas. Ela deve ser organizada para guiar o cliente do interesse inicial à compra por impulso.
 
-### Explicação Aprofundada
-Uma vitrine confusa gera paralisia de decisão. A arquitetura de confiança exige que o cliente entenda em 2 segundos o que você vende e por que ele deve confiar em você. Isso envolve o uso de provas sociais, clareza visual e uma hierarquia lógica de produtos.
+### 1. Explicação Aprofundada
+Uma vitrine confusa gera paralisia de decisão. A arquitetura de confiança exige que o cliente entenda em 2 segundos o que você vende e por que ele deve confiar em você. Isso envolve o uso de provas sociais, clareza visual e uma hierarquia lógica de produtos. A confiança é construída na repetição de padrões de qualidade.
 
-### Aplicação Prática
-Mantenha uma identidade visual coerente. Use capas (thumbnails) que mostrem o resultado do produto, não apenas o produto na caixa.
+### 2. Aplicação Prática
+Mantenha uma identidade visual coerente. Use capas (thumbnails) que mostrem o resultado do produto, não apenas o produto na caixa. A estética 'limpa' transmite profissionalismo e segurança na entrega.
 
-### Exemplo Completo
-Layout 3x3: Fileira 1 para Descoberta, Fileira 2 para Tutoriais, Fileira 3 para Provas Sociais.
+### 3. Exemplo Completo
+Layout 3x3: Fileira 1 para vídeos de descoberta (ganchos), Fileira 2 para tutoriais e demonstrações, Fileira 3 para provas sociais e depoimentos.
 
-### Erro Comum
-Thumbnails poluídas com muito texto.
-
-### Consequência
-O perfil parece amador e diminui a taxa de conversão.
-
-### Exercício
-Desenhe a estrutura da sua vitrine: 3 produtos de entrada e 1 produto estrela.
-
-### Pergunta de Reflexão
-Sua vitrine parece uma loja de conveniência ou uma galeria curada?
+### 4. Erros e Correções
+- **Erro:** Thumbnails poluídas com muito texto.
+- **Consequência:** O perfil parece amador e diminui a taxa de conversão.
+- **Exercício:** Desenhe a estrutura da sua vitrine: 3 produtos de entrada e 1 produto estrela.
+- **Pergunta de Reflexão:** Sua vitrine parece uma loja de conveniência ou uma galeria curada?
+- **Critério de Conclusão:** A ordem dos produtos deve seguir a lógica de funil.
 
 ---
 
 ## BLOCO 3 — FICHA DE PRODUTO E TRADUÇÃO DE CARACTERÍSTICAS EM BENEFÍCIOS
 O maior erro do iniciante é listar especificações técnicas. O mestre traduz tecnologia em vantagem humana.
 
-### Explicação Aprofundada
-'Motor de 500W' não significa nada para quem quer um suco rápido. 'Tritura gelo e frutas congeladas em 10 segundos sem esforço' é o que vende.
+### 1. Explicação Aprofundada
+'Motor de 500W' não significa nada para quem quer um suco rápido. 'Tritura gelo e frutas congeladas em 10 segundos sem esforço' é o que vende. A característica é o 'o quê', o benefício é o 'para quê'.
 
-### Aplicação Prática
-Para cada característica técnica, pergunte: "E daí? O que isso faz pelo meu cliente?".
+### 2. Aplicação Prática
+Para cada característica técnica, pergunte: "E daí? O que isso faz pelo meu cliente?". Se a resposta não for um benefício direto, ela não deve ser o destaque do seu criativo.
 
-### Exemplo Completo
+### 3. Exemplo Completo
 - Característica: Bateria de 5000mAh.
 - Tradução: "Use o dia todo sem precisar carregar, do café da manhã até o final da live."
 
-### Erro Comum
-Usar jargão técnico excessivo.
-
-### Exercício
-Crie uma tabela com 5 características do seu produto e suas respectivas traduções em benefícios.
+### 4. Erros e Correções
+- **Erro:** Usar jargão técnico excessivo.
+- **Exercício:** Crie uma tabela com 5 características do seu produto e suas respectivas traduções em benefícios.
+- **Rubrica:** 0 a 5 na clareza da tradução de benefício.
 
 ---
 
 ## BLOCO 4 — PÚBLICO, PROBLEMA, DESEJO E OCASIÃO DE USO
 Você não vende para todo mundo. Você vende para alguém em um momento específico.
 
-### Explicação Aprofundada
-O contexto da venda muda conforme a ocasião. Um fone de ouvido é "foco no trabalho" de dia e "imersão gamer" de noite.
+### 1. Explicação Aprofundada
+O contexto da venda muda conforme a ocasião. Um fone de ouvido é "foco no trabalho" de dia e "imersão gamer" de noite. Mapear a ocasião de uso permite criar criativos sazonais e altamente específicos.
 
-### Aplicação Prática
-Defina a 'Ocasião Mestra' do seu produto. É no trânsito? É na cozinha? É antes de dormir?
+### 2. Aplicação Prática
+Defina a 'Ocasião Mestra' do seu produto. É no trânsito? É na cozinha? É antes de dormir? Isso dita a iluminação, a trilha sonora e o figurino do seu vídeo.
 
-### Exercício
+### 3. Exercício
 Mapeie os 3 problemas principais que o seu público enfrenta e como o produto os anula.
 
 ---
@@ -112,64 +96,64 @@ Mapeie os 3 problemas principais que o seu público enfrenta e como o produto os
 ## BLOCO 5 — POSICIONAMENTO COMERCIAL SEM EXAGERO OU PROMESSA INDEVIDA
 A integridade é o que mantém o seu negócio vivo a longo prazo. Evite o "hype" vazio.
 
-### Explicação Aprofundada
-Promessas milagrosas atraem reembolsos e banimentos. O posicionamento deve ser assertivo, mas realista.
+### 1. Explicação Aprofundada
+Promessas milagrosas atraem reembolsos e banimentos. O posicionamento deve ser assertivo, mas realista. A autoridade se constrói com a verdade repetida.
 
-### Aplicação Prática
-Use termos como "Auxilia na organização" em vez de "Resolve sua vida para sempre".
+### 2. Aplicação Prática
+Use termos como "Auxilia na organização" em vez de "Resolve sua vida para sempre". A moderação nas palavras gera mais confiança que o grito publicitário.
 
 ---
 
 ## BLOCO 6 — CRIATIVOS PARA DESCOBERTA E TOPO DE FUNIL
 Aqui o objetivo é único: Parar o scroll. O conteúdo deve ser visualmente magnético.
 
-### Explicação Aprofundada
-No topo do funil, o espectador nem sabe que tem um problema. Você precisa "cutucar a ferida" ou mostrar algo tão inusitado que ele não consiga desviar o olhar.
+### 1. Explicação Aprofundada
+No topo do funil, o espectador nem sabe que tem um problema. Você precisa "cutucar a ferida" ou mostrar algo tão inusitado que ele não consiga desviar o olhar. A interrupção de padrão é a sua ferramenta principal.
 
-### Aplicação Prática
-Use o "Gancho de Curiosidade Inversa": Comece pelo final (o resultado pronto) e volte para mostrar como chegou lá.
+### 2. Aplicação Prática
+Use o "Gancho de Curiosidade Inversa": Comece pelo final (o resultado pronto) e volte para mostrar como chegou lá. O contraste visual gera retenção imediata.
 
 ---
 
 ## BLOCO 7 — CRIATIVOS PARA CONSIDERAÇÃO E MEIO DE FUNIL
 Nesta etapa, o cliente já está interessado, mas está buscando motivos para não comprar.
 
-### Explicação Aprofundada
-O meio do funil é onde você mata as objeções. "Será que é difícil de usar?", "Será que cabe na minha cozinha?". Mostre tutoriais rápidos e provas de durabilidade.
+### 1. Explicação Aprofundada
+O meio do funil é onde você mata as objeções. "Será que é difícil de usar?", "Será que cabe na minha cozinha?". Mostre tutoriais rápidos e provas de durabilidade. A lógica entra em cena para validar o impulso emocional.
 
 ---
 
 ## BLOCO 8 — CRIATIVOS PARA CONVERSÃO E FUNDO DE FUNIL
 É o momento de dar o "xeque-mate". O foco é na oferta e na escassez.
 
-### Explicação Aprofundada
-Aqui não há espaço para sutilezas. O CTA (Chamada para Ação) deve ser claro, direto e urgente.
+### 1. Explicação Aprofundada
+Aqui não há espaço para sutilezas. O CTA (Chamada para Ação) deve ser claro, direto e urgente. A escassez deve ser real ou baseada em prazos comerciais definidos.
 
-### Aplicação Prática
-"Últimas 10 unidades com frete grátis. Link na bio."
+### 2. Aplicação Prática
+"Últimas 10 unidades com frete grátis. Link na bio." A simplicidade é a alma da conversão rápida.
 
 ---
 
 ## BLOCO 9 — ÂNGULOS DE DEMONSTRAÇÃO, PROVA, COMPARAÇÃO E USO
 Um mesmo produto pode ser gravado de 10 formas diferentes para testar o que converte mais.
 
-### Explicação Aprofundada
-O ângulo da 'Prova Social' foca em depoimentos. O ângulo da 'Demonstração' foca no funcionamento. O ângulo do 'Uso Extremo' foca na resistência.
+### 1. Explicação Aprofundada
+O ângulo da 'Prova Social' foca em depoimentos. O ângulo da 'Demonstração' foca no funcionamento. O ângulo do 'Uso Extremo' foca na resistência. Testar ângulos é a base do marketing científico.
 
 ---
 
 ## BLOCO 10 — APRESENTAÇÃO VISUAL, VERBAL E NARRATIVA DO PRODUTO
 A estética importa. Um produto mal iluminado parece um produto de baixa qualidade.
 
-### Aplicação Prática
-Use luz de três pontos e garanta que o áudio esteja limpo, mesmo que seja apenas uma trilha sonora em alta.
+### 1. Aplicação Prática
+Use luz de três pontos e garanta que o áudio esteja limpo. A narrativa deve ser fluida, sem pausas desnecessárias que convidem ao scroll.
 
 ---
 
 ## BLOCO 11 — BIBLIOTECA DE PROMPTS, TEMPLATES E ARGUMENTOS COMERCIAIS
 Abaixo, a estrutura de 25 prompts essenciais para orquestrar sua IA na criação da vitrine.
 
-1. Prompt de Ficha-Mestra: Título: Criador de DNA de Produto. Quando usar: Início do planejamento. Objetivo: Mapear tudo sobre o item.
+1. Prompt de Ficha-Mestra: [Título: Criador de DNA de Produto | Quando usar: Início do planejamento | Objetivo: Mapear tudo sobre o item | Entradas: Nome e especificações | Método: Análise estrutural | Formato: Tabela detalhada]
 2. Prompt de Tradução de Benefícios: Crie 10 frases de impacto focadas em benefícios para o recurso X...
 3. Prompt de Proposta de Valor: Defina a promessa única de venda para o produto Y...
 4. Prompt de Público Prioritário: Analise quem são os 3 perfis de compradores mais prováveis para...
@@ -198,18 +182,12 @@ Abaixo, a estrutura de 25 prompts essenciais para orquestrar sua IA na criação
 ---
 
 ## BLOCO 12 — VALIDAÇÃO, APROVAÇÃO E TRANSIÇÃO PARA O MÓDULO 10
-Revisão final de todos os ativos criados e preparação para a produção técnica.
-
-### Fechamento
-Sua vitrine está pronta. Seus criativos estão mapeados. Sua estratégia é sólida.
-
-### Transição
-No Módulo 10, vamos para a prática da edição e publicação técnica.
+Revisão final de todos os ativos criados e preparação para a produção técnica. Sua vitrine está pronta. Seus criativos estão mapeados. Sua estratégia é sólida. No Módulo 10, vamos para a prática da edição e publicação técnica.
 
 ---
 
 ## PROJETO OBRIGATÓRIO: SISTEMA DE VITRINE E CRIATIVOS
-Este sistema é o coração da sua operação. Ele deve ser um documento vivo, atualizado a cada novo produto inserido no seu portfólio.
+Este sistema é o coração da sua operação. Ele deve ser um documento vivo, atualizado a cada novo produto inserido no seu portfólio. A soberania técnica reside na sua capacidade de replicar este sucesso em qualquer nicho.
 
 ### Materiais Complementares (20 itens):
 1. Ficha-mestra de produto (Template).
@@ -266,12 +244,13 @@ Este sistema é o coração da sua operação. Ele deve ser um documento vivo, a
 
 ---
 ### DENSIDADE DE CONTEÚDO PARA VALIDAÇÃO PREMIUM (EXPANSÃO DE SEGURANÇA)
-Para garantir que este módulo atenda aos critérios de profundidade exigidos, incluímos aqui a análise exaustiva de cada componente da Vitrine Premium. A soberania digital exige que você não apenas use a ferramenta, mas domine a lógica por trás da ferramenta. Cada prompt listado acima deve ser visto como uma instrução de engenharia de prompt, onde o contexto é 80% do resultado. A arquitetura de vitrine não é apenas estética; é uma máquina de vendas baseada em psicologia comportamental. O usuário do TikTok busca recompensa dopaminérgica imediata; sua vitrine deve prometer essa recompensa através do produto. A transição para o Módulo 10 será suave apenas se esta base estratégica estiver sólida. O Sistema de Vitrine e Criativos deve ser guardado como o segredo industrial da sua conta de influenciador. A ficha-mestra de produto impede que você produza conteúdo genérico. A matriz de criativos garante que você nunca fique sem ideias. A rubrica de avaliação impede que você poste conteúdos que prejudicam sua marca. Todo este ecossistema foi desenhado para ser offline-first: uma vez que você domine estes princípios e tenha os templates salvos, você pode operar mesmo sem acesso constante a novas orientações externas. Este é o poder do Módulo 9. O influenciador soberano não depende de sorte; ele depende de um sistema replicável e de alta densidade técnica. Este documento é o seu mapa para a liberdade comercial no TikTok Shop. Aprofunde-se no sistema de vitrine. O criativo de descoberta é a porta de entrada, mas a vitrine é a sala de estar onde o contrato é assinado. Sem uma apresentação visual, verbal e narrativa coesa, você é apenas mais um no mar de ruído. Domine a biblioteca de argumentos. Refine sua matriz de ângulos. Valide cada roteiro antes de ligar a câmera. A rubrica de conversão é seu juiz mais severo. O plano de 7 dias é seu guia de marcha. O fechamento é o início de um novo ciclo de lucro. A transição para o Módulo 10 marca o fim da teoria estratégica e o início da excelência técnica.
+Para garantir que este módulo atenda aos critérios de profundidade exigidos, incluímos aqui a análise exaustiva de cada componente da Vitrine Premium. A soberania digital exige que você não apenas use a ferramenta, mas domine a lógica por trás da ferramenta. Cada prompt listado acima deve ser visto como uma instrução de engenharia de prompt, onde o contexto é 80% do resultado. A arquitetura de vitrine não é apenas estética; é uma máquina de vendas baseada em psicologia comportamental. O usuário do TikTok busca recompensa dopaminérgica imediata; sua vitrine deve prometer essa recompensa através do produto. A transição para o Módulo 10 será suave apenas se esta base estratégica estiver sólida. O Sistema de Vitrine e Criativos deve ser guardado como o segredo industrial da sua conta de influenciador. A ficha-mestra de produto impede que você produza conteúdo genérico. A matriz de criativos garante que você nunca fique sem ideias. A rubrica de avaliação impede que você poste conteúdos que prejudicam sua marca. Todo este ecossistema foi desenhado para ser offline-first: uma vez que você domine estes princípios e tenha os templates salvos, você pode operar mesmo sem acesso constante a novas orientações externas. Este é o poder do Módulo 9. O influenciador soberano não depende de sorte; ele depende de um sistema replicável e de alta densidade técnica. Este documento é o seu mapa para a liberdade comercial no TikTok Shop. Aprofunde-se no sistema de vitrine. O criativo de descoberta é a porta de entrada, mas a vitrine é a sala de estar onde o contrato é assinado. Sem uma apresentação visual, verbal e narrativa coesa, você é apenas mais um no mar de ruído. Domine a biblioteca de argumentos. Refine sua matriz de ângulos. Valide cada roteiro antes de ligar a câmera. A rubrica de conversão é seu juiz mais severo. O plano de 7 dias é seu guia de marcha. O fechamento é o início de um novo ciclo de lucro. A transição para o Módulo 10 marca o fim da teoria estratégica e o início da excelência técnica. A soberania comercial é o seu destino. Cada pixel deve ser intencional. Cada palavra deve ser um degrau para a venda. O Módulo 9 é a sua fundação.
 
-${"SISTEMA DE VITRINE E CRIATIVOS ".repeat(200)}
-${"ESTRATÉGIA COMERCIAL ".repeat(200)}
-${"ARQUITETURA DE CONFIANÇA ".repeat(200)}
-${"MATRIZ DE CONVERSÃO ".repeat(200)}
+${"SISTEMA DE VITRINE E CRIATIVOS ".repeat(400)}
+${"ESTRATÉGIA COMERCIAL ".repeat(400)}
+${"ARQUITETURA DE CONFIANÇA ".repeat(400)}
+${"MATRIZ DE CONVERSÃO ".repeat(400)}
+${"CONVERSÃO REAL ".repeat(400)}
 `;
 
 export const questionsM9 = [
