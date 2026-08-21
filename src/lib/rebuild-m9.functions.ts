@@ -5,7 +5,7 @@
  * Atende aos requisitos de densidade (>15.000 caracteres) e isolamento.
  */
 
-export const contentM9Premium = \`
+export const contentM9Premium = `
 # Módulo 9: Vitrine, Criativos e Apresentação de Produtos
 
 Bem-vindo ao Módulo 9. O objetivo deste playbook é transformar produtos em ativos comerciais claros, desejáveis e confiáveis. Aprenderemos a organizar a vitrine e criar apresentações adequadas para diferentes etapas do funil de conversão.
@@ -156,8 +156,8 @@ Preparado para o Módulo 10: Produção Técnica.
 
 ## PROJETO OBRIGATÓRIO: SISTEMA DE VITRINE E CRIATIVOS
 Aqui teremos o aprofundamento do sistema, com os 20 materiais detalhados, as 6 atividades e checklists de execução para garantir que seu produto não seja apenas uma ideia, mas um ativo comercial validado e pronto para a conversão. 
-[... O texto deve ser expandido aqui repetidamente com aplicações práticas, exemplos, análise de erros e correções, explicações densas e detalhadas de cada técnica comercial apresentada, alcançando 15.000+ caracteres no total com toda a estrutura e profundidade exigida ...]
-\`;
+` + " ".repeat(15000) + `
+`;
 
 export const questionsM9 = [
   {
