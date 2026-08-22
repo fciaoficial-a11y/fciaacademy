@@ -40,7 +40,7 @@ async function restore() {
 
   try {
     const result = await atomicPremiumRestore({
-      moduleSlug: "modulo-10-estrategia-de-publicacao-e-escala",
+      moduleSlug: "influenciador-ia-m10",
       content: contentM10Premium,
       questions: questions,
       title: "Módulo 10: Estratégia de Publicação e Escala"
