@@ -1,3 +1,5 @@
+import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
+
 
 
       import { useQuery } from "@tanstack/react-query";
@@ -628,6 +630,8 @@
 
 
 
+`        { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender '... 27339 more characters,
+` +
     runnerError: Error: RunnerError
 
         at reviveInvokeError (file:///dev-server/node_modules/vite/dist/node/module-runner.js:547:64)
@@ -699,3 +703,28 @@ Error: Error transforming route file /dev-server/src/routes/index.tsx: SyntaxErr
 Error: Error transforming route file /dev-server/src/routes/index.tsx: SyntaxError: Unterminated string constant. (3:6)
 
     at file:///dev-server/node_modules/@tanstack/router-generator/dist/esm/generator.js:127:13
+
+runnerError: Error: RunnerError
+at reviveInvokeError (file:///dev-server/node_modules/vite/dist/node/module-runner.js:547:64)
+at Object.invoke (file:///dev-server/node_modules/vite/dist/node/module-runner.js:620:11)
+at async ModuleRunner.getModuleInformation (file:///dev-server/node_modules/vite/dist/node/module-runner.js:1199:7)
+at async request (file:///dev-server/node_modules/vite/dist/node/module-runner.js:1216:83)
+at async eval (/dev-server/src/routeTree.gen.ts:25:1)
+at async ESModulesEvaluator.runInlinedModule (file:///dev-server/node_modules/vite/dist/node/module-runner.js:1006:3)
+at async ModuleRunner.directRequest (file:///dev-server/node_modules/vite/dist/node/module-runner.js:1259:59)
+at async ModuleRunner.cachedRequest (file:///dev-server/node_modules/vite/dist/node/module-runner.js:1166:73)
+at async eval (/dev-server/src/router.tsx:3:1)
+at async ESModulesEvaluator.runInlinedModule (file:///dev-server/node_modules/vite/dist/node/module-runner.js:1006:3)
+},
+status: 500,
+statusText: undefined,
+headers: undefined,
+data: undefined,
+body: undefined,
+unhandled: true
+}
+Error: h3 swallowed SSR error: {"status":500,"unhandled":true,"message":"HTTPError"}
+at normalizeCatastrophicSsrResponse (/dev-server/src/server.ts:33:47)
+at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+at async Object.fetch (/dev-server/src/server.ts:45:14)
+at async file:///dev-server/node_modules/@tanstack/start-plugin-core/dist/esm/vite/dev-server-plugin/plugin.js:71:36
