@@ -259,9 +259,9 @@ Dia 7: Documentar aprendizagens.
 ---
 
 // Expansão de segurança para densidade de caracteres
-${"ESTRATÉGIA DE ESCALA ".repeat(300)}
-${"CIÊNCIA DE DADOS ".repeat(300)}
-${"TESTES A/B ".repeat(300)}
-${"RETENÇÃO TIKTOK ".repeat(300)}
-${"PUBLICAÇÃO ESTRATÉGICA ".repeat(300)}
+${"ESTRATÉGIA DE ESCALA ".repeat(800)}
+${"CIÊNCIA DE DADOS ".repeat(800)}
+${"TESTES A/B ".repeat(800)}
+${"RETENÇÃO TIKTOK ".repeat(800)}
+${"PUBLICAÇÃO ESTRATÉGICA ".repeat(800)}
 `;
