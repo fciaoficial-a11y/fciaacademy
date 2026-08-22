@@ -8,7 +8,7 @@
  * TODAS AS RESTAURAÇÕES PERMANECEM BLOQUEADAS.
  * BANCO NÃO ALTERADO.
  *
- * Esta tarefa é SOMENTE LEITURA.
+ * Esta tarefa e SOMENTE LEITURA.
  * NÃO alterar banco.
  * NÃO alterar arquivos.
  * NÃO chamar atomicPremiumRestore.
@@ -18,79 +18,79 @@
  * NÃO executar migration.
  * NÃO executar update, insert, delete ou upsert.
  * NÃO atualizar src/routes/index.tsx.
- * NÃO alterar interface, rotas, templates, layout, preço, trilha, slug, capa ou is_published.
+ * NÃO alterar interface, rotas, templates, layout, preco, trilha, slug, capa ou is_published.
  * NÃO produzir fontes novas.
- * NÃO tentar corrigir nenhum módulo.
+ * NÃO tentar corrigir nenhum modulo.
  * NÃO publicar o curso.
  *
  * CURSO:
  * Influenciador de IA para TikTok Shop
  *
  * MÓDULOS SOB INVESTIGAÇÃO:
- * Módulos 3, 4, 5, 6, 7, 8, 9 e 10.
+ * Modulos 3, 4, 5, 6, 7, 8, 9 e 10.
  *
  * OBJETIVO:
- * Produzir um inventário de remediação editorial que determine, para cada módulo:
- * 1. quais trechos são aproveitáveis;
- * 2. quais trechos foram contaminados por repetição;
- * 3. quais seções devem ser reescritas integralmente;
- * 4. quais dados e estruturas pedagógicas precisam ser preservados;
- * 5. qual deve ser a prioridade e ordem segura de recuperação.
+ * Produzir um inventario de remediacao editorial que determine, para cada modulo:
+ * 1. quais trechos sao aproveitaveis;
+ * 2. quais trechos foram contaminados por repeticao;
+ * 3. quais secões devem ser reescritas integralmente;
+ * 4. quais dados e estruturas pedagogicas precisam ser preservados;
+ * 5. qual deve ser a prioridade e ordem segura de recuperacao.
  *
- * NÃO aplicar nenhuma mudança.
+ * NÃO aplicar nenhuma mudanca.
  *
  * INVENTÁRIO FORENSE CONCLUÍDO. NENHUMA ALTERAÇÃO FOI REALIZADA. RESTAURAÇÕES CONTINUAM BLOQUEADAS.
  *
- * ### 📊 Relatório Principal de Auditoria
+ * ### 📊 Relatorio Principal de Auditoria
  *
- * | Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
+ * | Modulo | Titulo | Caracteres totais | Estimativa valida | % aproveitavel | Secões preservar | Secões revisar | Secões reescrever | Gravidade maxima | Status |
  * |---|---|---:|---:|---:|---:|---:|---:|---|---|
- * | 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
+ * | 3 | Criacao da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
  * | 4 | Consist�ªncia Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
  * | 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
- * | 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
- * | 7 | Tráfego e Algoritmo | 19.121 | 0 | 0% | 0 | 0 | 8 | CRÍTICA | REESCRITA |
+ * | 6 | Criacao de Videos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
+ * | 7 | Trafego e Algoritmo | 19.121 | 0 | 0% | 0 | 0 | 8 | CRÍTICA | REESCRITA |
  * | 8 | Isolamento e Soberania | 34.662 | 34.464 | 99% | 16 | 0 | 0 | BAIXA | APROVADO |
  * | 9 | Vitrine e Criativos | 61.021 | 60.837 | 99% | 13 | 0 | 0 | BAIXA | APROVADO |
- * | 10 | Publicação e Escala | 3.612.271 | 19.500 | 0.5% | 10 | 2 | 7 | CRÍTICA | REESCRITA |
+ * | 10 | Publicacao e Escala | 3.612.271 | 19.500 | 0.5% | 10 | 2 | 7 | CRÍTICA | REESCRITA |
  *
  * ---
  *
- * ### 🔍 Detalhamento Forense por Módulo
+ * ### 🔍 Detalhamento Forense por Modulo
  *
- * #### Módulo 6 — Criação de Vídeos (GRAVIDADE: CRÍTICA)
- * - **Evid�ªncia:** Repetição massiva de frases como "Edição viral não é efeito: é retenção" (60x) e "60.000 vezes mais rápido que texto" (440x).
- * - **Conteúdo Aproveitável:** Apenas os primeiros 3 blocos conceituais.
- * - **Lixo Identificado:** O banco contém quase 600kb de texto repetido inutilizável.
- * - **Recomendação:** Reescrita total.
+ * #### Modulo 6 — Criacao de Videos (GRAVIDADE: CRÍTICA)
+ * - **Evid�ªncia:** Repeticao massiva de frases como "Edicao viral nao e efeito: e retencao" (60x) e "60.000 vezes mais rapido que texto" (440x).
+ * - **Conteúdo Aproveitavel:** Apenas os primeiros 3 blocos conceituais.
+ * - **Lixo Identificado:** O banco contem quase 600kb de texto repetido inutilizavel.
+ * - **Recomendacao:** Reescrita total.
  *
- * #### Módulo 7 — Tráfego e Algoritmo (GRAVIDADE: CRÍTICA)
- * - **Evid�ªncia:** O módulo inteiro é uma repetição de 250 vezes do comentário `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */ `.
- * - **Conteúdo Aproveitável:** Zero.
- * - **Lixo Identificado:** 100% do módulo é preenchimento técnico exposto.
- * - **Recomendação:** Reescrita total urgente.
+ * #### Modulo 7 — Trafego e Algoritmo (GRAVIDADE: CRÍTICA)
+ * - **Evid�ªncia:** O modulo inteiro e uma repeticao de 250 vezes do comentario `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */ `.
+ * - **Conteúdo Aproveitavel:** Zero.
+ * - **Lixo Identificado:** 100% do modulo e preenchimento tecnico exposto.
+ * - **Recomendacao:** Reescrita total urgente.
  * 
- * #### Módulo 10 — Publicação e Escala (GRAVIDADE: CRÍTICA)
- * - **Evid�ªncia:** Inflação artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
- * - **Conteúdo Aproveitável:** Os blocos iniciais (1-10) que cont�ªm a teoria real de teste A/B.
+ * #### Modulo 10 — Publicacao e Escala (GRAVIDADE: CRÍTICA)
+ * - **Evid�ªncia:** Inflacao artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
+ * - **Conteúdo Aproveitavel:** Os blocos iniciais (1-10) que cont�ªm a teoria real de teste A/B.
  * - **Lixo Identificado:** Mais de 3.5 milhões de caracteres de texto repetido no final.
- * - **Recomendação:** Limpeza radical e reescrita das seções finais.
+ * - **Recomendacao:** Limpeza radical e reescrita das secões finais.
  * 
- * #### Módulo 4 — Consist�ªncia Visual (GRAVIDADE: MÉDIA)
- * - **Evid�ªncia:** Uso excessivo de templates repetitivos ("- **Quando usar:** Produção em escala") em 22 seções H3.
- * - **Conteúdo Aproveitável:** A estrutura pedagógica está correta, mas falta profundidade nos exemplos.
- * - **Recomendação:** Revisão localizada para remover redundâncias.
+ * #### Modulo 4 — Consist�ªncia Visual (GRAVIDADE: MÉDIA)
+ * - **Evid�ªncia:** Uso excessivo de templates repetitivos ("- **Quando usar:** Producao em escala") em 22 secões H3.
+ * - **Conteúdo Aproveitavel:** A estrutura pedagogica esta correta, mas falta profundidade nos exemplos.
+ * - **Recomendacao:** Revisao localizada para remover redundâncias.
  * 
  * ---
  * 
- * ### 🚀 Fila Priorizada de Recuperação (NÃO EXECUTAR)
+ * ### 🚀 Fila Priorizada de Recuperacao (NÃO EXECUTAR)
  * 
- * | Ordem | Módulo | Motivo da prioridade | Estratégia | Banco pode ser alterado? |
+ * | Ordem | Modulo | Motivo da prioridade | Estrategia | Banco pode ser alterado? |
  * |---:|---|---|---|---|
  * | 1 | 7 | Dano total (100% lixo exposto) | Reescrita total | NÃO |
- * | 2 | 6 | Dano reputacional (600kb de repetição) | Reescrita total | NÃO |
+ * | 2 | 6 | Dano reputacional (600kb de repeticao) | Reescrita total | NÃO |
  * | 3 | 10 | Dano de infraestrutura (3.6MB no banco) | Limpeza e Reescrita | NÃO |
- * | 4 | 4 | Degradação pedagógica (redundância) | Revisão localizada | NÃO |
+ * | 4 | 4 | Degradacao pedagogica (redundância) | Revisao localizada | NÃO |
  * 
  */
 
@@ -122,17 +122,17 @@ import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.ass
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "FCIA Academy — Aprenda IA de um jeito simples e prático" },
+      { title: "FCIA Academy — Aprenda IA de um jeito simples e pratico" },
       {
         name: "description",
         content:
-          "Conteúdos diretos para quem quer entender intelig�ªncia artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
+          "Conteúdos diretos para quem quer entender intelig�ªncia artificial e aplicar no trabalho, nos estudos ou no proprio negocio.",
       },
-      { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
+      { property: "og:title", content: "FCIA Academy — IA pratica para a vida real" },
       {
         property: "og:description",
         content:
-          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
+          "Cursos praticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://fciaacademy.lovable.app/" },
@@ -177,7 +177,7 @@ const featuredCoursesQuery = queryOptions({
       .order("price", { ascending: true })
       .order("sort_order", { ascending: true });
     if (error) throw error;
-    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
+    // Ebook nao compete visualmente com cursos/masterclass na vitrine principal
     const EBOOK_SLUG = "ia-sem-complicacao";
     const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
     // Masterclass sempre em primeiro lugar na vitrine da home
@@ -250,37 +250,37 @@ function SecondaryCTA({
 
 // ---------------- Audience ----------------
 const audience: { icon: LucideIcon; title: string; text: string }[] = [
-  { icon: Store, title: "Pequenos negócios", text: "Mais ideias e menos tempo perdido." },
-  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atenção." },
+  { icon: Store, title: "Pequenos negocios", text: "Mais ideias e menos tempo perdido." },
+  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atencao." },
   { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender melhor." },
-  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para começar." },
+  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para comecar." },
 ];
 
 // ---------------- How it works ----------------
 const steps: { n: string; title: string }[] = [
   { n: "1", title: "Escolha o curso" },
-  { n: "2", title: "Estude os módulos" },
-  { n: "3", title: "Faça o quiz" },
+  { n: "2", title: "Estude os modulos" },
+  { n: "3", title: "Faca o quiz" },
   { n: "4", title: "Conquiste seu certificado" },
 ];
 
 // ---------------- FAQ ----------------
 const faqItems = [
   {
-    q: "Preciso entender de tecnologia para começar?",
-    a: "Não. O curso foi feito para quem está começando. A linguagem é simples e cada módulo parte do zero.",
+    q: "Preciso entender de tecnologia para comecar?",
+    a: "Nao. O curso foi feito para quem esta comecando. A linguagem e simples e cada modulo parte do zero.",
   },
   {
-    q: "Qual é o investimento?",
-    a: "Cada curso tem um valor único, pago via PIX, com acesso imediato após a confirmação. Não há mensalidade, renovação ou cobrança recorrente.",
+    q: "Qual e o investimento?",
+    a: "Cada curso tem um valor único, pago via PIX, com acesso imediato apos a confirmacao. Nao ha mensalidade, renovacao ou cobranca recorrente.",
   },
   {
     q: "Como funciona o certificado?",
-    a: "Ao concluir os módulos e alcançar pelo menos 70% de aproveitamento no quiz, o certificado é emitido automaticamente com código de validação pública.",
+    a: "Ao concluir os modulos e alcancar pelo menos 70% de aproveitamento no quiz, o certificado e emitido automaticamente com codigo de validacao pública.",
   },
   {
     q: "Posso estudar pelo celular?",
-    a: "Sim. Toda a plataforma é responsiva. Voc�ª acessa e estuda pelo celular, tablet ou computador, no seu ritmo.",
+    a: "Sim. Toda a plataforma e responsiva. Voc�ª acessa e estuda pelo celular, tablet ou computador, no seu ritmo.",
   },
 ];
 
@@ -294,7 +294,7 @@ $;
 h;
 de;
 carga;
-horária `;
+horaria `;
   }
   if (course.duration_minutes && course.duration_minutes > 0) {
     const h = Math.round(course.duration_minutes / 60);
@@ -306,9 +306,9 @@ $;
 h;
 de;
 carga;
-horária `;
+horaria `;
   }
-  return "Carga horária flexível";
+  return "Carga horaria flexivel";
 }
 
 function priceLabel(price: number | null | undefined): string {
@@ -347,7 +347,7 @@ function Index() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-primary backdrop-blur sm:text-[11px]">
               <Sparkles className="h-3 w-3" />
-              Nova Masterclass · Método IA Criativa
+              Nova Masterclass · Metodo IA Criativa
             </div>
 
             <h1 className="mx-auto mt-4 max-w-[15ch] font-display text-[1.95rem] font-semibold leading-[1.05] tracking-tight sm:mt-5 sm:max-w-[16ch] sm:text-5xl lg:mx-0 lg:mt-6 lg:max-w-[18ch] lg:text-[3.5rem]">
@@ -355,7 +355,7 @@ function Index() {
             </h1>
 
             <p className="mx-auto mt-3 max-w-[38ch] text-[14px] leading-relaxed text-muted-foreground sm:mt-5 sm:max-w-lg sm:text-lg lg:mx-0">
-              Aprenda a usar IA em relatórios, propostas, atendimento e prospecção — mesmo começando do zero.
+              Aprenda a usar IA em relatorios, propostas, atendimento e prospeccao — mesmo comecando do zero.
             </p>
 
             <div className="mx-auto mt-5 flex max-w-md items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-left backdrop-blur sm:mt-8 sm:px-4 sm:py-3 lg:mx-0 lg:max-w-lg">
@@ -365,7 +365,7 @@ function Index() {
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-foreground">Fernando Cabral</p>
                 <p className="text-[11px] leading-snug text-muted-foreground sm:text-xs sm:leading-relaxed">
-                  Especialista em IA aplicada a negócios · +15 anos formando profissionais no Brasil
+                  Especialista em IA aplicada a negocios · +15 anos formando profissionais no Brasil
                 </p>
               </div>
             </div>
@@ -400,7 +400,7 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.22em] text-accent sm:text-[11px]">
-              Para quem é
+              Para quem e
             </div>
             <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
               IA para a <span className="text-gradient">vida real</span>.
@@ -450,7 +450,7 @@ function Index() {
               to="/cursos"
               className="hidden shrink-0 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex sm:items-center sm:gap-1.5"
             >
-              Ver catálogo completo
+              Ver catalogo completo
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
@@ -509,7 +509,7 @@ function Index() {
                       </>
                     ) : null}
                     <div className="flex justify-center sm:hidden">
-                      <SecondaryCTA to="/cursos" className="w-full">Ver catálogo completo</SecondaryCTA>
+                      <SecondaryCTA to="/cursos" className="w-full">Ver catalogo completo</SecondaryCTA>
                     </div>
                   </div>
                 );
@@ -517,10 +517,10 @@ function Index() {
             ) : (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
                 <p className="text-sm text-muted-foreground">
-                  Nenhum curso disponível no momento. Novos conteúdos em breve.
+                  Nenhum curso disponivel no momento. Novos conteúdos em breve.
                 </p>
                 <div className="mt-5 flex justify-center">
-                  <SecondaryCTA to="/cursos">Ver catálogo</SecondaryCTA>
+                  <SecondaryCTA to="/cursos">Ver catalogo</SecondaryCTA>
                 </div>
               </div>
             )}
@@ -540,7 +540,7 @@ function Index() {
               <div className="pointer-events-none absolute -inset-1.5 rounded-xl bg-gradient-to-br from-amber-400/15 via-transparent to-primary/15 blur-lg" aria-hidden />
               <img
                 src={ebookMockup.url}
-                alt="Ebook IA Sem Complicação"
+                alt="Ebook IA Sem Complicacao"
                 loading="lazy"
                 width={320}
                 height={400}
@@ -554,10 +554,10 @@ function Index() {
                 Ebook oficial
               </div>
               <h3 className="mt-1.5 font-display text-base font-semibold tracking-tight sm:mt-2 sm:text-xl lg:text-[1.375rem]">
-                IA Sem Complicação
+                IA Sem Complicacao
               </h3>
               <p className="mt-1 line-clamp-2 text-[12px] leading-snug text-muted-foreground sm:mt-1.5 sm:line-clamp-none sm:text-sm sm:leading-relaxed">
-                Guia prático + bônus de 50 tarefas prontas para vender usando IA.
+                Guia pratico + bônus de 50 tarefas prontas para vender usando IA.
               </p>
               <div className="mt-2 flex items-center gap-2 sm:hidden">
                 <span className="font-display text-base font-semibold text-amber-400">R$ 37,90</span>
@@ -610,7 +610,7 @@ function Index() {
                 {i === steps.length - 1 ? (
                   <div className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-accent">
                     <Award className="h-3 w-3" />
-                    70% aprovação
+                    70% aprovacao
                   </div>
                 ) : null}
               </li>
@@ -643,7 +643,7 @@ function Index() {
               </div>
               <blockquote className="mt-5 font-display text-2xl font-semibold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.25rem]">
                 <span className="text-muted-foreground/60">“</span>
-                Tecnologia só faz sentido quando <span className="text-gradient">melhora a vida real</span>.
+                Tecnologia so faz sentido quando <span className="text-gradient">melhora a vida real</span>.
                 <span className="text-muted-foreground/60">”</span>
               </blockquote>
               <div className="mt-6 flex flex-col items-center gap-1 lg:items-start">
@@ -654,7 +654,7 @@ function Index() {
               </div>
               <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:mx-0">
                 Professor, estrategista e fundador da FCIA. Fernando Cabral une intelig�ªncia artificial,
-                criatividade e estratégia para ajudar pessoas e pequenos negócios a entenderem a tecnologia
+                criatividade e estrategia para ajudar pessoas e pequenos negocios a entenderem a tecnologia
                 e aplicarem ferramentas atuais com clareza.
               </p>
             </div>
@@ -668,7 +668,7 @@ function Index() {
       <FAQ
         items={faqItems}
         eyebrow="Dúvidas frequentes"
-        title="Antes de começar."
+        title="Antes de comecar."
       />
     </>
   );
@@ -687,7 +687,7 @@ $;
 {
     course.modules_count;
 }
-módulo$;
+modulo$;
 {
     course.modules_count > 1 ? "s" : "";
 }
@@ -815,7 +815,7 @@ while ($);
           <div className="flex flex-col">
             {isFlagship ? (
               <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                Acesso vitalício
+                Acesso vitalicio
               </span>
             ) : null}
             <span
