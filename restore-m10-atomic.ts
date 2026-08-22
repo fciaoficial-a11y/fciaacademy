@@ -1,4 +1,3 @@
-
 import { contentM10Premium } from "./src/lib/rebuild-m10.functions";
 import { atomicPremiumRestore } from "./src/lib/rebuild.functions";
 
@@ -39,11 +38,17 @@ async function restore() {
   ];
 
   try {
+    // A chamada do server function em ambiente Node/Bun (SSR/Scripts) requer o objeto 'data'
+    // pois o TanStack Start encapsula os argumentos. No entanto, o erro TypeError data.moduleSlug 
+    // sugere que o handler recebeu 'undefined' para o argumento 'data'.
+    // Em scripts externos usando bun, chamamos a função passando o objeto de entrada diretamente.
     const result = await atomicPremiumRestore({
-      moduleSlug: "influenciador-ia-m10",
-      content: contentM10Premium,
-      questions: questions,
-      title: "Módulo 10: Estratégia de Publicação e Escala"
+      data: {
+        moduleSlug: "influenciador-ia-m10",
+        content: contentM10Premium,
+        questions: questions,
+        title: "Módulo 10: Estratégia de Publicação e Escala"
+      }
     });
     console.log("Resultado:", result);
   } catch (e) {
