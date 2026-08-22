@@ -242,7 +242,7 @@ function Index() {
               {courses?.map((course) => (
                 <Link
                   key={course.id}
-                  to="/curso/$slug"
+                  to="/curso/$slug/oferta"
                   params={{ slug: course.slug }}
                   className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-background/50 transition-all hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
                 >
