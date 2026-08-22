@@ -42,7 +42,7 @@ def generate_audit_files():
         desc = m.get("description", "Sem Descrição")
         content = m.get("content_text", "")
         video = m.get("video_url", "N/A")
-        idx = m.get("order_index", 0)
+        idx = m.get("sort_order", 0)
 
         # Build full module string for stats
         prompts = json.dumps(m.get("prompts", []), indent=2, ensure_ascii=False)
