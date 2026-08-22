@@ -2,7 +2,7 @@
 import json
 import os
 from pathlib import Path
-from markdown import markdown
+
 
 def generate_audit_files():
     data_path = Path("/tmp/course_data.json")
