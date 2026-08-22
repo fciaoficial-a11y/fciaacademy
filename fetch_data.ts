@@ -6,9 +6,10 @@ async function fetchCourseData() {
   const courseSlug = 'influenciador-ia-tiktok-shop';
   console.log(`Buscando dados para o curso: ${courseSlug}`);
 
+  // Fetch course without tracks join first to avoid schema mismatch
   const { data: course, error: courseError } = await supabaseAdmin
     .from('courses')
-    .select('*, tracks(name)')
+    .select('*')
     .eq('slug', courseSlug)
     .single();
 
