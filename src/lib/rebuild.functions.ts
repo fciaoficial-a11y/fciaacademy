@@ -94,7 +94,8 @@ export const atomicPremiumRestore = createServerFn({ method: "POST" })
       type: 'multiple_choice'
     }));
     
-    await supabase.from('questions').insert(inserts);
+    const { error: insertError } = await supabase.from('questions').insert(inserts);
+    if (insertError) throw new Error(`Falha no Insert de Questões: ${insertError.message}`);
 
     return { 
       success: true, 
