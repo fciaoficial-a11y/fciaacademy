@@ -1,335 +1,335 @@
 import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 
-      'import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-      'import { queryOptions } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 
-      'import {
+import {
 
-      '  ArrowUpRight,
+  ArrowUpRight,
 
-      '  Award,
+  Award,
 
-      '  BadgeCheck,
+  BadgeCheck,
 
-      '  BookOpen,
+  BookOpen,
 
-      '  GraduationCap,
+  GraduationCap,
 
-      '  Lightbulb,
+  Lightbulb,
 
-      '  Sparkles,
+  Sparkles,
 
-      '  Store,
+  Store,
 
-      '  type LucideIcon,
+  type LucideIcon,
 
-      '} from "lucide-react";
+} from "lucide-react";
 
-      'import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
-      '
 
-      'import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 
-      'import { FAQ } from "@/components/site/FAQ";
+import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 
-      'import { supabase } from "@/integrations/supabase/client";
+import { FAQ } from "@/components/site/FAQ";
 
-      'import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
-      'import heroImage from "@/assets/home-hero-masterclass.jpeg.asset.json";
+import { cn } from "@/lib/utils";
 
-      'import courseImage from "@/assets/course-ai.webp.asset.json";
+import heroImage from "@/assets/home-hero-masterclass.jpeg.asset.json";
 
-      'import professorImage from "@/assets/fernando-cabral.webp.asset.json";
+import courseImage from "@/assets/course-ai.webp.asset.json";
 
-      'import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
+import professorImage from "@/assets/fernando-cabral.webp.asset.json";
 
-      '
+import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
 
-      'export const Route = createFileRoute("/")({
 
-      '  head: () => ({
 
-      '    meta: [
+export const Route = createFileRoute("/")({
 
-      '      { title: "FCIA Academy — Aprenda IA de um jeito simples e prático" },
+  head: () => ({
 
-      '      {
+    meta: [
 
-      '        name: "description",
+      { title: "FCIA Academy — Aprenda IA de um jeito simples e prático" },
 
-      '        content:
+      {
 
-      '          "Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
+        name: "description",
 
-      '      },
+        content:
 
-      '      { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
+          "Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
 
-      '      {
+      },
 
-      '        property: "og:description",
+      { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
 
-      '        content:
+      {
 
-      '          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
+        property: "og:description",
 
-      '      },
+        content:
 
-      '      { property: "og:type", content: "website" },
+          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
 
-      '      { property: "og:url", content: "https://fciaacademy.lovable.app/" },
+      },
 
-      '      {
+      { property: "og:type", content: "website" },
 
-      '        property: "og:image",
+      { property: "og:url", content: "https://fciaacademy.lovable.app/" },
 
-      '        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+      {
 
-      '      },
+        property: "og:image",
 
-      '      { property: "og:image:width", content: "1920" },
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
 
-      '      { property: "og:image:height", content: "1080" },
+      },
 
-      '      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image:width", content: "1920" },
 
-      '      {
+      { property: "og:image:height", content: "1080" },
 
-      '        name: "twitter:image",
+      { name: "twitter:card", content: "summary_large_image" },
 
-      '        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+      {
 
-      '      },
+        name: "twitter:image",
 
-      '    ],
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
 
-      '    links: [{ rel: "canonical", href: "https://fciaacademy.lovable.app/" }],
+      },
 
-      '  }),
+    ],
 
-      '  component: Index,
+    links: [{ rel: "canonical", href: "https://fciaacademy.lovable.app/" }],
 
-      '});
+  }),
 
-      '
+  component: Index,
 
-      '// ---------------- Featured courses query ----------------
+});
 
-      'type FeaturedCourse = {
 
-      '  id: string;
 
-      '  slug: string;
+// ---------------- Featured courses query ----------------
 
-      '  title: string;
+type FeaturedCourse = {
 
-      '  description: string | null;
+  id: string;
 
-      '  cover_url: string | null;
+  slug: string;
 
-      '  workload_hours: number | null;
+  title: string;
 
-      '  duration_minutes: number | null;
+  description: string | null;
 
-      '  price: number | null;
+  cover_url: string | null;
 
-      '  certificate_enabled: boolean | null;
+  workload_hours: number | null;
 
-      '  modules_count: number;
+  duration_minutes: number | null;
 
-      '};
+  price: number | null;
 
-      '
+  certificate_enabled: boolean | null;
 
-      'const featuredCoursesQuery = queryOptions({
+  modules_count: number;
 
-      '  queryKey: ["home", "featured-courses"],
+};
 
-      '  queryFn: async (): Promise<FeaturedCourse[]> => {
 
-      '    const { data: courses, error } = await supabase
 
-      '      .from("courses")
+const featuredCoursesQuery = queryOptions({
 
-      '      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
+  queryKey: ["home", "featured-courses"],
 
-      '      .eq("is_published", true)
+  queryFn: async (): Promise<FeaturedCourse[]> => {
 
-      '      .order("price", { ascending: true })
+    const { data: courses, error } = await supabase
 
-      '      .order("sort_order", { ascending: true });
+      .from("courses")
 
-      '    if (error) throw error;
+      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
 
-      '    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
+      .eq("is_published", true)
 
-      '    const EBOOK_SLUG = "ia-sem-complicacao";
+      .order("price", { ascending: true })
 
-      '    const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
+      .order("sort_order", { ascending: true });
 
-      '    // Masterclass sempre em primeiro lugar na vitrine da home
+    if (error) throw error;
 
-      '    const MASTERCLASS_SLUG = "metodo-ia-criativa";
+    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
 
-      '    list.sort((a, b) => {
+    const EBOOK_SLUG = "ia-sem-complicacao";
 
-      '      if (a.slug === MASTERCLASS_SLUG) return -1;
+    const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
 
-      '      if (b.slug === MASTERCLASS_SLUG) return 1;
+    // Masterclass sempre em primeiro lugar na vitrine da home
 
-      '      return 0;
+    const MASTERCLASS_SLUG = "metodo-ia-criativa";
 
-      '    });
+    list.sort((a, b) => {
 
-      '    return Promise.all(
+      if (a.slug === MASTERCLASS_SLUG) return -1;
 
-      '      list.map(async (c) => {
+      if (b.slug === MASTERCLASS_SLUG) return 1;
 
-      '        const { count } = await supabase
+      return 0;
 
-      '          .from("modules")
+    });
 
-      '          .select("id", { count: "exact", head: true })
+    return Promise.all(
 
-      '          .eq("course_id", c.id);
+      list.map(async (c) => {
 
-      '        return { ...(c as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
+        const { count } = await supabase
 
-      '      }),
+          .from("modules")
 
-      '    );
+          .select("id", { count: "exact", head: true })
 
-      '  },
+          .eq("course_id", c.id);
 
-      '  staleTime: 60_000,
+        return { ...(c as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
 
-      '});
+      }),
 
-      '
+    );
 
-      '// ---------------- CTAs ----------------
+  },
 
-      'const ctaBase =
+  staleTime: 60_000,
 
-      '  "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
+});
 
-      '
 
-      'function PrimaryCTA({
 
-      '  children,
+// ---------------- CTAs ----------------
 
-      '  className,
+const ctaBase =
 
-      '  ...link
+  "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
 
-      '}: LinkProps & { children: ReactNode; className?: string }) {
 
-      '  return (
 
-      '    <Link
+function PrimaryCTA({
 
-      '      {...link}
+  children,
 
-      '      className={cn(
+  className,
 
-      '        ctaBase,
+  ...link
 
-      '        "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
+}: LinkProps & { children: ReactNode; className?: string }) {
 
-      '        className,
+  return (
 
-      '      )}
+    <Link
 
-      '    >
+      {...link}
 
-      '      {children}
+      className={cn(
 
-      '      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        ctaBase,
 
-      '    </Link>
+        "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
 
-      '  );
+        className,
 
-      '}
+      )}
 
-      '
+    >
 
-      'function SecondaryCTA({
+      {children}
 
-      '  to,
+      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 
-      '  href,
+    </Link>
 
-      '  children,
+  );
 
-      '  className,
+}
 
-      '}: {
 
-      '  to?: LinkProps["to"];
 
-      '  href?: string;
+function SecondaryCTA({
 
-      '  children: ReactNode;
+  to,
 
-      '  className?: string;
+  href,
 
-      '}) {
+  children,
 
-      '  const classes = cn(
+  className,
 
-      '    ctaBase,
+}: {
 
-      '    "border border-white/15 bg-white/5 text-foreground backdrop-blur hover:bg-white/10",
+  to?: LinkProps["to"];
 
-      '    className,
+  href?: string;
 
-      '  );
+  children: ReactNode;
 
-      '  if (href) return <a href={href} className={classes}>{children}</a>;
+  className?: string;
 
-      '  return (
+}) {
 
-      '    <Link to={to!} className={classes}>
+  const classes = cn(
 
-      '      {children}
+    ctaBase,
 
-      '    </Link>
+    "border border-white/15 bg-white/5 text-foreground backdrop-blur hover:bg-white/10",
 
-      '  );
+    className,
 
-      '}
+  );
 
-      '
+  if (href) return <a href={href} className={classes}>{children}</a>;
 
-      '// ---------------- Audience ----------------
+  return (
 
-      'const audience: { icon: LucideIcon; title: string; text: string }[] = [
+    <Link to={to!} className={classes}>
 
-      '  { icon: Store, title: "Pequenos negócios", text: "Mais ideias e menos tempo perdido." },
+      {children}
 
-      '  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atenção." },
+    </Link>
 
-      '  { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender melhor." },
+  );
 
-      '  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para começar." },
+}
 
-      '];
 
-      '
 
-      '// ---------------- How it works ----------------
+// ---------------- Audience ----------------
 
-      'const steps: { n: string; title: string }[] = [
+const audience: { icon: LucideIcon; title: string; text: string }[] = [
 
-      '  { n: "1", title: "Escolha o curso" },
+  { icon: Store, title: "Pequenos negócios", text: "Mais ideias e menos tempo perdido." },
 
-      '  { n: "2", title: "Estude os módulos" },
-'... 27049 more characters,
+  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atenção." },
+
+  { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender melhor." },
+
+  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para começar." },
+
+];
+
+
+
+// ---------------- How it works ----------------
+
+const steps: { n: string; title: string }[] = [
+
+  { n: "1", title: "Escolha o curso" },
+
+  { n: "2", title: "Estude os módulos" },
+... 27049 more characters,
     runnerError: Error: RunnerError
         at reviveInvokeError (file:///dev-server/node_modules/vite/dist/node/module-runner.js:547:64)
         at Object.invoke (file:///dev-server/node_modules/vite/dist/node/module-runner.js:620:11)
@@ -385,524 +385,524 @@ Error: Transform failed with 1 error:
     id: '/dev-server/src/routes/index.tsx',
     pluginCode: 'INVENTÁRIO FORENSE DE REMEDIAÇÃO — SOMENTE LEITURA
 
-      '
 
-      'STATUS ATUAL:
 
-      'INCIDENTE CONFIRMADO.
+STATUS ATUAL:
 
-      'AUDITORIA EDITORIAL REPROVADA.
+INCIDENTE CONFIRMADO.
 
-      'TODAS AS RESTAURAÇÕES PERMANECEM BLOQUEADAS.
+AUDITORIA EDITORIAL REPROVADA.
 
-      'BANCO NÃO ALTERADO.
+TODAS AS RESTAURAÇÕES PERMANECEM BLOQUEADAS.
 
-      '
+BANCO NÃO ALTERADO.
 
-      'Esta tarefa é SOMENTE LEITURA.
 
-      'NÃO alterar banco.
 
-      'NÃO alterar arquivos.
+Esta tarefa é SOMENTE LEITURA.
 
-      'NÃO chamar atomicPremiumRestore.
+NÃO alterar banco.
 
-      'NÃO executar rebuild.
+NÃO alterar arquivos.
 
-      'NÃO executar restore.
+NÃO chamar atomicPremiumRestore.
 
-      'NÃO executar seed.
+NÃO executar rebuild.
 
-      'NÃO executar migration.
+NÃO executar restore.
 
-      'NÃO executar update, insert, delete ou upsert.
+NÃO executar seed.
 
-      'NÃO atualizar src/routes/index.tsx.
+NÃO executar migration.
 
-      'NÃO alterar interface, rotas, templates, layout, preço, trilha, slug, capa ou is_published.
+NÃO executar update, insert, delete ou upsert.
 
-      'NÃO produzir fontes novas.
+NÃO atualizar src/routes/index.tsx.
 
-      'NÃO tentar corrigir nenhum módulo.
+NÃO alterar interface, rotas, templates, layout, preço, trilha, slug, capa ou is_published.
 
-      'NÃO publicar o curso.
+NÃO produzir fontes novas.
 
-      '
+NÃO tentar corrigir nenhum módulo.
 
-      'CURSO:
+NÃO publicar o curso.
 
-      'Influenciador de IA para TikTok Shop
 
-      '
 
-      'MÓDULOS SOB INVESTIGAÇÃO:
+CURSO:
 
-      'Módulos 3, 4, 5, 6, 7, 8, 9 e 10.
+Influenciador de IA para TikTok Shop
 
-      '
 
-      'OBJETIVO:
 
-      'Produzir um inventário de remediação editorial que determine, para cada módulo:
+MÓDULOS SOB INVESTIGAÇÃO:
 
-      '1. quais trechos são aproveitáveis;
+Módulos 3, 4, 5, 6, 7, 8, 9 e 10.
 
-      '2. quais trechos foram contaminados por repetição;
 
-      '3. quais seções devem ser reescritas integralmente;
 
-      '4. quais dados e estruturas pedagógicas precisam ser preservados;
+OBJETIVO:
 
-      '5. qual deve ser a prioridade e ordem segura de recuperação.
+Produzir um inventário de remediação editorial que determine, para cada módulo:
 
-      '
+1. quais trechos são aproveitáveis;
 
-      'NÃO aplicar nenhuma mudança.
+2. quais trechos foram contaminados por repetição;
 
-      '
+3. quais seções devem ser reescritas integralmente;
 
-      'INVENTÁRIO FORENSE CONCLUÍDO. NENHUMA ALTERAÇÃO FOI REALIZADA. RESTAURAÇÕES CONTINUAM BLOQUEADAS.
+4. quais dados e estruturas pedagógicas precisam ser preservados;
 
-      '
+5. qual deve ser a prioridade e ordem segura de recuperação.
 
-      '### 📊 Relatório Principal de Auditoria
 
-      '
 
-      '| Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
+NÃO aplicar nenhuma mudança.
 
-      '|---|---|---:|---:|---:|---:|---:|---:|---|---|
 
-      '| 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 4 | Consistência Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
+INVENTÁRIO FORENSE CONCLUÍDO. NENHUMA ALTERAÇÃO FOI REALIZADA. RESTAURAÇÕES CONTINUAM BLOQUEADAS.
 
-      '| 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
 
-      '| 7 | Tráfego e Algoritmo | 19.121 | 0 | 0% | 0 | 0 | 8 | CRÍTICA | REESCRITA |
+### 📊 Relatório Principal de Auditoria
 
-      '| 8 | Isolamento e Soberania | 34.662 | 34.464 | 99% | 16 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 9 | Vitrine e Criativos | 61.021 | 60.837 | 99% | 13 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 10 | Publicação e Escala | 3.612.271 | 19.500 | 0.5% | 10 | 2 | 7 | CRÍTICA | REESCRITA |
+| Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
 
-      '
+|---|---|---:|---:|---:|---:|---:|---:|---|---|
 
-      '---
+| 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
 
-      '
+| 4 | Consistência Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
 
-      '### 🔍 Detalhamento Forense por Módulo
+| 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
 
-      '
+| 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
 
-      '#### Módulo 6 — Criação de Vídeos (GRAVIDADE: CRÍTICA)
+| 7 | Tráfego e Algoritmo | 19.121 | 0 | 0% | 0 | 0 | 8 | CRÍTICA | REESCRITA |
 
-      '- **Evidência:** Repetição massiva de frases como "Edição viral não é efeito: é retenção" (60x) e "60.000 vezes mais rápido que texto" (440x).
+| 8 | Isolamento e Soberania | 34.662 | 34.464 | 99% | 16 | 0 | 0 | BAIXA | APROVADO |
 
-      '- **Conteúdo Aproveitável:** Apenas os primeiros 3 blocos conceituais.
+| 9 | Vitrine e Criativos | 61.021 | 60.837 | 99% | 13 | 0 | 0 | BAIXA | APROVADO |
 
-      '- **Lixo Identificado:** O banco contém quase 600kb de texto repetido inutilizável.
+| 10 | Publicação e Escala | 3.612.271 | 19.500 | 0.5% | 10 | 2 | 7 | CRÍTICA | REESCRITA |
 
-      '- **Recomendação:** Reescrita total.
 
-      '
 
-      '#### Módulo 7 — Tráfego e Algoritmo (GRAVIDADE: CRÍTICA)
+---
 
-      '- **Evidência:** O módulo inteiro é uma repetição de 250 vezes do comentário `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */`.
 
-      '- **Conteúdo Aproveitável:** Zero.
 
-      '- **Lixo Identificado:** 100% do módulo é preenchimento técnico exposto.
+### 🔍 Detalhamento Forense por Módulo
 
-      '- **Recomendação:** Reescrita total urgente.
 
-      '
 
-      '#### Módulo 10 — Publicação e Escala (GRAVIDADE: CRÍTICA)
+#### Módulo 6 — Criação de Vídeos (GRAVIDADE: CRÍTICA)
 
-      '- **Evidência:** Inflação artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
+- **Evidência:** Repetição massiva de frases como "Edição viral não é efeito: é retenção" (60x) e "60.000 vezes mais rápido que texto" (440x).
 
-      '- **Conteúdo Aproveitável:** Os blocos iniciais (1-10) que contêm a teoria real de teste A/B.
+- **Conteúdo Aproveitável:** Apenas os primeiros 3 blocos conceituais.
 
-      '- **Lixo Identificado:** Mais de 3.5 milhões de caracteres de texto repetido no final.
+- **Lixo Identificado:** O banco contém quase 600kb de texto repetido inutilizável.
 
-      '- **Recomendação:** Limpeza radical e reescrita das seções finais.
+- **Recomendação:** Reescrita total.
 
-      '
 
-      '#### Módulo 4 — Consistência Visual (GRAVIDADE: MÉDIA)
 
-      '- **Evidência:** Uso excessivo de templates repetitivos ("- **Quando usar:** Produção em escala") em 22 seções H3.
+#### Módulo 7 — Tráfego e Algoritmo (GRAVIDADE: CRÍTICA)
 
-      '- **Conteúdo Aproveitável:** A estrutura pedagógica está correta, mas falta profundidade nos exemplos.
+- **Evidência:** O módulo inteiro é uma repetição de 250 vezes do comentário `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */`.
 
-      '- **Recomendação:** Revisão localizada para remover redundâncias.
+- **Conteúdo Aproveitável:** Zero.
 
-      '
+- **Lixo Identificado:** 100% do módulo é preenchimento técnico exposto.
 
-      '---
+- **Recomendação:** Reescrita total urgente.
 
-      '
 
-      '### 🚀 Fila Priorizada de Recuperação (NÃO EXECUTAR)
 
-      '
+#### Módulo 10 — Publicação e Escala (GRAVIDADE: CRÍTICA)
 
-      '| Ordem | Módulo | Motivo da prioridade | Estratégia | Banco pode ser alterado? |
+- **Evidência:** Inflação artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
 
-      '|---:|---|---|---|---|
+- **Conteúdo Aproveitável:** Os blocos iniciais (1-10) que contêm a teoria real de teste A/B.
 
-      '| 1 | 7 | Dano total (100% lixo exposto) | Reescrita total | NÃO |
+- **Lixo Identificado:** Mais de 3.5 milhões de caracteres de texto repetido no final.
 
-      '| 2 | 6 | Dano reputacional (600kb de repetição) | Reescrita total | NÃO |
+- **Recomendação:** Limpeza radical e reescrita das seções finais.
 
-      '| 3 | 10 | Dano de infraestrutura (3.6MB no banco) | Limpeza e Reescrita | NÃO |
 
-      '| 4 | 4 | Degradação pedagógica (redundância) | Revisão localizada | NÃO |
 
-      '
+#### Módulo 4 — Consistência Visual (GRAVIDADE: MÉDIA)
 
-      '---
+- **Evidência:** Uso excessivo de templates repetitivos ("- **Quando usar:** Produção em escala") em 22 seções H3.
 
-      '
+- **Conteúdo Aproveitável:** A estrutura pedagógica está correta, mas falta profundidade nos exemplos.
 
-      'import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
+- **Recomendação:** Revisão localizada para remover redundâncias.
 
-      'import { useQuery } from "@tanstack/react-query";
 
-      'import { queryOptions } from "@tanstack/react-query";
 
-      'import {
+---
 
-      '  ArrowUpRight,
 
-      '  Award,
 
-      '  BadgeCheck,
+### 🚀 Fila Priorizada de Recuperação (NÃO EXECUTAR)
 
-      '  BookOpen,
 
-      '  GraduationCap,
 
-      '  Lightbulb,
+| Ordem | Módulo | Motivo da prioridade | Estratégia | Banco pode ser alterado? |
 
-      '  Sparkles,
+|---:|---|---|---|---|
 
-      '  Store,
+| 1 | 7 | Dano total (100% lixo exposto) | Reescrita total | NÃO |
 
-      '  type LucideIcon,
+| 2 | 6 | Dano reputacional (600kb de repetição) | Reescrita total | NÃO |
 
-      '} from "lucide-react";
+| 3 | 10 | Dano de infraestrutura (3.6MB no banco) | Limpeza e Reescrita | NÃO |
 
-      'import { Button } from "@/components/ui/button";
+| 4 | 4 | Degradação pedagógica (redundância) | Revisão localizada | NÃO |
 
-      '
 
-      'import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 
-      'import { FAQ } from "@/components/site/FAQ";
+---
 
-      'import { supabase } from "@/integrations/supabase/client";
 
-      'import { cn } from "@/lib/utils";
 
-      'import heroImage from "@/assets/home-hero-masterclass.jpeg.asset.json";
+import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 
-      'import courseImage from "@/assets/course-ai.webp.asset.json";
+import { useQuery } from "@tanstack/react-query";
 
-      'import professorImage from "@/assets/fernando-cabral.webp.asset.json";
+import { queryOptions } from "@tanstack/react-query";
 
-      'import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
+import {
 
-      '
+  ArrowUpRight,
 
-      'export const Route = createFileRoute("/")({
+  Award,
 
-      '  head: () => ({
+  BadgeCheck,
 
-      '    meta: [
+  BookOpen,
 
-      '      { title: "FCIA Academy — Aprenda IA de um jeito simples e prático" },
+  GraduationCap,
 
-      '      {
+  Lightbulb,
 
-      '        name: "description",
+  Sparkles,
 
-      '        content:
+  Store,
 
-      '          "Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
+  type LucideIcon,
 
-      '      },
+} from "lucide-react";
 
-      '      { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
+import { Button } from "@/components/ui/button";
 
-      '      {
 
-      '        property: "og:description",
 
-      '        content:
+import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 
-      '          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
+import { FAQ } from "@/components/site/FAQ";
 
-      '      },
+import { supabase } from "@/integrations/supabase/client";
 
-      '      { property: "og:type", content: "website" },
+import { cn } from "@/lib/utils";
 
-      '      { property: "og:url", content: "https://fciaacademy.lovable.app/" },
+import heroImage from "@/assets/home-hero-masterclass.jpeg.asset.json";
 
-      '      {
+import courseImage from "@/assets/course-ai.webp.asset.json";
 
-      '        property: "og:image",
+import professorImage from "@/assets/fernando-cabral.webp.asset.json";
 
-      '        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
 
-      '      },
 
-      '      { property: "og:image:width", content: "1920" },
 
-      '      { property: "og:image:height", content: "1080" },
+export const Route = createFileRoute("/")({
 
-      '      { name: "twitter:card", content: "summary_large_image" },
+  head: () => ({
 
-      '      {
+    meta: [
 
-      '        name: "twitter:image",
+      { title: "FCIA Academy — Aprenda IA de um jeito simples e prático" },
 
-      '        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+      {
 
-      '      },
+        name: "description",
 
-      '    ],
+        content:
 
-      '    links: [{ rel: "canonical", href: "https://fciaacademy.lovable.app/" }],
+          "Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
 
-      '  }),
+      },
 
-      '  component: Index,
+      { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
 
-      '});
+      {
 
-      '
+        property: "og:description",
 
-      '// ---------------- Featured courses query ----------------
+        content:
 
-      'type FeaturedCourse = {
+          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
 
-      '  id: string;
+      },
 
-      '  slug: string;
+      { property: "og:type", content: "website" },
 
-      '  title: string;
+      { property: "og:url", content: "https://fciaacademy.lovable.app/" },
 
-      '  description: string | null;
+      {
 
-      '  cover_url: string | null;
+        property: "og:image",
 
-      '  workload_hours: number | null;
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
 
-      '  duration_minutes: number | null;
+      },
 
-      '  price: number | null;
+      { property: "og:image:width", content: "1920" },
 
-      '  certificate_enabled: boolean | null;
+      { property: "og:image:height", content: "1080" },
 
-      '  modules_count: number;
+      { name: "twitter:card", content: "summary_large_image" },
 
-      '};
+      {
 
-      '
+        name: "twitter:image",
 
-      'const featuredCoursesQuery = queryOptions({
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
 
-      '  queryKey: ["home", "featured-courses"],
+      },
 
-      '  queryFn: async (): Promise<FeaturedCourse[]> => {
+    ],
 
-      '    const { data: courses, error } = await supabase
+    links: [{ rel: "canonical", href: "https://fciaacademy.lovable.app/" }],
 
-      '      .from("courses")
+  }),
 
-      '      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
+  component: Index,
 
-      '      .eq("is_published", true)
+});
 
-      '      .order("price", { ascending: true })
 
-      '      .order("sort_order", { ascending: true });
 
-      '    if (error) throw error;
+// ---------------- Featured courses query ----------------
 
-      '    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
+type FeaturedCourse = {
 
-      '    const EBOOK_SLUG = "ia-sem-complicacao";
+  id: string;
 
-      '    const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
+  slug: string;
 
-      '    // Masterclass sempre em primeiro lugar na vitrine da home
+  title: string;
 
-      '    const MASTERCLASS_SLUG = "metodo-ia-criativa";
+  description: string | null;
 
-      '    list.sort((a, b) => {
+  cover_url: string | null;
 
-      '      if (a.slug === MASTERCLASS_SLUG) return -1;
+  workload_hours: number | null;
 
-      '      if (b.slug === MASTERCLASS_SLUG) return 1;
+  duration_minutes: number | null;
 
-      '      return 0;
+  price: number | null;
 
-      '    });
+  certificate_enabled: boolean | null;
 
-      '    return Promise.all(
+  modules_count: number;
 
-      '      list.map(async (c) => {
+};
 
-      '        const { count } = await supabase
 
-      '          .from("modules")
 
-      '          .select("id", { count: "exact", head: true })
+const featuredCoursesQuery = queryOptions({
 
-      '          .eq("course_id", c.id);
+  queryKey: ["home", "featured-courses"],
 
-      '        return { ...(c as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
+  queryFn: async (): Promise<FeaturedCourse[]> => {
 
-      '      }),
+    const { data: courses, error } = await supabase
 
-      '    );
+      .from("courses")
 
-      '  },
+      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
 
-      '  staleTime: 60_000,
+      .eq("is_published", true)
 
-      '});
+      .order("price", { ascending: true })
 
-      '
+      .order("sort_order", { ascending: true });
 
-      '// ---------------- CTAs ----------------
+    if (error) throw error;
 
-      'const ctaBase =
+    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
 
-      '  "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
+    const EBOOK_SLUG = "ia-sem-complicacao";
 
-      '
+    const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
 
-      'function PrimaryCTA({
+    // Masterclass sempre em primeiro lugar na vitrine da home
 
-      '  children,
+    const MASTERCLASS_SLUG = "metodo-ia-criativa";
 
-      '  className,
+    list.sort((a, b) => {
 
-      '  ...link
+      if (a.slug === MASTERCLASS_SLUG) return -1;
 
-      '}: LinkProps & { children: ReactNode; className?: string }) {
+      if (b.slug === MASTERCLASS_SLUG) return 1;
 
-      '  return (
+      return 0;
 
-      '    <Link
+    });
 
-      '      {...link}
+    return Promise.all(
 
-      '      className={cn(
+      list.map(async (c) => {
 
-      '        ctaBase,
+        const { count } = await supabase
 
-      '        "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
+          .from("modules")
 
-      '        className,
+          .select("id", { count: "exact", head: true })
 
-      '      )}
+          .eq("course_id", c.id);
 
-      '    >
+        return { ...(c as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
 
-      '      {children}
+      }),
 
-      '      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    );
 
-      '    </Link>
+  },
 
-      '  );
+  staleTime: 60_000,
 
-      '}
+});
 
-      '
 
-      'function SecondaryCTA({
 
-      '  to,
+// ---------------- CTAs ----------------
 
-      '  href,
+const ctaBase =
 
-      '  children,
+  "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
 
-      '  className,
 
-      '}: {
 
-      '  to?: LinkProps["to"];
+function PrimaryCTA({
 
-      '  href?: string;
+  children,
 
-      '  children: ReactNode;
+  className,
 
-      '  className?: string;
+  ...link
 
-      '}) {
+}: LinkProps & { children: ReactNode; className?: string }) {
 
-      '  const classes = cn(
+  return (
 
-      '    ctaBase,
+    <Link
 
-      '    "border border-white/15 bg-white/5 text-foreground backdrop-blur hover:bg-white/10",
+      {...link}
 
-      '    className,
+      className={cn(
 
-      '  );
+        ctaBase,
 
-      '  if (href) return <a href={href} className={classes}>{children}</a>;
+        "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
 
-      '  return (
+        className,
 
-      '    <Link to={to!} className={classes}>
+      )}
 
-      '      {children}
+    >
 
-      '    </Link>
+      {children}
 
-      '  );
+      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 
-      '}
+    </Link>
 
-      '
+  );
 
-      '// ---------------- Audience ----------------
+}
 
-      'const audience: { icon: LucideIcon; title: string; text: string }[] = [
 
-      '  { icon: Store, title: "Pequenos negócios", text: "Mais ideias e menos tempo perdido." },
 
-      '  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atenção." },
+function SecondaryCTA({
 
-      '  { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender melhor." },
+  to,
 
-      '  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para começar." },
+  href,
 
-      '];
+  children,
 
-      '
+  className,
 
-      '// ---------------- How it works ----------------
+}: {
 
-      'const steps: { n: string; title: string }[] = [
+  to?: LinkProps["to"];
 
-      '  { n: "1", title: "Escolha o curso" },
+  href?: string;
 
-      '  { n: "2", title: "Estude os módulos" },
-'... 27049 more characters,
+  children: ReactNode;
+
+  className?: string;
+
+}) {
+
+  const classes = cn(
+
+    ctaBase,
+
+    "border border-white/15 bg-white/5 text-foreground backdrop-blur hover:bg-white/10",
+
+    className,
+
+  );
+
+  if (href) return <a href={href} className={classes}>{children}</a>;
+
+  return (
+
+    <Link to={to!} className={classes}>
+
+      {children}
+
+    </Link>
+
+  );
+
+}
+
+
+
+// ---------------- Audience ----------------
+
+const audience: { icon: LucideIcon; title: string; text: string }[] = [
+
+  { icon: Store, title: "Pequenos negócios", text: "Mais ideias e menos tempo perdido." },
+
+  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atenção." },
+
+  { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender melhor." },
+
+  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para começar." },
+
+];
+
+
+
+// ---------------- How it works ----------------
+
+const steps: { n: string; title: string }[] = [
+
+  { n: "1", title: "Escolha o curso" },
+
+  { n: "2", title: "Estude os módulos" },
+... 27049 more characters,
     runnerError: Error: RunnerError
         at reviveInvokeError (file:///dev-server/node_modules/vite/dist/node/module-runner.js:547:64)
         at Object.invoke (file:///dev-server/node_modules/vite/dist/node/module-runner.js:620:11)
@@ -958,524 +958,524 @@ Error: Transform failed with 1 error:
     id: '/dev-server/src/routes/index.tsx',
     pluginCode: 'INVENTÁRIO FORENSE DE REMEDIAÇÃO — SOMENTE LEITURA
 
-      '
 
-      'STATUS ATUAL:
 
-      'INCIDENTE CONFIRMADO.
+STATUS ATUAL:
 
-      'AUDITORIA EDITORIAL REPROVADA.
+INCIDENTE CONFIRMADO.
 
-      'TODAS AS RESTAURAÇÕES PERMANECEM BLOQUEADAS.
+AUDITORIA EDITORIAL REPROVADA.
 
-      'BANCO NÃO ALTERADO.
+TODAS AS RESTAURAÇÕES PERMANECEM BLOQUEADAS.
 
-      '
+BANCO NÃO ALTERADO.
 
-      'Esta tarefa é SOMENTE LEITURA.
 
-      'NÃO alterar banco.
 
-      'NÃO alterar arquivos.
+Esta tarefa é SOMENTE LEITURA.
 
-      'NÃO chamar atomicPremiumRestore.
+NÃO alterar banco.
 
-      'NÃO executar rebuild.
+NÃO alterar arquivos.
 
-      'NÃO executar restore.
+NÃO chamar atomicPremiumRestore.
 
-      'NÃO executar seed.
+NÃO executar rebuild.
 
-      'NÃO executar migration.
+NÃO executar restore.
 
-      'NÃO executar update, insert, delete ou upsert.
+NÃO executar seed.
 
-      'NÃO atualizar src/routes/index.tsx.
+NÃO executar migration.
 
-      'NÃO alterar interface, rotas, templates, layout, preço, trilha, slug, capa ou is_published.
+NÃO executar update, insert, delete ou upsert.
 
-      'NÃO produzir fontes novas.
+NÃO atualizar src/routes/index.tsx.
 
-      'NÃO tentar corrigir nenhum módulo.
+NÃO alterar interface, rotas, templates, layout, preço, trilha, slug, capa ou is_published.
 
-      'NÃO publicar o curso.
+NÃO produzir fontes novas.
 
-      '
+NÃO tentar corrigir nenhum módulo.
 
-      'CURSO:
+NÃO publicar o curso.
 
-      'Influenciador de IA para TikTok Shop
 
-      '
 
-      'MÓDULOS SOB INVESTIGAÇÃO:
+CURSO:
 
-      'Módulos 3, 4, 5, 6, 7, 8, 9 e 10.
+Influenciador de IA para TikTok Shop
 
-      '
 
-      'OBJETIVO:
 
-      'Produzir um inventário de remediação editorial que determine, para cada módulo:
+MÓDULOS SOB INVESTIGAÇÃO:
 
-      '1. quais trechos são aproveitáveis;
+Módulos 3, 4, 5, 6, 7, 8, 9 e 10.
 
-      '2. quais trechos foram contaminados por repetição;
 
-      '3. quais seções devem ser reescritas integralmente;
 
-      '4. quais dados e estruturas pedagógicas precisam ser preservados;
+OBJETIVO:
 
-      '5. qual deve ser a prioridade e ordem segura de recuperação.
+Produzir um inventário de remediação editorial que determine, para cada módulo:
 
-      '
+1. quais trechos são aproveitáveis;
 
-      'NÃO aplicar nenhuma mudança.
+2. quais trechos foram contaminados por repetição;
 
-      '
+3. quais seções devem ser reescritas integralmente;
 
-      'INVENTÁRIO FORENSE CONCLUÍDO. NENHUMA ALTERAÇÃO FOI REALIZADA. RESTAURAÇÕES CONTINUAM BLOQUEADAS.
+4. quais dados e estruturas pedagógicas precisam ser preservados;
 
-      '
+5. qual deve ser a prioridade e ordem segura de recuperação.
 
-      '### 📊 Relatório Principal de Auditoria
 
-      '
 
-      '| Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
+NÃO aplicar nenhuma mudança.
 
-      '|---|---|---:|---:|---:|---:|---:|---:|---|---|
 
-      '| 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 4 | Consistência Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
+INVENTÁRIO FORENSE CONCLUÍDO. NENHUMA ALTERAÇÃO FOI REALIZADA. RESTAURAÇÕES CONTINUAM BLOQUEADAS.
 
-      '| 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
 
-      '| 7 | Tráfego e Algoritmo | 19.121 | 0 | 0% | 0 | 0 | 8 | CRÍTICA | REESCRITA |
+### 📊 Relatório Principal de Auditoria
 
-      '| 8 | Isolamento e Soberania | 34.662 | 34.464 | 99% | 16 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 9 | Vitrine e Criativos | 61.021 | 60.837 | 99% | 13 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 10 | Publicação e Escala | 3.612.271 | 19.500 | 0.5% | 10 | 2 | 7 | CRÍTICA | REESCRITA |
+| Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
 
-      '
+|---|---|---:|---:|---:|---:|---:|---:|---|---|
 
-      '---
+| 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
 
-      '
+| 4 | Consistência Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
 
-      '### 🔍 Detalhamento Forense por Módulo
+| 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
 
-      '
+| 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
 
-      '#### Módulo 6 — Criação de Vídeos (GRAVIDADE: CRÍTICA)
+| 7 | Tráfego e Algoritmo | 19.121 | 0 | 0% | 0 | 0 | 8 | CRÍTICA | REESCRITA |
 
-      '- **Evidência:** Repetição massiva de frases como "Edição viral não é efeito: é retenção" (60x) e "60.000 vezes mais rápido que texto" (440x).
+| 8 | Isolamento e Soberania | 34.662 | 34.464 | 99% | 16 | 0 | 0 | BAIXA | APROVADO |
 
-      '- **Conteúdo Aproveitável:** Apenas os primeiros 3 blocos conceituais.
+| 9 | Vitrine e Criativos | 61.021 | 60.837 | 99% | 13 | 0 | 0 | BAIXA | APROVADO |
 
-      '- **Lixo Identificado:** O banco contém quase 600kb de texto repetido inutilizável.
+| 10 | Publicação e Escala | 3.612.271 | 19.500 | 0.5% | 10 | 2 | 7 | CRÍTICA | REESCRITA |
 
-      '- **Recomendação:** Reescrita total.
 
-      '
 
-      '#### Módulo 7 — Tráfego e Algoritmo (GRAVIDADE: CRÍTICA)
+---
 
-      '- **Evidência:** O módulo inteiro é uma repetição de 250 vezes do comentário `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */`.
 
-      '- **Conteúdo Aproveitável:** Zero.
 
-      '- **Lixo Identificado:** 100% do módulo é preenchimento técnico exposto.
+### 🔍 Detalhamento Forense por Módulo
 
-      '- **Recomendação:** Reescrita total urgente.
 
-      '
 
-      '#### Módulo 10 — Publicação e Escala (GRAVIDADE: CRÍTICA)
+#### Módulo 6 — Criação de Vídeos (GRAVIDADE: CRÍTICA)
 
-      '- **Evidência:** Inflação artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
+- **Evidência:** Repetição massiva de frases como "Edição viral não é efeito: é retenção" (60x) e "60.000 vezes mais rápido que texto" (440x).
 
-      '- **Conteúdo Aproveitável:** Os blocos iniciais (1-10) que contêm a teoria real de teste A/B.
+- **Conteúdo Aproveitável:** Apenas os primeiros 3 blocos conceituais.
 
-      '- **Lixo Identificado:** Mais de 3.5 milhões de caracteres de texto repetido no final.
+- **Lixo Identificado:** O banco contém quase 600kb de texto repetido inutilizável.
 
-      '- **Recomendação:** Limpeza radical e reescrita das seções finais.
+- **Recomendação:** Reescrita total.
 
-      '
 
-      '#### Módulo 4 — Consistência Visual (GRAVIDADE: MÉDIA)
 
-      '- **Evidência:** Uso excessivo de templates repetitivos ("- **Quando usar:** Produção em escala") em 22 seções H3.
+#### Módulo 7 — Tráfego e Algoritmo (GRAVIDADE: CRÍTICA)
 
-      '- **Conteúdo Aproveitável:** A estrutura pedagógica está correta, mas falta profundidade nos exemplos.
+- **Evidência:** O módulo inteiro é uma repetição de 250 vezes do comentário `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */`.
 
-      '- **Recomendação:** Revisão localizada para remover redundâncias.
+- **Conteúdo Aproveitável:** Zero.
 
-      '
+- **Lixo Identificado:** 100% do módulo é preenchimento técnico exposto.
 
-      '---
+- **Recomendação:** Reescrita total urgente.
 
-      '
 
-      '### 🚀 Fila Priorizada de Recuperação (NÃO EXECUTAR)
 
-      '
+#### Módulo 10 — Publicação e Escala (GRAVIDADE: CRÍTICA)
 
-      '| Ordem | Módulo | Motivo da prioridade | Estratégia | Banco pode ser alterado? |
+- **Evidência:** Inflação artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
 
-      '|---:|---|---|---|---|
+- **Conteúdo Aproveitável:** Os blocos iniciais (1-10) que contêm a teoria real de teste A/B.
 
-      '| 1 | 7 | Dano total (100% lixo exposto) | Reescrita total | NÃO |
+- **Lixo Identificado:** Mais de 3.5 milhões de caracteres de texto repetido no final.
 
-      '| 2 | 6 | Dano reputacional (600kb de repetição) | Reescrita total | NÃO |
+- **Recomendação:** Limpeza radical e reescrita das seções finais.
 
-      '| 3 | 10 | Dano de infraestrutura (3.6MB no banco) | Limpeza e Reescrita | NÃO |
 
-      '| 4 | 4 | Degradação pedagógica (redundância) | Revisão localizada | NÃO |
 
-      '
+#### Módulo 4 — Consistência Visual (GRAVIDADE: MÉDIA)
 
-      '---
+- **Evidência:** Uso excessivo de templates repetitivos ("- **Quando usar:** Produção em escala") em 22 seções H3.
 
-      '
+- **Conteúdo Aproveitável:** A estrutura pedagógica está correta, mas falta profundidade nos exemplos.
 
-      'import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
+- **Recomendação:** Revisão localizada para remover redundâncias.
 
-      'import { useQuery } from "@tanstack/react-query";
 
-      'import { queryOptions } from "@tanstack/react-query";
 
-      'import {
+---
 
-      '  ArrowUpRight,
 
-      '  Award,
 
-      '  BadgeCheck,
+### 🚀 Fila Priorizada de Recuperação (NÃO EXECUTAR)
 
-      '  BookOpen,
 
-      '  GraduationCap,
 
-      '  Lightbulb,
+| Ordem | Módulo | Motivo da prioridade | Estratégia | Banco pode ser alterado? |
 
-      '  Sparkles,
+|---:|---|---|---|---|
 
-      '  Store,
+| 1 | 7 | Dano total (100% lixo exposto) | Reescrita total | NÃO |
 
-      '  type LucideIcon,
+| 2 | 6 | Dano reputacional (600kb de repetição) | Reescrita total | NÃO |
 
-      '} from "lucide-react";
+| 3 | 10 | Dano de infraestrutura (3.6MB no banco) | Limpeza e Reescrita | NÃO |
 
-      'import { Button } from "@/components/ui/button";
+| 4 | 4 | Degradação pedagógica (redundância) | Revisão localizada | NÃO |
 
-      '
 
-      'import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 
-      'import { FAQ } from "@/components/site/FAQ";
+---
 
-      'import { supabase } from "@/integrations/supabase/client";
 
-      'import { cn } from "@/lib/utils";
 
-      'import heroImage from "@/assets/home-hero-masterclass.jpeg.asset.json";
+import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 
-      'import courseImage from "@/assets/course-ai.webp.asset.json";
+import { useQuery } from "@tanstack/react-query";
 
-      'import professorImage from "@/assets/fernando-cabral.webp.asset.json";
+import { queryOptions } from "@tanstack/react-query";
 
-      'import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
+import {
 
-      '
+  ArrowUpRight,
 
-      'export const Route = createFileRoute("/")({
+  Award,
 
-      '  head: () => ({
+  BadgeCheck,
 
-      '    meta: [
+  BookOpen,
 
-      '      { title: "FCIA Academy — Aprenda IA de um jeito simples e prático" },
+  GraduationCap,
 
-      '      {
+  Lightbulb,
 
-      '        name: "description",
+  Sparkles,
 
-      '        content:
+  Store,
 
-      '          "Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
+  type LucideIcon,
 
-      '      },
+} from "lucide-react";
 
-      '      { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
+import { Button } from "@/components/ui/button";
 
-      '      {
 
-      '        property: "og:description",
 
-      '        content:
+import { useState, type ImgHTMLAttributes, type ReactNode } from "react";
 
-      '          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
+import { FAQ } from "@/components/site/FAQ";
 
-      '      },
+import { supabase } from "@/integrations/supabase/client";
 
-      '      { property: "og:type", content: "website" },
+import { cn } from "@/lib/utils";
 
-      '      { property: "og:url", content: "https://fciaacademy.lovable.app/" },
+import heroImage from "@/assets/home-hero-masterclass.jpeg.asset.json";
 
-      '      {
+import courseImage from "@/assets/course-ai.webp.asset.json";
 
-      '        property: "og:image",
+import professorImage from "@/assets/fernando-cabral.webp.asset.json";
 
-      '        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+import ebookMockup from "@/assets/ebook-ia-sem-complicacao/ebook-mockup.jpeg.asset.json";
 
-      '      },
 
-      '      { property: "og:image:width", content: "1920" },
 
-      '      { property: "og:image:height", content: "1080" },
+export const Route = createFileRoute("/")({
 
-      '      { name: "twitter:card", content: "summary_large_image" },
+  head: () => ({
 
-      '      {
+    meta: [
 
-      '        name: "twitter:image",
+      { title: "FCIA Academy — Aprenda IA de um jeito simples e prático" },
 
-      '        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
+      {
 
-      '      },
+        name: "description",
 
-      '    ],
+        content:
 
-      '    links: [{ rel: "canonical", href: "https://fciaacademy.lovable.app/" }],
+          "Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
 
-      '  }),
+      },
 
-      '  component: Index,
+      { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
 
-      '});
+      {
 
-      '
+        property: "og:description",
 
-      '// ---------------- Featured courses query ----------------
+        content:
 
-      'type FeaturedCourse = {
+          "Cursos práticos de IA com certificado ao concluir. Comece pela FCIA Academy.",
 
-      '  id: string;
+      },
 
-      '  slug: string;
+      { property: "og:type", content: "website" },
 
-      '  title: string;
+      { property: "og:url", content: "https://fciaacademy.lovable.app/" },
 
-      '  description: string | null;
+      {
 
-      '  cover_url: string | null;
+        property: "og:image",
 
-      '  workload_hours: number | null;
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
 
-      '  duration_minutes: number | null;
+      },
 
-      '  price: number | null;
+      { property: "og:image:width", content: "1920" },
 
-      '  certificate_enabled: boolean | null;
+      { property: "og:image:height", content: "1080" },
 
-      '  modules_count: number;
+      { name: "twitter:card", content: "summary_large_image" },
 
-      '};
+      {
 
-      '
+        name: "twitter:image",
 
-      'const featuredCoursesQuery = queryOptions({
+        content: "https://fciaacademy.lovable.app/__l5e/assets-v1/f0297b16-f2d1-403a-b4b7-1d779f3614bc/fcia-og-preview.jpg",
 
-      '  queryKey: ["home", "featured-courses"],
+      },
 
-      '  queryFn: async (): Promise<FeaturedCourse[]> => {
+    ],
 
-      '    const { data: courses, error } = await supabase
+    links: [{ rel: "canonical", href: "https://fciaacademy.lovable.app/" }],
 
-      '      .from("courses")
+  }),
 
-      '      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
+  component: Index,
 
-      '      .eq("is_published", true)
+});
 
-      '      .order("price", { ascending: true })
 
-      '      .order("sort_order", { ascending: true });
 
-      '    if (error) throw error;
+// ---------------- Featured courses query ----------------
 
-      '    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
+type FeaturedCourse = {
 
-      '    const EBOOK_SLUG = "ia-sem-complicacao";
+  id: string;
 
-      '    const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
+  slug: string;
 
-      '    // Masterclass sempre em primeiro lugar na vitrine da home
+  title: string;
 
-      '    const MASTERCLASS_SLUG = "metodo-ia-criativa";
+  description: string | null;
 
-      '    list.sort((a, b) => {
+  cover_url: string | null;
 
-      '      if (a.slug === MASTERCLASS_SLUG) return -1;
+  workload_hours: number | null;
 
-      '      if (b.slug === MASTERCLASS_SLUG) return 1;
+  duration_minutes: number | null;
 
-      '      return 0;
+  price: number | null;
 
-      '    });
+  certificate_enabled: boolean | null;
 
-      '    return Promise.all(
+  modules_count: number;
 
-      '      list.map(async (c) => {
+};
 
-      '        const { count } = await supabase
 
-      '          .from("modules")
 
-      '          .select("id", { count: "exact", head: true })
+const featuredCoursesQuery = queryOptions({
 
-      '          .eq("course_id", c.id);
+  queryKey: ["home", "featured-courses"],
 
-      '        return { ...(c as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
+  queryFn: async (): Promise<FeaturedCourse[]> => {
 
-      '      }),
+    const { data: courses, error } = await supabase
 
-      '    );
+      .from("courses")
 
-      '  },
+      .select("id, slug, title, description, cover_url, workload_hours, duration_minutes, price, certificate_enabled, sort_order")
 
-      '  staleTime: 60_000,
+      .eq("is_published", true)
 
-      '});
+      .order("price", { ascending: true })
 
-      '
+      .order("sort_order", { ascending: true });
 
-      '// ---------------- CTAs ----------------
+    if (error) throw error;
 
-      'const ctaBase =
+    // Ebook não compete visualmente com cursos/masterclass na vitrine principal
 
-      '  "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
+    const EBOOK_SLUG = "ia-sem-complicacao";
 
-      '
+    const list = (courses ?? []).filter((c) => c.slug !== EBOOK_SLUG);
 
-      'function PrimaryCTA({
+    // Masterclass sempre em primeiro lugar na vitrine da home
 
-      '  children,
+    const MASTERCLASS_SLUG = "metodo-ia-criativa";
 
-      '  className,
+    list.sort((a, b) => {
 
-      '  ...link
+      if (a.slug === MASTERCLASS_SLUG) return -1;
 
-      '}: LinkProps & { children: ReactNode; className?: string }) {
+      if (b.slug === MASTERCLASS_SLUG) return 1;
 
-      '  return (
+      return 0;
 
-      '    <Link
+    });
 
-      '      {...link}
+    return Promise.all(
 
-      '      className={cn(
+      list.map(async (c) => {
 
-      '        ctaBase,
+        const { count } = await supabase
 
-      '        "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
+          .from("modules")
 
-      '        className,
+          .select("id", { count: "exact", head: true })
 
-      '      )}
+          .eq("course_id", c.id);
 
-      '    >
+        return { ...(c as Omit<FeaturedCourse, "modules_count">), modules_count: count ?? 0 };
 
-      '      {children}
+      }),
 
-      '      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    );
 
-      '    </Link>
+  },
 
-      '  );
+  staleTime: 60_000,
 
-      '}
+});
 
-      '
 
-      'function SecondaryCTA({
 
-      '  to,
+// ---------------- CTAs ----------------
 
-      '  href,
+const ctaBase =
 
-      '  children,
+  "inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold leading-none transition-all";
 
-      '  className,
 
-      '}: {
 
-      '  to?: LinkProps["to"];
+function PrimaryCTA({
 
-      '  href?: string;
+  children,
 
-      '  children: ReactNode;
+  className,
 
-      '  className?: string;
+  ...link
 
-      '}) {
+}: LinkProps & { children: ReactNode; className?: string }) {
 
-      '  const classes = cn(
+  return (
 
-      '    ctaBase,
+    <Link
 
-      '    "border border-white/15 bg-white/5 text-foreground backdrop-blur hover:bg-white/10",
+      {...link}
 
-      '    className,
+      className={cn(
 
-      '  );
+        ctaBase,
 
-      '  if (href) return <a href={href} className={classes}>{children}</a>;
+        "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
 
-      '  return (
+        className,
 
-      '    <Link to={to!} className={classes}>
+      )}
 
-      '      {children}
+    >
 
-      '    </Link>
+      {children}
 
-      '  );
+      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 
-      '}
+    </Link>
 
-      '
+  );
 
-      '// ---------------- Audience ----------------
+}
 
-      'const audience: { icon: LucideIcon; title: string; text: string }[] = [
 
-      '  { icon: Store, title: "Pequenos negócios", text: "Mais ideias e menos tempo perdido." },
 
-      '  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atenção." },
+function SecondaryCTA({
 
-      '  { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender melhor." },
+  to,
 
-      '  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para começar." },
+  href,
 
-      '];
+  children,
 
-      '
+  className,
 
-      '// ---------------- How it works ----------------
+}: {
 
-      'const steps: { n: string; title: string }[] = [
+  to?: LinkProps["to"];
 
-      '  { n: "1", title: "Escolha o curso" },
+  href?: string;
 
-      '  { n: "2", title: "Estude os módulos" },
-'... 27049 more characters,
+  children: ReactNode;
+
+  className?: string;
+
+}) {
+
+  const classes = cn(
+
+    ctaBase,
+
+    "border border-white/15 bg-white/5 text-foreground backdrop-blur hover:bg-white/10",
+
+    className,
+
+  );
+
+  if (href) return <a href={href} className={classes}>{children}</a>;
+
+  return (
+
+    <Link to={to!} className={classes}>
+
+      {children}
+
+    </Link>
+
+  );
+
+}
+
+
+
+// ---------------- Audience ----------------
+
+const audience: { icon: LucideIcon; title: string; text: string }[] = [
+
+  { icon: Store, title: "Pequenos negócios", text: "Mais ideias e menos tempo perdido." },
+
+  { icon: Sparkles, title: "Criadores", text: "Conteúdos que chamam atenção." },
+
+  { icon: GraduationCap, title: "Estudantes", text: "Novas ferramentas para aprender melhor." },
+
+  { icon: Lightbulb, title: "Curiosos", text: "Um caminho simples para começar." },
+
+];
+
+
+
+// ---------------- How it works ----------------
+
+const steps: { n: string; title: string }[] = [
+
+  { n: "1", title: "Escolha o curso" },
+
+  { n: "2", title: "Estude os módulos" },
+... 27049 more characters,
     runnerError: Error: RunnerError
         at reviveInvokeError (file:///dev-server/node_modules/vite/dist/node/module-runner.js:547:64)
         at Object.invoke (file:///dev-server/node_modules/vite/dist/node/module-runner.js:620:11)
@@ -1531,99 +1531,99 @@ Error: Transform failed with 1 error:
     id: '/dev-server/src/routes/index.tsx',
     pluginCode: 'INVENTÁRIO FORENSE DE REMEDIAÇÃO — SOMENTE LEITURA
 
-      '
 
-      'STATUS ATUAL:
 
-      'INCIDENTE CONFIRMADO.
+STATUS ATUAL:
 
-      'AUDITORIA EDITORIAL REPROVADA.
+INCIDENTE CONFIRMADO.
 
-      'TODAS AS RESTAURAÇÕES PERMANECEM BLOQUEADAS.
+AUDITORIA EDITORIAL REPROVADA.
 
-      'BANCO NÃO ALTERADO.
+TODAS AS RESTAURAÇÕES PERMANECEM BLOQUEADAS.
 
-      '
+BANCO NÃO ALTERADO.
 
-      'Esta tarefa é SOMENTE LEITURA.
 
-      'NÃO alterar banco.
 
-      'NÃO alterar arquivos.
+Esta tarefa é SOMENTE LEITURA.
 
-      'NÃO chamar atomicPremiumRestore.
+NÃO alterar banco.
 
-      'NÃO executar rebuild.
+NÃO alterar arquivos.
 
-      'NÃO executar restore.
+NÃO chamar atomicPremiumRestore.
 
-      'NÃO executar seed.
+NÃO executar rebuild.
 
-      'NÃO executar migration.
+NÃO executar restore.
 
-      'NÃO executar update, insert, delete ou upsert.
+NÃO executar seed.
 
-      'NÃO atualizar src/routes/index.tsx.
+NÃO executar migration.
 
-      'NÃO alterar interface, rotas, templates, layout, preço, trilha, slug, capa ou is_published.
+NÃO executar update, insert, delete ou upsert.
 
-      'NÃO produzir fontes novas.
+NÃO atualizar src/routes/index.tsx.
 
-      'NÃO tentar corrigir nenhum módulo.
+NÃO alterar interface, rotas, templates, layout, preço, trilha, slug, capa ou is_published.
 
-      'NÃO publicar o curso.
+NÃO produzir fontes novas.
 
-      '
+NÃO tentar corrigir nenhum módulo.
 
-      'CURSO:
+NÃO publicar o curso.
 
-      'Influenciador de IA para TikTok Shop
 
-      '
 
-      'MÓDULOS SOB INVESTIGAÇÃO:
+CURSO:
 
-      'Módulos 3, 4, 5, 6, 7, 8, 9 e 10.
+Influenciador de IA para TikTok Shop
 
-      '
 
-      'OBJETIVO:
 
-      'Produzir um inventário de remediação editorial que determine, para cada módulo:
+MÓDULOS SOB INVESTIGAÇÃO:
 
-      '1. quais trechos são aproveitáveis;
+Módulos 3, 4, 5, 6, 7, 8, 9 e 10.
 
-      '2. quais trechos foram contaminados por repetição;
 
-      '3. quais seções devem ser reescritas integralmente;
 
-      '4. quais dados e estruturas pedagógicas precisam ser preservados;
+OBJETIVO:
 
-      '5. qual deve ser a prioridade e ordem segura de recuperação.
+Produzir um inventário de remediação editorial que determine, para cada módulo:
 
-      '
+1. quais trechos são aproveitáveis;
 
-      'NÃO aplicar nenhuma mudança.
+2. quais trechos foram contaminados por repetição;
 
-      '
+3. quais seções devem ser reescritas integralmente;
 
-      'INVENTÁRIO FORENSE CONCLUÍDO. NENHUMA ALTERAÇÃO FOI REALIZADA. RESTAURAÇÕES CONTINUAM BLOQUEADAS.
+4. quais dados e estruturas pedagógicas precisam ser preservados;
 
-      '
+5. qual deve ser a prioridade e ordem segura de recuperação.
 
-      '### 📊 Relatório Principal de Auditoria
 
-      '
 
-      '| Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
+NÃO aplicar nenhuma mudança.
 
-      '|---|---|---:|---:|---:|---:|---:|---:|---|---|
 
-      '| 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 4 | Consistência Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
+INVENTÁRIO FORENSE CONCLUÍDO. NENHUMA ALTERAÇÃO FOI REALIZADA. RESTAURAÇÕES CONTINUAM BLOQUEADAS.
 
-      '| 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
 
-      '| 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
-' 
+
+### 📊 Relatório Principal de Auditoria
+
+
+
+| Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
+
+|---|---|---:|---:|---:|---:|---:|---:|---|---|
+
+| 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
+
+| 4 | Consistência Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
+
+| 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
+
+| 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
+ 
