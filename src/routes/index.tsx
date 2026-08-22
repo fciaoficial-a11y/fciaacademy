@@ -284,7 +284,9 @@ const faqItems = [
 ];
 
 function formatWorkload(course: FeaturedCourse): string {
-  if (course.workload_hours && course.workload_hours > 0) return `${course.workload_hours}h de carga horária`;
+  if (course.workload_hours && course.workload_hours > 0) {
+    return `${course.workload_hours}h de carga horária`;
+  }
   if (course.duration_minutes && course.duration_minutes > 0) {
     const h = Math.round(course.duration_minutes / 60);
     return `${h}h de carga horária`;
