@@ -188,9 +188,6 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <div className="flex min-h-screen flex-col bg-background text-foreground">
-          <div className="bg-primary/5 py-1.5 text-center text-[10px] font-medium uppercase tracking-[0.2em] text-primary/80 border-b border-primary/10">
-            disponibilize aqui para download sem erro
-          </div>
           {!hideChrome && <SiteHeader />}
           {!hideChrome && canGoBack && (
             <div className="sticky top-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
