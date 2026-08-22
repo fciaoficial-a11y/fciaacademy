@@ -64,7 +64,7 @@
  * - **Recomendacao:** Reescrita total.
  * 
  * #### Modulo 7 — Trafego e Algoritmo (GRAVIDADE: CRÍTICA)
- * - **Evid�ªncia:** O modulo inteiro e uma repeticao de 250 vezes do comentario `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */`.
+ * - **Evid�ªncia:** O modulo inteiro e uma repeticao de 250 vezes do comentario "/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */".
  * - **Conteúdo Aproveitavel:** Zero.
  * - **Lixo Identificado:** 100% do modulo e preenchimento tecnico exposto.
  * - **Recomendacao:** Reescrita total urgente.
@@ -285,18 +285,18 @@ const faqItems = [
 
 function formatWorkload(course: FeaturedCourse): string {
   if (course.workload_hours && course.workload_hours > 0) {
-    return `${course.workload_hours}h de carga horaria`;
+    return "${course.workload_hours}h de carga horaria";
   }
   if (course.duration_minutes && course.duration_minutes > 0) {
     const h = Math.round(course.duration_minutes / 60);
-    return `${h}h de carga horaria`;
+    return "${h}h de carga horaria";
   }
   return "Carga horaria flexivel";
 }
 
 function priceLabel(price: number | null | undefined): string {
   if (price == null || Number(price) === 0) return "Gratuito";
-  return `R$ ${Number(price).toFixed(2).replace(".", ",")}`;
+  return "R$ ${Number(price).toFixed(2).replace(".", ",")}";
 }
 
 function Index() {
@@ -659,7 +659,7 @@ function FeaturedCourseCard({
   variant?: "flagship" | "supporting";
 }) {
   const modulesLabel =
-    course.modules_count > 0 ? `${course.modules_count} modulo${course.modules_count > 1 ? "s" : ""}` : null;
+    course.modules_count > 0 ? "${course.modules_count} modulo${course.modules_count > 1 ? "s" : ""}" : null;
   const coverSrc = course.cover_url && course.cover_url.length > 0 ? course.cover_url : courseImage.url;
   const isMasterclass = course.slug === "metodo-ia-criativa";
   const isFlagship = variant === "flagship";
@@ -692,7 +692,7 @@ function FeaturedCourseCard({
       >
         <ImageWithFallback
           src={coverSrc}
-          alt={`Capa do curso ${course.title}`}
+          alt={"Capa do curso ${course.title}"}
           width={1200}
           height={750}
           loading="lazy"
