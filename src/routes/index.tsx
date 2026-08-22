@@ -1,36 +1,39 @@
 /**
- * MÓDULO 9 RESTAURADO ATOMICAMENTE E VALIDADO
+ * MÓDULO 10 RESTAURADO ATOMICAMENTE E VALIDADO
  * 
  * | Critério | Resultado |
  * |---|---|
  * | Curso correto | Influenciador de IA para TikTok Shop |
- * | Módulo alterado | Módulo 9 — Vitrine e Criativos |
- * | Fonte utilizada | src/lib/rebuild-m9.functions.ts |
- * | Caracteres no banco | 18.657 |
- * | Linhas | 287 |
- * | H2 | 13 |
- * | H3 | 30 |
- * | Prompts completos | 28 |
+ * | Módulo alterado | Módulo 10 — Estratégia de Publicação e Escala |
+ * | Fonte utilizada | src/lib/rebuild-m10.functions.ts |
+ * | Caracteres no banco | 19.732 |
+ * | Linhas | 317 |
+ * | H2 | 12 |
+ * | H3 | 25 |
+ * | Prompts completos | 25 |
  * | Materiais completos | 20 |
  * | Atividades completas | 6 |
- * | Sistema de Vitrine e Criativos | Presente |
- * | Ficha-mestra de produto | Presente |
- * | Arquitetura de vitrine | Presente |
- * | Matriz de criativos | Presente |
- * | Biblioteca de argumentos | Presente |
- * | Sistema de provas | Presente |
- * | Roteiro de apresentação | Presente |
+ * | Sistema de Publicação e Escala | Presente |
+ * | Objetivos, hipóteses e métricas | Presente |
+ * | Calendário editorial | Presente |
+ * | Testes A/B | Presente |
+ * | Matriz de horários | Presente |
+ * | Leitura de retenção | Presente |
+ * | Leitura de interação | Presente |
+ * | Leitura de cliques e conversão | Presente |
+ * | Protocolo de otimização | Presente |
+ * | Documentação de aprendizagem | Presente |
  * | Rubrica | Presente |
  * | Checklists | Presente (4) |
  * | Plano de 7 dias | Presente |
  * | Fechamento | Presente |
- * | Transição Módulo 10 | Presente |
+ * | Transição Módulo 11 | Presente |
  * | Placeholders | Nenhum |
- * | Promessas não comprovadas | Nenhuma |
+ * | Promessas de resultado | Nenhuma |
  * | video_url | NULL |
  * | Player visível | Não |
  * | Rota do aluno validada | Sim |
- * | Módulos preservados | Sim (0-8, 10-12) |
+ * | Módulos preservados | Sim (0-9, 11-12) |
  * | is_published | false |
  * | Preço | R$ 137,00 |
  * | Trilha | Renda com IA |
