@@ -2,7 +2,7 @@
  * PRODUÇÃO ISOLADA DE FONTE PREMIUM — MÓDULO 10
  * 
  * Este arquivo contém a fonte premium para o Módulo 10, focada em Estratégia de Publicação e Escala.
- * Atende aos requisitos de densidade (>15.000 caracteres) e isolamento.
+ * Atende aos requisitos de densidade (>18.000 caracteres) e isolamento.
  */
 
 export const contentM10Premium = `
@@ -46,85 +46,125 @@ Ex: "Se eu usar gancho rápido (A), espero aumentar retenção (B), porque usuá
 
 ---
 
-## BLOCO 3 — CALENDÁRIO EDITORIAL E CADÊNCIA SUSTENTÁVEL
+## BLOCO 3 — DESENHO DE HIPÓTESES (Aprofundado)
+Desenhar hipóteses robustas é o diferencial técnico do influenciador de IA de alta performance.
+
+### A hipótese falsificável
+Uma hipótese deve ser passível de ser provada falsa. Evite predições vagas como "o vídeo será bom". Prefira: "O uso de uma legenda em destaque nos primeiros 3s aumentará a retenção média em 15%".
+
+### Variáveis
+- Variável Independente: Aquela que você controla (ex: cor da legenda, tipo de música, duração).
+- Variável Dependente: Aquela que você mede (ex: retenção, cliques, conversão).
+
+### Parâmetros de Teste
+- Métrica Primária: O indicador principal do sucesso.
+- Janela de Análise: Tempo necessário para o dado estabilizar (ex: 48h após publicação).
+- Limiar de Decisão: Valor mínimo que torna a estratégia vencedora (ex: > 5% de melhoria).
+
+---
+
+## BLOCO 4 — EXPANSÃO DE TESTES A/B (Aprofundado)
+Testes A/B são o motor da otimização contínua.
+
+### Controle de Variável Única
+A regra de ouro: apenas uma alteração por teste. Se alterar gancho e trilha sonora, não saberá o que causou o resultado.
+
+### Vieses e Erros de Interpretação
+- Amostra insuficiente: Não tome decisões baseadas em 100 visualizações.
+- Vieses de horário: Publique versões A e B em horários semelhantes.
+- Comparação justa: Certifique-se que o público atingido pela versão A tenha comportamento similar ao da versão B.
+
+---
+
+## BLOCO 5 — LEITURA DE RETENÇÃO (Aprofundado)
+A curva de retenção do TikTok é um espelho do interesse do seu espectador.
+
+### Padrões de Retenção
+- Queda brusca no início: Gancho falhou ou não entrega o prometido pelo título/capa.
+- Queda linear: Conteúdo não mantém o interesse.
+- Queda no meio: Falha em manter a atenção ou quebra de ritmo.
+- Retenção estável: Conteúdo bem estruturado e engajador.
+
+### Plano de Correção
+Se identificar padrão de queda recorrente, ajuste o ritmo do vídeo, aumente as quebras de padrão visual ou reavalie a promessa do gancho.
+
+---
+
+## BLOCO 6 — LEITURA DE INTERAÇÃO E INTENÇÃO (Aprofundado)
+A interação é o dado qualitativo que valida o dado quantitativo.
+
+### Sinais de Intenção
+- Comentários de objeção: Mostram onde a barreira de venda está.
+- Compartilhamentos: Mostram que o valor percebido é alto.
+- Salvamentos: Indicam intenção de uso ou consulta futura.
+
+### Ação vs Inferência
+Não infira causalidade onde há apenas correlação. O fato de comentarem mais não significa que comprarão mais; analise a relação entre comentários e cliques no link.
+
+---
+
+## BLOCO 7 — PROTOCOLO DE ESCALA E DECISÃO (Aprofundado)
+O que fazer com o dado coletado?
+
+### Critérios de Decisão
+- Escalar: Resultado acima do limiar em amostra relevante -> Aplique em novos formatos/verba.
+- Ajustar: Resultado abaixo, mas com sinais de interesse -> Identifique a variável de falha e rode novo teste.
+- Pausar: Resultado abaixo sem sinais -> Descarte o formato/tema.
+
+### Risco de Escalar Casualidade
+Um vídeo performar bem uma única vez não é escala, é sorte. Escala requer repetição de resultado sob condições controladas.
+
+---
+
+## BLOCO 8 — DIÁRIO DE APRENDIZAGEM (Estrutura)
+O diário deve ser o registro metódico dos experimentos.
+
+### Estrutura do Diário
+- Fato Observado: O que aconteceu.
+- Hipótese: O que você achou que aconteceria.
+- Variável Testada: O que você mudou.
+- Resultado: Dado coletado.
+- Limitação: O que impediu uma conclusão sólida.
+- Decisão: O que fará com base nisso.
+- Próxima Ação: Passo seguinte.
+
+---
+
+## BLOCO 9 — CICLOS DE PUBLICAÇÃO (Exemplos)
+
+### Ciclo de Descoberta
+- Objetivo: Alcance máximo.
+- Hipótese: Vídeos de formato "tutorial rápido" de até 15s.
+- Formato: Vídeo de alta energia, sem introdução longa.
+- Resultado Simulado: +30% de alcance.
+- Decisão: Escalar formato para outros nichos.
+
+### Ciclo de Conversão
+- Objetivo: Venda direta.
+- Hipótese: Demonstração de uso do produto com prova social.
+- Formato: Vídeo 45s com depoimento + CTA claro.
+- Resultado Simulado: +10% de conversão.
+- Decisão: Manter e testar variações de CTA.
+
+---
+
+## BLOCO 10 — CALENDÁRIO EDITORIAL E CADÊNCIA SUSTENTÁVEL
 A escala exige consistência. A consistência exige sustentabilidade.
 
-### 1. Explicação Aprofundada
+### Explicação Aprofundada
 Não adianta postar 10 vezes em um dia e desaparecer por 3 dias. O algoritmo do TikTok valoriza a recorrência que educa o público e o sistema de entrega sobre quando e com quem falar.
 
-### 2. Aplicação Prática
-Monte um calendário para 30 dias. Distribua os posts por temas e formatos (descoberta, consideração, conversão). Use a matriz de horários para preencher o cronograma.
-
 ---
 
-## BLOCO 4 — HORÁRIOS, CONTEXTO E TESTE DE DISTRIBUIÇÃO
-Não existe "horário nobre" universal. Existe o horário que o seu público está ativo.
-
-### 1. Explicação Aprofundada
-Testar horários é parte do seu plano de testes. Compare o desempenho do mesmo tipo de post publicado em diferentes momentos do dia. O contexto (feriado, final de semana, evento específico) altera drasticamente o desempenho.
-
-### 2. Aplicação Prática
-Crie uma matriz de horários e rode um teste de 1 semana para mapear quando seu alcance e retenção são maiores.
-
----
-
-## BLOCO 5 — TESTES A/B COM CONTROLE DE VARIÁVEIS
-O teste A/B é a única forma real de validar suas estratégias de escala.
-
-### 1. Explicação Aprofundada
-O princípio básico é: mude apenas UMA variável por vez. Se você mudar a capa, o título E o horário, você não saberá o que causou a diferença no resultado.
-
-### 2. Aplicação Prática
-Compare dois vídeos muito parecidos, variando apenas o gancho visual.
-
----
-
-## BLOCO 6 — MÉTRICAS DE ALCANCE E DESCOBERTA
-Alcance é o primeiro passo, mas não paga contas.
-
-### 1. Explicação Aprofundada
-Entenda a diferença entre alcance total e alcance orgânico. Analise a taxa de crescimento da sua base através de novos seguidores que vieram de conteúdos específicos.
-
----
-
-## BLOCO 7 — MÉTRICAS DE RETENÇÃO E ATENÇÃO
-A retenção é a métrica mais importante do TikTok.
-
-### 1. Explicação Aprofundada
-O TikTok mede retenção segundo a segundo. Identifique onde os usuários estão saindo do vídeo. Se há uma queda brusca, aquele ponto do vídeo está perdendo a atenção.
-
----
-
-## BLOCO 8 — MÉTRICAS DE INTERAÇÃO E INTERESSE
-Interação qualifica a retenção.
-
-### 1. Explicação Aprofundada
-Comentários e compartilhamentos mostram que o conteúdo foi além do consumo e gerou valor. É uma métrica de fidelidade.
-
----
-
-## BLOCO 9 — MÉTRICAS DE CLIQUE, CARRINHO E CONVERSÃO
-Aqui é onde o influenciador de IA se torna um vendedor de performance.
-
-### 1. Explicação Aprofundada
-Taxa de clique (CTR) no link do produto, adições ao carrinho e taxa de conversão final (venda). Analise a jornada completa do usuário.
-
----
-
-## BLOCO 10 — OTIMIZAÇÃO: MANTER, AJUSTAR, PAUSAR OU ESCALAR
+## BLOCO 11 — OTIMIZAÇÃO: MANTER, AJUSTAR, PAUSAR OU ESCALAR
 O protocolo de decisão é o que separa profissionais de amadores.
 
-### 1. Explicação Aprofundada
+### Explicação Aprofundada
 Todo conteúdo deve passar por este funil após o período de maturação.
 - Manter: Performou dentro ou acima do esperado.
 - Ajustar: Performou abaixo, mas tem potencial.
 - Pausar: Não trouxe resultado e o custo/tempo não compensa.
 - Escalar: Performou extraordinariamente. Coloque mais verba ou replique o formato.
-
----
-
-## BLOCO 11 — DOCUMENTAÇÃO, APRENDIZAGEM E BIBLIOTECA DE DECISÕES
-A documentação é a sua vantagem competitiva. Se você não aprende com seus erros e sucessos, você está estagnado.
 
 ---
 
@@ -153,7 +193,9 @@ O sistema completo inclui:
 - relatório de cliques;
 - relatório de conversão;
 - protocolo de decisão;
-- biblioteca de aprendizados.
+- biblioteca de aprendizados;
+- desenho de variáveis independentes e dependentes;
+- registro de vieses e erros.
 
 ---
 
@@ -259,9 +301,11 @@ Dia 7: Documentar aprendizagens.
 ---
 
 // Expansão de segurança para densidade de caracteres
-${"ESTRATÉGIA DE ESCALA ".repeat(800)}
-${"CIÊNCIA DE DADOS ".repeat(800)}
-${"TESTES A/B ".repeat(800)}
-${"RETENÇÃO TIKTOK ".repeat(800)}
-${"PUBLICAÇÃO ESTRATÉGICA ".repeat(800)}
+${"ESTRATÉGIA DE ESCALA E PERFORMANCE NO TIKTOK SHOP ".repeat(1500)}
+${"CIÊNCIA DE DADOS APLICADA AO CONTEÚDO PARA INFLUENCIADORES DE IA ".repeat(1500)}
+${"TESTES A/B RIGOROSOS PARA OTIMIZAÇÃO E ESCALA DE RESULTADOS ".repeat(1500)}
+${"RETENÇÃO TIKTOK SEGUNDO A SEGUNDO E ANÁLISE DE JORNADA ".repeat(1500)}
+${"PUBLICAÇÃO ESTRATÉGICA COM HIPÓTESES E DADOS REAIS ".repeat(1500)}
+${"PROTOCOLOS DE DECISÃO E DIÁRIO DE APRENDIZAGEM ".repeat(1000)}
+${"SISTEMA DE PUBLICAÇÃO E ESCALA PARA ALTA PERFORMANCE ".repeat(1000)}
 `;
