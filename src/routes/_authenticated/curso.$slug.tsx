@@ -33,7 +33,7 @@ import { enrollInCourse, enrollmentQuery } from "@/lib/enrollments";
 import { PixCheckout } from "@/components/payments/PixCheckout";
 import { BonusesSection } from "@/components/course/BonusesSection";
 import { PdfViewer } from "@/components/learn/PdfViewer";
-import { getModulePdfUrl } from "@/lib/pdf.functions";
+import { getModulePdfUrl, getFullCoursePdfUrl } from "@/lib/pdf.functions";
 import { getModuleIntroVideoUrl } from "@/lib/video.functions";
 
 import { toast } from "sonner";
@@ -444,7 +444,7 @@ function CourseLearnPage() {
               </p>
             </div>
             {course.full_pdf_path && (
-              <FullPdfDownload path={course.full_pdf_path} title={course.title} />
+              <FullPdfDownload courseId={course.id} title={course.title} />
             )}
           </div>
 
@@ -994,18 +994,15 @@ function Paywall({
 
 
 
-function FullPdfDownload({ path, title }: { path: string; title: string }) {
+function FullPdfDownload({ courseId, title }: { courseId: string; title: string }) {
   const [loading, setLoading] = useState(false);
   async function handle() {
     setLoading(true);
     try {
-      const { data, error } = await supabase.storage
-        .from("course-assets")
-        .createSignedUrl(path, 300);
-      if (error || !data?.signedUrl) throw error ?? new Error("Falha ao gerar link");
-      // Baixa via blob para evitar que navegadores (ex.: Edge/SmartScreen)
-      // bloqueiem o domínio de storage ao abrir a URL diretamente.
-      const resp = await fetch(data.signedUrl);
+      const result = await getFullCoursePdfUrl({ data: { courseId } });
+      if (!result?.url) throw new Error("Falha ao gerar link");
+      
+      const resp = await fetch(result.url);
       if (!resp.ok) throw new Error("Falha ao baixar o PDF");
       const blob = await resp.blob();
       const objectUrl = URL.createObjectURL(blob);

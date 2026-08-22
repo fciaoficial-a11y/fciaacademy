@@ -55,3 +55,51 @@ export const getModulePdfUrl = createServerFn({ method: "POST" })
 
     return { url: signed.signedUrl, expiresIn: TTL_SECONDS };
   });
+
+export const getFullCoursePdfUrl = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { courseId: string }) => {
+    if (!data?.courseId || typeof data.courseId !== "string") {
+      throw new Error("courseId obrigatório");
+    }
+    return data;
+  })
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+
+    // Verificar acesso ao curso
+    const { data: enrollment, error: enrollErr } = await supabase
+      .from("enrollments")
+      .select("id")
+      .eq("course_id", data.courseId)
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    if (enrollErr) throw new Error(enrollErr.message);
+
+    // Se não tiver enrollment, verificar se é admin
+    if (!enrollment) {
+      const { data: isAdmin } = await supabase.rpc("has_role", {
+        _user_id: userId,
+        _role: "admin",
+      });
+      if (!isAdmin) throw new Error("Acesso negado");
+    }
+
+    const { data: course, error: courseErr } = await supabase
+      .from("courses")
+      .select("full_pdf_path, allow_pdf_download")
+      .eq("id", data.courseId)
+      .single();
+
+    if (courseErr) throw new Error(courseErr.message);
+    if (!course.full_pdf_path) throw new Error("PDF completo não disponível para este curso");
+    if (!course.allow_pdf_download) throw new Error("Download de PDF desativado para este curso");
+
+    const { data: signed, error: signErr } = await supabase.storage
+      .from(BUCKET)
+      .createSignedUrl(course.full_pdf_path, TTL_SECONDS);
+
+    if (signErr) throw new Error(signErr.message);
+    return { url: signed.signedUrl, expiresIn: TTL_SECONDS };
+  });
