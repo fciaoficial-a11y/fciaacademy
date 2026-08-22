@@ -46,7 +46,7 @@
  * | Módulo | Título | Caracteres totais | Estimativa válida | % aproveitável | Seções preservar | Seções revisar | Seções reescrever | Gravidade máxima | Status |
  * |---|---|---:|---:|---:|---:|---:|---:|---|---|
  * | 3 | Criação da Identidade | 22.086 | 22.086 | 100% | 17 | 0 | 0 | BAIXA | APROVADO |
- * | 4 | Consistência Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
+ * | 4 | Consist�ªncia Visual | 35.706 | 23.251 | 65% | 12 | 15 | 0 | MÉDIA | REVISÃO |
  * | 5 | Conteúdo Alta Escala | 16.287 | 16.287 | 100% | 15 | 0 | 0 | BAIXA | APROVADO |
  * | 6 | Criação de Vídeos | 661.061 | 93.497 | 14% | 3 | 2 | 7 | CRÍTICA | REESCRITA |
  * | 7 | Tráfego e Algoritmo | 19.121 | 0 | 0% | 0 | 0 | 8 | CRÍTICA | REESCRITA |
@@ -59,25 +59,25 @@
  * ### 🔍 Detalhamento Forense por Módulo
  *
  * #### Módulo 6 — Criação de Vídeos (GRAVIDADE: CRÍTICA)
- * - **Evidência:** Repetição massiva de frases como "Edição viral não é efeito: é retenção" (60x) e "60.000 vezes mais rápido que texto" (440x).
+ * - **Evid�ªncia:** Repetição massiva de frases como "Edição viral não é efeito: é retenção" (60x) e "60.000 vezes mais rápido que texto" (440x).
  * - **Conteúdo Aproveitável:** Apenas os primeiros 3 blocos conceituais.
  * - **Lixo Identificado:** O banco contém quase 600kb de texto repetido inutilizável.
  * - **Recomendação:** Reescrita total.
  *
  * #### Módulo 7 — Tráfego e Algoritmo (GRAVIDADE: CRÍTICA)
- * - **Evidência:** O módulo inteiro é uma repetição de 250 vezes do comentário `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */ `.
+ * - **Evid�ªncia:** O módulo inteiro é uma repetição de 250 vezes do comentário `/* CONTEÚDO PREMIUM FCIA ACADEMY - ESTRATÉGIAS DE TRÁFEGO E ALGORITMO */ `.
  * - **Conteúdo Aproveitável:** Zero.
  * - **Lixo Identificado:** 100% do módulo é preenchimento técnico exposto.
  * - **Recomendação:** Reescrita total urgente.
  * 
  * #### Módulo 10 — Publicação e Escala (GRAVIDADE: CRÍTICA)
- * - **Evidência:** Inflação artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
- * - **Conteúdo Aproveitável:** Os blocos iniciais (1-10) que contêm a teoria real de teste A/B.
+ * - **Evid�ªncia:** Inflação artificial massiva no final do arquivo com a frase "ESCALA RESPONSÁVEL E ORÇAMENTO PROGRESSIVO BASEADO EM DADOS" repetida milhares de vezes para atingir 3.6 milhões de caracteres.
+ * - **Conteúdo Aproveitável:** Os blocos iniciais (1-10) que cont�ªm a teoria real de teste A/B.
  * - **Lixo Identificado:** Mais de 3.5 milhões de caracteres de texto repetido no final.
  * - **Recomendação:** Limpeza radical e reescrita das seções finais.
  * 
- * #### Módulo 4 — Consistência Visual (GRAVIDADE: MÉDIA)
- * - **Evidência:** Uso excessivo de templates repetitivos ("- **Quando usar:** Produção em escala") em 22 seções H3.
+ * #### Módulo 4 — Consist�ªncia Visual (GRAVIDADE: MÉDIA)
+ * - **Evid�ªncia:** Uso excessivo de templates repetitivos ("- **Quando usar:** Produção em escala") em 22 seções H3.
  * - **Conteúdo Aproveitável:** A estrutura pedagógica está correta, mas falta profundidade nos exemplos.
  * - **Recomendação:** Revisão localizada para remover redundâncias.
  * 
@@ -126,7 +126,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Conteúdos diretos para quem quer entender inteligência artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
+          "Conteúdos diretos para quem quer entender intelig�ªncia artificial e aplicar no trabalho, nos estudos ou no próprio negócio.",
       },
       { property: "og:title", content: "FCIA Academy — IA prática para a vida real" },
       {
@@ -280,7 +280,7 @@ const faqItems = [
   },
   {
     q: "Posso estudar pelo celular?",
-    a: "Sim. Toda a plataforma é responsiva. Você acessa e estuda pelo celular, tablet ou computador, no seu ritmo.",
+    a: "Sim. Toda a plataforma é responsiva. Voc�ª acessa e estuda pelo celular, tablet ou computador, no seu ritmo.",
   },
 ];
 
@@ -380,7 +380,7 @@ function Index() {
             <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-primary/25 via-transparent to-accent/25 blur-2xl" aria-hidden />
             <ImageWithFallback
               src={heroImage.url}
-              alt="Profissional utilizando notebook e celular para aplicar inteligência artificial no trabalho"
+              alt="Profissional utilizando notebook e celular para aplicar intelig�ªncia artificial no trabalho"
               width={1280}
               height={960}
               loading="eager"
@@ -653,7 +653,7 @@ function Index() {
                 </p>
               </div>
               <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:mx-0">
-                Professor, estrategista e fundador da FCIA. Fernando Cabral une inteligência artificial,
+                Professor, estrategista e fundador da FCIA. Fernando Cabral une intelig�ªncia artificial,
                 criatividade e estratégia para ajudar pessoas e pequenos negócios a entenderem a tecnologia
                 e aplicarem ferramentas atuais com clareza.
               </p>
