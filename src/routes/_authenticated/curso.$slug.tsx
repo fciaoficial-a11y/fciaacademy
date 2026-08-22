@@ -1003,7 +1003,7 @@ function FullPdfDownload({ courseId, title }: { courseId: string; title: string 
       if (!result?.url) throw new Error("Falha ao gerar link");
       
       const resp = await fetch(result.url);
-      if (!resp.ok) throw new Error("Falha ao baixar o PDF");
+      if (!resp.ok) throw new Error("Falhou ao baixar o arquivo");
       const blob = await resp.blob();
       const objectUrl = URL.createObjectURL(blob);
       const safeName = (title || "ebook").replace(/[^\w-]+/g, "_").toLowerCase();
