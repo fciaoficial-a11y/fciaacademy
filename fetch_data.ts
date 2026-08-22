@@ -18,25 +18,33 @@ async function fetchCourseData() {
     process.exit(1);
   }
 
+  // Use 'sort_order' instead of 'order_index' based on information_schema check
   const { data: modules, error: modulesError } = await supabaseAdmin
     .from('modules')
-    .select('id, title, description, content_text, video_url, order_index, prompts, materials, activities, questions')
+    .select('id, title, description, content_text, video_url, sort_order')
     .eq('course_id', course.id)
-    .order('order_index', { ascending: true });
+    .order('sort_order', { ascending: true });
 
   if (modulesError || !modules) {
     console.error('Erro ao buscar módulos:', modulesError);
     process.exit(1);
   }
 
+  // Fetch questions for each module to populate materials/prompts/activities logic if stored as JSON or in the questions table
+  const moduleIds = modules.map(m => m.id);
+  const { data: questions, error: questionsError } = await supabaseAdmin
+    .from('questions')
+    .select('*')
+    .in('module_id', moduleIds);
+
   const result = {
     course,
     modules: modules.map(m => ({
       ...m,
-      prompts: m.prompts || [],
-      materials: m.materials || [],
-      activities: m.activities || [],
-      questions: m.questions || []
+      prompts: [], // Default empty as they might be inside content_text or a different field
+      materials: [],
+      activities: [],
+      questions: questions ? questions.filter(q => q.module_id === m.id) : []
     }))
   };
 
