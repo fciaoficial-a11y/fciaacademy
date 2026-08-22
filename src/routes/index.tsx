@@ -207,7 +207,7 @@ function Index() {
           </p>
           
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-10 duration-700">
-            <PrimaryCTA to="/curso/metodo-ia-criativa">Acessar Masterclass</PrimaryCTA>
+            <PrimaryCTA to="/curso/$slug/oferta" params={{ slug: "metodo-ia-criativa" }}>Acessar Masterclass</PrimaryCTA>
             <SecondaryCTA to="/cursos">Ver Catálogo</SecondaryCTA>
           </div>
         </div>
