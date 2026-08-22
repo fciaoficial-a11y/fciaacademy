@@ -6,10 +6,10 @@ async function fetchCourseData() {
   const courseSlug = 'influenciador-ia-tiktok-shop';
   console.log(`Buscando dados para o curso: ${courseSlug}`);
 
-  // Fetch course without tracks join first to avoid schema mismatch
+  // Fetch only necessary columns to avoid schema issues with relations
   const { data: course, error: courseError } = await supabaseAdmin
     .from('courses')
-    .select('*')
+    .select('id, title, slug, is_published, price, description')
     .eq('slug', courseSlug)
     .single();
 
@@ -20,7 +20,7 @@ async function fetchCourseData() {
 
   const { data: modules, error: modulesError } = await supabaseAdmin
     .from('modules')
-    .select('*')
+    .select('id, title, description, content_text, video_url, order_index, prompts, materials, activities, questions')
     .eq('course_id', course.id)
     .order('order_index', { ascending: true });
 
