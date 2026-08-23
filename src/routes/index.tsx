@@ -104,11 +104,18 @@ const ctaBase =
 function PrimaryCTA({
   children,
   className,
-  ...link
-}: LinkProps & { children: ReactNode; className?: string }) {
+  to,
+  params,
+}: {
+  children: ReactNode;
+  className?: string;
+  to: LinkProps["to"];
+  params?: LinkProps["params"];
+}) {
   return (
     <Link
-      {...link}
+      to={to}
+      params={params}
       className={cn(
         ctaBase,
         "group bg-gradient-to-r from-primary to-accent text-primary-foreground glow-primary hover:-translate-y-0.5",
@@ -124,10 +131,12 @@ function PrimaryCTA({
 function SecondaryCTA({
   to,
   href,
+  params,
   children,
   className,
 }: {
   to?: LinkProps["to"];
+  params?: LinkProps["params"];
   href?: string;
   children: ReactNode;
   className?: string;
@@ -140,7 +149,7 @@ function SecondaryCTA({
 
   if (href) return <a href={href} className={classes}>{children}</a>;
   return (
-    <Link to={to!} className={classes}>
+    <Link to={to!} params={params} className={classes}>
       {children}
     </Link>
   );
