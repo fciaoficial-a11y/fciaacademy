@@ -237,7 +237,7 @@ function Index() {
                 <SecureImage 
                   src={heroImage.url} 
                   alt="A masterclass que eleva seu nível criativo" 
-                  className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full aspect-[4/3] object-contain bg-black transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <div className="absolute bottom-8 left-8 right-8">
