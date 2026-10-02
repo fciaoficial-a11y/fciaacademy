@@ -154,10 +154,10 @@ async function processPaymentPayload(
 
     if (course?.slug === "google-ai-pro") {
       // Google AI Pro: não cria enrollment para o próprio produto.
-      // Consulta a campanha por slug para obter o id real.
+      // Consulta a campanha por slug para obter os campos necessários.
       const { data: campaign } = await supabaseAdmin
         .from("bonus_campaigns")
-        .select("id")
+        .select("id, bonus_type, bonus_target")
         .eq("slug", "google-ai-pro-10-first")
         .maybeSingle();
 
@@ -166,23 +166,33 @@ async function processPaymentPayload(
         return { ok: true, granted: false, status: newStatus, reason: "campaign_not_found" };
       }
 
+      // Valida que a campanha tem todos os campos necessários.
+      if (!campaign.id || !campaign.bonus_type || !campaign.bonus_target) {
+        return { ok: true, granted: false, status: newStatus, reason: "campaign_invalid" };
+      }
+
       // Delega para allocate_first_n_bonus que gerencia os 10 primeiros pagantes.
       const bonusResult = await supabaseAdmin.rpc("allocate_first_n_bonus", {
         _campaign_id: campaign.id,
         _user_id: existing.user_id,
         _payment_id: existing.id,
-        _bonus_type: "google-ai-pro-10-first",
-        _course_id: null,
+        _bonus_type: campaign.bonus_type,
+        _course_id: campaign.bonus_target,
       });
       if (bonusResult.error) throw bonusResult.error;
 
-      const bonus = bonusResult.data as { granted: boolean; bonus_course_id: string | null } | null;
-      if (bonus?.granted && bonus.bonus_course_id) {
-        // Elegível e há vagas: libera o enrollment do curso bônus (Masterclass).
+      const bonus = bonusResult.data as {
+        granted: boolean;
+        position: number | null;
+        campaign_id: string | null;
+        course_id: string | null;
+      } | null;
+      if (bonus?.granted && bonus.course_id) {
+        // Elegível e há vagas: libera o enrollment do curso bônus.
         const { error: grantError } = await supabaseAdmin.rpc("grant_paid_access", {
           _user_id: existing.user_id,
           _plan_id: existing.plan_id,
-          _course_id: bonus.bonus_course_id,
+          _course_id: bonus.course_id,
         });
         if (grantError) throw grantError;
       }
