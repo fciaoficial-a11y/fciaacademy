@@ -38,6 +38,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as CursoSlugOfertaRouteImport } from './routes/curso.$slug.oferta'
 import { Route as ApiPublicMigrationReportRouteImport } from './routes/api/public/migration-report'
 import { Route as ApiPublicDownloadMigrationReportRouteImport } from './routes/api/public/download-migration-report'
+import { Route as ApiInternalAuditCoursesRouteImport } from './routes/api/internal/audit-courses'
 import { Route as AuthenticatedQuizModuleIdRouteImport } from './routes/_authenticated/quiz.$moduleId'
 import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authenticated/curso.$slug'
 import { Route as AuthenticatedCertificadosIdRouteImport } from './routes/_authenticated/certificados.$id'
@@ -204,6 +205,11 @@ const ApiPublicDownloadMigrationReportRoute =
     path: '/api/public/download-migration-report',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInternalAuditCoursesRoute = ApiInternalAuditCoursesRouteImport.update({
+  id: '/api/internal/audit-courses',
+  path: '/api/internal/audit-courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedQuizModuleIdRoute =
   AuthenticatedQuizModuleIdRouteImport.update({
     id: '/quiz/$moduleId',
@@ -330,6 +336,7 @@ export interface FileRoutesByFullPath {
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
+  '/api/internal/audit-courses': typeof ApiInternalAuditCoursesRoute
   '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/api/public/migration-report': typeof ApiPublicMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
@@ -373,6 +380,7 @@ export interface FileRoutesByTo {
   '/certificados/$id': typeof AuthenticatedCertificadosIdRoute
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
+  '/api/internal/audit-courses': typeof ApiInternalAuditCoursesRoute
   '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/api/public/migration-report': typeof ApiPublicMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
@@ -420,6 +428,7 @@ export interface FileRoutesById {
   '/_authenticated/certificados/$id': typeof AuthenticatedCertificadosIdRoute
   '/_authenticated/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/_authenticated/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
+  '/api/internal/audit-courses': typeof ApiInternalAuditCoursesRoute
   '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/api/public/migration-report': typeof ApiPublicMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
@@ -467,6 +476,7 @@ export interface FileRouteTypes {
     | '/certificados/$id'
     | '/curso/$slug'
     | '/quiz/$moduleId'
+    | '/api/internal/audit-courses'
     | '/api/public/download-migration-report'
     | '/api/public/migration-report'
     | '/curso/$slug/oferta'
@@ -510,6 +520,7 @@ export interface FileRouteTypes {
     | '/certificados/$id'
     | '/curso/$slug'
     | '/quiz/$moduleId'
+    | '/api/internal/audit-courses'
     | '/api/public/download-migration-report'
     | '/api/public/migration-report'
     | '/curso/$slug/oferta'
@@ -556,6 +567,7 @@ export interface FileRouteTypes {
     | '/_authenticated/certificados/$id'
     | '/_authenticated/curso/$slug'
     | '/_authenticated/quiz/$moduleId'
+    | '/api/internal/audit-courses'
     | '/api/public/download-migration-report'
     | '/api/public/migration-report'
     | '/curso/$slug/oferta'
@@ -581,6 +593,7 @@ export interface RootRouteChildren {
   TurmasRoute: typeof TurmasRoute
   GoogleAiProOfertaRoute: typeof GoogleAiProOfertaRoute
   ValidarCertificadoCodigoRoute: typeof ValidarCertificadoCodigoRoute
+  ApiInternalAuditCoursesRoute: typeof ApiInternalAuditCoursesRoute
   ApiPublicDownloadMigrationReportRoute: typeof ApiPublicDownloadMigrationReportRoute
   ApiPublicMigrationReportRoute: typeof ApiPublicMigrationReportRoute
   CursoSlugOfertaRoute: typeof CursoSlugOfertaRoute
@@ -790,6 +803,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/download-migration-report'
       fullPath: '/api/public/download-migration-report'
       preLoaderRoute: typeof ApiPublicDownloadMigrationReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal/audit-courses': {
+      id: '/api/internal/audit-courses'
+      path: '/api/internal/audit-courses'
+      fullPath: '/api/internal/audit-courses'
+      preLoaderRoute: typeof ApiInternalAuditCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/quiz/$moduleId': {
@@ -1028,6 +1048,7 @@ const rootRouteChildren: RootRouteChildren = {
   TurmasRoute: TurmasRoute,
   GoogleAiProOfertaRoute: GoogleAiProOfertaRoute,
   ValidarCertificadoCodigoRoute: ValidarCertificadoCodigoRoute,
+  ApiInternalAuditCoursesRoute: ApiInternalAuditCoursesRoute,
   ApiPublicDownloadMigrationReportRoute: ApiPublicDownloadMigrationReportRoute,
   ApiPublicMigrationReportRoute: ApiPublicMigrationReportRoute,
   CursoSlugOfertaRoute: CursoSlugOfertaRoute,
