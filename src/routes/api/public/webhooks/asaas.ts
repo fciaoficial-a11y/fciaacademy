@@ -145,12 +145,38 @@ async function processPaymentPayload(
   // PAYMENT_CONFIRMED + PAYMENT_RECEIVED para a mesma cobrança não liberam em duplicidade,
   // porque depois do primeiro evento pago `wasPaid` passa a ser true.
   if (isPaid && !wasPaid) {
-    const { error: grantError } = await supabaseAdmin.rpc("grant_paid_access", {
-      _user_id: existing.user_id,
-      _plan_id: existing.plan_id,
-      _course_id: existing.course_id ?? undefined,
-    });
-    if (grantError) throw grantError;
+    const GOOGLE_AI_PRO_COURSE_ID = "18ddfd2c-4a9b-4e6f-b9f0-6c3e8a1d2b4f";
+
+    if (existing.course_id === GOOGLE_AI_PRO_COURSE_ID) {
+      // Google AI Pro: não cria enrollment para o próprio produto.
+      // Delega para allocate_bonus_course que gerencia os 10 primeiros pagantes.
+      const bonusResult = await supabaseAdmin.rpc("allocate_bonus_course", {
+        _campaign_slug: "google-ai-pro-10-first",
+        _payment_id: existing.id,
+        _user_id: existing.user_id,
+      });
+      if (bonusResult.error) throw bonusResult.error;
+
+      const bonus = bonusResult.data as { granted: boolean; bonus_course_id: string | null } | null;
+      if (bonus?.granted && bonus.bonus_course_id) {
+        // Elegível e há vagas: libera o enrollment do curso bônus (Masterclass).
+        const { error: grantError } = await supabaseAdmin.rpc("grant_paid_access", {
+          _user_id: existing.user_id,
+          _plan_id: existing.plan_id,
+          _course_id: bonus.bonus_course_id,
+        });
+        if (grantError) throw grantError;
+      }
+      // granted = false: fora do período, sem vagas ou duplicidade — encerra Google AI Pro.
+    } else {
+      // Fluxo normal: compra direta de qualquer outro curso.
+      const { error: grantError } = await supabaseAdmin.rpc("grant_paid_access", {
+        _user_id: existing.user_id,
+        _plan_id: existing.plan_id,
+        _course_id: existing.course_id ?? undefined,
+      });
+      if (grantError) throw grantError;
+    }
   }
 
   return { ok: true, granted: isPaid && !wasPaid, status: newStatus };
