@@ -145,15 +145,34 @@ async function processPaymentPayload(
   // PAYMENT_CONFIRMED + PAYMENT_RECEIVED para a mesma cobrança não liberam em duplicidade,
   // porque depois do primeiro evento pago `wasPaid` passa a ser true.
   if (isPaid && !wasPaid) {
-    const GOOGLE_AI_PRO_COURSE_ID = "18ddfd2c-4a9b-4e6f-b9f0-6c3e8a1d2b4f";
+    // Consulta o curso para identificar Google AI Pro por slug (sem UUID fixo).
+    const { data: course } = await supabaseAdmin
+      .from("courses")
+      .select("id, slug, title")
+      .eq("id", existing.course_id)
+      .maybeSingle();
 
-    if (existing.course_id === GOOGLE_AI_PRO_COURSE_ID) {
+    if (course?.slug === "google-ai-pro") {
       // Google AI Pro: não cria enrollment para o próprio produto.
-      // Delega para allocate_bonus_course que gerencia os 10 primeiros pagantes.
-      const bonusResult = await supabaseAdmin.rpc("allocate_bonus_course", {
-        _campaign_slug: "google-ai-pro-10-first",
-        _payment_id: existing.id,
+      // Consulta a campanha por slug para obter o id real.
+      const { data: campaign } = await supabaseAdmin
+        .from("bonus_campaigns")
+        .select("id")
+        .eq("slug", "google-ai-pro-10-first")
+        .maybeSingle();
+
+      if (!campaign) {
+        // Campanha inexistente: encerra sem enrollment.
+        return { ok: true, granted: false, status: newStatus, reason: "campaign_not_found" };
+      }
+
+      // Delega para allocate_first_n_bonus que gerencia os 10 primeiros pagantes.
+      const bonusResult = await supabaseAdmin.rpc("allocate_first_n_bonus", {
+        _campaign_id: campaign.id,
         _user_id: existing.user_id,
+        _payment_id: existing.id,
+        _bonus_type: "google-ai-pro-10-first",
+        _course_id: null,
       });
       if (bonusResult.error) throw bonusResult.error;
 
