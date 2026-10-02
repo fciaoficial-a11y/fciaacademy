@@ -52,6 +52,7 @@ export const coursesQuery = queryOptions({
       .from("courses")
       .select("id, track_id, slug, title, description, duration_minutes, workload_hours, level, cover_url, sort_order, price, is_free")
       .eq("is_published", true)
+      .neq("slug", "google-ai-pro")
       .order("sort_order");
     if (error) throw error;
     return (data ?? []) as CourseRow[];
@@ -76,6 +77,7 @@ export function trackBySlugQuery(slug: string) {
         .select("id, track_id, slug, title, description, duration_minutes, workload_hours, level, cover_url, sort_order, price, is_free")
         .eq("track_id", track.id)
         .eq("is_published", true)
+        .neq("slug", "google-ai-pro")
         .order("sort_order");
       if (cErr) throw cErr;
       return { track: track as TrackRow, courses: (courses ?? []) as CourseRow[] };
