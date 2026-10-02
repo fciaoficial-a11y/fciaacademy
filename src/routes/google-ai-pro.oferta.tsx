@@ -15,7 +15,7 @@ export const Route = createFileRoute("/google-ai-pro/oferta")({
 // Substituir pelo UUID real do curso após a migration criar o registro:
 // SELECT id FROM courses WHERE slug = 'google-ai-pro';
 // Atualize o valor abaixo e recompile.
-const GOOGLE_AI_PRO_COURSE_ID = "00000000-0000-0000-0000-000000000000";
+const GOOGLE_AI_PRO_COURSE_ID = "18ddfd2c-4a9b-4e6f-b9f0-6c3e8a1d2b4f";
 
 function GoogleAIProOferta() {
   return (
