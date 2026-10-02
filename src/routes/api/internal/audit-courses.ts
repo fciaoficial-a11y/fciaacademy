@@ -1,29 +1,44 @@
-import { createServerFn } from "@/lib/server-fn";
-import { z } from "zod";
+import { createFileRoute } from '@tanstack/react-router'
 
-export const auditCourses = createServerFn()
-  .options({ method: "GET" })
-  .handler(async ({ supabaseAdmin }) => {
-    const { data: courses, error } = await supabaseAdmin
-      .from("courses")
-      .select("id, slug, title, price, is_published, created_at, updated_at")
-      .in("slug", ["google-ai-pro", "metodo-ia-criativa"])
-      .order("created_at", { ascending: true });
+export const Route = createFileRoute('/api/internal/audit-courses')({
+  server: {
+    handlers: {
+      GET: async () => {
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server")
 
-    if (error) {
-      return {
-        ok: false as const,
-        error: {
-          message: error.message,
-          code: error.code,
-        },
-      };
-    }
+        const { data: courses, error } = await supabaseAdmin
+          .from("courses")
+          .select("id, slug, title, price, is_published, created_at, updated_at")
+          .in("slug", ["google-ai-pro", "metodo-ia-criativa"])
+          .order("created_at", { ascending: true })
 
-    return {
-      ok: true as const,
-      data: { courses },
-    };
-  });
+        if (error) {
+          return Response.json(
+            { ok: false, error: { message: error.message, code: error.code } },
+            { status: 500 }
+          )
+        }
 
-export type AuditCoursesResponse = Awaited<ReturnType<typeof auditCourses>>;
+        return Response.json({ ok: true, data: { courses } }, { status: 200 })
+      },
+    },
+  },
+})
+
+export type AuditCoursesResponse = {
+  ok: true
+  data: {
+    courses: {
+      id: string
+      slug: string
+      title: string
+      price: number
+      is_published: boolean
+      created_at: string
+      updated_at: string
+    }[]
+  }
+} | {
+  ok: false
+  error: { message: string; code: string }
+}
