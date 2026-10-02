@@ -38,6 +38,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as CursoSlugOfertaRouteImport } from './routes/curso.$slug.oferta'
 import { Route as ApiPublicMigrationReportRouteImport } from './routes/api/public/migration-report'
 import { Route as ApiPublicDownloadMigrationReportRouteImport } from './routes/api/public/download-migration-report'
+import { Route as ApiInternalDiagnoseGoogleAiProRouteImport } from './routes/api/internal/diagnose-google-ai-pro'
 import { Route as ApiInternalAuditCoursesRouteImport } from './routes/api/internal/audit-courses'
 import { Route as AuthenticatedQuizModuleIdRouteImport } from './routes/_authenticated/quiz.$moduleId'
 import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authenticated/curso.$slug'
@@ -205,6 +206,12 @@ const ApiPublicDownloadMigrationReportRoute =
     path: '/api/public/download-migration-report',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInternalDiagnoseGoogleAiProRoute =
+  ApiInternalDiagnoseGoogleAiProRouteImport.update({
+    id: '/api/internal/diagnose-google-ai-pro',
+    path: '/api/internal/diagnose-google-ai-pro',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInternalAuditCoursesRoute = ApiInternalAuditCoursesRouteImport.update({
   id: '/api/internal/audit-courses',
   path: '/api/internal/audit-courses',
@@ -337,6 +344,7 @@ export interface FileRoutesByFullPath {
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/api/internal/audit-courses': typeof ApiInternalAuditCoursesRoute
+  '/api/internal/diagnose-google-ai-pro': typeof ApiInternalDiagnoseGoogleAiProRoute
   '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/api/public/migration-report': typeof ApiPublicMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
@@ -381,6 +389,7 @@ export interface FileRoutesByTo {
   '/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/api/internal/audit-courses': typeof ApiInternalAuditCoursesRoute
+  '/api/internal/diagnose-google-ai-pro': typeof ApiInternalDiagnoseGoogleAiProRoute
   '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/api/public/migration-report': typeof ApiPublicMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
@@ -429,6 +438,7 @@ export interface FileRoutesById {
   '/_authenticated/curso/$slug': typeof AuthenticatedCursoSlugRoute
   '/_authenticated/quiz/$moduleId': typeof AuthenticatedQuizModuleIdRoute
   '/api/internal/audit-courses': typeof ApiInternalAuditCoursesRoute
+  '/api/internal/diagnose-google-ai-pro': typeof ApiInternalDiagnoseGoogleAiProRoute
   '/api/public/download-migration-report': typeof ApiPublicDownloadMigrationReportRoute
   '/api/public/migration-report': typeof ApiPublicMigrationReportRoute
   '/curso/$slug/oferta': typeof CursoSlugOfertaRoute
@@ -477,6 +487,7 @@ export interface FileRouteTypes {
     | '/curso/$slug'
     | '/quiz/$moduleId'
     | '/api/internal/audit-courses'
+    | '/api/internal/diagnose-google-ai-pro'
     | '/api/public/download-migration-report'
     | '/api/public/migration-report'
     | '/curso/$slug/oferta'
@@ -521,6 +532,7 @@ export interface FileRouteTypes {
     | '/curso/$slug'
     | '/quiz/$moduleId'
     | '/api/internal/audit-courses'
+    | '/api/internal/diagnose-google-ai-pro'
     | '/api/public/download-migration-report'
     | '/api/public/migration-report'
     | '/curso/$slug/oferta'
@@ -568,6 +580,7 @@ export interface FileRouteTypes {
     | '/_authenticated/curso/$slug'
     | '/_authenticated/quiz/$moduleId'
     | '/api/internal/audit-courses'
+    | '/api/internal/diagnose-google-ai-pro'
     | '/api/public/download-migration-report'
     | '/api/public/migration-report'
     | '/curso/$slug/oferta'
@@ -594,6 +607,7 @@ export interface RootRouteChildren {
   GoogleAiProOfertaRoute: typeof GoogleAiProOfertaRoute
   ValidarCertificadoCodigoRoute: typeof ValidarCertificadoCodigoRoute
   ApiInternalAuditCoursesRoute: typeof ApiInternalAuditCoursesRoute
+  ApiInternalDiagnoseGoogleAiProRoute: typeof ApiInternalDiagnoseGoogleAiProRoute
   ApiPublicDownloadMigrationReportRoute: typeof ApiPublicDownloadMigrationReportRoute
   ApiPublicMigrationReportRoute: typeof ApiPublicMigrationReportRoute
   CursoSlugOfertaRoute: typeof CursoSlugOfertaRoute
@@ -803,6 +817,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/download-migration-report'
       fullPath: '/api/public/download-migration-report'
       preLoaderRoute: typeof ApiPublicDownloadMigrationReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal/diagnose-google-ai-pro': {
+      id: '/api/internal/diagnose-google-ai-pro'
+      path: '/api/internal/diagnose-google-ai-pro'
+      fullPath: '/api/internal/diagnose-google-ai-pro'
+      preLoaderRoute: typeof ApiInternalDiagnoseGoogleAiProRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/internal/audit-courses': {
@@ -1049,6 +1070,7 @@ const rootRouteChildren: RootRouteChildren = {
   GoogleAiProOfertaRoute: GoogleAiProOfertaRoute,
   ValidarCertificadoCodigoRoute: ValidarCertificadoCodigoRoute,
   ApiInternalAuditCoursesRoute: ApiInternalAuditCoursesRoute,
+  ApiInternalDiagnoseGoogleAiProRoute: ApiInternalDiagnoseGoogleAiProRoute,
   ApiPublicDownloadMigrationReportRoute: ApiPublicDownloadMigrationReportRoute,
   ApiPublicMigrationReportRoute: ApiPublicMigrationReportRoute,
   CursoSlugOfertaRoute: CursoSlugOfertaRoute,
