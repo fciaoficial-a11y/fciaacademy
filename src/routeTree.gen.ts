@@ -26,6 +26,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ValidarCertificadoCodigoRouteImport } from './routes/validar-certificado.$codigo'
 import { Route as TrilhasSlugRouteImport } from './routes/trilhas.$slug'
 import { Route as SettingsCredenciaisRouteImport } from './routes/settings.credenciais'
+import { Route as GoogleAiProOfertaRouteImport } from './routes/google-ai-pro.oferta'
 import { Route as EbookIaSemComplicacaoEntregaRouteImport } from './routes/ebook-ia-sem-complicacao.entrega'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedEvolucaoRouteImport } from './routes/_authenticated/evolucao'
@@ -137,6 +138,11 @@ const SettingsCredenciaisRoute = SettingsCredenciaisRouteImport.update({
   id: '/credenciais',
   path: '/credenciais',
   getParentRoute: () => SettingsRoute,
+} as any)
+const GoogleAiProOfertaRoute = GoogleAiProOfertaRouteImport.update({
+  id: '/google-ai-pro/oferta',
+  path: '/google-ai-pro/oferta',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const EbookIaSemComplicacaoEntregaRoute =
   EbookIaSemComplicacaoEntregaRouteImport.update({
@@ -306,6 +312,7 @@ export interface FileRoutesByFullPath {
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
+  '/google-ai-pro/oferta': typeof GoogleAiProOfertaRoute
   '/settings/credenciais': typeof SettingsCredenciaisRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
@@ -348,6 +355,7 @@ export interface FileRoutesByTo {
   '/evolucao': typeof AuthenticatedEvolucaoRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
+  '/google-ai-pro/oferta': typeof GoogleAiProOfertaRoute
   '/settings/credenciais': typeof SettingsCredenciaisRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
@@ -394,6 +402,7 @@ export interface FileRoutesById {
   '/_authenticated/evolucao': typeof AuthenticatedEvolucaoRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/ebook-ia-sem-complicacao/entrega': typeof EbookIaSemComplicacaoEntregaRoute
+  '/google-ai-pro/oferta': typeof GoogleAiProOfertaRoute
   '/settings/credenciais': typeof SettingsCredenciaisRoute
   '/trilhas/$slug': typeof TrilhasSlugRoute
   '/validar-certificado/$codigo': typeof ValidarCertificadoCodigoRoute
@@ -440,6 +449,7 @@ export interface FileRouteTypes {
     | '/evolucao'
     | '/profile'
     | '/ebook-ia-sem-complicacao/entrega'
+    | '/google-ai-pro/oferta'
     | '/settings/credenciais'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
@@ -482,6 +492,7 @@ export interface FileRouteTypes {
     | '/evolucao'
     | '/profile'
     | '/ebook-ia-sem-complicacao/entrega'
+    | '/google-ai-pro/oferta'
     | '/settings/credenciais'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
@@ -527,6 +538,7 @@ export interface FileRouteTypes {
     | '/_authenticated/evolucao'
     | '/_authenticated/profile'
     | '/ebook-ia-sem-complicacao/entrega'
+    | '/google-ai-pro/oferta'
     | '/settings/credenciais'
     | '/trilhas/$slug'
     | '/validar-certificado/$codigo'
@@ -567,6 +579,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TrilhasRoute: typeof TrilhasRouteWithChildren
   TurmasRoute: typeof TurmasRoute
+  GoogleAiProOfertaRoute: typeof GoogleAiProOfertaRoute
   ValidarCertificadoCodigoRoute: typeof ValidarCertificadoCodigoRoute
   ApiPublicDownloadMigrationReportRoute: typeof ApiPublicDownloadMigrationReportRoute
   ApiPublicMigrationReportRoute: typeof ApiPublicMigrationReportRoute
@@ -694,6 +707,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/credenciais'
       preLoaderRoute: typeof SettingsCredenciaisRouteImport
       parentRoute: typeof SettingsRoute
+    }
+    '/google-ai-pro/oferta': {
+      id: '/google-ai-pro/oferta'
+      path: '/google-ai-pro/oferta'
+      fullPath: '/google-ai-pro/oferta'
+      preLoaderRoute: typeof GoogleAiProOfertaRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/ebook-ia-sem-complicacao/entrega': {
       id: '/ebook-ia-sem-complicacao/entrega'
@@ -1006,6 +1026,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TrilhasRoute: TrilhasRouteWithChildren,
   TurmasRoute: TurmasRoute,
+  GoogleAiProOfertaRoute: GoogleAiProOfertaRoute,
   ValidarCertificadoCodigoRoute: ValidarCertificadoCodigoRoute,
   ApiPublicDownloadMigrationReportRoute: ApiPublicDownloadMigrationReportRoute,
   ApiPublicMigrationReportRoute: ApiPublicMigrationReportRoute,
