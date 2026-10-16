@@ -146,11 +146,13 @@ async function processPaymentPayload(
   // porque depois do primeiro evento pago `wasPaid` passa a ser true.
   if (isPaid && !wasPaid) {
     // Consulta o curso para identificar Google AI Pro por slug (sem UUID fixo).
-    const { data: course } = await supabaseAdmin
-      .from("courses")
-      .select("id, slug, title")
-      .eq("id", existing.course_id)
-      .maybeSingle();
+    const { data: course } = existing.course_id
+      ? await supabaseAdmin
+          .from("courses")
+          .select("id, slug, title")
+          .eq("id", existing.course_id)
+          .maybeSingle()
+      : { data: null };
 
     if (course?.slug === "google-ai-pro") {
       // Google AI Pro: não cria enrollment para o próprio produto.
