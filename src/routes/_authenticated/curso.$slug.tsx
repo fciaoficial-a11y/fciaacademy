@@ -59,7 +59,7 @@ export const Route = createFileRoute("/_authenticated/curso/$slug")({
   errorComponent: ({ error }) => (
     <div className="mx-auto max-w-3xl px-6 py-20 text-center">
       <h1 className="font-display text-2xl">Erro ao carregar curso.</h1>
-      <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{error instanceof Error ? error.message : String(error)}</p>
     </div>
   ),
   component: CourseLearnPage,
