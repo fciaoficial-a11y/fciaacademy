@@ -47,6 +47,117 @@ export type Database = {
         }
         Relationships: []
       }
+      bonus_allocations: {
+        Row: {
+          allocated_at: string
+          bonus_type: string
+          campaign_id: string
+          course_id: string
+          id: string
+          payment_id: string
+          position: number
+          status: string
+          user_id: string
+        }
+        Insert: {
+          allocated_at?: string
+          bonus_type: string
+          campaign_id: string
+          course_id: string
+          id?: string
+          payment_id: string
+          position: number
+          status?: string
+          user_id: string
+        }
+        Update: {
+          allocated_at?: string
+          bonus_type?: string
+          campaign_id?: string
+          course_id?: string
+          id?: string
+          payment_id?: string
+          position?: number
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bonus_allocations_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "bonus_campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bonus_allocations_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bonus_allocations_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bonus_campaigns: {
+        Row: {
+          allocated_count: number
+          bonus_target: string
+          bonus_type: string
+          created_at: string
+          ends_at: string | null
+          id: string
+          is_active: boolean
+          max_allocations: number
+          name: string
+          slug: string
+          starts_at: string
+          updated_at: string
+        }
+        Insert: {
+          allocated_count?: number
+          bonus_target: string
+          bonus_type: string
+          created_at?: string
+          ends_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_allocations?: number
+          name: string
+          slug: string
+          starts_at?: string
+          updated_at?: string
+        }
+        Update: {
+          allocated_count?: number
+          bonus_target?: string
+          bonus_type?: string
+          created_at?: string
+          ends_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_allocations?: number
+          name?: string
+          slug?: string
+          starts_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bonus_campaigns_bonus_target_fkey"
+            columns: ["bonus_target"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bonus_downloads: {
         Row: {
           bonus_id: string
@@ -1065,6 +1176,16 @@ export type Database = {
           courses_completed: number
           total_students: number
         }[]
+      }
+      allocate_first_n_bonus: {
+        Args: {
+          _bonus_type: string
+          _campaign_id: string
+          _course_id: string
+          _payment_id: string
+          _user_id: string
+        }
+        Returns: Json
       }
       assemble_exam: {
         Args: { _course_id: string; _size?: number }
