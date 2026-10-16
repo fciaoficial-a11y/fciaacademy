@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createPixCharge, syncPixPayment } from "@/lib/payments.functions";
+import { supabase } from "@/integrations/supabase/client";
 import {
   isPaymentApproved,
   isPaymentTerminal,
@@ -26,7 +27,8 @@ import {
  */
 export type PixCheckoutProps =
   | { mode?: "plan"; planId: PaidPlanId; courseId?: string; title?: string; onPaid?: () => void }
-  | { mode: "course"; courseId: string; title: string; onPaid?: () => void; planId?: never };
+  | { mode: "course"; courseId: string; title: string; onPaid?: () => void; planId?: never; productSlug?: never }
+  | { mode: "course"; productSlug: string; title: string; onPaid?: () => void; planId?: never; courseId?: never };
 
 export function PixCheckout(props: PixCheckoutProps) {
   const queryClient = useQueryClient();
@@ -43,13 +45,28 @@ export function PixCheckout(props: PixCheckoutProps) {
   // LEGACY: props.mode "plan" ainda tipado por compatibilidade, mas nunca é usado.
   const headline = (props as { title?: string }).title ?? "FCIA Academy";
 
+  // Resolve o curso pelo slug quando a página informa productSlug em vez de courseId.
+  const productSlug = "productSlug" in props ? props.productSlug : undefined;
+  const slugCourse = useQuery({
+    queryKey: ["course-id-by-slug", productSlug],
+    enabled: !!productSlug,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("courses").select("id").eq("slug", productSlug!).maybeSingle();
+      if (error) throw error;
+      return data?.id ?? null;
+    },
+  });
+  const resolvedCourseId = productSlug ? slugCourse.data ?? undefined : (props as { courseId?: string }).courseId;
 
   const charge = useMutation({
-    mutationFn: (cpfCnpj?: string) =>
-      createCharge({
+    mutationFn: (cpfCnpj?: string) => {
+      if (!resolvedCourseId) throw new Error("Produto indisponível no momento.");
+      return createCharge({
         // LEGACY: modo "plan" desativado no backend — só compra avulsa passa.
-        data: { mode: "course", courseId: (props as { courseId: string }).courseId, cpfCnpj },
-      }),
+        data: { mode: "course", courseId: resolvedCourseId, cpfCnpj },
+      });
+    },
+
 
     onSuccess: (result) => {
       setPaymentId(result.paymentId);

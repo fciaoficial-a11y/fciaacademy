@@ -9,106 +9,60 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TurmasRouteImport } from './routes/turmas'
-import { Route as TrilhasRouteImport } from './routes/trilhas'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as RegisterRouteImport } from './routes/register'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as InscricaoRouteImport } from './routes/inscricao'
-import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as EmpresasRouteImport } from './routes/empresas'
-import { Route as EbookIaSemComplicacaoRouteImport } from './routes/ebook-ia-sem-complicacao'
-import { Route as CursosRouteImport } from './routes/cursos'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ValidarCertificadoCodigoRouteImport } from './routes/validar-certificado.$codigo'
-import { Route as TrilhasSlugRouteImport } from './routes/trilhas.$slug'
-import { Route as SettingsCredenciaisRouteImport } from './routes/settings.credenciais'
-import { Route as GoogleAiProOfertaRouteImport } from './routes/google-ai-pro.oferta'
-import { Route as EbookIaSemComplicacaoEntregaRouteImport } from './routes/ebook-ia-sem-complicacao.entrega'
-import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
-import { Route as AuthenticatedEvolucaoRouteImport } from './routes/_authenticated/evolucao'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedCertificadosRouteImport } from './routes/_authenticated/certificados'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as CursosRouteImport } from './routes/cursos'
+import { Route as EbookIaSemComplicacaoRouteImport } from './routes/ebook-ia-sem-complicacao'
+import { Route as EmpresasRouteImport } from './routes/empresas'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as InscricaoRouteImport } from './routes/inscricao'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TrilhasRouteImport } from './routes/trilhas'
+import { Route as TurmasRouteImport } from './routes/turmas'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
-import { Route as AuthenticatedCertificadosIndexRouteImport } from './routes/_authenticated/certificados.index'
+import { Route as AuthenticatedCertificadosRouteImport } from './routes/_authenticated/certificados'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedEvolucaoRouteImport } from './routes/_authenticated/evolucao'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as EbookIaSemComplicacaoEntregaRouteImport } from './routes/ebook-ia-sem-complicacao.entrega'
+import { Route as GoogleAiProOfertaRouteImport } from './routes/google-ai-pro.oferta'
+import { Route as SettingsCredenciaisRouteImport } from './routes/settings.credenciais'
+import { Route as TrilhasSlugRouteImport } from './routes/trilhas.$slug'
+import { Route as ValidarCertificadoCodigoRouteImport } from './routes/validar-certificado.$codigo'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
-import { Route as CursoSlugOfertaRouteImport } from './routes/curso.$slug.oferta'
-import { Route as ApiPublicMigrationReportRouteImport } from './routes/api/public/migration-report'
-import { Route as ApiPublicDownloadMigrationReportRouteImport } from './routes/api/public/download-migration-report'
-import { Route as ApiInternalDiagnoseGoogleAiProRouteImport } from './routes/api/internal/diagnose-google-ai-pro'
-import { Route as ApiInternalAuditCoursesRouteImport } from './routes/api/internal/audit-courses'
-import { Route as AuthenticatedQuizModuleIdRouteImport } from './routes/_authenticated/quiz.$moduleId'
-import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authenticated/curso.$slug'
-import { Route as AuthenticatedCertificadosIdRouteImport } from './routes/_authenticated/certificados.$id'
-import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
-import { Route as AuthenticatedAdminTrilhasRouteImport } from './routes/_authenticated/admin/trilhas'
-import { Route as AuthenticatedAdminSenhaRouteImport } from './routes/_authenticated/admin/senha'
-import { Route as AuthenticatedAdminQuestoesRouteImport } from './routes/_authenticated/admin/questoes'
-import { Route as AuthenticatedAdminProducaoRouteImport } from './routes/_authenticated/admin/producao'
-import { Route as AuthenticatedAdminPagamentosRouteImport } from './routes/_authenticated/admin/pagamentos'
-import { Route as AuthenticatedAdminModulosRouteImport } from './routes/_authenticated/admin/modulos'
-import { Route as AuthenticatedAdminGerarCursoRouteImport } from './routes/_authenticated/admin/gerar-curso'
-import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
-import { Route as AuthenticatedAdminCertificadosRouteImport } from './routes/_authenticated/admin/certificados'
 import { Route as AuthenticatedAdminAiStudioRouteImport } from './routes/_authenticated/admin/ai-studio'
+import { Route as AuthenticatedAdminCertificadosRouteImport } from './routes/_authenticated/admin/certificados'
+import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin/cursos'
+import { Route as AuthenticatedAdminGerarCursoRouteImport } from './routes/_authenticated/admin/gerar-curso'
+import { Route as AuthenticatedAdminModulosRouteImport } from './routes/_authenticated/admin/modulos'
+import { Route as AuthenticatedAdminPagamentosRouteImport } from './routes/_authenticated/admin/pagamentos'
+import { Route as AuthenticatedAdminProducaoRouteImport } from './routes/_authenticated/admin/producao'
+import { Route as AuthenticatedAdminQuestoesRouteImport } from './routes/_authenticated/admin/questoes'
+import { Route as AuthenticatedAdminSenhaRouteImport } from './routes/_authenticated/admin/senha'
+import { Route as AuthenticatedAdminTrilhasRouteImport } from './routes/_authenticated/admin/trilhas'
+import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
+import { Route as AuthenticatedCertificadosIndexRouteImport } from './routes/_authenticated/certificados.index'
+import { Route as AuthenticatedCertificadosIdRouteImport } from './routes/_authenticated/certificados.$id'
+import { Route as AuthenticatedCursoSlugRouteImport } from './routes/_authenticated/curso.$slug'
+import { Route as AuthenticatedQuizModuleIdRouteImport } from './routes/_authenticated/quiz.$moduleId'
+import { Route as ApiInternalAuditCoursesRouteImport } from './routes/api/internal/audit-courses'
+import { Route as ApiInternalDiagnoseGoogleAiProRouteImport } from './routes/api/internal/diagnose-google-ai-pro'
+import { Route as ApiPublicDownloadMigrationReportRouteImport } from './routes/api/public/download-migration-report'
+import { Route as ApiPublicMigrationReportRouteImport } from './routes/api/public/migration-report'
+import { Route as CursoSlugOfertaRouteImport } from './routes/curso.$slug.oferta'
 import { Route as ApiPublicWebhooksAsaasRouteImport } from './routes/api/public/webhooks/asaas'
 
-const TurmasRoute = TurmasRouteImport.update({
-  id: '/turmas',
-  path: '/turmas',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TrilhasRoute = TrilhasRouteImport.update({
-  id: '/trilhas',
-  path: '/trilhas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InscricaoRoute = InscricaoRouteImport.update({
-  id: '/inscricao',
-  path: '/inscricao',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmpresasRoute = EmpresasRouteImport.update({
-  id: '/empresas',
-  path: '/empresas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EbookIaSemComplicacaoRoute = EbookIaSemComplicacaoRouteImport.update({
-  id: '/ebook-ia-sem-complicacao',
-  path: '/ebook-ia-sem-complicacao',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CursosRoute = CursosRouteImport.update({
@@ -116,55 +70,64 @@ const CursosRoute = CursosRouteImport.update({
   path: '/cursos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const EbookIaSemComplicacaoRoute = EbookIaSemComplicacaoRouteImport.update({
+  id: '/ebook-ia-sem-complicacao',
+  path: '/ebook-ia-sem-complicacao',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const EmpresasRoute = EmpresasRouteImport.update({
+  id: '/empresas',
+  path: '/empresas',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ValidarCertificadoCodigoRoute =
-  ValidarCertificadoCodigoRouteImport.update({
-    id: '/validar-certificado/$codigo',
-    path: '/validar-certificado/$codigo',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const TrilhasSlugRoute = TrilhasSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => TrilhasRoute,
-} as any)
-const SettingsCredenciaisRoute = SettingsCredenciaisRouteImport.update({
-  id: '/credenciais',
-  path: '/credenciais',
-  getParentRoute: () => SettingsRoute,
-} as any)
-const GoogleAiProOfertaRoute = GoogleAiProOfertaRouteImport.update({
-  id: '/google-ai-pro/oferta',
-  path: '/google-ai-pro/oferta',
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EbookIaSemComplicacaoEntregaRoute =
-  EbookIaSemComplicacaoEntregaRouteImport.update({
-    id: '/entrega',
-    path: '/entrega',
-    getParentRoute: () => EbookIaSemComplicacaoRoute,
-  } as any)
-const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const InscricaoRoute = InscricaoRouteImport.update({
+  id: '/inscricao',
+  path: '/inscricao',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedEvolucaoRoute = AuthenticatedEvolucaoRouteImport.update({
-  id: '/evolucao',
-  path: '/evolucao',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrilhasRoute = TrilhasRouteImport.update({
+  id: '/trilhas',
+  path: '/trilhas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TurmasRoute = TurmasRouteImport.update({
+  id: '/turmas',
+  path: '/turmas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCertificadosRoute =
@@ -173,118 +136,57 @@ const AuthenticatedCertificadosRoute =
     path: '/certificados',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCertificadosIndexRoute =
-  AuthenticatedCertificadosIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedCertificadosRoute,
+const AuthenticatedEvolucaoRoute = AuthenticatedEvolucaoRouteImport.update({
+  id: '/evolucao',
+  path: '/evolucao',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const EbookIaSemComplicacaoEntregaRoute =
+  EbookIaSemComplicacaoEntregaRouteImport.update({
+    id: '/entrega',
+    path: '/entrega',
+    getParentRoute: () => EbookIaSemComplicacaoRoute,
+  } as any)
+const GoogleAiProOfertaRoute = GoogleAiProOfertaRouteImport.update({
+  id: '/google-ai-pro/oferta',
+  path: '/google-ai-pro/oferta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsCredenciaisRoute = SettingsCredenciaisRouteImport.update({
+  id: '/credenciais',
+  path: '/credenciais',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const TrilhasSlugRoute = TrilhasSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TrilhasRoute,
+} as any)
+const ValidarCertificadoCodigoRoute =
+  ValidarCertificadoCodigoRouteImport.update({
+    id: '/validar-certificado/$codigo',
+    path: '/validar-certificado/$codigo',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const CursoSlugOfertaRoute = CursoSlugOfertaRouteImport.update({
-  id: '/curso/$slug/oferta',
-  path: '/curso/$slug/oferta',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicMigrationReportRoute =
-  ApiPublicMigrationReportRouteImport.update({
-    id: '/api/public/migration-report',
-    path: '/api/public/migration-report',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicDownloadMigrationReportRoute =
-  ApiPublicDownloadMigrationReportRouteImport.update({
-    id: '/api/public/download-migration-report',
-    path: '/api/public/download-migration-report',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiInternalDiagnoseGoogleAiProRoute =
-  ApiInternalDiagnoseGoogleAiProRouteImport.update({
-    id: '/api/internal/diagnose-google-ai-pro',
-    path: '/api/internal/diagnose-google-ai-pro',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiInternalAuditCoursesRoute = ApiInternalAuditCoursesRouteImport.update({
-  id: '/api/internal/audit-courses',
-  path: '/api/internal/audit-courses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedQuizModuleIdRoute =
-  AuthenticatedQuizModuleIdRouteImport.update({
-    id: '/quiz/$moduleId',
-    path: '/quiz/$moduleId',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedCursoSlugRoute = AuthenticatedCursoSlugRouteImport.update({
-  id: '/curso/$slug',
-  path: '/curso/$slug',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedCertificadosIdRoute =
-  AuthenticatedCertificadosIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () => AuthenticatedCertificadosRoute,
-  } as any)
-const AuthenticatedAdminUsuariosRoute =
-  AuthenticatedAdminUsuariosRouteImport.update({
-    id: '/usuarios',
-    path: '/usuarios',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminTrilhasRoute =
-  AuthenticatedAdminTrilhasRouteImport.update({
-    id: '/trilhas',
-    path: '/trilhas',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminSenhaRoute = AuthenticatedAdminSenhaRouteImport.update({
-  id: '/senha',
-  path: '/senha',
-  getParentRoute: () => AuthenticatedAdminRouteRoute,
-} as any)
-const AuthenticatedAdminQuestoesRoute =
-  AuthenticatedAdminQuestoesRouteImport.update({
-    id: '/questoes',
-    path: '/questoes',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminProducaoRoute =
-  AuthenticatedAdminProducaoRouteImport.update({
-    id: '/producao',
-    path: '/producao',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminPagamentosRoute =
-  AuthenticatedAdminPagamentosRouteImport.update({
-    id: '/pagamentos',
-    path: '/pagamentos',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminModulosRoute =
-  AuthenticatedAdminModulosRouteImport.update({
-    id: '/modulos',
-    path: '/modulos',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminGerarCursoRoute =
-  AuthenticatedAdminGerarCursoRouteImport.update({
-    id: '/gerar-curso',
-    path: '/gerar-curso',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminCursosRoute =
-  AuthenticatedAdminCursosRouteImport.update({
-    id: '/cursos',
-    path: '/cursos',
+const AuthenticatedAdminAiStudioRoute =
+  AuthenticatedAdminAiStudioRouteImport.update({
+    id: '/ai-studio',
+    path: '/ai-studio',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminCertificadosRoute =
@@ -293,12 +195,110 @@ const AuthenticatedAdminCertificadosRoute =
     path: '/certificados',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const AuthenticatedAdminAiStudioRoute =
-  AuthenticatedAdminAiStudioRouteImport.update({
-    id: '/ai-studio',
-    path: '/ai-studio',
+const AuthenticatedAdminCursosRoute =
+  AuthenticatedAdminCursosRouteImport.update({
+    id: '/cursos',
+    path: '/cursos',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminGerarCursoRoute =
+  AuthenticatedAdminGerarCursoRouteImport.update({
+    id: '/gerar-curso',
+    path: '/gerar-curso',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminModulosRoute =
+  AuthenticatedAdminModulosRouteImport.update({
+    id: '/modulos',
+    path: '/modulos',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminPagamentosRoute =
+  AuthenticatedAdminPagamentosRouteImport.update({
+    id: '/pagamentos',
+    path: '/pagamentos',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminProducaoRoute =
+  AuthenticatedAdminProducaoRouteImport.update({
+    id: '/producao',
+    path: '/producao',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminQuestoesRoute =
+  AuthenticatedAdminQuestoesRouteImport.update({
+    id: '/questoes',
+    path: '/questoes',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminSenhaRoute = AuthenticatedAdminSenhaRouteImport.update({
+  id: '/senha',
+  path: '/senha',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminTrilhasRoute =
+  AuthenticatedAdminTrilhasRouteImport.update({
+    id: '/trilhas',
+    path: '/trilhas',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminUsuariosRoute =
+  AuthenticatedAdminUsuariosRouteImport.update({
+    id: '/usuarios',
+    path: '/usuarios',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedCertificadosIndexRoute =
+  AuthenticatedCertificadosIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedCertificadosRoute,
+  } as any)
+const AuthenticatedCertificadosIdRoute =
+  AuthenticatedCertificadosIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedCertificadosRoute,
+  } as any)
+const AuthenticatedCursoSlugRoute = AuthenticatedCursoSlugRouteImport.update({
+  id: '/curso/$slug',
+  path: '/curso/$slug',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedQuizModuleIdRoute =
+  AuthenticatedQuizModuleIdRouteImport.update({
+    id: '/quiz/$moduleId',
+    path: '/quiz/$moduleId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiInternalAuditCoursesRoute = ApiInternalAuditCoursesRouteImport.update({
+  id: '/api/internal/audit-courses',
+  path: '/api/internal/audit-courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInternalDiagnoseGoogleAiProRoute =
+  ApiInternalDiagnoseGoogleAiProRouteImport.update({
+    id: '/api/internal/diagnose-google-ai-pro',
+    path: '/api/internal/diagnose-google-ai-pro',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicDownloadMigrationReportRoute =
+  ApiPublicDownloadMigrationReportRouteImport.update({
+    id: '/api/public/download-migration-report',
+    path: '/api/public/download-migration-report',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicMigrationReportRoute =
+  ApiPublicMigrationReportRouteImport.update({
+    id: '/api/public/migration-report',
+    path: '/api/public/migration-report',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CursoSlugOfertaRoute = CursoSlugOfertaRouteImport.update({
+  id: '/curso/$slug/oferta',
+  path: '/curso/$slug/oferta',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWebhooksAsaasRoute = ApiPublicWebhooksAsaasRouteImport.update({
   id: '/api/public/webhooks/asaas',
   path: '/api/public/webhooks/asaas',
@@ -616,88 +616,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/turmas': {
-      id: '/turmas'
-      path: '/turmas'
-      fullPath: '/turmas'
-      preLoaderRoute: typeof TurmasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/trilhas': {
-      id: '/trilhas'
-      path: '/trilhas'
-      fullPath: '/trilhas'
-      preLoaderRoute: typeof TrilhasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/inscricao': {
-      id: '/inscricao'
-      path: '/inscricao'
-      fullPath: '/inscricao'
-      preLoaderRoute: typeof InscricaoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot-password': {
-      id: '/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof ForgotPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/empresas': {
-      id: '/empresas'
-      path: '/empresas'
-      fullPath: '/empresas'
-      preLoaderRoute: typeof EmpresasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ebook-ia-sem-complicacao': {
-      id: '/ebook-ia-sem-complicacao'
-      path: '/ebook-ia-sem-complicacao'
-      fullPath: '/ebook-ia-sem-complicacao'
-      preLoaderRoute: typeof EbookIaSemComplicacaoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cursos': {
-      id: '/cursos'
-      path: '/cursos'
-      fullPath: '/cursos'
-      preLoaderRoute: typeof CursosRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -707,67 +630,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/cursos': {
+      id: '/cursos'
+      path: '/cursos'
+      fullPath: '/cursos'
+      preLoaderRoute: typeof CursosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/validar-certificado/$codigo': {
-      id: '/validar-certificado/$codigo'
-      path: '/validar-certificado/$codigo'
-      fullPath: '/validar-certificado/$codigo'
-      preLoaderRoute: typeof ValidarCertificadoCodigoRouteImport
+    '/ebook-ia-sem-complicacao': {
+      id: '/ebook-ia-sem-complicacao'
+      path: '/ebook-ia-sem-complicacao'
+      fullPath: '/ebook-ia-sem-complicacao'
+      preLoaderRoute: typeof EbookIaSemComplicacaoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/trilhas/$slug': {
-      id: '/trilhas/$slug'
-      path: '/$slug'
-      fullPath: '/trilhas/$slug'
-      preLoaderRoute: typeof TrilhasSlugRouteImport
-      parentRoute: typeof TrilhasRoute
-    }
-    '/settings/credenciais': {
-      id: '/settings/credenciais'
-      path: '/credenciais'
-      fullPath: '/settings/credenciais'
-      preLoaderRoute: typeof SettingsCredenciaisRouteImport
-      parentRoute: typeof SettingsRoute
-    }
-    '/google-ai-pro/oferta': {
-      id: '/google-ai-pro/oferta'
-      path: '/google-ai-pro/oferta'
-      fullPath: '/google-ai-pro/oferta'
-      preLoaderRoute: typeof GoogleAiProOfertaRouteImport
+    '/empresas': {
+      id: '/empresas'
+      path: '/empresas'
+      fullPath: '/empresas'
+      preLoaderRoute: typeof EmpresasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ebook-ia-sem-complicacao/entrega': {
-      id: '/ebook-ia-sem-complicacao/entrega'
-      path: '/entrega'
-      fullPath: '/ebook-ia-sem-complicacao/entrega'
-      preLoaderRoute: typeof EbookIaSemComplicacaoEntregaRouteImport
-      parentRoute: typeof EbookIaSemComplicacaoRoute
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/profile': {
-      id: '/_authenticated/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/inscricao': {
+      id: '/inscricao'
+      path: '/inscricao'
+      fullPath: '/inscricao'
+      preLoaderRoute: typeof InscricaoRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/evolucao': {
-      id: '/_authenticated/evolucao'
-      path: '/evolucao'
-      fullPath: '/evolucao'
-      preLoaderRoute: typeof AuthenticatedEvolucaoRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trilhas': {
+      id: '/trilhas'
+      path: '/trilhas'
+      fullPath: '/trilhas'
+      preLoaderRoute: typeof TrilhasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/turmas': {
+      id: '/turmas'
+      path: '/turmas'
+      fullPath: '/turmas'
+      preLoaderRoute: typeof TurmasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/certificados': {
@@ -777,19 +728,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCertificadosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/certificados/': {
-      id: '/_authenticated/certificados/'
-      path: '/'
-      fullPath: '/certificados/'
-      preLoaderRoute: typeof AuthenticatedCertificadosIndexRouteImport
-      parentRoute: typeof AuthenticatedCertificadosRoute
+    '/_authenticated/evolucao': {
+      id: '/_authenticated/evolucao'
+      path: '/evolucao'
+      fullPath: '/evolucao'
+      preLoaderRoute: typeof AuthenticatedEvolucaoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/ebook-ia-sem-complicacao/entrega': {
+      id: '/ebook-ia-sem-complicacao/entrega'
+      path: '/entrega'
+      fullPath: '/ebook-ia-sem-complicacao/entrega'
+      preLoaderRoute: typeof EbookIaSemComplicacaoEntregaRouteImport
+      parentRoute: typeof EbookIaSemComplicacaoRoute
+    }
+    '/google-ai-pro/oferta': {
+      id: '/google-ai-pro/oferta'
+      path: '/google-ai-pro/oferta'
+      fullPath: '/google-ai-pro/oferta'
+      preLoaderRoute: typeof GoogleAiProOfertaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings/credenciais': {
+      id: '/settings/credenciais'
+      path: '/credenciais'
+      fullPath: '/settings/credenciais'
+      preLoaderRoute: typeof SettingsCredenciaisRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/trilhas/$slug': {
+      id: '/trilhas/$slug'
+      path: '/$slug'
+      fullPath: '/trilhas/$slug'
+      preLoaderRoute: typeof TrilhasSlugRouteImport
+      parentRoute: typeof TrilhasRoute
+    }
+    '/validar-certificado/$codigo': {
+      id: '/validar-certificado/$codigo'
+      path: '/validar-certificado/$codigo'
+      fullPath: '/validar-certificado/$codigo'
+      preLoaderRoute: typeof ValidarCertificadoCodigoRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -798,123 +791,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/curso/$slug/oferta': {
-      id: '/curso/$slug/oferta'
-      path: '/curso/$slug/oferta'
-      fullPath: '/curso/$slug/oferta'
-      preLoaderRoute: typeof CursoSlugOfertaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/migration-report': {
-      id: '/api/public/migration-report'
-      path: '/api/public/migration-report'
-      fullPath: '/api/public/migration-report'
-      preLoaderRoute: typeof ApiPublicMigrationReportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/download-migration-report': {
-      id: '/api/public/download-migration-report'
-      path: '/api/public/download-migration-report'
-      fullPath: '/api/public/download-migration-report'
-      preLoaderRoute: typeof ApiPublicDownloadMigrationReportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/internal/diagnose-google-ai-pro': {
-      id: '/api/internal/diagnose-google-ai-pro'
-      path: '/api/internal/diagnose-google-ai-pro'
-      fullPath: '/api/internal/diagnose-google-ai-pro'
-      preLoaderRoute: typeof ApiInternalDiagnoseGoogleAiProRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/internal/audit-courses': {
-      id: '/api/internal/audit-courses'
-      path: '/api/internal/audit-courses'
-      fullPath: '/api/internal/audit-courses'
-      preLoaderRoute: typeof ApiInternalAuditCoursesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/quiz/$moduleId': {
-      id: '/_authenticated/quiz/$moduleId'
-      path: '/quiz/$moduleId'
-      fullPath: '/quiz/$moduleId'
-      preLoaderRoute: typeof AuthenticatedQuizModuleIdRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/curso/$slug': {
-      id: '/_authenticated/curso/$slug'
-      path: '/curso/$slug'
-      fullPath: '/curso/$slug'
-      preLoaderRoute: typeof AuthenticatedCursoSlugRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/certificados/$id': {
-      id: '/_authenticated/certificados/$id'
-      path: '/$id'
-      fullPath: '/certificados/$id'
-      preLoaderRoute: typeof AuthenticatedCertificadosIdRouteImport
-      parentRoute: typeof AuthenticatedCertificadosRoute
-    }
-    '/_authenticated/admin/usuarios': {
-      id: '/_authenticated/admin/usuarios'
-      path: '/usuarios'
-      fullPath: '/admin/usuarios'
-      preLoaderRoute: typeof AuthenticatedAdminUsuariosRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/trilhas': {
-      id: '/_authenticated/admin/trilhas'
-      path: '/trilhas'
-      fullPath: '/admin/trilhas'
-      preLoaderRoute: typeof AuthenticatedAdminTrilhasRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/senha': {
-      id: '/_authenticated/admin/senha'
-      path: '/senha'
-      fullPath: '/admin/senha'
-      preLoaderRoute: typeof AuthenticatedAdminSenhaRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/questoes': {
-      id: '/_authenticated/admin/questoes'
-      path: '/questoes'
-      fullPath: '/admin/questoes'
-      preLoaderRoute: typeof AuthenticatedAdminQuestoesRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/producao': {
-      id: '/_authenticated/admin/producao'
-      path: '/producao'
-      fullPath: '/admin/producao'
-      preLoaderRoute: typeof AuthenticatedAdminProducaoRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/pagamentos': {
-      id: '/_authenticated/admin/pagamentos'
-      path: '/pagamentos'
-      fullPath: '/admin/pagamentos'
-      preLoaderRoute: typeof AuthenticatedAdminPagamentosRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/modulos': {
-      id: '/_authenticated/admin/modulos'
-      path: '/modulos'
-      fullPath: '/admin/modulos'
-      preLoaderRoute: typeof AuthenticatedAdminModulosRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/gerar-curso': {
-      id: '/_authenticated/admin/gerar-curso'
-      path: '/gerar-curso'
-      fullPath: '/admin/gerar-curso'
-      preLoaderRoute: typeof AuthenticatedAdminGerarCursoRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/cursos': {
-      id: '/_authenticated/admin/cursos'
-      path: '/cursos'
-      fullPath: '/admin/cursos'
-      preLoaderRoute: typeof AuthenticatedAdminCursosRouteImport
+    '/_authenticated/admin/ai-studio': {
+      id: '/_authenticated/admin/ai-studio'
+      path: '/ai-studio'
+      fullPath: '/admin/ai-studio'
+      preLoaderRoute: typeof AuthenticatedAdminAiStudioRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/certificados': {
@@ -924,12 +805,131 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCertificadosRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/_authenticated/admin/ai-studio': {
-      id: '/_authenticated/admin/ai-studio'
-      path: '/ai-studio'
-      fullPath: '/admin/ai-studio'
-      preLoaderRoute: typeof AuthenticatedAdminAiStudioRouteImport
+    '/_authenticated/admin/cursos': {
+      id: '/_authenticated/admin/cursos'
+      path: '/cursos'
+      fullPath: '/admin/cursos'
+      preLoaderRoute: typeof AuthenticatedAdminCursosRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/gerar-curso': {
+      id: '/_authenticated/admin/gerar-curso'
+      path: '/gerar-curso'
+      fullPath: '/admin/gerar-curso'
+      preLoaderRoute: typeof AuthenticatedAdminGerarCursoRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/modulos': {
+      id: '/_authenticated/admin/modulos'
+      path: '/modulos'
+      fullPath: '/admin/modulos'
+      preLoaderRoute: typeof AuthenticatedAdminModulosRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/pagamentos': {
+      id: '/_authenticated/admin/pagamentos'
+      path: '/pagamentos'
+      fullPath: '/admin/pagamentos'
+      preLoaderRoute: typeof AuthenticatedAdminPagamentosRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/producao': {
+      id: '/_authenticated/admin/producao'
+      path: '/producao'
+      fullPath: '/admin/producao'
+      preLoaderRoute: typeof AuthenticatedAdminProducaoRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/questoes': {
+      id: '/_authenticated/admin/questoes'
+      path: '/questoes'
+      fullPath: '/admin/questoes'
+      preLoaderRoute: typeof AuthenticatedAdminQuestoesRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/senha': {
+      id: '/_authenticated/admin/senha'
+      path: '/senha'
+      fullPath: '/admin/senha'
+      preLoaderRoute: typeof AuthenticatedAdminSenhaRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/trilhas': {
+      id: '/_authenticated/admin/trilhas'
+      path: '/trilhas'
+      fullPath: '/admin/trilhas'
+      preLoaderRoute: typeof AuthenticatedAdminTrilhasRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/usuarios': {
+      id: '/_authenticated/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/certificados/': {
+      id: '/_authenticated/certificados/'
+      path: '/'
+      fullPath: '/certificados/'
+      preLoaderRoute: typeof AuthenticatedCertificadosIndexRouteImport
+      parentRoute: typeof AuthenticatedCertificadosRoute
+    }
+    '/_authenticated/certificados/$id': {
+      id: '/_authenticated/certificados/$id'
+      path: '/$id'
+      fullPath: '/certificados/$id'
+      preLoaderRoute: typeof AuthenticatedCertificadosIdRouteImport
+      parentRoute: typeof AuthenticatedCertificadosRoute
+    }
+    '/_authenticated/curso/$slug': {
+      id: '/_authenticated/curso/$slug'
+      path: '/curso/$slug'
+      fullPath: '/curso/$slug'
+      preLoaderRoute: typeof AuthenticatedCursoSlugRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/quiz/$moduleId': {
+      id: '/_authenticated/quiz/$moduleId'
+      path: '/quiz/$moduleId'
+      fullPath: '/quiz/$moduleId'
+      preLoaderRoute: typeof AuthenticatedQuizModuleIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/internal/audit-courses': {
+      id: '/api/internal/audit-courses'
+      path: '/api/internal/audit-courses'
+      fullPath: '/api/internal/audit-courses'
+      preLoaderRoute: typeof ApiInternalAuditCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal/diagnose-google-ai-pro': {
+      id: '/api/internal/diagnose-google-ai-pro'
+      path: '/api/internal/diagnose-google-ai-pro'
+      fullPath: '/api/internal/diagnose-google-ai-pro'
+      preLoaderRoute: typeof ApiInternalDiagnoseGoogleAiProRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/download-migration-report': {
+      id: '/api/public/download-migration-report'
+      path: '/api/public/download-migration-report'
+      fullPath: '/api/public/download-migration-report'
+      preLoaderRoute: typeof ApiPublicDownloadMigrationReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/migration-report': {
+      id: '/api/public/migration-report'
+      path: '/api/public/migration-report'
+      fullPath: '/api/public/migration-report'
+      preLoaderRoute: typeof ApiPublicMigrationReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/curso/$slug/oferta': {
+      id: '/curso/$slug/oferta'
+      path: '/curso/$slug/oferta'
+      fullPath: '/curso/$slug/oferta'
+      preLoaderRoute: typeof CursoSlugOfertaRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/webhooks/asaas': {
       id: '/api/public/webhooks/asaas'
