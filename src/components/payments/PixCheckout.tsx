@@ -12,7 +12,6 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   isPaymentApproved,
   isPaymentTerminal,
-  PAID_PLAN_LABEL,
   paymentQuery,
   type PaidPlanId,
 } from "@/lib/payments";
@@ -26,9 +25,30 @@ import {
  * Só reintroduzir suporte multi-item com decisão de produto explícita.
  */
 export type PixCheckoutProps =
-  | { mode?: "plan"; planId: PaidPlanId; courseId?: string; title?: string; onPaid?: () => void }
-  | { mode: "course"; courseId: string; title: string; onPaid?: () => void; planId?: never; productSlug?: never }
-  | { mode: "course"; productSlug: string; title: string; onPaid?: () => void; planId?: never; courseId?: never };
+  | {
+      mode?: "plan";
+      planId: PaidPlanId;
+      courseId?: string;
+      productSlug?: string;
+      title?: string;
+      onPaid?: () => void;
+    }
+  | {
+      mode: "course";
+      courseId: string;
+      productSlug?: string;
+      title: string;
+      onPaid?: () => void;
+      planId?: never;
+    }
+  | {
+      mode: "course";
+      productSlug: string;
+      title: string;
+      onPaid?: () => void;
+      planId?: never;
+      courseId?: never;
+    };
 
 export function PixCheckout(props: PixCheckoutProps) {
   const queryClient = useQueryClient();
@@ -39,46 +59,86 @@ export function PixCheckout(props: PixCheckoutProps) {
   const [needsCpf, setNeedsCpf] = useState(false);
   const payment = useQuery({
     ...paymentQuery(paymentId),
-    refetchInterval: (query) => (isPaymentTerminal(query.state.data?.status) ? false : 4_000),
+    refetchInterval: (query) =>
+      isPaymentTerminal(query.state.data?.status) ? false : 4_000,
   });
 
   // LEGACY: props.mode "plan" ainda tipado por compatibilidade, mas nunca é usado.
   const headline = (props as { title?: string }).title ?? "FCIA Academy";
 
-  // Resolve o curso pelo slug quando a página informa productSlug em vez de courseId.
+  // Resolve o identificador do produto no frontend para poder encaminhar o slug
+  // ao backend. O preço continua sendo resolvido exclusivamente pelo servidor.
   const productSlug = "productSlug" in props ? props.productSlug : undefined;
+  const courseId = "courseId" in props ? props.courseId : undefined;
+
   const slugCourse = useQuery({
     queryKey: ["course-id-by-slug", productSlug],
     enabled: !!productSlug,
     queryFn: async () => {
-      const { data, error } = await supabase.from("courses").select("id").eq("slug", productSlug!).maybeSingle();
+      const { data, error } = await supabase
+        .from("courses")
+        .select("id, slug")
+        .eq("slug", productSlug!)
+        .maybeSingle();
       if (error) throw error;
-      return data?.id ?? null;
+      return data ?? null;
     },
   });
-  const resolvedCourseId = productSlug ? slugCourse.data ?? undefined : (props as { courseId?: string }).courseId;
+
+  const courseById = useQuery({
+    queryKey: ["course-slug-by-id", courseId],
+    enabled: !!courseId,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("courses")
+        .select("id, slug")
+        .eq("id", courseId!)
+        .maybeSingle();
+      if (error) throw error;
+      return data ?? null;
+    },
+  });
+
+  const resolvedCourseId = productSlug
+    ? slugCourse.data?.id ?? undefined
+    : courseById.data?.id ?? courseId;
+  const resolvedProductSlug = productSlug ?? courseById.data?.slug;
+  const productIsLoading =
+    (!!productSlug && slugCourse.isLoading) ||
+    (!productSlug && !!courseId && courseById.isLoading);
 
   const charge = useMutation({
     mutationFn: (cpfCnpj?: string) => {
-      if (!resolvedCourseId) throw new Error("Produto indisponível no momento.");
+      if (!resolvedCourseId && !resolvedProductSlug) {
+        throw new Error("Produto indisponível no momento.");
+      }
+
       return createCharge({
-        // LEGACY: modo "plan" desativado no backend — só compra avulsa passa.
-        data: { mode: "course", courseId: resolvedCourseId, cpfCnpj },
+        // O slug identifica o item no backend. O preço é sempre obtido
+        // novamente no banco pelo servidor, nunca enviado pelo cliente.
+        data: {
+          mode: "course",
+          courseId: resolvedCourseId,
+          productSlug: resolvedProductSlug,
+          cpfCnpj,
+        },
       });
     },
-
-
     onSuccess: (result) => {
       setPaymentId(result.paymentId);
       setNeedsCpf(false);
-      toast.success("PIX gerado", { description: "Pague pelo app do seu banco para liberar o acesso." });
+      toast.success("PIX gerado", {
+        description: "Pague pelo app do seu banco para liberar o acesso.",
+      });
     },
     onError: (error: Error) => {
       if (error.message.includes("CPF_REQUIRED")) {
         setNeedsCpf(true);
         return;
       }
-      toast.error("Não foi possível gerar o PIX", { description: error.message });
+      toast.error("Não foi possível gerar o PIX", {
+        description: error.message,
+      });
     },
   });
 
@@ -88,21 +148,33 @@ export function PixCheckout(props: PixCheckoutProps) {
       if (!result) return;
       queryClient.setQueryData(["payment", paymentId], result);
       if (isPaymentApproved(result.status)) {
-        toast.success("Pagamento localizado", { description: "Seu acesso foi liberado." });
+        toast.success("Pagamento localizado", {
+          description: "Seu acesso foi liberado.",
+        });
       } else {
-        toast.info("Pagamento ainda não confirmado", { description: "Assim que o banco confirmar, o acesso será liberado." });
+        toast.info("Pagamento ainda não confirmado", {
+          description:
+            "Assim que o banco confirmar, o acesso será liberado.",
+        });
       }
     },
     onError: (error: Error) => {
-      toast.error("Não foi possível conferir o pagamento", { description: error.message });
+      toast.error("Não foi possível conferir o pagamento", {
+        description: error.message,
+      });
     },
   });
 
   const currentPayment = payment.data;
-  const copyPasteCode = currentPayment?.pix_copy_paste ?? charge.data?.pixCopyPaste ?? "";
-  const qrImage = currentPayment?.pix_qr_code ?? charge.data?.pixQrCode ?? null;
-  const invoiceUrl = currentPayment?.invoice_url ?? charge.data?.invoiceUrl ?? null;
-  const approved = isPaymentApproved(currentPayment?.status ?? charge.data?.status);
+  const copyPasteCode =
+    currentPayment?.pix_copy_paste ?? charge.data?.pixCopyPaste ?? "";
+  const qrImage =
+    currentPayment?.pix_qr_code ?? charge.data?.pixQrCode ?? null;
+  const invoiceUrl =
+    currentPayment?.invoice_url ?? charge.data?.invoiceUrl ?? null;
+  const approved = isPaymentApproved(
+    currentPayment?.status ?? charge.data?.status,
+  );
   const amount = currentPayment?.amount ?? charge.data?.amount;
 
   useEffect(() => {
@@ -130,8 +202,14 @@ export function PixCheckout(props: PixCheckoutProps) {
           <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-primary">
             <QrCode className="h-3.5 w-3.5" /> Compra do curso via PIX
           </div>
-          <h2 className="mt-2 font-display text-xl font-semibold">{headline}</h2>
-          {amount != null && <p className="mt-1 text-sm text-muted-foreground">Valor: R$ {amount.toFixed(2).replace(".", ",")}</p>}
+          <h2 className="mt-2 font-display text-xl font-semibold">
+            {headline}
+          </h2>
+          {amount != null && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              Valor: R$ {amount.toFixed(2).replace(".", ",")}
+            </p>
+          )}
         </div>
         {approved && <CheckCircle2 className="h-6 w-6 text-primary" />}
       </div>
@@ -144,7 +222,9 @@ export function PixCheckout(props: PixCheckoutProps) {
               e.preventDefault();
               const digits = cpf.replace(/\D/g, "");
               if (digits.length !== 11 && digits.length !== 14) {
-                toast.error("Informe um CPF (11) ou CNPJ (14) válido.");
+                toast.error(
+                  "Informe um CPF (11) ou CNPJ (14) válido.",
+                );
                 return;
               }
               charge.mutate(digits);
@@ -152,17 +232,37 @@ export function PixCheckout(props: PixCheckoutProps) {
           >
             <div>
               <Label htmlFor="cpf">CPF ou CNPJ do pagador</Label>
-              <Input id="cpf" inputMode="numeric" placeholder="000.000.000-00" value={cpf} onChange={(e) => setCpf(e.target.value)} />
-              <p className="mt-1 text-xs text-muted-foreground">Exigido pela Asaas para emitir a cobrança PIX.</p>
+              <Input
+                id="cpf"
+                inputMode="numeric"
+                placeholder="000.000.000-00"
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+              />
+              <p className="mt-1 text-xs text-muted-foreground">
+                Exigido pela Asaas para emitir a cobrança PIX.
+              </p>
             </div>
             <Button type="submit" className="w-full" disabled={charge.isPending}>
-              {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
+              {charge.isPending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <QrCode className="mr-2 h-4 w-4" />
+              )}
               Gerar QR Code PIX
             </Button>
           </form>
         ) : (
-          <Button className="mt-5 w-full" disabled={charge.isPending} onClick={() => charge.mutate(undefined)}>
-            {charge.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <QrCode className="mr-2 h-4 w-4" />}
+          <Button
+            className="mt-5 w-full"
+            disabled={charge.isPending || productIsLoading}
+            onClick={() => charge.mutate(undefined)}
+          >
+            {charge.isPending ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <QrCode className="mr-2 h-4 w-4" />
+            )}
             Gerar QR Code PIX
           </Button>
         )
@@ -170,7 +270,11 @@ export function PixCheckout(props: PixCheckoutProps) {
         <div className="mt-5 space-y-4">
           <div className="mx-auto flex h-56 w-56 items-center justify-center rounded-2xl border border-border bg-foreground p-3">
             {qrImage ? (
-              <img src={`data:image/png;base64,${qrImage}`} alt="QR Code PIX para pagamento" className="h-full w-full" />
+              <img
+                src={`data:image/png;base64,${qrImage}`}
+                alt="QR Code PIX para pagamento"
+                className="h-full w-full"
+              />
             ) : copyPasteCode ? (
               <QRCodeSVG value={copyPasteCode} size={196} level="M" />
             ) : (
@@ -179,12 +283,21 @@ export function PixCheckout(props: PixCheckoutProps) {
           </div>
 
           <div className="rounded-xl border border-border bg-background/60 p-3">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground">PIX copia e cola</p>
-            <p className="mt-2 break-all font-mono text-xs text-foreground/80">{copyPasteCode || "Gerando código..."}</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">
+              PIX copia e cola
+            </p>
+            <p className="mt-2 break-all font-mono text-xs text-foreground/80">
+              {copyPasteCode || "Gerando código..."}
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <Button variant="secondary" className="flex-1" disabled={!copyPasteCode} onClick={copyCode}>
+            <Button
+              variant="secondary"
+              className="flex-1"
+              disabled={!copyPasteCode}
+              onClick={copyCode}
+            >
               <Copy className="mr-2 h-4 w-4" /> Copiar código
             </Button>
             {invoiceUrl && (
@@ -197,12 +310,23 @@ export function PixCheckout(props: PixCheckoutProps) {
           </div>
 
           <p className="text-center text-xs text-muted-foreground">
-            {approved ? "Pagamento confirmado. Acesso liberado." : "Aguardando confirmação automática do Asaas."}
+            {approved
+              ? "Pagamento confirmado. Acesso liberado."
+              : "Aguardando confirmação automática do Asaas."}
           </p>
 
           {!approved && paymentId && (
-            <Button variant="outline" className="w-full" disabled={sync.isPending} onClick={() => sync.mutate()}>
-              {sync.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}
+            <Button
+              variant="outline"
+              className="w-full"
+              disabled={sync.isPending}
+              onClick={() => sync.mutate()}
+            >
+              {sync.isPending ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <CheckCircle2 className="mr-2 h-4 w-4" />
+              )}
               Já paguei, verificar agora
             </Button>
           )}
