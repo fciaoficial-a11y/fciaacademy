@@ -57,6 +57,7 @@ function normalizeOrder(rows: ModuleRow[]): ModuleRow[] {
   });
   return copy.map((m, i) => ({
     ...m,
+    order_index: m.order_index ?? m.sort_order ?? i + 1,
     sort_order: m.order_index ?? m.sort_order ?? i + 1,
   }));
 }
@@ -87,7 +88,8 @@ async function resolveCourse() {
     .eq("slug", COURSE_SLUG)
     .maybeSingle();
 
-  if (!bySlug.error && bySlug.data) return bySlug.data as { id: string; title: string; price: number };
+  if (!bySlug.error && bySlug.data)
+    return bySlug.data as { id: string; title: string; price: number };
 
   const byTitle = await supabase
     .from("courses")
@@ -123,6 +125,7 @@ function InfluencerCoursePage() {
     queryKey: ["influencer-course"],
     staleTime: 60_000,
     queryFn: resolveCourse,
+    retry: 1,
   });
   const course = courseQuery.data ?? null;
 
@@ -130,6 +133,7 @@ function InfluencerCoursePage() {
     queryKey: ["influencer-modules", course?.id ?? "none"],
     enabled: courseQuery.isFetched,
     staleTime: 30_000,
+    retry: 1,
     queryFn: async () => {
       if (!course?.id) return [];
       const rows = await fetchModulesFor(course.id);
@@ -158,12 +162,14 @@ function InfluencerCoursePage() {
       const { data } = await supabase.auth.getUser();
       return data.user ?? null;
     },
+    retry: 0,
   });
   const userId = meQuery.data?.id ?? null;
 
   const attemptsQuery = useQuery({
     queryKey: ["influencer-attempts", userId],
     enabled: Boolean(userId),
+    retry: 1,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("quiz_attempts")
@@ -195,6 +201,7 @@ function InfluencerCoursePage() {
   const questionsQuery = useQuery({
     queryKey: ["influencer-questions", active?.id],
     enabled: Boolean(activeUnlocked && active?.id),
+    retry: 1,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("questions")
@@ -336,9 +343,10 @@ function InfluencerCoursePage() {
                 {modulesQuery.error instanceof Error ? modulesQuery.error.message : "erro de rede"}
               </p>
             )}
-            {!modulesQuery.isLoading && !modulesQuery.isError && modules.length === 0 && (
+            {!modulesQuery.isLoading && modules.length === 0 && (
               <p className="px-3 py-2 text-[12px] leading-relaxed text-slate-400">
-                Nenhum módulo vinculado a este curso ainda. Confira em /admin/modulos qual curso está selecionado.
+                Nenhum módulo vinculado a este curso ainda. Confira em /admin/modulos qual curso
+                está selecionado.
               </p>
             )}
             {modules.map((mod, i) => {
@@ -397,7 +405,8 @@ function InfluencerCoursePage() {
           <header className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:p-7">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                <Sparkles className="h-3 w-3" /> Módulo {String(safeIdx + 1).padStart(2, "0")} / {totalLabel}
+                <Sparkles className="h-3 w-3" /> Módulo {String(safeIdx + 1).padStart(2, "0")} /{" "}
+                {totalLabel}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-slate-300">
                 <ShieldCheck className="h-3 w-3" /> {active?.duration_minutes ?? 25} min
@@ -565,7 +574,8 @@ function InfluencerCoursePage() {
                     }
                     className="rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90"
                   >
-                    {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null} Enviar respostas
+                    {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null} Enviar
+                    respostas
                   </Button>
                   {result && (
                     <span
