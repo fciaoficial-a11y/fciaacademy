@@ -23,6 +23,7 @@ import {
   updateRow,
   uploadCourseAsset,
   type AdminCourse,
+  type AdminModule,
 } from "@/lib/admin-api";
 import { checkPublishReadiness, summarizeMissing } from "@/lib/publish-check";
 
@@ -42,6 +43,21 @@ function formatBRL(v: number | null | undefined) {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(Number(v ?? 0));
 }
 
+/**
+ * Um módulo conta para o checklist quando está publicado.
+ * O schema do projeto já passou por versões com `is_published` e com
+ * `is_active` — aceitamos as duas para não congelar o curso em rascunho
+ * por um nome de coluna diferente.
+ */
+function isModuleLive(m: AdminModule): boolean {
+  const anyM = m as unknown as Record<string, unknown>;
+  const pub = anyM.is_published;
+  const active = anyM.is_active;
+  if (typeof pub === "boolean") return pub;
+  if (typeof active === "boolean") return active;
+  return true;
+}
+
 function AdminCoursesPage() {
   const qc = useQueryClient();
   const courses = useQuery(adminCoursesQuery);
@@ -54,7 +70,7 @@ function AdminCoursesPage() {
   const publishedModulesByCourse = useMemo(() => {
     const map = new Map<string, number>();
     (modules.data ?? []).forEach((m) => {
-      if (m.is_published) map.set(m.course_id, (map.get(m.course_id) ?? 0) + 1);
+      if (isModuleLive(m)) map.set(m.course_id, (map.get(m.course_id) ?? 0) + 1);
     });
     return map;
   }, [modules.data]);
@@ -104,6 +120,8 @@ function AdminCoursesPage() {
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", "courses"] });
+      qc.invalidateQueries({ queryKey: ["admin", "modules"] });
+      qc.invalidateQueries({ queryKey: ["courses"] });
       toast.success("Curso salvo.");
       setOpen(false);
     },
@@ -135,10 +153,12 @@ function AdminCoursesPage() {
       }
       await updateRow("courses", c.id, { is_published: !c.is_published });
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin", "courses"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["admin", "courses"] });
+      qc.invalidateQueries({ queryKey: ["courses"] });
+    },
     onError: (e: Error) => toast.error(e.message),
   });
-
 
   async function handleCover(file: File) {
     setUploading(true);
@@ -170,6 +190,7 @@ function AdminCoursesPage() {
               <th className="px-4 py-3">Trilha</th>
               <th className="px-4 py-3">Preço</th>
               <th className="px-4 py-3">Carga</th>
+              <th className="px-4 py-3">Módulos</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3 text-right">Ações</th>
             </tr>
@@ -187,6 +208,9 @@ function AdminCoursesPage() {
                       : <span className="rounded-full bg-destructive/15 px-2 py-0.5 text-xs text-destructive">Sem preço</span>}
                 </td>
                 <td className="px-4 py-3">{c.workload_hours}h</td>
+                <td className="px-4 py-3 tabular-nums text-muted-foreground">
+                  {publishedModulesByCourse.get(c.id) ?? 0}
+                </td>
                 <td className="px-4 py-3">
                   {(() => {
                     const count = publishedModulesByCourse.get(c.id) ?? 0;
@@ -247,7 +271,7 @@ function AdminCoursesPage() {
               </tr>
             ))}
             {!courses.data?.length && !courses.isLoading && (
-              <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">Nenhum curso ainda.</td></tr>
+              <tr><td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">Nenhum curso ainda.</td></tr>
             )}
           </tbody>
         </table>
