@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   Lock,
@@ -32,17 +32,15 @@ type ModuleRow = {
   order_index?: number | null;
 };
 
-type QuestionRow = {
-  id: string;
-  question: string;
-  options: string[];
-  correct_answer: string;
-};
-
 const COURSE_SLUG = "influencer-com-ia";
-const MODULE_FIELDS = "id, title, description, duration_minutes, video_url, pdf_path, sort_order";
+const PASS = 70;
 
-const CHECKLIST = [
+const MODULE_FIELDS_FULL =
+  "id, title, description, duration_minutes, video_url, pdf_path, sort_order, order_index";
+const MODULE_FIELDS_MIN =
+  "id, title, description, duration_minutes, video_url, pdf_path, sort_order";
+
+const FALLBACK_CHECKLIST = [
   "Defini arquétipo e promessa central da influenciadora",
   "Gerei o seed mestre do rosto com 4 ângulos",
   "Escrevi o roteiro com dor, cena e produto",
@@ -50,17 +48,56 @@ const CHECKLIST = [
   "Publiquei o teste e anotei as métricas",
 ];
 
+function normalizeOrder(rows: ModuleRow[]): ModuleRow[] {
+  const copy = rows.slice();
+  copy.sort((a, b) => {
+    const av = a.order_index ?? a.sort_order ?? 0;
+    const bv = b.order_index ?? b.sort_order ?? 0;
+    return av - bv;
+  });
+  return copy.map((m, i) => ({
+    ...m,
+    sort_order: m.order_index ?? m.sort_order ?? i + 1,
+  }));
+}
+
 async function fetchModulesFor(courseId: string): Promise<ModuleRow[]> {
-  const { data, error } = await supabase
+  const first = await supabase
     .from("modules")
-    .select(MODULE_FIELDS)
+    .select(MODULE_FIELDS_FULL)
     .eq("course_id", courseId);
-  if (error) throw error;
-  const rows = ((data ?? []) as ModuleRow[]).slice();
-  rows.sort(
-    (a, b) => (a.sort_order ?? a.order_index ?? 0) - (b.sort_order ?? b.order_index ?? 0),
-  );
-  return rows;
+
+  if (!first.error && first.data) {
+    return normalizeOrder(first.data as unknown as ModuleRow[]);
+  }
+
+  const second = await supabase
+    .from("modules")
+    .select(MODULE_FIELDS_MIN)
+    .eq("course_id", courseId);
+
+  if (second.error) throw second.error;
+  return normalizeOrder((second.data ?? []) as unknown as ModuleRow[]);
+}
+
+async function resolveCourse() {
+  const bySlug = await supabase
+    .from("courses")
+    .select("id, title, price")
+    .eq("slug", COURSE_SLUG)
+    .maybeSingle();
+
+  if (!bySlug.error && bySlug.data) return bySlug.data as { id: string; title: string; price: number };
+
+  const byTitle = await supabase
+    .from("courses")
+    .select("id, title, price")
+    .ilike("title", "%influencer%")
+    .limit(1)
+    .maybeSingle();
+
+  if (byTitle.error) throw byTitle.error;
+  return (byTitle.data as { id: string; title: string; price: number } | null) ?? null;
 }
 
 function InfluencerCoursePage() {
@@ -70,8 +107,8 @@ function InfluencerCoursePage() {
   const [result, setResult] = useState<{ score: number; passed: boolean } | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [paid, setPaid] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
@@ -85,69 +122,33 @@ function InfluencerCoursePage() {
   const courseQuery = useQuery({
     queryKey: ["influencer-course"],
     staleTime: 60_000,
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("courses")
-        .select("id, title, price")
-        .eq("slug", COURSE_SLUG)
-        .maybeSingle();
-      if (error) throw error;
-      return data;
-    },
+    queryFn: resolveCourse,
   });
   const course = courseQuery.data ?? null;
 
   const modulesQuery = useQuery({
-    queryKey: ["influencer-modules", course?.id ?? "fallback"],
+    queryKey: ["influencer-modules", course?.id ?? "none"],
     enabled: courseQuery.isFetched,
     staleTime: 30_000,
     queryFn: async () => {
-      // 1ª tentativa: pelo course_id do curso resolvido pelo slug.
-      if (course?.id) {
-        const rows = await fetchModulesFor(course.id);
-        if (rows.length > 0) return rows;
-      }
+      if (!course?.id) return [];
+      const rows = await fetchModulesFor(course.id);
+      if (rows.length > 0) return rows;
 
-      // 2ª tentativa: resolve o curso pelo slug de novo e busca por course_id.
-      const { data: c2, error: cErr } = await supabase
+      const { data: alt } = await supabase
         .from("courses")
-        .select("id")
-        .eq("slug", COURSE_SLUG)
-        .maybeSingle();
-      if (cErr) throw cErr;
-      if (!c2?.id) return [];
-
-      const byId = await fetchModulesFor(c2.id);
-      if (byId.length > 0) return byId;
-
-      // 3ª tentativa: casar pelo título do curso (variações de slug).
-      const { data: byTitle } = await supabase
-        .from("courses")
-        .select("id, slug, title")
+        .select("id, title")
         .ilike("title", "%influencer%");
-      for (const c of (byTitle ?? []) as Array<{ id: string }>) {
-        if (c.id === c2.id) continue;
-        const rows = await fetchModulesFor(c.id);
-        if (rows.length > 0) return rows;
+      for (const c of (alt ?? []) as Array<{ id: string }>) {
+        if (c.id === course.id) continue;
+        const found = await fetchModulesFor(c.id);
+        if (found.length > 0) return found;
       }
       return [];
     },
   });
 
-  // Lista robusta: aceita sort_order, order_index ou a posição recebida.
-  const modules = useMemo<ModuleRow[]>(() => {
-    const raw = (modulesQuery.data ?? []).slice();
-    raw.sort((a, b) => {
-      const av = a.sort_order ?? a.order_index ?? 0;
-      const bv = b.sort_order ?? b.order_index ?? 0;
-      return av - bv;
-    });
-    return raw.map((m, i) => ({
-      ...m,
-      sort_order: m.sort_order ?? m.order_index ?? i + 1,
-    }));
-  }, [modulesQuery.data]);
-
+  const modules = useMemo(() => normalizeOrder(modulesQuery.data ?? []), [modulesQuery.data]);
   const safeIdx = modules.length ? Math.min(activeIdx, modules.length - 1) : 0;
   const active = modules[safeIdx];
 
@@ -176,7 +177,7 @@ function InfluencerCoursePage() {
   const passedIds = useMemo(() => {
     const set = new Set<string>();
     (attemptsQuery.data ?? []).forEach((a) => {
-      if (a.passed || Number(a.score) >= 70) set.add(a.module_id);
+      if (a.passed || Number(a.score) >= PASS) set.add(a.module_id);
     });
     return set;
   }, [attemptsQuery.data]);
@@ -192,14 +193,13 @@ function InfluencerCoursePage() {
   const percent = modules.length ? Math.round((done / modules.length) * 100) : 0;
 
   const questionsQuery = useQuery({
-    queryKey: ["influencer-questions", active?.id, activeUnlocked],
+    queryKey: ["influencer-questions", active?.id],
     enabled: Boolean(activeUnlocked && active?.id),
     queryFn: async () => {
       const { data, error } = await supabase
         .from("questions")
         .select("id, question, options, correct_answer")
-        .eq("module_id", active!.id)
-        .order("id");
+        .eq("module_id", active!.id);
       if (error) throw error;
       return ((data ?? []) as Array<{
         id: string;
@@ -249,7 +249,7 @@ function InfluencerCoursePage() {
     try {
       const correct = qs.filter((q) => answers[q.id] === q.correct_answer).length;
       const score = Math.round((correct / qs.length) * 100);
-      const passed = score >= 70;
+      const passed = score >= PASS;
       const { error } = await supabase.from("quiz_attempts").insert({
         user_id: userId,
         module_id: active.id,
@@ -262,9 +262,7 @@ function InfluencerCoursePage() {
       setResult({ score, passed });
       await qc.invalidateQueries({ queryKey: ["influencer-attempts", userId] });
       toast[passed ? "success" : "error"](
-        passed
-          ? "Aprovada com " + score + "% — módulo seguinte liberado"
-          : "Nota " + score + "% — mínimo 70%",
+        passed ? `Aprovada com ${score}% — próximo módulo liberado` : `Nota ${score}% — mínimo ${PASS}%`,
       );
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Não foi possível registrar o quiz");
@@ -287,17 +285,25 @@ function InfluencerCoursePage() {
     toast.success("Pagamento aprovado — curso liberado");
   }
 
-  const price = Number(course?.price ?? 297);
-  const totalLabel = String(modules.length).padStart(2, "0");
+  const price = Number(course?.price ?? 97);
+  const totalLabel = String(modules.length || 5).padStart(2, "0");
 
   return (
     <div className="relative min-h-screen bg-[#0A0F1C] text-slate-100">
-      <div aria-hidden className="pointer-events-none absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-cyan-500/20 blur-[120px]" />
-      <div aria-hidden className="pointer-events-none absolute right-0 top-40 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-[120px]" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-cyan-500/20 blur-[120px]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-0 top-40 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-[120px]"
+      />
 
       <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[300px_1fr] lg:py-12">
         <aside className="rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-cyan-300">FCIA Academy</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-cyan-300">
+            FCIA Academy
+          </p>
           <h1 className="mt-2 font-display text-lg font-semibold leading-snug text-white">
             {course?.title ?? "Influencer com IA"}
           </h1>
@@ -332,7 +338,7 @@ function InfluencerCoursePage() {
             )}
             {!modulesQuery.isLoading && !modulesQuery.isError && modules.length === 0 && (
               <p className="px-3 py-2 text-[12px] leading-relaxed text-slate-400">
-                Nenhum módulo vinculado a este curso ainda. Confira no painel /admin/modulos se o curso selecionado é o correto.
+                Nenhum módulo vinculado a este curso ainda. Confira em /admin/modulos qual curso está selecionado.
               </p>
             )}
             {modules.map((mod, i) => {
@@ -398,7 +404,7 @@ function InfluencerCoursePage() {
               </span>
             </div>
             <h2 className="mt-4 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">
-              {active?.title ?? "Aguardando módulos"}
+              {active?.title ?? "Influencer com IA"}
             </h2>
             {active?.description && (
               <p className="mt-3 max-w-[60ch] text-sm leading-relaxed text-slate-400">
@@ -420,7 +426,7 @@ function InfluencerCoursePage() {
               <div className="flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center">
                 <PlayCircle className="h-12 w-12 text-cyan-300/70" />
                 <p className="text-sm text-slate-300">
-                  {active ? "Videoaula — " + active.title : "Nenhum módulo disponível"}
+                  {active ? `Videoaula — ${active.title}` : "Nenhum módulo disponível"}
                 </p>
                 <p className="max-w-md text-xs text-slate-500">
                   O vídeo aparece aqui assim que o professor publicar no painel de produção.
@@ -432,7 +438,7 @@ function InfluencerCoursePage() {
                 <Lock className="h-8 w-8 text-fuchsia-300" />
                 <p className="font-display text-lg font-semibold text-white">Módulo bloqueado</p>
                 <p className="max-w-sm text-xs text-slate-400">
-                  Conclua o quiz do módulo anterior com 70% ou mais para desbloquear.
+                  Conclua o quiz do módulo anterior com {PASS}% ou mais para desbloquear.
                 </p>
               </div>
             )}
@@ -465,7 +471,7 @@ function InfluencerCoursePage() {
                 <ClipboardCheck className="h-3.5 w-3.5 text-fuchsia-300" /> Checklist de prática
               </div>
               <ul className="mt-4 space-y-2">
-                {CHECKLIST.map((item, i) => (
+                {FALLBACK_CHECKLIST.map((item, i) => (
                   <li key={item}>
                     <button
                       type="button"
@@ -555,8 +561,7 @@ function InfluencerCoursePage() {
                   <Button
                     onClick={submitQuiz}
                     disabled={
-                      submitting ||
-                      Object.keys(answers).length < (questionsQuery.data ?? []).length
+                      submitting || Object.keys(answers).length < (questionsQuery.data ?? []).length
                     }
                     className="rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90"
                   >
@@ -569,7 +574,7 @@ function InfluencerCoursePage() {
                         result.passed ? "text-cyan-300" : "text-fuchsia-300",
                       )}
                     >
-                      Nota: {result.score}% {result.passed ? "· aprovada" : "· mínimo 70%"}
+                      Nota: {result.score}% {result.passed ? "· aprovada" : `· mínimo ${PASS}%`}
                     </span>
                   )}
                 </div>
