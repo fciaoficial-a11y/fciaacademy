@@ -44,7 +44,7 @@ type AttemptRow = { module_id: string; score: number; passed: boolean };
 
 const FALLBACK_MODULES: ModuleRow[] = [
   {
-    id: '',
+    id: 'fallback-m1',
     slug: 'm1-dna-da-influenciadora',
     title: 'O DNA da Influenciadora',
     description: 'Posicionamento, arquetipo e promessa central da influenciadora virtual.',
@@ -54,7 +54,7 @@ const FALLBACK_MODULES: ModuleRow[] = [
     pdf_path: null,
   },
   {
-    id: '',
+    id: 'fallback-m2',
     slug: 'm2-rosto-e-estetica',
     title: 'O Rosto e a Estetica',
     description: 'Seed mestre, direcao de arte e consistencia visual do rosto.',
@@ -64,7 +64,7 @@ const FALLBACK_MODULES: ModuleRow[] = [
     pdf_path: null,
   },
   {
-    id: '',
+    id: 'fallback-m3',
     slug: 'm3-realismo-cinematografico',
     title: 'O Realismo Cinematografico',
     description: 'Luz, lente, pele e cenario para sair do visual plastico.',
@@ -74,7 +74,7 @@ const FALLBACK_MODULES: ModuleRow[] = [
     pdf_path: null,
   },
   {
-    id: '',
+    id: 'fallback-m4',
     slug: 'm4-movimento-fala-sincronia',
     title: 'Movimento, Fala e Sincronia Labial',
     description: 'Roteiro, voz, prosodia e lip-sync natural.',
@@ -84,7 +84,7 @@ const FALLBACK_MODULES: ModuleRow[] = [
     pdf_path: null,
   },
   {
-    id: '',
+    id: 'fallback-m5',
     slug: 'm5-escala-e-monetizacao',
     title: 'Escala e Monetizacao',
     description: 'Esteira de producao, testes de gancho e receita no TikTok Shop.',
@@ -153,19 +153,25 @@ function InfluencerCoursePage() {
         .from('modules')
         .select('id, slug, title, description, content_type, duration_minutes, video_url, pdf_path, sort_order')
         .eq('course_id', course!.id)
-        .order('sort_order');
+        .order('sort_order')
+        .limit(5);
       if (error) throw error;
       return (data ?? []) as ModuleRow[];
     },
   });
 
-  const list: ModuleRow[] = modulesQuery.data && modulesQuery.data.length ? modulesQuery.data : FALLBACK_MODULES;
+  const list: ModuleRow[] = useMemo(() => {
+    const db = modulesQuery.data ?? [];
+    if (db.length === 5) return db;
+    return FALLBACK_MODULES.map((fallback, index) => ({ ...fallback, ...(db[index] ?? {}) }));
+  }, [modulesQuery.data]);
+
   const safeIdx = Math.min(activeIdx, list.length - 1);
   const active = list[safeIdx];
 
   const attemptsQuery = useQuery({
     queryKey: ['influencer-attempts', userId],
-    enabled: Boolean(userId && paid),
+    enabled: Boolean(userId),
     queryFn: async () => {
       const { data, error } = await supabase
         .from('quiz_attempts')
@@ -188,11 +194,11 @@ function InfluencerCoursePage() {
     if (!paid) return false;
     if (index === 0) return true;
     const previous = list[index - 1];
-    return Boolean(previous && previous.id && passedIds.has(previous.id));
+    return Boolean(previous && passedIds.has(previous.id));
   }
 
   const activeUnlocked = isUnlocked(safeIdx);
-  const completedCount = list.filter((m) => m.id && passedIds.has(m.id)).length;
+  const completedCount = list.filter((m) => passedIds.has(m.id)).length;
   const percent = list.length ? Math.round((completedCount / list.length) * 100) : 0;
 
   const questionsQuery = useQuery({
@@ -206,7 +212,13 @@ function InfluencerCoursePage() {
         .eq('status', 'approved')
         .order('sort_order');
       if (error) throw error;
-      type RawQuestion = { id: string; question: string; options: unknown; correct_answer: string; explanation: string | null };
+      type RawQuestion = {
+        id: string;
+        question: string;
+        options: unknown;
+        correct_answer: string;
+        explanation: string | null;
+      };
       return ((data ?? []) as RawQuestion[]).map((q) => ({
         ...q,
         options: Array.isArray(q.options) ? (q.options as string[]) : [],
@@ -242,7 +254,11 @@ function InfluencerCoursePage() {
 
   async function submitQuiz() {
     const questions = questionsQuery.data ?? [];
-    if (!questions.length || !userId || !active?.id) return;
+    if (!questions.length || !active?.id) return;
+    if (!userId) {
+      toast.error('Entre na sua conta para registrar o quiz');
+      return;
+    }
     setSubmitting(true);
     try {
       const correct = questions.filter((q) => answers[q.id] === q.correct_answer).length;
@@ -299,8 +315,14 @@ function InfluencerCoursePage() {
 
   return (
     <div className='relative min-h-screen bg-[#0A0F1C] text-slate-100'>
-      <div aria-hidden className='pointer-events-none absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-cyan-500/20 blur-[120px]' />
-      <div aria-hidden className='pointer-events-none absolute top-40 right-0 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-[120px]' />
+      <div
+        aria-hidden
+        className='pointer-events-none absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-cyan-500/20 blur-[120px]'
+      />
+      <div
+        aria-hidden
+        className='pointer-events-none absolute top-40 right-0 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-[120px]'
+      />
 
       <div className='relative mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[300px_1fr] lg:py-12'>
         <aside className='rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl'>
@@ -315,9 +337,14 @@ function InfluencerCoursePage() {
               <span className='font-semibold tabular-nums text-cyan-300'>{percent}%</span>
             </div>
             <div className='h-1.5 w-full overflow-hidden rounded-full bg-white/10'>
-              <div className='h-full rounded-full bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-violet-400 transition-all' style={{ width: percent + '%' }} />
+              <div
+                className='h-full rounded-full bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-violet-400 transition-all'
+                style={{ width: percent + '%' }}
+              />
             </div>
-            <p className='text-[11px] text-slate-400'>{completedCount} de {list.length} modulos concluidos</p>
+            <p className='text-[11px] text-slate-400'>
+              {completedCount} de {list.length} modulos concluidos
+            </p>
           </div>
 
           <nav className='mt-5 space-y-1'>
@@ -349,7 +376,12 @@ function InfluencerCoursePage() {
                     <span className='block text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-500'>
                       Modulo {String(index + 1).padStart(2, '0')}
                     </span>
-                    <span className={cn('mt-0.5 block truncate text-[13px]', current ? 'font-semibold text-white' : 'text-slate-300')}>
+                    <span
+                      className={cn(
+                        'mt-0.5 block truncate text-[13px]',
+                        current ? 'font-semibold text-white' : 'text-slate-300',
+                      )}
+                    >
                       {mod.title}
                     </span>
                   </span>
@@ -359,7 +391,10 @@ function InfluencerCoursePage() {
           </nav>
 
           {!paid && (
-            <Button onClick={() => setCheckoutOpen(true)} className='mt-5 w-full rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90'>
+            <Button
+              onClick={() => setCheckoutOpen(true)}
+              className='mt-5 w-full rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90'
+            >
               Liberar acesso
             </Button>
           )}
@@ -369,24 +404,39 @@ function InfluencerCoursePage() {
           <header className='rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:p-7'>
             <div className='flex flex-wrap items-center gap-2'>
               <span className='inline-flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-cyan-300'>
-                <Sparkles className='h-3 w-3' /> Modulo {String(safeIdx + 1).padStart(2, '0')} / {String(list.length).padStart(2, '0')}
+                <Sparkles className='h-3 w-3' /> Modulo {String(safeIdx + 1).padStart(2, '0')} /{' '}
+                {String(list.length).padStart(2, '0')}
               </span>
               <span className='inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-slate-300'>
                 <ShieldCheck className='h-3 w-3' /> {active?.duration_minutes ?? 30} min
               </span>
             </div>
-            <h2 className='mt-4 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl'>{active?.title}</h2>
-            {active?.description && <p className='mt-3 max-w-[60ch] text-sm leading-relaxed text-slate-400'>{active.description}</p>}
+            <h2 className='mt-4 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl'>
+              {active?.title}
+            </h2>
+            {active?.description && (
+              <p className='mt-3 max-w-[60ch] text-sm leading-relaxed text-slate-400'>
+                {active.description}
+              </p>
+            )}
           </header>
 
           <section className='relative aspect-video w-full overflow-hidden rounded-3xl border border-white/10 bg-black/70'>
             {active?.video_url ? (
-              <video key={active.video_url} src={active.video_url} controls playsInline className='h-full w-full' />
+              <video
+                key={active.video_url}
+                src={active.video_url}
+                controls
+                playsInline
+                className='h-full w-full'
+              />
             ) : (
               <div className='flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center'>
                 <PlayCircle className='h-12 w-12 text-cyan-300/70' />
                 <p className='text-sm text-slate-300'>Video-aula de {active?.title}</p>
-                <p className='max-w-md text-xs text-slate-500'>O video e publicado pelo professor no painel de producao e aparece aqui automaticamente.</p>
+                <p className='max-w-md text-xs text-slate-500'>
+                  O video e publicado pelo professor no painel de producao e aparece aqui automaticamente.
+                </p>
               </div>
             )}
             {!activeUnlocked && (
@@ -399,7 +449,10 @@ function InfluencerCoursePage() {
                     : 'Conclua o quiz do modulo anterior com 70% ou mais para desbloquear.'}
                 </p>
                 {!paid && (
-                  <Button onClick={() => setCheckoutOpen(true)} className='mt-1 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white'>
+                  <Button
+                    onClick={() => setCheckoutOpen(true)}
+                    className='mt-1 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white'
+                  >
                     Liberar acesso
                   </Button>
                 )}
@@ -415,8 +468,14 @@ function InfluencerCoursePage() {
               <div className='mt-4 flex aspect-[4/5] max-h-[320px] w-full flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/15 bg-[#070B14]/60 text-center'>
                 <FileText className='h-9 w-9 text-slate-600' />
                 <p className='text-xs text-slate-400'>Apostila do modulo</p>
-                <p className='max-w-[22ch] text-[11px] text-slate-600'>Visualizador de PDF do modulo {String(safeIdx + 1).padStart(2, '0')}</p>
-                <Button variant='outline' size='sm' className='mt-2 rounded-full border-white/20 bg-transparent text-slate-200 hover:bg-white/10'>
+                <p className='max-w-[22ch] text-[11px] text-slate-600'>
+                  Visualizador de PDF do modulo {String(safeIdx + 1).padStart(2, '0')}
+                </p>
+                <Button
+                  variant='outline'
+                  size='sm'
+                  className='mt-2 rounded-full border-white/20 bg-transparent text-slate-200 hover:bg-white/10'
+                >
                   Abrir PDF
                 </Button>
               </div>
@@ -434,10 +493,22 @@ function InfluencerCoursePage() {
                       onClick={() => toggleCheck(index)}
                       className='flex w-full items-start gap-2.5 rounded-xl border border-white/5 px-3 py-2 text-left transition hover:border-white/15 hover:bg-white/[0.05]'
                     >
-                      <span className={cn('mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border', checked[index] ? 'border-cyan-400 bg-cyan-400/20' : 'border-white/20')}>
+                      <span
+                        className={cn(
+                          'mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border',
+                          checked[index] ? 'border-cyan-400 bg-cyan-400/20' : 'border-white/20',
+                        )}
+                      >
                         {checked[index] ? <CheckCircle2 className='h-3 w-3 text-cyan-300' /> : null}
                       </span>
-                      <span className={cn('text-[12.5px] leading-snug', checked[index] ? 'text-slate-500 line-through' : 'text-slate-300')}>{item}</span>
+                      <span
+                        className={cn(
+                          'text-[12.5px] leading-snug',
+                          checked[index] ? 'text-slate-500 line-through' : 'text-slate-300',
+                        )}
+                      >
+                        {item}
+                      </span>
                     </button>
                   </li>
                 ))}
@@ -451,18 +522,24 @@ function InfluencerCoursePage() {
             </div>
 
             {!activeUnlocked ? (
-              <p className='mt-4 text-sm text-slate-400'>O quiz deste modulo fica disponivel quando o modulo for liberado.</p>
+              <p className='mt-4 text-sm text-slate-400'>
+                O quiz deste modulo fica disponivel quando o modulo for liberado.
+              </p>
             ) : questionsQuery.isLoading ? (
               <div className='mt-6 flex items-center gap-2 text-sm text-slate-400'>
                 <Loader2 className='h-4 w-4 animate-spin' /> Carregando questoes...
               </div>
             ) : (questionsQuery.data ?? []).length === 0 ? (
-              <p className='mt-4 text-sm text-slate-400'>As questoes deste modulo ainda nao foram publicadas.</p>
+              <p className='mt-4 text-sm text-slate-400'>
+                As questoes deste modulo ainda nao foram publicadas.
+              </p>
             ) : (
               <div className='mt-5 space-y-5'>
                 {(questionsQuery.data ?? []).map((q, qIndex) => (
                   <div key={q.id} className='rounded-2xl border border-white/10 bg-[#070B14]/50 p-4'>
-                    <p className='text-sm font-medium text-white'>{qIndex + 1}. {q.question}</p>
+                    <p className='text-sm font-medium text-white'>
+                      {qIndex + 1}. {q.question}
+                    </p>
                     <div className='mt-3 space-y-1.5'>
                       {q.options.map((option) => {
                         const selected = answers[q.id] === option;
@@ -478,7 +555,12 @@ function InfluencerCoursePage() {
                                 : 'border-white/10 text-slate-300 hover:border-white/25 hover:bg-white/[0.05]',
                             )}
                           >
-                            <span className={cn('h-2.5 w-2.5 shrink-0 rounded-full border', selected ? 'border-cyan-300 bg-cyan-300' : 'border-white/30')} />
+                            <span
+                              className={cn(
+                                'h-2.5 w-2.5 shrink-0 rounded-full border',
+                                selected ? 'border-cyan-300 bg-cyan-300' : 'border-white/30',
+                              )}
+                            />
                             {option}
                           </button>
                         );
@@ -496,15 +578,24 @@ function InfluencerCoursePage() {
                 <div className='flex flex-wrap items-center gap-3'>
                   <Button
                     onClick={submitQuiz}
-                    disabled={submitting || Object.keys(answers).length < (questionsQuery.data ?? []).length}
+                    disabled={
+                      submitting ||
+                      Object.keys(answers).length < (questionsQuery.data ?? []).length
+                    }
                     className='rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90'
                   >
                     {submitting ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : null}
                     Enviar respostas
                   </Button>
                   {quizResult && (
-                    <span className={cn('text-sm font-semibold', quizResult.passed ? 'text-cyan-300' : 'text-fuchsia-300')}>
-                      Nota: {quizResult.score}% {quizResult.passed ? '· aprovada' : '· minimo 70%'}
+                    <span
+                      className={cn(
+                        'text-sm font-semibold',
+                        quizResult.passed ? 'text-cyan-300' : 'text-fuchsia-300',
+                      )}
+                    >
+                      Nota: {quizResult.score}%{' '}
+                      {quizResult.passed ? '· aprovada' : '· minimo 70%'}
                     </span>
                   )}
                 </div>
@@ -525,9 +616,15 @@ function InfluencerCoursePage() {
             >
               <X className='h-4 w-4' />
             </button>
-            <p className='text-[10px] font-semibold uppercase tracking-[0.24em] text-cyan-300'>Checkout Asaas</p>
-            <h3 className='mt-2 font-display text-xl font-semibold text-white'>{course?.title ?? 'Influenciadora com IA'}</h3>
-            <p className='mt-1 text-xs text-slate-400'>Pagamento unico via PIX · acesso imediato e vitalicio</p>
+            <p className='text-[10px] font-semibold uppercase tracking-[0.24em] text-cyan-300'>
+              Checkout Asaas
+            </p>
+            <h3 className='mt-2 font-display text-xl font-semibold text-white'>
+              {course?.title ?? 'Influenciadora com IA'}
+            </h3>
+            <p className='mt-1 text-xs text-slate-400'>
+              Pagamento unico via PIX · acesso imediato e vitalicio
+            </p>
 
             <div className='mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4'>
               <div className='flex items-center justify-between text-xs text-slate-400'>
@@ -540,7 +637,9 @@ function InfluencerCoursePage() {
               </div>
               <div className='mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-sm'>
                 <span className='font-semibold text-white'>Total</span>
-                <span className='font-display text-lg font-semibold text-cyan-300'>R$ {price.toFixed(2).replace('.', ',')}</span>
+                <span className='font-display text-lg font-semibold text-cyan-300'>
+                  R$ {price.toFixed(2).replace('.', ',')}
+                </span>
               </div>
             </div>
 
@@ -549,11 +648,16 @@ function InfluencerCoursePage() {
               disabled={processing}
               className='mt-5 w-full rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90'
             >
-              {processing ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : <ShieldCheck className='mr-2 h-4 w-4' />}
+              {processing ? (
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+              ) : (
+                <ShieldCheck className='mr-2 h-4 w-4' />
+              )}
               {processing ? 'Confirmando PIX...' : 'Pagar com PIX'}
             </Button>
             <p className='mt-3 text-center text-[10.5px] leading-relaxed text-slate-500'>
-              Simulacao do webhook PAYMENT_RECEIVED do Asaas. Ao aprovar, o acesso e liberado na hora.
+              Simulacao do webhook PAYMENT_RECEIVED do Asaas. Ao aprovar, o acesso e liberado na
+              hora.
             </p>
           </div>
         </div>
