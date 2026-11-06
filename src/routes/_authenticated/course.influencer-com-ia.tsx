@@ -39,6 +39,7 @@ const MODULE_FIELDS_FULL =
   "id, title, description, duration_minutes, video_url, pdf_path, sort_order, order_index";
 const MODULE_FIELDS_MIN =
   "id, title, description, duration_minutes, video_url, pdf_path, sort_order";
+const MODULE_FIELDS_TINY = "id, title, description, duration_minutes, sort_order";
 
 const FALLBACK_CHECKLIST = [
   "Defini arquétipo e promessa central da influenciadora",
@@ -48,37 +49,39 @@ const FALLBACK_CHECKLIST = [
   "Publiquei o teste e anotei as métricas",
 ];
 
+function moduleOrder(m: ModuleRow, fallback: number) {
+  const raw = m.sort_order ?? m.order_index ?? fallback;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : fallback;
+}
+
 function normalizeOrder(rows: ModuleRow[]): ModuleRow[] {
   const copy = rows.slice();
-  copy.sort((a, b) => {
-    const av = a.order_index ?? a.sort_order ?? 0;
-    const bv = b.order_index ?? b.sort_order ?? 0;
-    return av - bv;
+  copy.sort((a, b) => moduleOrder(a, 0) - moduleOrder(b, 0));
+  return copy.map((m, i) => {
+    const pos = i + 1;
+    return {
+      ...m,
+      order_index: moduleOrder(m, pos),
+      sort_order: moduleOrder(m, pos),
+    };
   });
-  return copy.map((m, i) => ({
-    ...m,
-    order_index: m.order_index ?? m.sort_order ?? i + 1,
-    sort_order: m.order_index ?? m.sort_order ?? i + 1,
-  }));
 }
 
 async function fetchModulesFor(courseId: string): Promise<ModuleRow[]> {
-  const first = await supabase
-    .from("modules")
-    .select(MODULE_FIELDS_FULL)
-    .eq("course_id", courseId);
-
-  if (!first.error && first.data) {
-    return normalizeOrder(first.data as unknown as ModuleRow[]);
+  const attempts = [MODULE_FIELDS_FULL, MODULE_FIELDS_MIN, MODULE_FIELDS_TINY];
+  for (const fields of attempts) {
+    const res = await supabase.from("modules").select(fields).eq("course_id", courseId);
+    if (!res.error && res.data) {
+      return normalizeOrder(res.data as unknown as ModuleRow[]);
+    }
   }
-
-  const second = await supabase
+  const last = await supabase
     .from("modules")
-    .select(MODULE_FIELDS_MIN)
+    .select(MODULE_FIELDS_TINY)
     .eq("course_id", courseId);
-
-  if (second.error) throw second.error;
-  return normalizeOrder((second.data ?? []) as unknown as ModuleRow[]);
+  if (last.error) throw last.error;
+  return normalizeOrder((last.data ?? []) as unknown as ModuleRow[]);
 }
 
 async function resolveCourse() {
@@ -104,7 +107,7 @@ async function resolveCourse() {
 
 function InfluencerCoursePage() {
   const qc = useQueryClient();
-  const [activeIdx, setActiveIdx] = useState(0);
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<{ score: number; passed: boolean } | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -153,7 +156,12 @@ function InfluencerCoursePage() {
   });
 
   const modules = useMemo(() => normalizeOrder(modulesQuery.data ?? []), [modulesQuery.data]);
-  const safeIdx = modules.length ? Math.min(activeIdx, modules.length - 1) : 0;
+
+  const safeIdx = useMemo(() => {
+    if (!modules.length) return 0;
+    const found = modules.findIndex((m) => m.id === activeId);
+    return found >= 0 ? found : 0;
+  }, [modules, activeId]);
   const active = modules[safeIdx];
 
   const meQuery = useQuery({
@@ -351,12 +359,12 @@ function InfluencerCoursePage() {
             )}
             {modules.map((mod, i) => {
               const open = unlocked(i);
-              const current = i === safeIdx;
+              const current = mod.id === active?.id;
               return (
                 <button
                   key={mod.id}
                   type="button"
-                  onClick={() => setActiveIdx(i)}
+                  onClick={() => setActiveId(mod.id)}
                   className={cn(
                     "flex w-full items-start gap-2.5 rounded-xl border px-3 py-2.5 text-left transition",
                     current
