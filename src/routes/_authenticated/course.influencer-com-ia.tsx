@@ -92,52 +92,58 @@ const FALLBACK_CHECKLIST = [
   "Publiquei o teste e anotei as métricas",
 ];
 
-function sortModules(rows: ModuleRow[]): ModuleRow[] {
-  return rows.slice().sort((a, b) => {
-    const ao = Number(a.sort_order ?? 0) || 0;
-    const bo = Number(b.sort_order ?? 0) || 0;
-    return ao - bo;
-  });
+function orderValue(row: Record<string, unknown>): number {
+  const raw = row.sort_order ?? row.order_index ?? row.position ?? row.ordering ?? 0;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function normalize(rows: Array<Record<string, unknown>>): ModuleRow[] {
+  return rows
+    .map((r) => ({
+      id: String(r.id),
+      title: String(r.title ?? ""),
+      description: (r.description as string | null) ?? null,
+      duration_minutes: (r.duration_minutes as number | null) ?? null,
+      video_url: (r.video_url as string | null) ?? null,
+      pdf_path: (r.pdf_path as string | null) ?? null,
+      sort_order: orderValue(r),
+    }))
+    .filter((m) => m.title.length > 0)
+    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
 }
 
 async function fetchModules(courseId: string): Promise<ModuleRow[]> {
-  const full =
-    "id, title, description, duration_minutes, video_url, pdf_path, sort_order";
-  const tiny = "id, title, description, duration_minutes, sort_order";
+  const attempts: Array<string | null> = [
+    "id, title, description, duration_minutes, video_url, pdf_path, sort_order",
+    "id, title, description, duration_minutes, sort_order",
+    "id, title, description, duration_minutes",
+    "*",
+  ];
 
-  const first = await supabase
-    .from("modules")
-    .select(full)
-    .eq("course_id", courseId)
-    .order("sort_order", { ascending: true });
-
-  if (!first.error && first.data) {
-    return sortModules(first.data as unknown as ModuleRow[]);
+  for (const cols of attempts) {
+    const res = cols
+      ? await supabase.from("modules").select(cols).eq("course_id", courseId)
+      : null;
+    if (res && !res.error && Array.isArray(res.data)) {
+      const rows = normalize(res.data as unknown as Array<Record<string, unknown>>);
+      if (rows.length > 0) return rows;
+    }
   }
 
-  const second = await supabase
-    .from("modules")
-    .select(tiny)
-    .eq("course_id", courseId);
-
-  if (!second.error && second.data) {
-    return sortModules(
-      (second.data as unknown as Array<Record<string, unknown>>).map((r) => ({
-        id: String(r.id),
-        title: String(r.title ?? ""),
-        description: (r.description as string | null) ?? null,
-        duration_minutes: (r.duration_minutes as number | null) ?? null,
-        video_url: null,
-        pdf_path: null,
-        sort_order: (r.sort_order as number | null) ?? null,
-      })),
+  // Última tentativa: buscar todos os módulos e filtrar no cliente
+  const all = await supabase.from("modules").select("*");
+  if (!all.error && Array.isArray(all.data)) {
+    const filtered = (all.data as Array<Record<string, unknown>>).filter(
+      (r) => String(r.course_id ?? "") === courseId,
     );
+    return normalize(filtered);
   }
 
   return [];
 }
 
-async function resolveCourseId(): Promise<{
+async function resolveCourse(): Promise<{
   id: string;
   title: string;
   price: number;
@@ -198,7 +204,7 @@ function InfluencerCoursePage() {
     queryKey: ["influencer-course"],
     staleTime: 60_000,
     retry: 1,
-    queryFn: resolveCourseId,
+    queryFn: resolveCourse,
   });
   const course = courseQuery.data ?? null;
 
@@ -210,8 +216,7 @@ function InfluencerCoursePage() {
     queryFn: async (): Promise<ModuleRow[]> => {
       if (!course?.id) return [];
       try {
-        const rows = await fetchModules(course.id);
-        return rows.length > 0 ? rows : [];
+        return await fetchModules(course.id);
       } catch {
         return [];
       }
@@ -222,7 +227,7 @@ function InfluencerCoursePage() {
 
   const modules = useMemo<ModuleRow[]>(() => {
     const fromDb = modulesQuery.data ?? [];
-    if (fromDb.length > 0) return sortModules(fromDb);
+    if (fromDb.length > 0) return fromDb;
     return FALLBACK_MODULES;
   }, [modulesQuery.data]);
 
@@ -345,11 +350,11 @@ function InfluencerCoursePage() {
       if (error) throw error;
       setResult({ score, passed });
       await qc.invalidateQueries({ queryKey: ["influencer-attempts", userId] });
-      toast[passed ? "success" : "error"](
-        passed
-          ? `Aprovada com ${score}% — próximo módulo liberado`
-          : `Nota ${score}% — mínimo ${PASS}%`,
-      );
+      if (passed) {
+        toast.success(`Aprovada com ${score}% — próximo módulo liberado`);
+      } else {
+        toast.error(`Nota ${score}% — mínimo ${PASS}%`);
+      }
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Não foi possível registrar o quiz");
     } finally {
