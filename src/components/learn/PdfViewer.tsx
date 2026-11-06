@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
+import type { PdfCanvasViewerProps } from "./PdfCanvasViewer";
+import { cn } from "@/lib/utils";
 import {
   CheckCircle2,
   ChevronLeft,
@@ -14,22 +13,22 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Configure the pdf.js worker to match the exact API version bundled by react-pdf.
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
+type Props = PdfCanvasViewerProps;
 
-type Props = {
-  signedUrl: string;
-  fileName?: string | null;
-  studentLabel: string;
-  allowDownload?: boolean;
-  completed?: boolean;
-  onProgress?: (visitedPct: number) => void;
-  onComplete?: () => void;
-  onReload?: () => void;
-};
+export function PdfViewer(props: Props) {
+  const isServer = typeof window === "undefined";
+  if (isServer) {
+    return (
+      <div className="flex items-center justify-center rounded-2xl border border-border/60 bg-card/60 p-10 text-sm text-muted-foreground backdrop-blur-xl">
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando material…
+      </div>
+    );
+  }
+  return <PdfViewerClient {...props} />;
+}
 
-export function PdfViewer({
+function PdfViewerClient({
   signedUrl,
   fileName,
   studentLabel,
@@ -89,9 +88,25 @@ export function PdfViewer({
   void studentLabel;
   const watermark = "FCIA Academy";
 
+  const [pdfLib, setPdfLib] = useState<PdfLib | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    import("./pdf-runtime")
+      .then((mod) => {
+        if (!cancelled) setPdfLib(mod.loadPdfLib());
+      })
+      .catch((e: Error) => {
+        if (!cancelled) setLoadError(e?.message || "Falha ao carregar o visualizador de PDF");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const pdfOptions = useMemo(
-    () => ({ cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`, cMapPacked: true }),
-    []
+    () => (pdfLib ? { cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfLib.version}/cmaps/`, cMapPacked: true } : undefined),
+    [pdfLib]
   );
 
   return (
@@ -175,14 +190,18 @@ export function PdfViewer({
               </Button>
             )}
           </div>
+        ) : !pdfLib ? (
+          <div className="flex items-center justify-center p-10 text-sm text-muted-foreground">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando material…
+          </div>
         ) : (
-          <Document
+          <pdfLib.Document
             file={signedUrl}
-            onLoadSuccess={({ numPages: n }) => {
+            onLoadSuccess={({ numPages: n }: { numPages: number }) => {
               setNumPages(n);
               setLoadError(null);
             }}
-            onLoadError={(e) =>
+            onLoadError={(e: Error) =>
               setLoadError(e?.message || "Falha ao carregar o PDF")
             }
             loading={
@@ -192,8 +211,8 @@ export function PdfViewer({
             }
             options={pdfOptions}
           >
-            <div className="relative mx-auto w-fit">
-              <Page
+            <div className={cn("relative mx-auto w-fit")}>
+              <pdfLib.Page
                 pageNumber={pageNumber}
                 width={containerWidth}
                 scale={scale}
@@ -215,7 +234,7 @@ export function PdfViewer({
                 ))}
               </div>
             </div>
-          </Document>
+          </pdfLib.Document>
         )}
       </div>
 
