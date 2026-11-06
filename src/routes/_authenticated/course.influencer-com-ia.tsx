@@ -39,6 +39,8 @@ type QuestionRow = {
   correct_answer: string;
 };
 
+const COURSE_SLUG = "influencer-com-ia";
+
 const CHECKLIST = [
   "Defini arquétipo e promessa central da influenciadora",
   "Gerei o seed mestre do rosto com 4 ângulos",
@@ -72,7 +74,7 @@ function InfluencerCoursePage() {
       const { data, error } = await supabase
         .from("courses")
         .select("id, title, price")
-        .eq("slug", "influencer-com-ia")
+        .eq("slug", COURSE_SLUG)
         .maybeSingle();
       if (error) throw error;
       return data;
@@ -81,22 +83,55 @@ function InfluencerCoursePage() {
   const course = courseQuery.data ?? null;
 
   const modulesQuery = useQuery({
-    queryKey: ["influencer-modules", course?.id],
-    enabled: Boolean(course?.id),
+    queryKey: ["influencer-modules", course?.id ?? "fallback"],
+    enabled: courseQuery.isFetched,
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("modules")
-        .select("id, title, description, duration_minutes, video_url, pdf_path, sort_order")
-        .eq("course_id", course!.id)
-        .order("sort_order", { ascending: true });
-      if (error) throw error;
-      return (data ?? []) as ModuleRow[];
+      // 1ª tentativa: pelo course_id (caminho normal)
+      let rows: ModuleRow[] = [];
+      if (course?.id) {
+        const { data, error } = await supabase
+          .from("modules")
+          .select("id, title, description, duration_minutes, video_url, pdf_path, sort_order")
+          .eq("course_id", course.id);
+        if (error) throw error;
+        rows = (data ?? []) as ModuleRow[];
+      }
+
+      // 2ª tentativa: se nada voltou, resolve o curso pelo slug e busca de novo.
+      if (rows.length === 0) {
+        const { data: c2, error: cErr } = await supabase
+          .from("courses")
+          .select("id")
+          .eq("slug", COURSE_SLUG)
+          .maybeSingle();
+        if (cErr) throw cErr;
+        if (c2?.id) {
+          const { data, error } = await supabase
+            .from("modules")
+            .select("id, title, description, duration_minutes, video_url, pdf_path, sort_order")
+            .eq("course_id", c2.id)
+            .order("sort_order", { ascending: true });
+          if (error) throw error;
+          rows = (data ?? []) as ModuleRow[];
+        }
+      }
+
+      return rows;
     },
   });
 
-  // Lista dinâmica: exatamente o que existe no banco, na ordem cadastrada.
+  // Lista robusta: aceita sort_order, order_index ou a posição recebida.
   const modules = useMemo<ModuleRow[]>(() => {
-    return (modulesQuery.data ?? []).map((m, i) => ({ ...m, sort_order: m.sort_order ?? i + 1 }));
+    const raw = (modulesQuery.data ?? []).slice();
+    raw.sort((a, b) => {
+      const av = a.sort_order ?? a.order_index ?? 0;
+      const bv = b.sort_order ?? b.order_index ?? 0;
+      return av - bv;
+    });
+    return raw.map((m, i) => ({
+      ...m,
+      sort_order: m.sort_order ?? m.order_index ?? i + 1,
+    }));
   }, [modulesQuery.data]);
 
   const safeIdx = modules.length ? Math.min(activeIdx, modules.length - 1) : 0;
@@ -133,7 +168,7 @@ function InfluencerCoursePage() {
   }, [attemptsQuery.data]);
 
   function unlocked(index: number) {
-    if (index === 0) return true;
+    if (index <= 0) return true;
     const prev = modules[index - 1];
     return Boolean(prev && passedIds.has(prev.id));
   }
@@ -265,9 +300,15 @@ function InfluencerCoursePage() {
                 <Loader2 className="h-3.5 w-3.5 animate-spin" /> Carregando módulos...
               </div>
             )}
-            {!modulesQuery.isLoading && modules.length === 0 && (
+            {modulesQuery.isError && (
+              <p className="px-3 py-2 text-[12px] leading-relaxed text-fuchsia-300">
+                Não foi possível carregar os módulos: {" "}
+                {modulesQuery.error instanceof Error ? modulesQuery.error.message : "erro de rede"}
+              </p>
+            )}
+            {!modulesQuery.isLoading && !modulesQuery.isError && modules.length === 0 && (
               <p className="px-3 py-2 text-[12px] leading-relaxed text-slate-400">
-                Nenhum módulo publicado ainda. Assim que o professor cadastrar, ele aparece aqui.
+                Nenhum módulo público ainda. Confira no painel /admin/modulos se o curso selecionado é o correto.
               </p>
             )}
             {modules.map((mod, i) => {
@@ -356,7 +397,9 @@ function InfluencerCoursePage() {
                 <FileText className="h-9 w-9 text-slate-600" />
                 <p className="text-xs text-slate-400">Apostila do módulo</p>
                 <p className="max-w-[22ch] text-[11px] text-slate-600">Visualizador de PDF do módulo {String(safeIdx + 1).padStart(2, "0")}</p>
-                <Button variant="outline" size="sm" className="mt-2 rounded-full border-white/20 bg-transparent text-slate-200 hover:bg-white/10">Abrir PDF</Button>
+                <Button variant="outline" size="sm" className="mt-2 rounded-full border-white/20 bg-transparent text-slate-200 hover:bg-white/10" disabled={!active}>
+                  Abrir PDF
+                </Button>
               </div>
             </section>
 
