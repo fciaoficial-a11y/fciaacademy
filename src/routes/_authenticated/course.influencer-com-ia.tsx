@@ -29,17 +29,60 @@ type ModuleRow = {
   video_url: string | null;
   pdf_path: string | null;
   sort_order: number | null;
-  order_index?: number | null;
 };
 
 const COURSE_SLUG = "influencer-com-ia";
 const PASS = 70;
 
-const MODULE_FIELDS_FULL =
-  "id, title, description, duration_minutes, video_url, pdf_path, sort_order, order_index";
-const MODULE_FIELDS_MIN =
-  "id, title, description, duration_minutes, video_url, pdf_path, sort_order";
-const MODULE_FIELDS_TINY = "id, title, description, duration_minutes, sort_order";
+const FALLBACK_MODULES: ModuleRow[] = [
+  {
+    id: "fallback-m1",
+    title: "Módulo 1: Boas-vindas e O DNA da Influenciadora",
+    description:
+      "Abertura do curso e construção da persona completa da influenciadora com IA.",
+    duration_minutes: 28,
+    video_url: null,
+    pdf_path: null,
+    sort_order: 1,
+  },
+  {
+    id: "fallback-m2",
+    title: "Módulo 2: O Rosto e a Estética",
+    description:
+      "Engenharia de prompts visuais e consistência de personagem para redes sociais.",
+    duration_minutes: 32,
+    video_url: null,
+    pdf_path: null,
+    sort_order: 2,
+  },
+  {
+    id: "fallback-m3",
+    title: "Módulo 3: Criação de Conteúdo e Vídeo",
+    description: "Produção de vídeos de alta conversão, do roteiro à edição final.",
+    duration_minutes: 35,
+    video_url: null,
+    pdf_path: null,
+    sort_order: 3,
+  },
+  {
+    id: "fallback-m4",
+    title: "Módulo 4: Posicionamento e Autoridade",
+    description: "Construção de autoridade de marca e presença digital consistente.",
+    duration_minutes: 30,
+    video_url: null,
+    pdf_path: null,
+    sort_order: 4,
+  },
+  {
+    id: "fallback-m5",
+    title: "Módulo 5: Monetização e Escala",
+    description: "Estratégias de monetização, parcerias e escala de audiência.",
+    duration_minutes: 26,
+    video_url: null,
+    pdf_path: null,
+    sort_order: 5,
+  },
+];
 
 const FALLBACK_CHECKLIST = [
   "Defini arquétipo e promessa central da influenciadora",
@@ -49,60 +92,87 @@ const FALLBACK_CHECKLIST = [
   "Publiquei o teste e anotei as métricas",
 ];
 
-function moduleOrder(m: ModuleRow, fallback: number) {
-  const raw = m.sort_order ?? m.order_index ?? fallback;
-  const n = Number(raw);
-  return Number.isFinite(n) ? n : fallback;
-}
-
-function normalizeOrder(rows: ModuleRow[]): ModuleRow[] {
-  const copy = rows.slice();
-  copy.sort((a, b) => moduleOrder(a, 0) - moduleOrder(b, 0));
-  return copy.map((m, i) => {
-    const pos = i + 1;
-    return {
-      ...m,
-      order_index: moduleOrder(m, pos),
-      sort_order: moduleOrder(m, pos),
-    };
+function sortModules(rows: ModuleRow[]): ModuleRow[] {
+  return rows.slice().sort((a, b) => {
+    const ao = Number(a.sort_order ?? 0) || 0;
+    const bo = Number(b.sort_order ?? 0) || 0;
+    return ao - bo;
   });
 }
 
-async function fetchModulesFor(courseId: string): Promise<ModuleRow[]> {
-  const attempts = [MODULE_FIELDS_FULL, MODULE_FIELDS_MIN, MODULE_FIELDS_TINY];
-  for (const fields of attempts) {
-    const res = await supabase.from("modules").select(fields).eq("course_id", courseId);
-    if (!res.error && res.data) {
-      return normalizeOrder(res.data as unknown as ModuleRow[]);
-    }
-  }
-  const last = await supabase
+async function fetchModules(courseId: string): Promise<ModuleRow[]> {
+  const full =
+    "id, title, description, duration_minutes, video_url, pdf_path, sort_order";
+  const tiny = "id, title, description, duration_minutes, sort_order";
+
+  const first = await supabase
     .from("modules")
-    .select(MODULE_FIELDS_TINY)
+    .select(full)
+    .eq("course_id", courseId)
+    .order("sort_order", { ascending: true });
+
+  if (!first.error && first.data) {
+    return sortModules(first.data as unknown as ModuleRow[]);
+  }
+
+  const second = await supabase
+    .from("modules")
+    .select(tiny)
     .eq("course_id", courseId);
-  if (last.error) throw last.error;
-  return normalizeOrder((last.data ?? []) as unknown as ModuleRow[]);
+
+  if (!second.error && second.data) {
+    return sortModules(
+      (second.data as unknown as Array<Record<string, unknown>>).map((r) => ({
+        id: String(r.id),
+        title: String(r.title ?? ""),
+        description: (r.description as string | null) ?? null,
+        duration_minutes: (r.duration_minutes as number | null) ?? null,
+        video_url: null,
+        pdf_path: null,
+        sort_order: (r.sort_order as number | null) ?? null,
+      })),
+    );
+  }
+
+  return [];
 }
 
-async function resolveCourse() {
+async function resolveCourseId(): Promise<{
+  id: string;
+  title: string;
+  price: number;
+} | null> {
   const bySlug = await supabase
     .from("courses")
     .select("id, title, price")
     .eq("slug", COURSE_SLUG)
-    .maybeSingle();
+    .limit(1);
 
-  if (!bySlug.error && bySlug.data)
-    return bySlug.data as { id: string; title: string; price: number };
+  const slugRow = Array.isArray(bySlug.data) ? bySlug.data[0] : null;
+  if (slugRow) {
+    return {
+      id: slugRow.id as string,
+      title: (slugRow.title as string) ?? "Influencer com IA",
+      price: Number((slugRow.price as number | null) ?? 97),
+    };
+  }
 
   const byTitle = await supabase
     .from("courses")
     .select("id, title, price")
     .ilike("title", "%influencer%")
-    .limit(1)
-    .maybeSingle();
+    .limit(1);
 
-  if (byTitle.error) throw byTitle.error;
-  return (byTitle.data as { id: string; title: string; price: number } | null) ?? null;
+  const titleRow = Array.isArray(byTitle.data) ? byTitle.data[0] : null;
+  if (titleRow) {
+    return {
+      id: titleRow.id as string,
+      title: (titleRow.title as string) ?? "Influencer com IA",
+      price: Number((titleRow.price as number | null) ?? 97),
+    };
+  }
+
+  return null;
 }
 
 function InfluencerCoursePage() {
@@ -127,8 +197,8 @@ function InfluencerCoursePage() {
   const courseQuery = useQuery({
     queryKey: ["influencer-course"],
     staleTime: 60_000,
-    queryFn: resolveCourse,
     retry: 1,
+    queryFn: resolveCourseId,
   });
   const course = courseQuery.data ?? null;
 
@@ -137,25 +207,24 @@ function InfluencerCoursePage() {
     enabled: courseQuery.isFetched,
     staleTime: 30_000,
     retry: 1,
-    queryFn: async () => {
+    queryFn: async (): Promise<ModuleRow[]> => {
       if (!course?.id) return [];
-      const rows = await fetchModulesFor(course.id);
-      if (rows.length > 0) return rows;
-
-      const { data: alt } = await supabase
-        .from("courses")
-        .select("id, title")
-        .ilike("title", "%influencer%");
-      for (const c of (alt ?? []) as Array<{ id: string }>) {
-        if (c.id === course.id) continue;
-        const found = await fetchModulesFor(c.id);
-        if (found.length > 0) return found;
+      try {
+        const rows = await fetchModules(course.id);
+        return rows.length > 0 ? rows : [];
+      } catch {
+        return [];
       }
-      return [];
     },
   });
 
-  const modules = useMemo(() => normalizeOrder(modulesQuery.data ?? []), [modulesQuery.data]);
+  const usingFallback = !modulesQuery.isLoading && (modulesQuery.data ?? []).length === 0;
+
+  const modules = useMemo<ModuleRow[]>(() => {
+    const fromDb = modulesQuery.data ?? [];
+    if (fromDb.length > 0) return sortModules(fromDb);
+    return FALLBACK_MODULES;
+  }, [modulesQuery.data]);
 
   const safeIdx = useMemo(() => {
     if (!modules.length) return 0;
@@ -166,11 +235,11 @@ function InfluencerCoursePage() {
 
   const meQuery = useQuery({
     queryKey: ["influencer-me"],
+    retry: 0,
     queryFn: async () => {
       const { data } = await supabase.auth.getUser();
       return data.user ?? null;
     },
-    retry: 0,
   });
   const userId = meQuery.data?.id ?? null;
 
@@ -208,7 +277,7 @@ function InfluencerCoursePage() {
 
   const questionsQuery = useQuery({
     queryKey: ["influencer-questions", active?.id],
-    enabled: Boolean(activeUnlocked && active?.id),
+    enabled: Boolean(activeUnlocked && active?.id && !active?.id.startsWith("fallback-")),
     retry: 1,
     queryFn: async () => {
       const { data, error } = await supabase
@@ -277,7 +346,9 @@ function InfluencerCoursePage() {
       setResult({ score, passed });
       await qc.invalidateQueries({ queryKey: ["influencer-attempts", userId] });
       toast[passed ? "success" : "error"](
-        passed ? `Aprovada com ${score}% — próximo módulo liberado` : `Nota ${score}% — mínimo ${PASS}%`,
+        passed
+          ? `Aprovada com ${score}% — próximo módulo liberado`
+          : `Nota ${score}% — mínimo ${PASS}%`,
       );
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Não foi possível registrar o quiz");
@@ -345,16 +416,10 @@ function InfluencerCoursePage() {
                 <Loader2 className="h-3.5 w-3.5 animate-spin" /> Carregando módulos...
               </div>
             )}
-            {modulesQuery.isError && (
-              <p className="px-3 py-2 text-[12px] leading-relaxed text-fuchsia-300">
-                Não foi possível carregar os módulos:{" "}
-                {modulesQuery.error instanceof Error ? modulesQuery.error.message : "erro de rede"}
-              </p>
-            )}
-            {!modulesQuery.isLoading && modules.length === 0 && (
-              <p className="px-3 py-2 text-[12px] leading-relaxed text-slate-400">
-                Nenhum módulo vinculado a este curso ainda. Confira em /admin/modulos qual curso
-                está selecionado.
+            {usingFallback && (
+              <p className="px-3 pb-2 text-[11px] leading-relaxed text-slate-500">
+                Exibindo a grade oficial de 5 módulos. O conteúdo completo é liberado assim que
+                os módulos forem publicados no painel.
               </p>
             )}
             {modules.map((mod, i) => {
@@ -537,12 +602,17 @@ function InfluencerCoursePage() {
               </div>
             ) : (questionsQuery.data ?? []).length === 0 ? (
               <p className="mt-4 text-sm text-slate-400">
-                As questões deste módulo ainda não foram publicadas.
+                {usingFallback
+                  ? "As questões deste módulo entram no ar junto com a publicação do conteúdo."
+                  : "As questões deste módulo ainda não foram publicadas."}
               </p>
             ) : (
               <div className="mt-5 space-y-5">
                 {(questionsQuery.data ?? []).map((q, qi) => (
-                  <div key={q.id} className="rounded-2xl border border-white/10 bg-[#070B14]/50 p-4">
+                  <div
+                    key={q.id}
+                    className="rounded-2xl border border-white/10 bg-[#070B14]/50 p-4"
+                  >
                     <p className="text-sm font-medium text-white">
                       {qi + 1}. {q.question}
                     </p>
@@ -578,12 +648,13 @@ function InfluencerCoursePage() {
                   <Button
                     onClick={submitQuiz}
                     disabled={
-                      submitting || Object.keys(answers).length < (questionsQuery.data ?? []).length
+                      submitting ||
+                      Object.keys(answers).length < (questionsQuery.data ?? []).length
                     }
                     className="rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90"
                   >
-                    {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null} Enviar
-                    respostas
+                    {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}{" "}
+                    Enviar respostas
                   </Button>
                   {result && (
                     <span
@@ -592,7 +663,8 @@ function InfluencerCoursePage() {
                         result.passed ? "text-cyan-300" : "text-fuchsia-300",
                       )}
                     >
-                      Nota: {result.score}% {result.passed ? "· aprovada" : `· mínimo ${PASS}%`}
+                      Nota: {result.score}%{" "}
+                      {result.passed ? "· aprovada" : `· mínimo ${PASS}%`}
                     </span>
                   )}
                 </div>
@@ -623,7 +695,9 @@ function InfluencerCoursePage() {
             <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
               <div className="flex items-center justify-between text-xs text-slate-400">
                 <span>Curso completo</span>
-                <span className="font-mono text-white">R$ {price.toFixed(2).replace(".", ",")}</span>
+                <span className="font-mono text-white">
+                  R$ {price.toFixed(2).replace(".", ",")}
+                </span>
               </div>
               <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-sm">
                 <span className="font-semibold text-white">Total</span>
