@@ -21,14 +21,6 @@ export const Route = createFileRoute("/_authenticated/course/influencer-com-ia")
   component: InfluencerCoursePage,
 });
 
-const MODULE_TITLES = [
-  "O DNA da Influenciadora",
-  "O Rosto e a Estética",
-  "O Realismo Cinematográfico",
-  "Movimento, Fala e Sincronia Labial",
-  "Escala e Monetização",
-];
-
 type ModuleRow = {
   id: string;
   title: string;
@@ -37,6 +29,7 @@ type ModuleRow = {
   video_url: string | null;
   pdf_path: string | null;
   sort_order: number | null;
+  order_index?: number | null;
 };
 
 type QuestionRow = {
@@ -97,25 +90,16 @@ function InfluencerCoursePage() {
         .eq("course_id", course!.id)
         .order("sort_order", { ascending: true });
       if (error) throw error;
-      const rows = (data ?? []) as ModuleRow[];
-      return rows.slice(0, 5).map((m, i) => ({ ...m, title: MODULE_TITLES[i] ?? m.title }));
+      return (data ?? []) as ModuleRow[];
     },
   });
 
+  // Lista dinâmica: exatamente o que existe no banco, na ordem cadastrada.
   const modules = useMemo<ModuleRow[]>(() => {
-    if (modulesQuery.data && modulesQuery.data.length > 0) return modulesQuery.data;
-    return MODULE_TITLES.map((title, i) => ({
-      id: "fallback-" + i,
-      title,
-      description: "Módulo prático " + (i + 1) + " do curso.",
-      duration_minutes: 25,
-      video_url: null,
-      pdf_path: null,
-      sort_order: i + 1,
-    }));
+    return (modulesQuery.data ?? []).map((m, i) => ({ ...m, sort_order: m.sort_order ?? i + 1 }));
   }, [modulesQuery.data]);
 
-  const safeIdx = Math.min(activeIdx, modules.length - 1);
+  const safeIdx = modules.length ? Math.min(activeIdx, modules.length - 1) : 0;
   const active = modules[safeIdx];
 
   const meQuery = useQuery({
@@ -154,13 +138,13 @@ function InfluencerCoursePage() {
     return Boolean(prev && passedIds.has(prev.id));
   }
 
-  const activeUnlocked = unlocked(safeIdx);
+  const activeUnlocked = modules.length ? unlocked(safeIdx) : true;
   const done = modules.filter((m) => passedIds.has(m.id)).length;
   const percent = modules.length ? Math.round((done / modules.length) * 100) : 0;
 
   const questionsQuery = useQuery({
     queryKey: ["influencer-questions", active?.id, activeUnlocked],
-    enabled: Boolean(activeUnlocked && active?.id && !active.id.startsWith("fallback-")),
+    enabled: Boolean(activeUnlocked && active?.id),
     queryFn: async () => {
       const { data, error } = await supabase
         .from("questions")
@@ -250,6 +234,7 @@ function InfluencerCoursePage() {
   }
 
   const price = Number(course?.price ?? 297);
+  const totalLabel = String(modules.length).padStart(2, "0");
 
   return (
     <div className="relative min-h-screen bg-[#0A0F1C] text-slate-100">
@@ -275,6 +260,16 @@ function InfluencerCoursePage() {
           </div>
 
           <nav className="mt-5 space-y-1">
+            {modulesQuery.isLoading && (
+              <div className="flex items-center gap-2 px-3 py-2 text-[12px] text-slate-400">
+                <Loader2 className="h-3.5 w-3.5 animate-spin" /> Carregando módulos...
+              </div>
+            )}
+            {!modulesQuery.isLoading && modules.length === 0 && (
+              <p className="px-3 py-2 text-[12px] leading-relaxed text-slate-400">
+                Nenhum módulo publicado ainda. Assim que o professor cadastrar, ele aparece aqui.
+              </p>
+            )}
             {modules.map((mod, i) => {
               const open = unlocked(i);
               const current = i === safeIdx;
@@ -301,7 +296,7 @@ function InfluencerCoursePage() {
                     <span className="block text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-500">
                       Módulo {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className={cn("mt-0.5 block truncate text-[13px]", current ? "font-semibold text-white" : "text-slate-300")}>
+                    <span className={cn("mt-0.5 block text-[13px] leading-snug", current ? "font-semibold text-white" : "text-slate-300")}>
                       {mod.title}
                     </span>
                   </span>
@@ -321,13 +316,15 @@ function InfluencerCoursePage() {
           <header className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:p-7">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                <Sparkles className="h-3 w-3" /> Módulo {String(safeIdx + 1).padStart(2, "0")} / {String(modules.length).padStart(2, "0")}
+                <Sparkles className="h-3 w-3" /> Módulo {String(safeIdx + 1).padStart(2, "0")} / {totalLabel}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-slate-300">
                 <ShieldCheck className="h-3 w-3" /> {active?.duration_minutes ?? 25} min
               </span>
             </div>
-            <h2 className="mt-4 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">{active?.title}</h2>
+            <h2 className="mt-4 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">
+              {active?.title ?? "Aguardando módulos"}
+            </h2>
             {active?.description && <p className="mt-3 max-w-[60ch] text-sm leading-relaxed text-slate-400">{active.description}</p>}
           </header>
 
@@ -337,11 +334,11 @@ function InfluencerCoursePage() {
             ) : (
               <div className="flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center">
                 <PlayCircle className="h-12 w-12 text-cyan-300/70" />
-                <p className="text-sm text-slate-300">Videoaula — {active?.title}</p>
+                <p className="text-sm text-slate-300">{active ? "Videoaula — " + active.title : "Nenhum módulo disponível"}</p>
                 <p className="max-w-md text-xs text-slate-500">O vídeo aparece aqui assim que o professor publicar no painel de produção.</p>
               </div>
             )}
-            {!activeUnlocked && (
+            {active && !activeUnlocked && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#070B14]/85 px-6 text-center backdrop-blur-sm">
                 <Lock className="h-8 w-8 text-fuchsia-300" />
                 <p className="font-display text-lg font-semibold text-white">Módulo bloqueado</p>
@@ -387,7 +384,9 @@ function InfluencerCoursePage() {
               <Sparkles className="h-3.5 w-3.5 text-violet-300" /> Quiz do módulo
             </div>
 
-            {!activeUnlocked ? (
+            {!active ? (
+              <p className="mt-4 text-sm text-slate-400">O quiz fica disponível quando houver um módulo publicado.</p>
+            ) : !activeUnlocked ? (
               <p className="mt-4 text-sm text-slate-400">O quiz fica disponível quando o módulo for liberado.</p>
             ) : questionsQuery.isLoading ? (
               <div className="mt-6 flex items-center gap-2 text-sm text-slate-400"><Loader2 className="h-4 w-4 animate-spin" /> Carregando questões...</div>
@@ -435,7 +434,7 @@ function InfluencerCoursePage() {
             <h3 className="mt-2 font-display text-xl font-semibold text-white">{course?.title ?? "Influencer com IA"}</h3>
             <p className="mt-1 text-xs text-slate-400">Pagamento único via PIX · acesso imediato</p>
             <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <div className="flex items-center justify-between text-xs text-slate-400"><span>Curso completo · 5 módulos</span><span className="font-mono text-white">R$ {price.toFixed(2).replace(".", ",")}</span></div>
+              <div className="flex items-center justify-between text-xs text-slate-400"><span>Curso completo</span><span className="font-mono text-white">R$ {price.toFixed(2).replace(".", ",")}</span></div>
               <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-sm"><span className="font-semibold text-white">Total</span><span className="font-display text-lg font-semibold text-cyan-300">R$ {price.toFixed(2).replace(".", ",")}</span></div>
             </div>
             <Button onClick={payNow} disabled={processing} className="mt-5 w-full rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white hover:opacity-90">
